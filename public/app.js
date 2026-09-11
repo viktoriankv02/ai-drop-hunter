@@ -1,0 +1,67 @@
+let state;
+const $ = s => document.querySelector(s);
+const node = (tag, text, cls) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; };
+const labels = { research: 'Дослідження', 'check-in': 'Check-in', social: 'Соціальне завдання', faucet: 'Faucet', bridge: 'Bridge', swap: 'Swap', deploy: 'Деплой контракту', 'contract-call': 'Виклик контракту', mint: 'Mint', stake: 'Stake' };
+const policies = { blocked: 'Спочатку перевірте джерело', approval: 'Операція потребує підпису в гаманці', manual: 'Виконується вручну' };
+async function load() {
+  const response = await fetch('/api/state'); if (!response.ok) throw new Error('Не вдалося завантажити дані');
+  state = await response.json(); render();
+}
+async function mutate(path, data) {
+  const response = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Session-Token': state.token }, body: JSON.stringify(data) });
+  const result = await response.json(); if (!response.ok) throw new Error(result.error);
+  await load(); $('#message').textContent = 'Збережено.';
+}
+function action(label, fn) {
+  const b = node('button', label, 'secondary'); b.type = 'button';
+  b.onclick = async () => { b.disabled = true; try { await fn(); } catch (e) { $('#message').textContent = e.message; } finally { b.disabled = false; } }; return b;
+}
+function render() {
+  renderSources();
+  const allTasks = state.projects.flatMap(p => p.tasks);
+  $('#metrics').replaceChildren(...[[state.projects.length, 'Проєктів у дослідженні'], [state.projects.filter(p => p.verified).length, 'Джерел підтверджено'], [allTasks.filter(t => t.status !== 'completed').length, 'Завдань у плані']].map(([count, label]) => { const el = node('div', undefined, 'metric'); el.append(node('strong', count), node('span', label)); return el; }));
+  const list = state.projects.filter(p => !$('#filter').value || p.network === $('#filter').value);
+  $('#projects').replaceChildren(...list.map(projectCard));
+  if (!list.length) $('#projects').append(node('div', 'Тут починається дослідження. Додай проєкт із посиланням на джерело — і сформуй свій перший план дій.', 'empty'));
+  $('#events').replaceChildren(...state.events.map(e => { const row = node('div', undefined, 'event'); row.append(node('time', new Date(e.createdAt).toLocaleString('uk-UA')), node('span', e.message)); return row; }));
+  if (!state.events.length) $('#events').append(node('p', 'Історія з’явиться після першої дії.', 'muted'));
+}
+function projectCard(p) {
+  const card = node('article', undefined, 'panel');
+  const top = node('div', undefined, 'section-head'); top.append(node('span', state.networks.find(n => n.id === p.network)?.name, 'eyebrow'), node('span', p.verified ? 'Джерело: перевірено вручну' : 'Потребує перевірки', 'pill'));
+  card.append(top, node('h3', p.name), node('p', p.notes || 'Додайте завдання після дослідження джерела.', 'muted'));
+  const link = node('a', 'Відкрити джерело ↗'); link.href = p.source; link.target = '_blank'; link.rel = 'noopener noreferrer'; card.append(link);
+  card.append(node('p', `Рейтинг сигналів: ${p.score}/100 · Винагорода не підтверджена`, 'score'), node('p', p.reasons.join(' '), 'muted'));
+  if (!p.verified) card.append(action('Підтвердити перевірку джерела', async () => { const evidence = prompt('Що підтверджує офіційність джерела? Запишіть результат власної перевірки.'); if (evidence) await mutate(`/api/projects/${p.id}/verify`, { evidence }); }));
+  for (const evidence of p.evidence || []) {
+    const details = node('details'); details.append(node('summary', 'Знімок джерела · '+new Date(evidence.attemptedAt).toLocaleString('uk-UA')),node('p',evidence.excerpt,'muted')); card.append(details);
+  }
+  const tasks = node('div', undefined, 'tasks');
+  for (const t of p.tasks) {
+    const row = node('div', undefined, 'task'); row.append(node('strong', `${t.status === 'completed' ? '✓' : '○'} ${t.title}`), node('small', t.status === 'completed' ? `Виконання повідомлено користувачем. ${t.evidence}` : policies[t.policy]));
+    if (t.status !== 'completed' && p.verified) row.append(action('Записати виконання', async () => { const evidence = prompt('Додайте доказ уже виконаної дії: URL, tx hash або опис. Це лише запис у журналі, без виконання транзакції.'); if (evidence) await mutate(`/api/tasks/${t.id}/complete`, { evidence }); }));
+    tasks.append(row);
+  }
+  card.append(tasks);
+  const form = node('form', undefined, 'task-form'); const input = node('input'); input.required = true; input.maxLength = 300; input.placeholder = 'Наступний крок'; input.setAttribute('aria-label', 'Назва завдання');
+  const select = node('select'); select.setAttribute('aria-label', 'Тип завдання'); Object.entries(labels).forEach(([value, label]) => { const o = node('option', label); o.value = value; select.append(o); });
+  const submit = node('button', '＋ Завдання'); submit.type = 'submit'; form.append(input, select, submit);
+  form.onsubmit = async e => { e.preventDefault(); submit.disabled = true; try { await mutate(`/api/projects/${p.id}/tasks`, { title: input.value, kind: select.value }); } catch (error) { $('#message').textContent = error.message; submit.disabled = false; } };
+  card.append(form); return card;
+}
+$('#filter').onchange = render;
+$('#project-form').onsubmit = async e => { e.preventDefault(); const form = e.currentTarget; const b = form.querySelector('button'); b.disabled = true; try { await mutate('/api/projects', Object.fromEntries(new FormData(form))); form.reset(); } catch (error) { $('#message').textContent = error.message; } finally { b.disabled = false; } };
+try { await load(); for (const n of state.networks) { for (const target of ['#network', '#filter']) { const o = node('option', `${n.name}${n.wave === 2 ? ' · наступна хвиля' : ''}`); o.value = n.id; $(target).append(o); } } } catch (e) { $('#message').textContent = e.message; }
+
+function renderSources() {
+  const box = $('#sources'); if (!box) return;
+  box.replaceChildren(...(state.sources || []).map(source => {
+    const card=node('article',undefined,'panel'); card.append(node('h3',source.name),node('p',source.purpose,'muted'));
+    const status = !source.lastScan ? 'Ще не перевірено' : source.lastScan.error ? 'Помилка: '+source.lastScan.error : 'Оновлено: '+new Date(source.lastScan.attemptedAt).toLocaleString('uk-UA');
+    card.append(node('p',status,'muted'),action('Отримати офіційні матеріали',async()=>{ $('#message').textContent='Отримую сторінку…'; await mutate('/api/discovery/scan',{sourceId:source.id}); })); return card;
+  }));
+  $('#monitor').replaceChildren();
+  if(state.monitor) {
+    $('#monitor').append(node('p','Моніторинг кожні 6 годин: '+(state.monitor.enabled?'увімкнено':'вимкнено')+'. Працює, поки запущено сервер.','muted'), action(state.monitor.enabled?'Вимкнути моніторинг':'Увімкнути моніторинг',()=>mutate('/api/monitor',{enabled:!state.monitor.enabled})));
+  }
+}
