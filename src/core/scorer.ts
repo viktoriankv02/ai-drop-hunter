@@ -72,4 +72,3 @@ export function createReport(opportunities: ProjectOpportunity[]): DropHunterRep
     opportunities: rankOpportunities(opportunities),
   };
 }
-

@@ -36,4 +36,3 @@ export interface DropHunterReport {
   generatedAt: string;
   opportunities: ScoredOpportunity[];
 }
-
