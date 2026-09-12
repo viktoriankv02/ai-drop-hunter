@@ -18,7 +18,7 @@ test('SQLite preserves projects, tasks, evidence and history after restart', () 
 test('rejects unsafe links and missing evidence; financial tasks never autonomous', () => {
   const store = new Store(':memory:');
   assert.throws(() => store.create({ ...project, source: 'javascript:alert(1)' }));
-  assert.throws(() => store.create({ ...project, network: 'unknown' }));
+  assert.throws(() => store.create({ ...project, network: 'invalid-network' }));
   const p = store.create(project); assert.throws(() => store.verify(p.id, { evidence: ' ' }));
   assert.equal(store.list()[0].score, 0); assert.equal(store.list()[0].verified, 0);
   for (const kind of ['deploy','bridge','swap','stake','mint','contract-call']) assert.equal(taskPolicy(kind, true), 'approval');

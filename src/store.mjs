@@ -12,6 +12,11 @@ export class Store {
       CREATE TABLE IF NOT EXISTS projects(id TEXT PRIMARY KEY, name TEXT NOT NULL, network TEXT NOT NULL, source TEXT NOT NULL, notes TEXT NOT NULL, verified INTEGER NOT NULL DEFAULT 0, createdAt TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS tasks(id TEXT PRIMARY KEY, projectId TEXT NOT NULL REFERENCES projects(id), title TEXT NOT NULL, kind TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending', evidence TEXT NOT NULL DEFAULT '');
       CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY, projectId TEXT NOT NULL, message TEXT NOT NULL, createdAt TEXT NOT NULL);`);
+    if (!this.db.prepare('PRAGMA table_info(projects)').all().some(c=>c.name==='workflow')) this.db.exec("ALTER TABLE projects ADD COLUMN workflow TEXT NOT NULL DEFAULT 'new'");
+  }
+  setWorkflow(id,input) {
+    if (!['new','watching','active','paused','dismissed'].includes(input.workflow)) throw new Error('Невідомий статус проєкту');
+    return this.transaction(()=>{this.project(id);this.db.prepare('UPDATE projects SET workflow=? WHERE id=?').run(input.workflow,id);this.event(id,'Статус дослідження: '+input.workflow);return {ok:true};});
   }
   transaction(fn) {
     this.db.exec('BEGIN IMMEDIATE');
@@ -21,7 +26,7 @@ export class Store {
   event(id, message) { this.db.prepare('INSERT INTO events(projectId,message,createdAt) VALUES(?,?,?)').run(id, message, new Date().toISOString()); }
   project(id) { const p = this.db.prepare('SELECT * FROM projects WHERE id=?').get(id); if (!p) throw new Error('Проєкт не знайдено'); return p; }
   list() {
-    return this.db.prepare("SELECT * FROM projects ORDER BY CASE WHEN network='ink' THEN 0 ELSE 1 END, createdAt DESC").all().map(p => ({ ...p, ...evaluate(p), tasks: this.db.prepare('SELECT * FROM tasks WHERE projectId=?').all(p.id).map(t => ({ ...t, policy: taskPolicy(t.kind, p.verified) })) }));
+    return this.db.prepare("SELECT * FROM projects ORDER BY createdAt DESC, id").all().map(p => ({ ...p, ...evaluate(p), tasks: this.db.prepare('SELECT * FROM tasks WHERE projectId=?').all(p.id).map(t => ({ ...t, policy: taskPolicy(t.kind, p.verified) })) }));
   }
   create(input) {
     const p = validateProject(input); const id = randomUUID();

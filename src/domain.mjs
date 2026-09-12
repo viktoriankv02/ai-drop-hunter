@@ -18,7 +18,7 @@ export function validateProject(input) {
 }
 export function evaluate(project) {
   const signals = {}; // Source verification alone is not an on-chain or reward signal.
-  const result = scoreOpportunity({ id: project.id, name: project.name, vm: project.network === 'sui' ? 'SUI' : 'EVM', stage: 'research', priority: project.network === 'ink' ? 100 : 50, signals, sources: project.verified ? [project.source] : [], actions: [] });
+  const result = scoreOpportunity({ id: project.id, name: project.name, vm: project.network === 'sui' ? 'SUI' : 'EVM', stage: 'research', priority: 50, signals, sources: project.verified ? [project.source] : [], actions: [] });
   return { score: result.score, reasons: project.verified ? ['Джерело підтверджено користувачем. Умови винагороди ще не оцінені.'] : ['Джерело потребує ручної перевірки.'], rewardStatus: 'unconfirmed' };
 }
 export function taskPolicy(kind, verified) {

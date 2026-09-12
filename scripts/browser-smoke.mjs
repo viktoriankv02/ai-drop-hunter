@@ -77,6 +77,15 @@ try {
   await card.getByRole('button',{name:'Скасувати помилковий запис'}).click();
   await card.locator('summary').filter({hasText:'Фактичні винагороди та витрати'}).click();
   await card.getByText('Скасовано: QA reversal',{exact:true}).waitFor();
+  await page.getByRole('searchbox').fill('Browser QA');
+  await page.getByLabel('Статус проєкту Browser QA Ink',{exact:true}).selectOption('watching');
+  await page.waitForFunction(()=>document.querySelector('#message').textContent==='Збережено.');
+  await page.locator('#workflow-filter').selectOption('watching');
+  await page.getByLabel('Статус проєкту Browser QA Ink',{exact:true}).waitFor();
+  await page.getByRole('searchbox').fill('no-matching-project');
+  await page.getByText('Показано 0 із 2',{exact:true}).waitFor();
+  await page.getByRole('searchbox').fill('');
+  await page.locator('#workflow-filter').selectOption('');
   mkdirSync('data/qa',{recursive:true});
   const downloading=page.waitForEvent('download');
   await page.getByRole('button',{name:'Завантажити копію даних',exact:true}).click();

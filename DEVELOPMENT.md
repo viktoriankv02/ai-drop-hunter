@@ -7,7 +7,7 @@ Continue coding autonomously. Give regular progress updates (user requested at l
 - Version 0.5, Node 24, native modules, SQLite, Ukrainian vanilla UI, no runtime npm dependencies.
 - Server http://127.0.0.1:4317; start with npm start.
 - Store layering: Store -> ResearchStore -> AssessmentStore -> TaskStore -> PlanStore, server uses PlanStore.
-- 32 tests pass and isolated headless Edge browser smoke passes.
+- 35 tests pass and isolated headless Edge browser smoke passes.
 - Browser smoke covers project creation, source verification, structured assessment, schedules, recurring completion, research plan adoption, reload and mobile overflow; no JS errors.
 - Playwright package is bundled at the runtime path discoverable through load_workspace_dependencies. Run with PLAYWRIGHT_MODULE pointing at that package. npm run test:browser.
 - CUA and view_image helpers fail with setup refresh / trusted Node errors; headless browser through approved shell works.
@@ -40,3 +40,7 @@ POST /api/backup streams a session-protected SQLite backup. Temp files cleaned e
 
 ## Погоджені джерела та ШІ-аналіз
 Див. [RESEARCH_ROADMAP.md](RESEARCH_ROADMAP.md): шість джерел, запропонованих користувачем, вимоги до агентів, доказів, оцінки витрат і ризиків та етапи реалізації. Інтеграції цих джерел ще не реалізовані.
+
+## Загальний список кандидатів
+Пріоритет Ink скасовано за уточненням користувача. Додано пошук за назвою/нотатками та збережені статуси new/watching/active/paused/dismissed. Невідома або кілька мереж — окремий дозволений варіант. Статус не підтверджує винагороду та не змінює виконання завдань.
+Початкова добірка асистента у research-candidates.json, імпорт у запущений локальний застосунок: node scripts/import-candidates.mjs. Повторний імпорт пропускає наявні назви. Це добірка за відкритими трекерами, не автономний LLM-пошук. Автоматичні адаптери шести трекерів і ШІ-модуль ще потребують реалізації.

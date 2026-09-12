@@ -54,6 +54,8 @@ export function createApp(store, options = {}) {
           } finally {try{await snapshot?.dispose();}finally{backupInFlight=false;}}
           return;
         }
+        const workflowMatch=path.match(/^\/api\/projects\/([\w-]+)\/workflow$/);
+        if(workflowMatch)return reply(200,store.setWorkflow(workflowMatch[1],body));
         if (path === '/api/projects') return reply(201, store.create(body));
         const outcomeMatch=path.match(/^\/api\/projects\/([\w-]+)\/outcomes$/);
         if(outcomeMatch)return reply(201,outcomes.record(outcomeMatch[1],body));
