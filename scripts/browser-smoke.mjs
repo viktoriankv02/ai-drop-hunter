@@ -91,6 +91,10 @@ try {
   await page.getByRole('button',{name:'Завантажити копію даних',exact:true}).click();
   const download=await downloading;await download.saveAs('data/qa/download.sqlite');
   assert.equal(inspectBackup('data/qa/download.sqlite').projects,2);
+  await page.getByRole('button',{name:'🤖 Помічник',exact:true}).click();
+  await page.getByRole('button',{name:'Мої цікаві проєкти',exact:true}).click();
+  await page.locator('#robot-panel').getByText(/Твої вибрані проєкти/).waitFor();
+  await page.getByRole('button',{name:'Закрити',exact:true}).click();
   await page.screenshot({path:'data/qa/desktop.png',fullPage:true});
   await page.setViewportSize({width:390,height:844});
   await page.screenshot({path:'data/qa/mobile.png',fullPage:true});

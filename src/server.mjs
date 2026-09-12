@@ -77,7 +77,7 @@ export function createApp(store, options = {}) {
         const task = path.match(/^\/api\/tasks\/([\w-]+)\/complete$/);
         if (task) return reply(200, store.complete(task[1], body));
       }
-      const files = { '/backup.js': ['backup.js','text/javascript'], '/outcomes.js': ['outcomes.js','text/javascript'], '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
+      const files = { '/robot.js':['robot.js','text/javascript'], '/backup.js': ['backup.js','text/javascript'], '/outcomes.js': ['outcomes.js','text/javascript'], '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
       if (req.method === 'GET' && Object.hasOwn(files, path)) {
         const [file, type] = files[path]; const data = await readFile(new URL(`../public/${file}`, import.meta.url));
         res.writeHead(200, { 'Content-Type': `${type}; charset=utf-8` }); return res.end(data);

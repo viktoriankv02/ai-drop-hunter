@@ -7,3 +7,10 @@
 .plan-choice{display:flex;align-items:center;gap:12px}.plan-choice input{width:18px;height:18px}blockquote{margin:8px 0;padding:8px 16px;border-left:2px solid #806797;color:#b8b4c5;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
 
 .agenda-row{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0;border-top:1px solid #30313d}.agenda-row p{font-size:13px}.agenda-row .pill{display:inline-block}.agenda-row button{flex-shrink:0}@media(max-width:550px){.agenda-row{align-items:start;flex-direction:column}}
+
+.robot-toggle{position:fixed;right:20px;bottom:20px;z-index:20;box-shadow:0 4px 24px #0008;animation:robot-arrive .5s ease-out}
+.robot-panel{position:fixed;right:20px;bottom:80px;z-index:21;width:min(390px,calc(100vw - 32px));max-height:calc(100dvh - 110px);overflow:auto;background:#21202d;border:1px solid #a37add;border-radius:18px;padding:22px;box-shadow:0 12px 48px #0009;margin:0}
+.robot-panel[hidden]{display:none}.robot-panel h2{font-size:24px;margin:0 0 16px}.robot-panel p{font-size:14px;line-height:1.6;overflow-wrap:anywhere}.robot-actions{display:grid;gap:8px}.robot-actions button{text-align:left;font-size:13px;background:#362e45;color:#eedfff}
+@keyframes robot-arrive{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(prefers-reduced-motion:reduce){.robot-toggle{animation:none}}
+footer{padding-bottom:65px}

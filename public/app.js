@@ -1,3 +1,4 @@
+import { setupRobot } from './robot.js';
 import { assessmentPanel } from './assessment.js';
 import { schedulePanel } from './schedule.js';
 import { researchPanel } from './research.js';
@@ -69,6 +70,7 @@ function projectCard(p) {
   card.append(form); return card;
 }
 setupBackup(()=>state?.token??'');
+setupRobot(()=>state);
 $('#find-projects').onclick=async()=>{const b=$('#find-projects');b.disabled=true;$('#tracker-status').textContent='Шукаю проєкти…';try{await mutate('/api/discovery/projects',{});}catch(e){$('#tracker-status').textContent=e.message;}finally{b.disabled=false;}};
 $('#filter').onchange = render;
 $('#workflow-filter').onchange=render;
