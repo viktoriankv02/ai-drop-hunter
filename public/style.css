@@ -5,3 +5,5 @@
 .schedule summary{cursor:pointer;color:#b7a5d1;font-size:12px}.schedule{margin-top:10px}.schedule .task-form{align-items:end}.schedule p{font-size:12px}.task-form p{width:100%}
 
 .plan-choice{display:flex;align-items:center;gap:12px}.plan-choice input{width:18px;height:18px}blockquote{margin:8px 0;padding:8px 16px;border-left:2px solid #806797;color:#b8b4c5;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+
+.agenda-row{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0;border-top:1px solid #30313d}.agenda-row p{font-size:13px}.agenda-row .pill{display:inline-block}.agenda-row button{flex-shrink:0}@media(max-width:550px){.agenda-row{align-items:start;flex-direction:column}}

@@ -7,6 +7,7 @@ import { PlanStore as Store } from './plan-store.mjs';
 import { sources, DiscoveryService } from './discovery.mjs';
 import { Monitor } from './monitor.mjs';
 import { networks } from './networks.mjs';
+import { buildAgenda } from './agenda.mjs';
 
 export function createApp(store, options = {}) {
   const discovery = options.discovery || new DiscoveryService(store);
@@ -23,7 +24,11 @@ export function createApp(store, options = {}) {
     if (req.headers.origin && req.headers.origin !== `http://${host}`) return reply(403, { error: 'Invalid origin' });
     try {
       const path = new URL(req.url, `http://${host}`).pathname;
-      if (req.method === 'GET' && path === '/api/state') return reply(200, { token, networks, projects: store.list(), events: store.history(), sources: sources.map(s => ({ ...s, lastScan: store.latestScan?.(s.id) || null })), monitor: store.setting ? monitor.state() : null });
+      if (req.method === 'GET' && (path === '/api/state' || path === '/api/agenda')) {
+        const projects=store.list();const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
+        if(path==='/api/agenda')return reply(200,agenda);
+        return reply(200,{token,networks,projects,agenda,events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
+      }
       const draftMatch=path.match(/^\/api\/projects\/([\w-]+)\/research-draft$/);
       if(req.method==='GET' && draftMatch)return reply(200,store.researchDraft(draftMatch[1]));
       if (req.method === 'POST') {
@@ -46,7 +51,7 @@ export function createApp(store, options = {}) {
         const task = path.match(/^\/api\/tasks\/([\w-]+)\/complete$/);
         if (task) return reply(200, store.complete(task[1], body));
       }
-      const files = { '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
+      const files = { '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
       if (req.method === 'GET' && Object.hasOwn(files, path)) {
         const [file, type] = files[path]; const data = await readFile(new URL(`../public/${file}`, import.meta.url));
         res.writeHead(200, { 'Content-Type': `${type}; charset=utf-8` }); return res.end(data);

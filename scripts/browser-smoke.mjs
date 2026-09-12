@@ -46,6 +46,8 @@ try {
   await task.getByLabel('Повторення',{exact:true}).selectOption('daily');
   await task.getByRole('button',{name:'Зберегти розклад'}).click();
   await task.getByText('Настав час виконання',{exact:true}).waitFor();
+  await page.locator('#agenda-content').getByText('Check in fixture',{exact:true}).waitFor();
+  await page.locator('#agenda-content').getByRole('button',{name:'До завдання: Check in fixture',exact:true}).click();
   page.once('dialog',dialog=>dialog.accept('Checked in manually'));
   await task.getByRole('button',{name:'Записати виконання'}).click();
   await task.getByText('Термін протягом 24 годин',{exact:true}).waitFor();

@@ -1,6 +1,7 @@
 import { assessmentPanel } from './assessment.js';
 import { schedulePanel } from './schedule.js';
 import { researchPanel } from './research.js';
+import { renderAgenda } from './agenda.js';
 let state;
 const $ = s => document.querySelector(s);
 const node = (tag, text, cls) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; };
@@ -21,6 +22,7 @@ function action(label, fn) {
 }
 function render() {
   renderSources();
+  renderAgenda(state.agenda,{node,onOpen:async item=>{try{await load();$('#filter').value='';render();const target=document.getElementById('task-'+item.taskId);if(target){target.scrollIntoView({block:'center'});target.focus({preventScroll:true});}else{$('#message').textContent='Завдання більше не доступне.';}}catch(error){$('#message').textContent=error.message;}}});
   const allTasks = state.projects.flatMap(p => p.tasks);
   $('#metrics').replaceChildren(...[[state.projects.length, 'Проєктів у дослідженні'], [state.projects.filter(p => p.verified).length, 'Джерел підтверджено'], [allTasks.filter(t => t.status !== 'completed').length, 'Завдань у плані']].map(([count, label]) => { const el = node('div', undefined, 'metric'); el.append(node('strong', count), node('span', label)); return el; }));
   const list = state.projects.filter(p => !$('#filter').value || p.network === $('#filter').value);
@@ -44,7 +46,7 @@ function projectCard(p) {
   card.append(assessmentPanel(p,{node,mutate}));
   const tasks = node('div', undefined, 'tasks');
   for (const t of p.tasks) {
-    const row = node('div', undefined, 'task'); row.append(node('strong', `${t.status === 'completed' ? '✓' : '○'} ${t.title}`), node('small', t.status === 'completed' ? `Виконання повідомлено користувачем. ${t.evidence}` : policies[t.policy]));
+    const row = node('div', undefined, 'task'); row.id='task-'+t.id;row.tabIndex=-1; row.append(node('strong', `${t.status === 'completed' ? '✓' : '○'} ${t.title}`), node('small', t.status === 'completed' ? `Виконання повідомлено користувачем. ${t.evidence}` : policies[t.policy]));
     if (t.status !== 'completed' && p.verified) row.append(action('Записати виконання', async () => { const evidence = prompt('Додайте доказ уже виконаної дії: URL, tx hash або опис. Це лише запис у журналі, без виконання транзакції.'); if (evidence) await mutate(`/api/tasks/${t.id}/complete`, { evidence,scheduledFor:t.schedule?.dueAt,scheduleRevision:t.schedule?.revision }); }));
     const dueLabels={due:'Настав час виконання',soon:'Термін протягом 24 годин',upcoming:'Заплановано',unscheduled:'Без дедлайну',completed:'Виконано'};
     row.append(node('small',dueLabels[t.dueState] || ''),schedulePanel(t,{node,mutate}));
