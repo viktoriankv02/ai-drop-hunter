@@ -14,3 +14,5 @@
 @keyframes robot-arrive{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 @media(prefers-reduced-motion:reduce){.robot-toggle{animation:none}}
 footer{padding-bottom:65px}
+
+.ai-review{white-space:pre-wrap;overflow-wrap:anywhere}

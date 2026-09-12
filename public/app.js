@@ -1,3 +1,4 @@
+import { setupLocalChat } from './local-chat.js';
 import { setupRobot } from './robot.js';
 import { assessmentPanel } from './assessment.js';
 import { schedulePanel } from './schedule.js';
@@ -52,6 +53,8 @@ function projectCard(p) {
   for (const evidence of p.evidence || []) {
     const details = node('details'); details.append(node('summary', 'Знімок джерела · '+new Date(evidence.attemptedAt).toLocaleString('uk-UA')),node('p',evidence.excerpt,'muted')); card.append(details);
   }
+  card.append(action('Аналіз локальним ШІ',async()=>{ $('#message').textContent='Локальна модель аналізує. Це може тривати кілька хвилин…';await mutate('/api/agents/analyze',{projectId:p.id}); }));
+  if(p.agentReview){const review=node('details');review.append(node('summary','Чернетка ШІ · '+new Date(p.agentReview.createdAt).toLocaleString('uk-UA')),node('p','Висновок за збереженими матеріалами, без нової перевірки сайту.','muted'),node('p',p.agentReview.answer,'ai-review'));card.append(review);}
   if(p.latestEvidence)card.append(researchPanel(p,{node,mutate}));
   card.append(assessmentPanel(p,{node,mutate}),outcomePanel(p,{node,mutate}));
   const tasks = node('div', undefined, 'tasks');
@@ -71,6 +74,7 @@ function projectCard(p) {
 }
 setupBackup(()=>state?.token??'');
 setupRobot(()=>state);
+setupLocalChat(()=>state);
 $('#find-projects').onclick=async()=>{const b=$('#find-projects');b.disabled=true;$('#tracker-status').textContent='Шукаю проєкти…';try{await mutate('/api/discovery/projects',{});}catch(e){$('#tracker-status').textContent=e.message;}finally{b.disabled=false;}};
 $('#filter').onchange = render;
 $('#workflow-filter').onchange=render;

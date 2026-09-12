@@ -4,7 +4,7 @@ export function setupRobot(getState) {
  const toggle=make('button','🤖 Помічник');toggle.className='robot-toggle';toggle.type='button';toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-controls','robot-panel');
  const panel=make('section');panel.id='robot-panel';panel.className='robot-panel';panel.hidden=true;panel.setAttribute('aria-label','Робот-помічник');
  const heading=make('h2','Привіт, я Дроп 🤖');
- const info=make('p','Підкажу, де твої проєкти й завдання. Зараз відповідаю за правилами; ШІ-чат і Telegram ще не підключені.');
+ const info=make('p','Підкажу, де твої проєкти й завдання. Швидкі підказки — нижче, локальний ШІ-чат — унизу панелі. Telegram ще не підключений.');
  const output=make('p','Обери підказку нижче.');output.setAttribute('role','status');
  const buttons=make('div');buttons.className='robot-actions';
  function button(label,fn){const b=make('button',label);b.type='button';b.onclick=fn;buttons.append(b);}
