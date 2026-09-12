@@ -24,7 +24,7 @@ Continue coding autonomously. Give regular progress updates (user requested at l
 
 ## Next work
 - Await provider preference before configuring paid AI services; provider-neutral work can continue.
-- Browser adapter for JS-only Ink apps page remains missing.
+- Ink apps catalogue now reads public JSON data literals from same-origin Next.js assets without executing downloaded JavaScript. Saves names, descriptions and HTTPS websites in the source snapshot; individual app import remains future work.
 - Wallet / chain receipt verification and transaction simulation are not implemented.
 - API remains local single-user only; no on-chain execution, credential storage or external account access.
 - Monitor only runs while server is alive, opt-in every 6h. Its current setting is not automatically changed.

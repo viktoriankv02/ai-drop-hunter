@@ -1,3 +1,4 @@
+import { readCatalogue } from './ink-catalogue.mjs';
 import { createHash } from 'node:crypto';
 
 export const sources = [
@@ -27,7 +28,8 @@ export class InkOpportunitySource {
     try {
       while (true) { const { done, value } = await reader.read(); if (done) break; size += value.byteLength; if (size > 1500000) throw new Error('Сторінка перевищує ліміт 1.5 MB'); chunks.push(Buffer.from(value)); }
     } finally { await reader.cancel(); }
-    const text = readableText(Buffer.concat(chunks).toString('utf8'));
+    const html = Buffer.concat(chunks).toString('utf8');
+    const text = id === 'ink-apps' ? await readCatalogue(html, this.fetcher) : readableText(html);
     if (text.length < 100) throw new Error('Замало тексту для аналізу; можливо, сторінка потребує JavaScript');
     return { source, text: text.slice(0, 100000), hash: createHash('sha256').update(text).digest('hex'), fetchedAt: new Date().toISOString() };
   }
