@@ -64,3 +64,5 @@ Airdrops.io — додаткове джерело. DropsTab, CertiK Skynet та 
 Запуск середовища: відкрити Ollama, потім npm start. Модель встановлюється командою ollama pull qwen3:4b.
 
 Уточнення користувача: Ollama, моделі та журнали фізично зберігати лише на диску D. Каталоги D:\AI\Ollama, D:\AI\OllamaData, D:\AI\OllamaLogs. Старі шляхи на C — лише junction для сумісності. OLLAMA_MODELS=D:\AI\OllamaData\models.
+
+Після живої перевірки базову qwen3:4b замінено на qwen3:4b-instruct: базова модель ігнорувала вимкнення міркування. Обірвані відповіді (done_reason=length) не зберігати.
