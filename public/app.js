@@ -24,6 +24,7 @@ function action(label, fn) {
 }
 function render() {
   renderSources();
+  $('#tracker-status').textContent=state.tracker ? (state.tracker.error ? 'Помилка пошуку: '+state.tracker.error : 'Останній пошук: додано '+state.tracker.added+', вже у списку '+state.tracker.duplicates)+' · '+new Date(state.tracker.fetchedAt).toLocaleString('uk-UA') : 'Пошук ще не запускався.';
   renderAgenda(state.agenda,{node,onOpen:async item=>{try{await load();$('#filter').value='';$('#workflow-filter').value='';$('#search').value='';render();const target=document.getElementById('task-'+item.taskId);if(target){target.scrollIntoView({block:'center'});target.focus({preventScroll:true});}else{$('#message').textContent='Завдання більше не доступне.';}}catch(error){$('#message').textContent=error.message;}}});
   const allTasks = state.projects.flatMap(p => p.tasks);
   $('#metrics').replaceChildren(...[[state.projects.length, 'Проєктів у дослідженні'], [state.projects.filter(p => p.verified).length, 'Джерел підтверджено'], [allTasks.filter(t => t.status !== 'completed').length, 'Завдань у плані']].map(([count, label]) => { const el = node('div', undefined, 'metric'); el.append(node('strong', count), node('span', label)); return el; }));
@@ -68,6 +69,7 @@ function projectCard(p) {
   card.append(form); return card;
 }
 setupBackup(()=>state?.token??'');
+$('#find-projects').onclick=async()=>{const b=$('#find-projects');b.disabled=true;$('#tracker-status').textContent='Шукаю проєкти…';try{await mutate('/api/discovery/projects',{});}catch(e){$('#tracker-status').textContent=e.message;}finally{b.disabled=false;}};
 $('#filter').onchange = render;
 $('#workflow-filter').onchange=render;
 $('#search').oninput=render;

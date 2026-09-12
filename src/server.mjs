@@ -1,3 +1,4 @@
+import { TrackerSearch } from './tracker-search.mjs';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
@@ -18,6 +19,7 @@ export function createApp(store, options = {}) {
   const monitor = new Monitor(store, discovery);
   if (options.monitor) monitor.start();
   const outcomes=new OutcomeLedger(store);
+  const tracker=new TrackerSearch(store,options.trackerFetcher);
   let backupInFlight=false;
   const token = randomBytes(32).toString('hex');
   const app = createServer(async (req, res) => {
@@ -33,7 +35,7 @@ export function createApp(store, options = {}) {
       if (req.method === 'GET' && (path === '/api/state' || path === '/api/agenda')) {
         const projects=store.list().map(p=>({...p,outcomes:outcomes.list(p.id),outcomeSummary:outcomes.summary(p.id)}));const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
         if(path==='/api/agenda')return reply(200,agenda);
-        return reply(200,{token,networks,projects,agenda,events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
+        return reply(200,{token,networks,projects,agenda,tracker:store.setting?.('trackerResult',null),events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
       }
       const draftMatch=path.match(/^\/api\/projects\/([\w-]+)\/research-draft$/);
       if(req.method==='GET' && draftMatch)return reply(200,store.researchDraft(draftMatch[1]));
@@ -65,6 +67,7 @@ export function createApp(store, options = {}) {
         if(planMatch)return reply(200,store.adoptResearch(planMatch[1],body));
         const assessmentMatch = path.match(/^\/api\/projects\/([\w-]+)\/assessment$/);
         if (assessmentMatch) return reply(201,store.saveAssessment(assessmentMatch[1],body));
+        if (path === '/api/discovery/projects') return reply(200,await tracker.scan());
         if (path === '/api/discovery/scan') return reply(200, await discovery.scan(body.sourceId));
         if (path === '/api/monitor') { if (typeof body.enabled !== 'boolean') throw new Error('Потрібне enabled: boolean'); store.setSetting('monitorEnabled', body.enabled); return reply(200, monitor.state()); }
         const match = path.match(/^\/api\/projects\/([\w-]+)\/(verify|tasks)$/);
