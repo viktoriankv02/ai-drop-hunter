@@ -3,6 +3,7 @@ import { schedulePanel } from './schedule.js';
 import { researchPanel } from './research.js';
 import { renderAgenda } from './agenda.js';
 import { outcomePanel } from './outcomes.js';
+import { setupBackup } from './backup.js';
 let state;
 const $ = s => document.querySelector(s);
 const node = (tag, text, cls) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; };
@@ -60,6 +61,7 @@ function projectCard(p) {
   form.onsubmit = async e => { e.preventDefault(); submit.disabled = true; try { await mutate(`/api/projects/${p.id}/tasks`, { title: input.value, kind: select.value }); } catch (error) { $('#message').textContent = error.message; submit.disabled = false; } };
   card.append(form); return card;
 }
+setupBackup(()=>state?.token??'');
 $('#filter').onchange = render;
 $('#project-form').onsubmit = async e => { e.preventDefault(); const form = e.currentTarget; const b = form.querySelector('button'); b.disabled = true; try { await mutate('/api/projects', Object.fromEntries(new FormData(form))); form.reset(); } catch (error) { $('#message').textContent = error.message; } finally { b.disabled = false; } };
 try { await load(); for (const n of state.networks) { for (const target of ['#network', '#filter']) { const o = node('option', `${n.name}${n.wave === 2 ? ' · наступна хвиля' : ''}`); o.value = n.id; $(target).append(o); } } } catch (e) { $('#message').textContent = e.message; }

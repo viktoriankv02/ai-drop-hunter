@@ -1,5 +1,8 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
+import { createReadStream } from 'node:fs';
+import { pipeline } from 'node:stream/promises';
+import { createBackup } from './backup.mjs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { randomBytes } from 'node:crypto';
@@ -15,6 +18,7 @@ export function createApp(store, options = {}) {
   const monitor = new Monitor(store, discovery);
   if (options.monitor) monitor.start();
   const outcomes=new OutcomeLedger(store);
+  let backupInFlight=false;
   const token = randomBytes(32).toString('hex');
   const app = createServer(async (req, res) => {
     const reply = (status, value) => { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(value)); };
@@ -39,6 +43,17 @@ export function createApp(store, options = {}) {
         const chunks = []; let bytes = 0; for await (const chunk of req) { bytes += chunk.length; if (bytes > 65536) return reply(413, { error: 'Запит завеликий' }); chunks.push(chunk); }
         const body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
         if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('Некоректний запит');
+        if (path === '/api/backup') {
+          if(backupInFlight)return reply(409,{error:'Копія вже створюється. Спробуйте після завершення.'});
+          backupInFlight=true;let snapshot;
+          try {
+            snapshot=await createBackup(store.db);
+            if(res.destroyed)return;
+            res.writeHead(200,{'Content-Type':'application/vnd.sqlite3','Content-Disposition':'attachment; filename="'+snapshot.filename+'"'});
+            await pipeline(createReadStream(snapshot.path),res);
+          } finally {try{await snapshot?.dispose();}finally{backupInFlight=false;}}
+          return;
+        }
         if (path === '/api/projects') return reply(201, store.create(body));
         const outcomeMatch=path.match(/^\/api\/projects\/([\w-]+)\/outcomes$/);
         if(outcomeMatch)return reply(201,outcomes.record(outcomeMatch[1],body));
@@ -57,19 +72,19 @@ export function createApp(store, options = {}) {
         const task = path.match(/^\/api\/tasks\/([\w-]+)\/complete$/);
         if (task) return reply(200, store.complete(task[1], body));
       }
-      const files = { '/outcomes.js': ['outcomes.js','text/javascript'], '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
+      const files = { '/backup.js': ['backup.js','text/javascript'], '/outcomes.js': ['outcomes.js','text/javascript'], '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
       if (req.method === 'GET' && Object.hasOwn(files, path)) {
         const [file, type] = files[path]; const data = await readFile(new URL(`../public/${file}`, import.meta.url));
         res.writeHead(200, { 'Content-Type': `${type}; charset=utf-8` }); return res.end(data);
       }
       reply(404, { error: 'Не знайдено' });
-    } catch (error) { reply(400, { error: error.message }); }
+    } catch (error) { if(res.headersSent || res.destroyed){res.destroy();return;}reply(400, { error: error.message }); }
   });
   app.on('close', () => monitor.stop());
   return app;
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const store = new Store(fileURLToPath(new URL('../data/drop-hunter.sqlite', import.meta.url)));
+  const store = new Store(process.env.DROP_HUNTER_DB_PATH ? resolve(process.env.DROP_HUNTER_DB_PATH) : fileURLToPath(new URL('../data/drop-hunter.sqlite', import.meta.url)));
   const app = createApp(store, { monitor: true });
   app.listen(Number(process.env.PORT || 4317), '127.0.0.1', () => console.log(`Drop Hunter: http://127.0.0.1:${app.address().port}`));
   for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => app.close(() => { store.close(); process.exit(0); }));

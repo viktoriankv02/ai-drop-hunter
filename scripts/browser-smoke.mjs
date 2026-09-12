@@ -1,3 +1,4 @@
+import { inspectBackup } from '../src/backup.mjs';
 import { createRequire } from 'node:module';
 import assert from 'node:assert/strict';
 import { mkdirSync } from 'node:fs';
@@ -77,6 +78,10 @@ try {
   await card.locator('summary').filter({hasText:'Фактичні винагороди та витрати'}).click();
   await card.getByText('Скасовано: QA reversal',{exact:true}).waitFor();
   mkdirSync('data/qa',{recursive:true});
+  const downloading=page.waitForEvent('download');
+  await page.getByRole('button',{name:'Завантажити копію даних',exact:true}).click();
+  const download=await downloading;await download.saveAs('data/qa/download.sqlite');
+  assert.equal(inspectBackup('data/qa/download.sqlite').projects,2);
   await page.screenshot({path:'data/qa/desktop.png',fullPage:true});
   await page.setViewportSize({width:390,height:844});
   await page.screenshot({path:'data/qa/mobile.png',fullPage:true});
