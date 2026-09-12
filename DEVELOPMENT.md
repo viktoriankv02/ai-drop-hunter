@@ -4,10 +4,10 @@
 Continue coding autonomously. Give regular progress updates (user requested at least once in 15 minutes); explain stage and exact required action when stopping. User explicitly authorized publishing current code to GitHub main on 2026-09-12. No paid LLM provider selected yet; do not ask for keys in chat.
 
 ## Current state
-- Version 0.3.1, Node 24, native modules, SQLite, Ukrainian vanilla UI, no runtime npm dependencies.
+- Version 0.4, Node 24, native modules, SQLite, Ukrainian vanilla UI, no runtime npm dependencies.
 - Server http://127.0.0.1:4317; start with npm start.
 - Store layering: Store -> ResearchStore -> AssessmentStore -> TaskStore -> PlanStore, server uses PlanStore.
-- 25 tests pass and isolated headless Edge browser smoke passes.
+- 29 tests pass and isolated headless Edge browser smoke passes.
 - Browser smoke covers project creation, source verification, structured assessment, schedules, recurring completion, research plan adoption, reload and mobile overflow; no JS errors.
 - Playwright package is bundled at the runtime path discoverable through load_workspace_dependencies. Run with PLAYWRIGHT_MODULE pointing at that package. npm run test:browser.
 - CUA and view_image helpers fail with setup refresh / trusted Node errors; headless browser through approved shell works.
@@ -31,3 +31,6 @@ Continue coding autonomously. Give regular progress updates (user requested at l
 
 ## Latest addition
 Cross-project agenda implemented and browser-tested; /api/agenda refreshes independently from forms. Current push request fulfilled; continued with agenda feature.
+
+## Outcome ledger
+OutcomeLedger is composed with the main store by the server. Records manual rewards/expenses, exact asset quantities and cent-valuations, unknown-value handling, idempotent requests and auditable voids. Browser smoke now covers record/void. No actual transactions or price lookups.

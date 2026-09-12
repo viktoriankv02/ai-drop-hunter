@@ -8,11 +8,13 @@ import { sources, DiscoveryService } from './discovery.mjs';
 import { Monitor } from './monitor.mjs';
 import { networks } from './networks.mjs';
 import { buildAgenda } from './agenda.mjs';
+import { OutcomeLedger } from './outcomes.mjs';
 
 export function createApp(store, options = {}) {
   const discovery = options.discovery || new DiscoveryService(store);
   const monitor = new Monitor(store, discovery);
   if (options.monitor) monitor.start();
+  const outcomes=new OutcomeLedger(store);
   const token = randomBytes(32).toString('hex');
   const app = createServer(async (req, res) => {
     const reply = (status, value) => { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(value)); };
@@ -25,7 +27,7 @@ export function createApp(store, options = {}) {
     try {
       const path = new URL(req.url, `http://${host}`).pathname;
       if (req.method === 'GET' && (path === '/api/state' || path === '/api/agenda')) {
-        const projects=store.list();const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
+        const projects=store.list().map(p=>({...p,outcomes:outcomes.list(p.id),outcomeSummary:outcomes.summary(p.id)}));const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
         if(path==='/api/agenda')return reply(200,agenda);
         return reply(200,{token,networks,projects,agenda,events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
       }
@@ -38,6 +40,10 @@ export function createApp(store, options = {}) {
         const body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
         if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('Некоректний запит');
         if (path === '/api/projects') return reply(201, store.create(body));
+        const outcomeMatch=path.match(/^\/api\/projects\/([\w-]+)\/outcomes$/);
+        if(outcomeMatch)return reply(201,outcomes.record(outcomeMatch[1],body));
+        const voidMatch=path.match(/^\/api\/outcomes\/([\w-]+)\/void$/);
+        if(voidMatch)return reply(200,outcomes.void(voidMatch[1],body));
         const planMatch=path.match(/^\/api\/projects\/([\w-]+)\/research-plan$/);
         if(planMatch)return reply(200,store.adoptResearch(planMatch[1],body));
         const assessmentMatch = path.match(/^\/api\/projects\/([\w-]+)\/assessment$/);
@@ -51,7 +57,7 @@ export function createApp(store, options = {}) {
         const task = path.match(/^\/api\/tasks\/([\w-]+)\/complete$/);
         if (task) return reply(200, store.complete(task[1], body));
       }
-      const files = { '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
+      const files = { '/outcomes.js': ['outcomes.js','text/javascript'], '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
       if (req.method === 'GET' && Object.hasOwn(files, path)) {
         const [file, type] = files[path]; const data = await readFile(new URL(`../public/${file}`, import.meta.url));
         res.writeHead(200, { 'Content-Type': `${type}; charset=utf-8` }); return res.end(data);

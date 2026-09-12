@@ -2,6 +2,7 @@ import { assessmentPanel } from './assessment.js';
 import { schedulePanel } from './schedule.js';
 import { researchPanel } from './research.js';
 import { renderAgenda } from './agenda.js';
+import { outcomePanel } from './outcomes.js';
 let state;
 const $ = s => document.querySelector(s);
 const node = (tag, text, cls) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; };
@@ -43,7 +44,7 @@ function projectCard(p) {
     const details = node('details'); details.append(node('summary', 'Знімок джерела · '+new Date(evidence.attemptedAt).toLocaleString('uk-UA')),node('p',evidence.excerpt,'muted')); card.append(details);
   }
   if(p.latestEvidence)card.append(researchPanel(p,{node,mutate}));
-  card.append(assessmentPanel(p,{node,mutate}));
+  card.append(assessmentPanel(p,{node,mutate}),outcomePanel(p,{node,mutate}));
   const tasks = node('div', undefined, 'tasks');
   for (const t of p.tasks) {
     const row = node('div', undefined, 'task'); row.id='task-'+t.id;row.tabIndex=-1; row.append(node('strong', `${t.status === 'completed' ? '✓' : '○'} ${t.title}`), node('small', t.status === 'completed' ? `Виконання повідомлено користувачем. ${t.evidence}` : policies[t.policy]));
