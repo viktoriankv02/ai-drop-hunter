@@ -1,3 +1,6 @@
+import { assessmentPanel } from './assessment.js';
+import { schedulePanel } from './schedule.js';
+import { researchPanel } from './research.js';
 let state;
 const $ = s => document.querySelector(s);
 const node = (tag, text, cls) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; };
@@ -31,15 +34,20 @@ function projectCard(p) {
   const top = node('div', undefined, 'section-head'); top.append(node('span', state.networks.find(n => n.id === p.network)?.name, 'eyebrow'), node('span', p.verified ? 'Джерело: перевірено вручну' : 'Потребує перевірки', 'pill'));
   card.append(top, node('h3', p.name), node('p', p.notes || 'Додайте завдання після дослідження джерела.', 'muted'));
   const link = node('a', 'Відкрити джерело ↗'); link.href = p.source; link.target = '_blank'; link.rel = 'noopener noreferrer'; card.append(link);
-  card.append(node('p', `Рейтинг сигналів: ${p.score}/100 · Винагорода не підтверджена`, 'score'), node('p', p.reasons.join(' '), 'muted'));
+  const rewardLabels={unconfirmed:'Винагорода не підтверджена',announced:'Оголошено за перевіркою користувача',closed:'Кампанію позначено завершеною'};
+  card.append(node('p', `План участі: ${p.analysis?.score ?? '—'}/100 · ${rewardLabels[p.analysis?.rewardStatus || 'unconfirmed']}`, 'score'));
   if (!p.verified) card.append(action('Підтвердити перевірку джерела', async () => { const evidence = prompt('Що підтверджує офіційність джерела? Запишіть результат власної перевірки.'); if (evidence) await mutate(`/api/projects/${p.id}/verify`, { evidence }); }));
   for (const evidence of p.evidence || []) {
     const details = node('details'); details.append(node('summary', 'Знімок джерела · '+new Date(evidence.attemptedAt).toLocaleString('uk-UA')),node('p',evidence.excerpt,'muted')); card.append(details);
   }
+  if(p.latestEvidence)card.append(researchPanel(p,{node,mutate}));
+  card.append(assessmentPanel(p,{node,mutate}));
   const tasks = node('div', undefined, 'tasks');
   for (const t of p.tasks) {
     const row = node('div', undefined, 'task'); row.append(node('strong', `${t.status === 'completed' ? '✓' : '○'} ${t.title}`), node('small', t.status === 'completed' ? `Виконання повідомлено користувачем. ${t.evidence}` : policies[t.policy]));
-    if (t.status !== 'completed' && p.verified) row.append(action('Записати виконання', async () => { const evidence = prompt('Додайте доказ уже виконаної дії: URL, tx hash або опис. Це лише запис у журналі, без виконання транзакції.'); if (evidence) await mutate(`/api/tasks/${t.id}/complete`, { evidence }); }));
+    if (t.status !== 'completed' && p.verified) row.append(action('Записати виконання', async () => { const evidence = prompt('Додайте доказ уже виконаної дії: URL, tx hash або опис. Це лише запис у журналі, без виконання транзакції.'); if (evidence) await mutate(`/api/tasks/${t.id}/complete`, { evidence,scheduledFor:t.schedule?.dueAt,scheduleRevision:t.schedule?.revision }); }));
+    const dueLabels={due:'Настав час виконання',soon:'Термін протягом 24 годин',upcoming:'Заплановано',unscheduled:'Без дедлайну',completed:'Виконано'};
+    row.append(node('small',dueLabels[t.dueState] || ''),schedulePanel(t,{node,mutate}));
     tasks.append(row);
   }
   card.append(tasks);

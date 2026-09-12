@@ -21,6 +21,7 @@ export class ResearchStore extends Store {
       this.db.prepare('INSERT INTO scans(sourceId,projectId,hash,content,attemptedAt) VALUES(?,?,?,?,?)').run(source.id, projectId, hash, text, fetchedAt);
       if (changed) {
         this.db.prepare('UPDATE projects SET verified=0 WHERE id=?').run(projectId);
+        this.sourceChanged?.(projectId);
         this.event(projectId, (previous ? 'Джерело змінилося; потрібна повторна перевірка: ' : 'Отримано офіційне джерело; перевірте умови: ') + source.name);
       }
       return { projectId, changed, fetchedAt };

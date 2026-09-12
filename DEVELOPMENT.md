@@ -1,30 +1,30 @@
-# Development handoff — 2026-09-11
+# Development handoff — 2026-09-12
 
-User intent: continue coding autonomously until a material decision or credentials are needed. When stopping, state the stage and exact next user action. Final GitHub push remains with the user.
+## User intent
+Continue coding autonomously. Give regular progress updates (user requested at least once in 15 minutes); explain stage and exact required action when stopping. Final GitHub push remains with the user. No paid LLM provider selected yet; do not ask for keys in chat.
 
 ## Current state
-- Node 24 native modules, vanilla Ukrainian UI, SQLite; no external dependencies.
-- Server at http://127.0.0.1:4317; start with npm start.
-- 7 tests pass. Live HTTP import of Ink Builder Program and network docs succeeded.
-- Browser automation fails to initialize (trusted Node process exited); visual QA outstanding.
-- Sandbox helper repeatedly fails setup refresh; commands work with approved escalation. Do not assume this is missing project access.
-- Local main branch and origin configured; local commits exist, no push.
-- SQLite data ignored by Git, contains 2 real research records. Source verification remains manual.
-- Monitoring opt-in, every 6h while server is running; unchanged content does not create events.
+- Version 0.3, Node 24, native modules, SQLite, Ukrainian vanilla UI, no runtime npm dependencies.
+- Server http://127.0.0.1:4317; start with npm start.
+- Store layering: Store -> ResearchStore -> AssessmentStore -> TaskStore -> PlanStore, server uses PlanStore.
+- 22 tests pass and isolated headless Edge browser smoke passes.
+- Browser smoke covers project creation, source verification, structured assessment, schedules, recurring completion, research plan adoption, reload and mobile overflow; no JS errors.
+- Playwright package is bundled at the runtime path discoverable through load_workspace_dependencies. Run with PLAYWRIGHT_MODULE pointing at that package. npm run test:browser.
+- CUA and view_image helpers fail with setup refresh / trusted Node errors; headless browser through approved shell works.
+- Sandbox helper repeatedly fails; approved escalated commands work. Do not infer missing workspace authorization.
+- Local main and origin configured, no push. data directory ignored by Git.
+- Live DB has real Ink Builder Program and network-docs research records. Do not mark source verified or user actions complete without user confirmation.
 
-## Next material decision
-User was asked whether AI analysis should use OpenAI API (separate billing/key), local Ollama, or rule-based/manual analysis. Never request secrets in chat. Await the choice before configuring a paid service.
+## Completed additions
+1. Assessments with evidence and immutable revisions; source changes invalidate revisions in the same transaction.
+2. Five manual scoring signals, coverage, separate risk/costs/deadline fields. No reward probabilities.
+3. Exact timestamp/calendar validation, schedules, optimistic revisions, idempotent recurring completion; missing periods never invented as completed.
+4. Rule-based research cues with exact source offsets, review-before-adoption, deterministic task IDs and stale evidence checks.
+5. All new UI flows validated in a separate in-memory test server.
 
-## Next engineering work
-1. AI provider adapter, bounded evidence analysis and schema validation; source material must remain untrusted data.
-2. Structured eligibility, costs, deadlines and assessments linked to evidence snapshots; no invented reward probabilities.
-3. Browser adapter for the JS-only Ink apps catalog; do not label the current static response as successful discovery.
-4. Wallet preview/simulation with user signatures, no private-key storage; contract templates later.
-5. Real browser verification when the automation environment works.
-
-## Known limitations
-- Current discovery imports curated research sources, not a general crawler or confirmed airdrop feed.
-- Current score is zero until actual signal assessment is implemented; verifying a source alone does not increase score.
-- Source snapshots stored as text with digest and timestamp; no full HTML UI rendering.
-- No LLM, autonomous check-ins, wallet execution, multi-user auth, or reward reconciliation yet.
-- Onchain task completion is user-reported evidence, not independent transaction confirmation.
+## Next work
+- Await provider preference before configuring paid AI services; provider-neutral work can continue.
+- Browser adapter for JS-only Ink apps page remains missing.
+- Wallet / chain receipt verification and transaction simulation are not implemented.
+- API remains local single-user only; no on-chain execution, credential storage or external account access.
+- Monitor only runs while server is alive, opt-in every 6h. Its current setting is not automatically changed.

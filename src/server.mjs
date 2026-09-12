@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { randomBytes } from 'node:crypto';
-import { ResearchStore as Store } from './research-store.mjs';
+import { PlanStore as Store } from './plan-store.mjs';
 import { sources, DiscoveryService } from './discovery.mjs';
 import { Monitor } from './monitor.mjs';
 import { networks } from './networks.mjs';
@@ -24,21 +24,29 @@ export function createApp(store, options = {}) {
     try {
       const path = new URL(req.url, `http://${host}`).pathname;
       if (req.method === 'GET' && path === '/api/state') return reply(200, { token, networks, projects: store.list(), events: store.history(), sources: sources.map(s => ({ ...s, lastScan: store.latestScan?.(s.id) || null })), monitor: store.setting ? monitor.state() : null });
+      const draftMatch=path.match(/^\/api\/projects\/([\w-]+)\/research-draft$/);
+      if(req.method==='GET' && draftMatch)return reply(200,store.researchDraft(draftMatch[1]));
       if (req.method === 'POST') {
         if (req.headers['x-session-token'] !== token) return reply(403, { error: 'Оновіть сторінку для продовження' });
         if (!req.headers['content-type']?.startsWith('application/json')) return reply(415, { error: 'Expected JSON' });
-        const chunks = []; let bytes = 0; for await (const chunk of req) { bytes += chunk.length; if (bytes > 16000) return reply(413, { error: 'Запит завеликий' }); chunks.push(chunk); }
+        const chunks = []; let bytes = 0; for await (const chunk of req) { bytes += chunk.length; if (bytes > 65536) return reply(413, { error: 'Запит завеликий' }); chunks.push(chunk); }
         const body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
         if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('Некоректний запит');
         if (path === '/api/projects') return reply(201, store.create(body));
+        const planMatch=path.match(/^\/api\/projects\/([\w-]+)\/research-plan$/);
+        if(planMatch)return reply(200,store.adoptResearch(planMatch[1],body));
+        const assessmentMatch = path.match(/^\/api\/projects\/([\w-]+)\/assessment$/);
+        if (assessmentMatch) return reply(201,store.saveAssessment(assessmentMatch[1],body));
         if (path === '/api/discovery/scan') return reply(200, await discovery.scan(body.sourceId));
         if (path === '/api/monitor') { if (typeof body.enabled !== 'boolean') throw new Error('Потрібне enabled: boolean'); store.setSetting('monitorEnabled', body.enabled); return reply(200, monitor.state()); }
         const match = path.match(/^\/api\/projects\/([\w-]+)\/(verify|tasks)$/);
         if (match) return reply(200, match[2] === 'verify' ? store.verify(match[1], body) : store.addTask(match[1], body));
+        const scheduleMatch=path.match(/^\/api\/tasks\/([\w-]+)\/schedule$/);
+        if(scheduleMatch) return reply(200,store.scheduleTask(scheduleMatch[1],body));
         const task = path.match(/^\/api\/tasks\/([\w-]+)\/complete$/);
         if (task) return reply(200, store.complete(task[1], body));
       }
-      const files = { '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
+      const files = { '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
       if (req.method === 'GET' && Object.hasOwn(files, path)) {
         const [file, type] = files[path]; const data = await readFile(new URL(`../public/${file}`, import.meta.url));
         res.writeHead(200, { 'Content-Type': `${type}; charset=utf-8` }); return res.end(data);
