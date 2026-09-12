@@ -37,3 +37,6 @@ OutcomeLedger is composed with the main store by the server. Records manual rewa
 
 ## Backups
 POST /api/backup streams a session-protected SQLite backup. Temp files cleaned explicitly; portable DELETE journal avoids leftover WAL files. Restore CLI validates integrity/FKs/tables and reserves destination exclusively, refusing existing DB and sidecars. DROP_HUNTER_DB_PATH allows opening restored DB separately. Full round-trip and browser download tested.
+
+## Погоджені джерела та ШІ-аналіз
+Див. [RESEARCH_ROADMAP.md](RESEARCH_ROADMAP.md): шість джерел, запропонованих користувачем, вимоги до агентів, доказів, оцінки витрат і ризиків та етапи реалізації. Інтеграції цих джерел ще не реалізовані.
