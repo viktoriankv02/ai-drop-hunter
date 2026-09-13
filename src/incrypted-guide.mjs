@@ -1,5 +1,14 @@
 import {createHash} from 'node:crypto';
 import {readableText} from './discovery.mjs';
+export function guideBlocks(article){
+ const clean=article.replace(/<(script|style|nav|header|footer)\b[^>]*>[\s\S]*?<\/\1>/gi,'');
+ const blocks=[];let size=0;
+ for(const m of clean.matchAll(/<(h[1-6]|p|li|blockquote)\b[^>]*>([\s\S]*?)<\/\1>/gi)){
+  const text=readableText(m[2]).slice(0,50000-size);if(!text)continue;
+  blocks.push({type:/^h/.test(m[1])?'heading':m[1]==='li'?'item':'paragraph',text});size+=text.length;if(size>=50000)break;
+ }
+ return blocks;
+}
 export async function readIncryptedGuide(source,fetcher=fetch){
  const sourceUrl=new URL(source);
  if(sourceUrl.origin!=='https://incrypted.com'||sourceUrl.pathname!=='/airdrops/'||!/^\d+$/.test(sourceUrl.searchParams.get('single')||''))throw Error('Підтримується картка Incrypted');
@@ -17,5 +26,5 @@ export async function readIncryptedGuide(source,fetcher=fetch){
  const html=await read(url.href);const article=html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/)?.[1];
  if(!article)throw Error('Текст інструкції не знайдено');
  const text=readableText(article);if(text.length<150)throw Error('Недостатньо тексту інструкції');
- return {url:url.href,text:text.slice(0,50000),hash:createHash('sha256').update(text).digest('hex'),fetchedAt:new Date().toISOString()};
+ return {blocks:guideBlocks(article),url:url.href,text:text.slice(0,50000),hash:createHash('sha256').update(text).digest('hex'),fetchedAt:new Date().toISOString()};
 }

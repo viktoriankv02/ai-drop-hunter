@@ -1,3 +1,4 @@
+import { guideReader } from './guide-reader.js';
 import { setupAgentProgress } from './agent-progress.js';
 import { setupMaterialImport } from './material-import.js';
 import { setupLocalChat } from './local-chat.js';
@@ -60,7 +61,7 @@ function projectCard(p) {
   if(p.agentReview){const review=node('details');review.append(node('summary','Чернетка ШІ · '+new Date(p.agentReview.createdAt).toLocaleString('uk-UA')),node('p','Висновок за збереженими матеріалами, без нової перевірки сайту.','muted'),node('p',p.agentReview.answer,'ai-review'));card.append(review);}
   if(p.source.startsWith('https://incrypted.com/airdrops/?single='))card.append(action('Отримати інструкцію Incrypted',()=>mutate('/api/agents/guide',{projectId:p.id})));
   if(p.importedMaterial){const m=node('details');m.append(node('summary','Імпорт CryptoRank · '+new Date(p.importedMaterial.createdAt).toLocaleString('uk-UA')),node('p',p.importedMaterial.content,'ai-review'));card.append(m);}
-  if(p.guide){const g=node('details');const a=node('a','Відкрити інструкцію ↗');a.href=p.guide.url;a.target='_blank';a.rel='noopener noreferrer';g.append(node('summary','Інструкція Incrypted · '+new Date(p.guide.fetchedAt).toLocaleString('uk-UA')),a,node('p',p.guide.text,'ai-review'));card.append(g);}
+  if(p.guide)card.append(guideReader(p.guide));
   if(p.daily){const d=node('details');d.append(node('summary','Щоденна перевірка Incrypted'),node('p',p.daily.error||('Перевірено '+new Date(p.daily.attemptedAt).toLocaleString('uk-UA')+' · '+p.daily.snapshot.actions+(p.daily.aiError?' · ШІ: '+p.daily.aiError:''))));card.append(d);}
   if(p.latestEvidence)card.append(researchPanel(p,{node,mutate}));
   card.append(assessmentPanel(p,{node,mutate}),outcomePanel(p,{node,mutate}));

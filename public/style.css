@@ -16,3 +16,5 @@
 footer{padding-bottom:65px}
 
 .ai-review{white-space:pre-wrap;overflow-wrap:anywhere}
+
+.guide-reader{margin:22px 0;border:1px solid #514661;border-radius:12px;overflow:hidden}.guide-reader>summary{padding:18px;cursor:pointer;font-size:17px;font-weight:600;background:#292333}.reader-panel{padding:18px}.reader-panel>p{line-height:1.6;max-width:80ch}.reader-controls{display:flex;flex-wrap:wrap;gap:16px;margin:22px 0;padding:16px;background:#22232d;border-radius:10px}.reader-controls label{flex:1;min-width:180px}.reader-body{--reader-bg:#161922;--reader-fg:#edf0f7;background:var(--reader-bg);color:var(--reader-fg);padding:clamp(16px,4vw,44px);border-radius:12px;line-height:1.85;overflow-wrap:anywhere}.reader-body[data-theme=light]{--reader-bg:#fff;--reader-fg:#202632;color-scheme:light}.reader-body[data-theme=sepia]{--reader-bg:#f6edda;--reader-fg:#403323;color-scheme:light}.reader-body p,.reader-body ul,.reader-body h4{max-width:70ch;margin:0 auto 1.3em}.reader-body h4{font-size:1.25em;line-height:1.4;padding-top:1em;border-top:1px solid currentColor}.reader-body li{margin-bottom:.7em}.panel>button{margin:4px 6px 4px 0}
