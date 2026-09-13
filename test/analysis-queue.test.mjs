@@ -5,3 +5,10 @@ test('queue deduplicates, skips obsolete versions, retries failure and recovers 
  s.db.prepare("UPDATE analysis_jobs SET status='running' WHERE materialHash='new'").run();agents.busy=true;q.start();assert.equal(q.latest(p.id).status,'pending');q.stop();
  }finally{q.stop();s.close();}
 });
+
+import {LocalAgents} from '../src/local-agents.mjs';
+test('changed material cannot publish a stale model response',async()=>{
+ const s=new PlanStore(':memory:');const p=s.create({name:'Versions',network:'unknown',source:'https://cryptorank.io/ru/drophunting/example'});let resolveResponse;const a=new LocalAgents(s,()=>new Promise(resolve=>{resolveResponse=resolve;}));
+ try{a.materials.save({name:'Versions',source:s.project(p.id).source,text:'First version'});const hash=a.materials.latest(p.id).hash;const pending=a.analyze(p.id,hash);a.materials.save({name:'Versions',source:s.project(p.id).source,text:'Second version'});resolveResponse(Response.json({message:{content:'Old answer'}}));await assert.rejects(pending,{code:'MATERIAL_CHANGED'});assert.equal(s.setting('agentReview:'+p.id,null),null);
+ }finally{s.close();}
+});
