@@ -1,14 +1,15 @@
+import {readIncryptedGuide} from './incrypted-guide.mjs';
 import {createHash} from 'node:crypto';
 import {parseIncrypted} from './tracker-search.mjs';
 export class DailyResearch {
- constructor(store,agents,fetcher=fetch){this.store=store;this.agents=agents;this.fetcher=fetcher;this.running=false;}
+ constructor(store,agents,fetcher=fetch,guideReader=readIncryptedGuide){this.guideReader=guideReader;this.store=store;this.agents=agents;this.fetcher=fetcher;this.running=false;}
  start(){this.timer=setInterval(()=>this.tick().catch(()=>{}),60000);this.timer.unref();this.tick().catch(()=>{});}
  stop(){clearInterval(this.timer);}
- async tick(){
+ async tick(force=false){
   if(this.running||this.agents.busy)return;
   const now=Date.now();
   const selected=this.store.list().filter(p=>['watching','active'].includes(p.workflow)&&/^https:\/\/incrypted\.com\/airdrops\/\?single=\d+$/.test(p.source));
-  const due=selected.filter(p=>{const last=this.store.setting('daily:'+p.id,null);return !last||now-Date.parse(last.attemptedAt)>(last.error||last.aiError?3600000:86400000);});
+  const due=selected.filter(p=>{const last=this.store.setting('daily:'+p.id,null);return force||!last||now-Date.parse(last.attemptedAt)>(last.error||last.aiError?3600000:86400000);});
   if(!due.length)return;
   this.running=true;
   try{
@@ -22,9 +23,18 @@ export class DailyResearch {
     if(!card){this.store.setSetting('daily:'+p.id,{attemptedAt,error:'Проєкт не знайдено на поточній сторінці. Це не підтверджує завершення кампанії.'});continue;}
     const hash=createHash('sha256').update(JSON.stringify(card)).digest('hex');
     const old=this.store.setting('daily:'+p.id,null);
-    const changed=old?.hash!==hash;
+    let guideChanged=false;
+    try{
+     const guide=await this.guideReader(p.source,this.fetcher);
+     const previousGuide=this.store.setting('guide:'+p.id,null);
+     guideChanged=previousGuide?.hash!==guide.hash;
+     if(guideChanged&&previousGuide)this.store.setSetting('previousGuide:'+p.id,previousGuide);
+     this.store.setSetting('guide:'+p.id,guide);
+    }catch(e){this.store.setSetting('daily:'+p.id,{...old,attemptedAt,error:'Інструкція: '+e.message});continue;}
+    const changed=old?.hash!==hash||guideChanged;
+    if(changed&&old)this.store.transaction(()=>{this.store.db.prepare('UPDATE projects SET verified=0 WHERE id=?').run(p.id);this.store.sourceChanged?.(p.id);});
     this.store.setSetting('daily:'+p.id,{attemptedAt,hash,snapshot:card,previous:changed?old?.snapshot:old?.previous,changed});
-    if(changed)this.store.event(p.id,'Оновлено дані картки Incrypted. Перевірте умови; повний план ще не синхронізується.');
+    if(changed)this.store.event(p.id,'Оновлено дані картки Incrypted. Перевірте умови; отримано інструкцію для аналізу.');
     if((changed||old?.aiError)&&this.agents.analyze){try{await this.agents.analyze(p.id);}catch(e){this.store.setSetting('daily:'+p.id,{...this.store.setting('daily:'+p.id),aiError:e.message});}} 
    }
   }catch(e){for(const p of due)this.store.setSetting('daily:'+p.id,{...this.store.setting('daily:'+p.id,{}),attemptedAt:new Date().toISOString(),error:e.message});}

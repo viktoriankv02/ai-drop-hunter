@@ -69,3 +69,6 @@ Airdrops.io — додаткове джерело. DropsTab, CertiK Skynet та 
 
 ## Latest research/import work
 Incrypted is now the preferred tracker option; 31 live candidates imported. DailyResearch checks watching/active Incrypted cards once daily while server runs, keeps previous snapshot, and triggers local analysis on changes. Full guide retrieval is a separate button using a public instruction link; guide text is passed to local analysis. CryptoRank still returns 403 to direct reads. MaterialImport accepts user-pasted CryptoRank text (16k chars), stores immutable versions, deduplicates unchanged content, invalidates manual verification on change. Browser session access remains unavailable; no cookies copied or challenge bypassed. 43 tests pass plus existing browser smoke. Server/Telegram/full autonomous cross-source search remain incomplete.
+
+## Agent cycle update
+DailyResearch now retrieves the full linked Incrypted guide on each due check, keeps previous guide on change, invalidates verification and assessments on changes, and invokes local analysis. Manual POST /api/agents/run starts the same selected-project cycle; UI shows running state. Automated analysis excludes personal chat history and is not appended to it. 44 tests and browser smoke passed. Only selected Incrypted projects supported; no automatic transaction execution or autonomous training.

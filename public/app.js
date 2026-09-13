@@ -27,6 +27,7 @@ function action(label, fn) {
 }
 function render() {
   renderSources();
+  $('#agent-work-status').textContent=state.dailyRunning?'Агенти працюють. Результати з’являться в картках; онови сторінку через кілька хвилин.':'Автоматичний цикл очікує. Для першого запуску вибери проєкти Incrypted.';
   $('#tracker-status').textContent=state.tracker ? (state.tracker.error ? 'Помилка пошуку: '+state.tracker.error : 'Останній пошук: додано '+state.tracker.added+', вже у списку '+state.tracker.duplicates)+' · '+new Date(state.tracker.fetchedAt).toLocaleString('uk-UA') : 'Пошук ще не запускався.';
   renderAgenda(state.agenda,{node,onOpen:async item=>{try{await load();$('#filter').value='';$('#workflow-filter').value='';$('#search').value='';render();const target=document.getElementById('task-'+item.taskId);if(target){target.scrollIntoView({block:'center'});target.focus({preventScroll:true});}else{$('#message').textContent='Завдання більше не доступне.';}}catch(error){$('#message').textContent=error.message;}}});
   const allTasks = state.projects.flatMap(p => p.tasks);
@@ -82,6 +83,7 @@ setupRobot(()=>state);
 setupMaterialImport({mutate});
 setupLocalChat(()=>state);
 $('#find-projects').onclick=async()=>{const b=$('#find-projects');b.disabled=true;$('#tracker-status').textContent='Шукаю проєкти…';try{await mutate('/api/discovery/projects',{sourceId:$('#tracker-source').value});}catch(e){$('#tracker-status').textContent=e.message;}finally{b.disabled=false;}};
+$('#run-agents').onclick=async()=>{const b=$('#run-agents');b.disabled=true;try{await mutate('/api/agents/run',{});}catch(e){$('#agent-work-status').textContent=e.message;}finally{b.disabled=false;}};
 $('#filter').onchange = render;
 $('#workflow-filter').onchange=render;
 $('#search').oninput=render;

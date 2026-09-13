@@ -43,7 +43,7 @@ export function createApp(store, options = {}) {
       if (req.method === 'GET' && (path === '/api/state' || path === '/api/agenda')) {
         const projects=store.list().map(p=>({...p,importedMaterial:materials.latest(p.id),guide:store.setting?.('guide:'+p.id,null),daily:store.setting?.('daily:'+p.id,null),agentReview:store.setting?.('agentReview:'+p.id,null),outcomes:outcomes.list(p.id),outcomeSummary:outcomes.summary(p.id)}));const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
         if(path==='/api/agenda')return reply(200,agenda);
-        return reply(200,{token,networks,projects,agenda,tracker:store.setting?.('trackerResult',null),events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
+        return reply(200,{token,networks,projects,agenda,dailyRunning:daily.running,tracker:store.setting?.('trackerResult',null),events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
       }
       if(req.method==='GET' && path==='/api/agents')return reply(200,{status:await agents.status(),messages:agents.history()});
       const draftMatch=path.match(/^\/api\/projects\/([\w-]+)\/research-draft$/);
@@ -70,6 +70,7 @@ export function createApp(store, options = {}) {
         if(path==='/api/agents/guide'){const p=store.project(body.projectId);const guide=await readIncryptedGuide(p.source);store.setSetting('guide:'+p.id,guide);return reply(200,{ok:true});}
         if(path==='/api/agents/analyze')return reply(200,await agents.analyze(body.projectId));
         if(path==='/api/materials/import')return reply(200,materials.save(body));
+        if(path==='/api/agents/run'){if(daily.running||agents.busy)return reply(409,{error:'Агенти вже працюють'});daily.tick(true).catch(()=>{});return reply(202,{started:true});}
         if(path==='/api/agents/chat')return reply(200,await agents.ask(body));
         if (path === '/api/projects') return reply(201, store.create(body));
         const outcomeMatch=path.match(/^\/api\/projects\/([\w-]+)\/outcomes$/);
