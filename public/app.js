@@ -67,7 +67,7 @@ function projectCard(p) {
   info('Аналіз ШІ',p.agentReview?'Чернетка готова — відкрий нижче':'Ще не виконано');
   card.append(overview);
   if(p.notes){const notes=node('details',undefined,'project-notes');notes.append(node('summary','Опис і нотатки'),node('p',p.notes,'ai-review'));card.append(notes);}
-  const help=incrypted ? (['watching','active'].includes(p.workflow)?'Проєкт обрано для щоденної перевірки. Запусти агентів у блоці вище або отримай інструкцію й аналіз кнопками нижче.':'Хочеш стежити за цим проєктом? У полі «Мій статус» обери «Цікавить». Для початку відкрий джерело або отримай інструкцію.') : 'Відкрий джерело, додай матеріали та замов аналіз. Щоденна перевірка поки підтримує лише картки Incrypted.';
+  const help=incrypted ? (['watching','active'].includes(p.workflow)?'Проєкт обрано для щоденної перевірки. Запусти агентів у блоці вище або отримай інструкцію й аналіз кнопками нижче.':'Хочеш стежити за цим проєктом? У полі «Мій статус» обери «Цікавить». Для початку відкрий джерело або отримай інструкцію.') : 'Відкрий джерело, додай матеріали та замов аналіз. Щоденна перевірка підтримує також картки DropsTab і Airdrops.io зі статусом «Цікавить» або «У роботі».';
   card.append(node('p',help,'project-next-step'));
   const actions=node('div',undefined,'project-actions');card.append(actions);
   const link = node('a', 'Відкрити джерело ↗'); link.href = p.source; link.target = '_blank'; link.rel = 'noopener noreferrer'; actions.append(link);
@@ -91,7 +91,7 @@ function projectCard(p) {
   if(incrypted)actions.append(action('Отримати інструкцію Incrypted',()=>mutate('/api/agents/guide',{projectId:p.id})));
   if(p.importedMaterial){const m=node('details');m.append(node('summary','Імпорт CryptoRank · '+new Date(p.importedMaterial.createdAt).toLocaleString('uk-UA')),node('p',p.importedMaterial.content,'ai-review'));card.append(m);}
   if(p.guide)card.append(guideReader(p.guide));
-  if(p.daily){const d=node('details');d.append(node('summary','Щоденна перевірка Incrypted'),node('p',p.daily.error||('Перевірено '+new Date(p.daily.attemptedAt).toLocaleString('uk-UA')+' · '+(p.daily.snapshot?.actions||'Без нових даних')+(p.daily.aiError?' · ШІ: '+p.daily.aiError:''))));card.append(d);}
+  if(p.daily){const d=node('details');d.append(node('summary','Щоденна перевірка джерела'),node('p',p.daily.error||('Перевірено '+new Date(p.daily.attemptedAt).toLocaleString('uk-UA')+' · '+(p.daily.snapshot?.actions||'Без нових даних')+(p.daily.aiError?' · ШІ: '+p.daily.aiError:''))));if(p.daily.previous){d.append(node('h4','Було'),node('p',p.daily.previous.actions,'ai-review'),node('h4','Останні отримані дані'),node('p',p.daily.snapshot?.actions||'Немає даних','ai-review'));}card.append(d);}
   if(p.latestEvidence)card.append(researchPanel(p,{node,mutate}));
   card.append(assessmentPanel(p,{node,mutate}),outcomePanel(p,{node,mutate}));
   const tasks = node('div', undefined, 'tasks');tasks.append(node('h4','Мій план дій'),node('p',p.tasks.length?'Твої завдання та строки виконання.':'Поки немає завдань. Прочитай інструкцію та додай перший крок нижче.','muted')); 
