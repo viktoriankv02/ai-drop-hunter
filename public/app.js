@@ -1,3 +1,4 @@
+import { setupAgentProgress } from './agent-progress.js';
 import { setupMaterialImport } from './material-import.js';
 import { setupLocalChat } from './local-chat.js';
 import { setupRobot } from './robot.js';
@@ -80,6 +81,7 @@ function projectCard(p) {
 }
 setupBackup(()=>state?.token??'');
 setupRobot(()=>state);
+setupAgentProgress(load);
 setupMaterialImport({mutate});
 setupLocalChat(()=>state);
 $('#find-projects').onclick=async()=>{const b=$('#find-projects');b.disabled=true;$('#tracker-status').textContent='Шукаю проєкти…';try{await mutate('/api/discovery/projects',{sourceId:$('#tracker-source').value});}catch(e){$('#tracker-status').textContent=e.message;}finally{b.disabled=false;}};

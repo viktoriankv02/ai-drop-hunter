@@ -45,6 +45,7 @@ export function createApp(store, options = {}) {
         if(path==='/api/agenda')return reply(200,agenda);
         return reply(200,{token,networks,projects,agenda,dailyRunning:daily.running,tracker:store.setting?.('trackerResult',null),events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
       }
+      if(req.method==='GET' && path==='/api/agents/progress')return reply(200,{...daily.progress,running:daily.running});
       if(req.method==='GET' && path==='/api/agents')return reply(200,{status:await agents.status(),messages:agents.history()});
       const draftMatch=path.match(/^\/api\/projects\/([\w-]+)\/research-draft$/);
       if(req.method==='GET' && draftMatch)return reply(200,store.researchDraft(draftMatch[1]));
@@ -91,7 +92,7 @@ export function createApp(store, options = {}) {
         const task = path.match(/^\/api\/tasks\/([\w-]+)\/complete$/);
         if (task) return reply(200, store.complete(task[1], body));
       }
-      const files = { '/material-import.js':['material-import.js','text/javascript'], '/local-chat.js':['local-chat.js','text/javascript'], '/robot.js':['robot.js','text/javascript'], '/backup.js': ['backup.js','text/javascript'], '/outcomes.js': ['outcomes.js','text/javascript'], '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
+      const files = { '/agent-progress.js':['agent-progress.js','text/javascript'], '/material-import.js':['material-import.js','text/javascript'], '/local-chat.js':['local-chat.js','text/javascript'], '/robot.js':['robot.js','text/javascript'], '/backup.js': ['backup.js','text/javascript'], '/outcomes.js': ['outcomes.js','text/javascript'], '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
       if (req.method === 'GET' && Object.hasOwn(files, path)) {
         const [file, type] = files[path]; const data = await readFile(new URL(`../public/${file}`, import.meta.url));
         res.writeHead(200, { 'Content-Type': `${type}; charset=utf-8` }); return res.end(data);

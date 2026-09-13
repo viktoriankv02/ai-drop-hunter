@@ -2,7 +2,7 @@ import {readIncryptedGuide} from './incrypted-guide.mjs';
 import {createHash} from 'node:crypto';
 import {parseIncrypted} from './tracker-search.mjs';
 export class DailyResearch {
- constructor(store,agents,fetcher=fetch,guideReader=readIncryptedGuide){this.guideReader=guideReader;this.store=store;this.agents=agents;this.fetcher=fetcher;this.running=false;}
+ constructor(store,agents,fetcher=fetch,guideReader=readIncryptedGuide){this.guideReader=guideReader;this.store=store;this.agents=agents;this.fetcher=fetcher;this.running=false;this.progress={phase:'idle',processed:0,total:0,errors:0};}
  start(){this.timer=setInterval(()=>this.tick().catch(()=>{}),60000);this.timer.unref();this.tick().catch(()=>{});}
  stop(){clearInterval(this.timer);}
  async tick(force=false){
@@ -10,8 +10,8 @@ export class DailyResearch {
   const now=Date.now();
   const selected=this.store.list().filter(p=>['watching','active'].includes(p.workflow)&&/^https:\/\/incrypted\.com\/airdrops\/\?single=\d+$/.test(p.source));
   const due=selected.filter(p=>{const last=this.store.setting('daily:'+p.id,null);return force||!last||now-Date.parse(last.attemptedAt)>(last.error||last.aiError?3600000:86400000);});
-  if(!due.length)return;
-  this.running=true;
+  if(!due.length){if(force)this.progress={phase:'idle',processed:0,total:0,errors:0,message:'Немає вибраних проєктів Incrypted для перевірки'};return;}
+  this.running=true;this.progress={phase:'collecting',processed:0,total:due.length,errors:0};
   try{
    const response=await this.fetcher('https://incrypted.com/airdrops/',{redirect:'error',signal:AbortSignal.timeout(20000)});
    if(!response.ok)throw Error('Incrypted HTTP '+response.status);
@@ -19,8 +19,9 @@ export class DailyResearch {
    try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>2000000)throw Error('Ліміт сторінки');chunks.push(Buffer.from(value));}}finally{await reader.cancel();}
    const cards=parseIncrypted(Buffer.concat(chunks).toString('utf8'),false);
    for(const p of due){
+    this.progress.project=p.name;this.progress.phase='guide';
     const card=cards.find(c=>c.source===p.source);const attemptedAt=new Date().toISOString();
-    if(!card){this.store.setSetting('daily:'+p.id,{attemptedAt,error:'Проєкт не знайдено на поточній сторінці. Це не підтверджує завершення кампанії.'});continue;}
+    if(!card){this.progress.errors++;this.progress.processed++;this.store.setSetting('daily:'+p.id,{attemptedAt,error:'Проєкт не знайдено на поточній сторінці. Це не підтверджує завершення кампанії.'});continue;}
     const hash=createHash('sha256').update(JSON.stringify(card)).digest('hex');
     const old=this.store.setting('daily:'+p.id,null);
     let guideChanged=false;
@@ -30,14 +31,15 @@ export class DailyResearch {
      guideChanged=previousGuide?.hash!==guide.hash;
      if(guideChanged&&previousGuide)this.store.setSetting('previousGuide:'+p.id,previousGuide);
      this.store.setSetting('guide:'+p.id,guide);
-    }catch(e){this.store.setSetting('daily:'+p.id,{...old,attemptedAt,error:'Інструкція: '+e.message});continue;}
+    }catch(e){this.progress.errors++;this.progress.processed++;this.store.setSetting('daily:'+p.id,{...old,attemptedAt,error:'Інструкція: '+e.message});continue;}
     const changed=old?.hash!==hash||guideChanged;
     if(changed&&old)this.store.transaction(()=>{this.store.db.prepare('UPDATE projects SET verified=0 WHERE id=?').run(p.id);this.store.sourceChanged?.(p.id);});
     this.store.setSetting('daily:'+p.id,{attemptedAt,hash,snapshot:card,previous:changed?old?.snapshot:old?.previous,changed});
     if(changed)this.store.event(p.id,'Оновлено дані картки Incrypted. Перевірте умови; отримано інструкцію для аналізу.');
-    if((changed||old?.aiError)&&this.agents.analyze){try{await this.agents.analyze(p.id);}catch(e){this.store.setSetting('daily:'+p.id,{...this.store.setting('daily:'+p.id),aiError:e.message});}} 
+    if((changed||old?.aiError)&&this.agents.analyze){try{this.progress.phase='analyzing';await this.agents.analyze(p.id);}catch(e){this.progress.errors++;this.store.setSetting('daily:'+p.id,{...this.store.setting('daily:'+p.id),aiError:e.message});}} 
+    this.progress.processed++;
    }
-  }catch(e){for(const p of due)this.store.setSetting('daily:'+p.id,{...this.store.setting('daily:'+p.id,{}),attemptedAt:new Date().toISOString(),error:e.message});}
-  finally{this.running=false;}
+  }catch(e){this.progress.errors=due.length;this.progress.message=e.message;for(const p of due)this.store.setSetting('daily:'+p.id,{...this.store.setting('daily:'+p.id,{}),attemptedAt:new Date().toISOString(),error:e.message});}
+  finally{this.running=false;this.progress.phase='complete';this.progress.project=null;this.progress.completedAt=new Date().toISOString();}
  }
 }

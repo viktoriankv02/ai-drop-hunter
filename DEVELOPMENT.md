@@ -72,3 +72,5 @@ Incrypted is now the preferred tracker option; 31 live candidates imported. Dail
 
 ## Agent cycle update
 DailyResearch now retrieves the full linked Incrypted guide on each due check, keeps previous guide on change, invalidates verification and assessments on changes, and invokes local analysis. Manual POST /api/agents/run starts the same selected-project cycle; UI shows running state. Automated analysis excludes personal chat history and is not appended to it. 44 tests and browser smoke passed. Only selected Incrypted projects supported; no automatic transaction execution or autonomous training.
+
+Agent progress: GET /api/agents/progress reports phase, current project, processed count and errors. UI polls every 5 seconds while visible without re-rendering forms; offers explicit results refresh on completion. Progress is in-memory, resets on server restart.
