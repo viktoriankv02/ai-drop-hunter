@@ -79,6 +79,15 @@ function projectCard(p) {
   }
   actions.append(action('Аналіз локальним ШІ',async()=>{ $('#message').textContent='Локальна модель аналізує. Це може тривати кілька хвилин…';await mutate('/api/agents/analyze',{projectId:p.id}); }));
   if(p.agentReview){const review=node('details');review.append(node('summary','Чернетка ШІ · '+new Date(p.agentReview.createdAt).toLocaleString('uk-UA')),node('p','Висновок за збереженими матеріалами, без нової перевірки сайту.','muted'),node('p',p.agentReview.answer,'ai-review'));card.append(review);}
+  if(p.agentReview){
+   const feedback=node('details',undefined,'assessment');feedback.append(node('summary','Навчити помічника: оцінити аналіз'),node('p','Твоє уточнення збережеться для наступних аналізів цього проєкту. Це пам’ять помічника, а не перенавчання моделі.','muted'));
+   const f=node('form',undefined,'form-grid'),rating=node('select');const ratingLabel=node('label','Оцінка аналізу');ratingLabel.append(rating);
+   for(const [v,t] of [['useful','Корисно'],['inaccurate','Потрібне виправлення']]){const o=node('option',t);o.value=v;rating.append(o);}rating.value=p.agentFeedback?.rating||'useful';
+   const label=node('label','Що врахувати наступного разу?','wide'),comment=node('textarea');comment.maxLength=1500;comment.value=p.agentFeedback?.comment||'';label.append(comment);
+   const save=node('button','Зберегти для агента');save.type='submit';f.append(ratingLabel,label,save);
+   f.onsubmit=async e=>{e.preventDefault();save.disabled=true;try{await mutate('/api/agents/feedback',{projectId:p.id,rating:rating.value,comment:comment.value,reviewCreatedAt:p.agentReview.createdAt});}catch(error){$('#message').textContent=error.message;save.disabled=false;}};
+   feedback.append(f);if(p.agentFeedback){feedback.append(node('p','Уточнення збережене. Агент врахує його під час наступного аналізу.','muted'),action('Забути це уточнення',()=>mutate('/api/agents/feedback',{projectId:p.id,rating:'clear'})));}card.append(feedback);
+  }
   if(incrypted)actions.append(action('Отримати інструкцію Incrypted',()=>mutate('/api/agents/guide',{projectId:p.id})));
   if(p.importedMaterial){const m=node('details');m.append(node('summary','Імпорт CryptoRank · '+new Date(p.importedMaterial.createdAt).toLocaleString('uk-UA')),node('p',p.importedMaterial.content,'ai-review'));card.append(m);}
   if(p.guide)card.append(guideReader(p.guide));
