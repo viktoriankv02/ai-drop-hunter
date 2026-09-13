@@ -1,3 +1,4 @@
+import { AnalysisQueue } from './analysis-queue.mjs';
 import { MaterialImport } from './material-import.mjs';
 import { readIncryptedGuide } from './incrypted-guide.mjs';
 import { DailyResearch } from './daily-research.mjs';
@@ -25,6 +26,8 @@ export function createApp(store, options = {}) {
   const outcomes=new OutcomeLedger(store);
   const materials=new MaterialImport(store);
   const agents=new LocalAgents(store,options.agentFetcher);
+  const analysisQueue=new AnalysisQueue(store,agents);
+  if(options.monitor)analysisQueue.start();
   const daily=new DailyResearch(store,agents,options.trackerFetcher);
   if(options.monitor)daily.start();
   const tracker=new TrackerSearch(store,options.trackerFetcher);
@@ -41,7 +44,7 @@ export function createApp(store, options = {}) {
     try {
       const path = new URL(req.url, `http://${host}`).pathname;
       if (req.method === 'GET' && (path === '/api/state' || path === '/api/agenda')) {
-        const projects=store.list().map(p=>({...p,importedMaterial:materials.latest(p.id),guide:store.setting?.('guide:'+p.id,null),daily:store.setting?.('daily:'+p.id,null),agentFeedback:store.setting?.('agentFeedback:'+p.id,null),agentReview:store.setting?.('agentReview:'+p.id,null),outcomes:outcomes.list(p.id),outcomeSummary:outcomes.summary(p.id)}));const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
+        const projects=store.list().map(p=>({...p,analysisJob:analysisQueue.latest(p.id),importedMaterial:materials.latest(p.id),guide:store.setting?.('guide:'+p.id,null),daily:store.setting?.('daily:'+p.id,null),agentFeedback:store.setting?.('agentFeedback:'+p.id,null),agentReview:store.setting?.('agentReview:'+p.id,null),outcomes:outcomes.list(p.id),outcomeSummary:outcomes.summary(p.id)}));const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
         if(path==='/api/agenda')return reply(200,agenda);
         return reply(200,{token,networks,projects,agenda,dailyRunning:daily.running,tracker:store.setting?.('trackerResult',null),events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
       }
@@ -71,7 +74,8 @@ export function createApp(store, options = {}) {
         if(path==='/api/agents/guide'){const p=store.project(body.projectId);const guide=await readIncryptedGuide(p.source);store.setSetting('guide:'+p.id,guide);return reply(200,{ok:true});}
         if(path==='/api/agents/feedback')return reply(200,agents.feedback(body));
         if(path==='/api/agents/analyze')return reply(200,await agents.analyze(body.projectId));
-        if(path==='/api/materials/import')return reply(200,materials.save(body));
+        if(path==='/api/materials/import'){const result=materials.save(body);const latest=materials.latest(result.id);analysisQueue.enqueue(result.id,latest.hash);return reply(200,{...result,queued:true});}
+        if(path==='/api/agents/retry'){analysisQueue.retry(body.projectId);return reply(200,{ok:true});}
         if(path==='/api/agents/run'){if(daily.running||agents.busy)return reply(409,{error:'Агенти вже працюють'});daily.tick(true).catch(()=>{});return reply(202,{started:true});}
         if(path==='/api/agents/chat')return reply(200,await agents.ask(body));
         if (path === '/api/projects') return reply(201, store.create(body));
@@ -101,7 +105,7 @@ export function createApp(store, options = {}) {
       reply(404, { error: 'Не знайдено' });
     } catch (error) { if(res.headersSent || res.destroyed){res.destroy();return;}reply(400, { error: error.message }); }
   });
-  app.on('close', () => {monitor.stop();daily.stop();});
+  app.on('close', () => {monitor.stop();daily.stop();analysisQueue.stop();});
   return app;
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

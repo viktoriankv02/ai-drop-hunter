@@ -78,6 +78,7 @@ function projectCard(p) {
     const details = node('details'); details.append(node('summary', 'Знімок джерела · '+new Date(evidence.attemptedAt).toLocaleString('uk-UA')),node('p',evidence.excerpt,'muted')); card.append(details);
   }
   actions.append(action('Аналіз локальним ШІ',async()=>{ $('#message').textContent='Локальна модель аналізує. Це може тривати кілька хвилин…';await mutate('/api/agents/analyze',{projectId:p.id}); }));
+  if(p.analysisJob){const labels={pending:'Очікує аналізу',running:'Ollama аналізує матеріал',succeeded:'Аналіз завершено',failed:'Помилка аналізу',superseded:'Матеріал оновлено — попередню версію пропущено'};card.append(node('p',labels[p.analysisJob.status]+(p.analysisJob.error?' · '+p.analysisJob.error:''),'notice'));if(p.analysisJob.status==='failed')card.append(action('Повторити автоматичний аналіз',()=>mutate('/api/agents/retry',{projectId:p.id})));}
   if(p.agentReview){const review=node('details');review.append(node('summary','Чернетка ШІ · '+new Date(p.agentReview.createdAt).toLocaleString('uk-UA')),node('p','Висновок за збереженими матеріалами, без нової перевірки сайту.','muted'),node('p',p.agentReview.answer,'ai-review'));card.append(review);}
   if(p.agentReview){
    const feedback=node('details',undefined,'assessment');feedback.append(node('summary','Навчити помічника: оцінити аналіз'),node('p','Твоє уточнення збережеться для наступних аналізів цього проєкту. Це пам’ять помічника, а не перенавчання моделі.','muted'));
