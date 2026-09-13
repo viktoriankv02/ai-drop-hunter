@@ -1,3 +1,4 @@
+import { setupMaterialImport } from './material-import.js';
 import { setupLocalChat } from './local-chat.js';
 import { setupRobot } from './robot.js';
 import { assessmentPanel } from './assessment.js';
@@ -55,6 +56,10 @@ function projectCard(p) {
   }
   card.append(action('Аналіз локальним ШІ',async()=>{ $('#message').textContent='Локальна модель аналізує. Це може тривати кілька хвилин…';await mutate('/api/agents/analyze',{projectId:p.id}); }));
   if(p.agentReview){const review=node('details');review.append(node('summary','Чернетка ШІ · '+new Date(p.agentReview.createdAt).toLocaleString('uk-UA')),node('p','Висновок за збереженими матеріалами, без нової перевірки сайту.','muted'),node('p',p.agentReview.answer,'ai-review'));card.append(review);}
+  if(p.source.startsWith('https://incrypted.com/airdrops/?single='))card.append(action('Отримати інструкцію Incrypted',()=>mutate('/api/agents/guide',{projectId:p.id})));
+  if(p.importedMaterial){const m=node('details');m.append(node('summary','Імпорт CryptoRank · '+new Date(p.importedMaterial.createdAt).toLocaleString('uk-UA')),node('p',p.importedMaterial.content,'ai-review'));card.append(m);}
+  if(p.guide){const g=node('details');const a=node('a','Відкрити інструкцію ↗');a.href=p.guide.url;a.target='_blank';a.rel='noopener noreferrer';g.append(node('summary','Інструкція Incrypted · '+new Date(p.guide.fetchedAt).toLocaleString('uk-UA')),a,node('p',p.guide.text,'ai-review'));card.append(g);}
+  if(p.daily){const d=node('details');d.append(node('summary','Щоденна перевірка Incrypted'),node('p',p.daily.error||('Перевірено '+new Date(p.daily.attemptedAt).toLocaleString('uk-UA')+' · '+p.daily.snapshot.actions+(p.daily.aiError?' · ШІ: '+p.daily.aiError:''))));card.append(d);}
   if(p.latestEvidence)card.append(researchPanel(p,{node,mutate}));
   card.append(assessmentPanel(p,{node,mutate}),outcomePanel(p,{node,mutate}));
   const tasks = node('div', undefined, 'tasks');
@@ -74,8 +79,9 @@ function projectCard(p) {
 }
 setupBackup(()=>state?.token??'');
 setupRobot(()=>state);
+setupMaterialImport({mutate});
 setupLocalChat(()=>state);
-$('#find-projects').onclick=async()=>{const b=$('#find-projects');b.disabled=true;$('#tracker-status').textContent='Шукаю проєкти…';try{await mutate('/api/discovery/projects',{});}catch(e){$('#tracker-status').textContent=e.message;}finally{b.disabled=false;}};
+$('#find-projects').onclick=async()=>{const b=$('#find-projects');b.disabled=true;$('#tracker-status').textContent='Шукаю проєкти…';try{await mutate('/api/discovery/projects',{sourceId:$('#tracker-source').value});}catch(e){$('#tracker-status').textContent=e.message;}finally{b.disabled=false;}};
 $('#filter').onchange = render;
 $('#workflow-filter').onchange=render;
 $('#search').oninput=render;

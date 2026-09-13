@@ -66,3 +66,6 @@ Airdrops.io — додаткове джерело. DropsTab, CertiK Skynet та 
 Уточнення користувача: Ollama, моделі та журнали фізично зберігати лише на диску D. Каталоги D:\AI\Ollama, D:\AI\OllamaData, D:\AI\OllamaLogs. Старі шляхи на C — лише junction для сумісності. OLLAMA_MODELS=D:\AI\OllamaData\models.
 
 Після живої перевірки базову qwen3:4b замінено на qwen3:4b-instruct: базова модель ігнорувала вимкнення міркування. Обірвані відповіді (done_reason=length) не зберігати.
+
+## Latest research/import work
+Incrypted is now the preferred tracker option; 31 live candidates imported. DailyResearch checks watching/active Incrypted cards once daily while server runs, keeps previous snapshot, and triggers local analysis on changes. Full guide retrieval is a separate button using a public instruction link; guide text is passed to local analysis. CryptoRank still returns 403 to direct reads. MaterialImport accepts user-pasted CryptoRank text (16k chars), stores immutable versions, deduplicates unchanged content, invalidates manual verification on change. Browser session access remains unavailable; no cookies copied or challenge bypassed. 43 tests pass plus existing browser smoke. Server/Telegram/full autonomous cross-source search remain incomplete.

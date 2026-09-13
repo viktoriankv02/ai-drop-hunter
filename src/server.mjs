@@ -1,3 +1,6 @@
+import { MaterialImport } from './material-import.mjs';
+import { readIncryptedGuide } from './incrypted-guide.mjs';
+import { DailyResearch } from './daily-research.mjs';
 import { LocalAgents } from './local-agents.mjs';
 import { TrackerSearch } from './tracker-search.mjs';
 import { createServer } from 'node:http';
@@ -20,7 +23,10 @@ export function createApp(store, options = {}) {
   const monitor = new Monitor(store, discovery);
   if (options.monitor) monitor.start();
   const outcomes=new OutcomeLedger(store);
+  const materials=new MaterialImport(store);
   const agents=new LocalAgents(store,options.agentFetcher);
+  const daily=new DailyResearch(store,agents,options.trackerFetcher);
+  if(options.monitor)daily.start();
   const tracker=new TrackerSearch(store,options.trackerFetcher);
   let backupInFlight=false;
   const token = randomBytes(32).toString('hex');
@@ -35,7 +41,7 @@ export function createApp(store, options = {}) {
     try {
       const path = new URL(req.url, `http://${host}`).pathname;
       if (req.method === 'GET' && (path === '/api/state' || path === '/api/agenda')) {
-        const projects=store.list().map(p=>({...p,agentReview:store.setting?.('agentReview:'+p.id,null),outcomes:outcomes.list(p.id),outcomeSummary:outcomes.summary(p.id)}));const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
+        const projects=store.list().map(p=>({...p,importedMaterial:materials.latest(p.id),guide:store.setting?.('guide:'+p.id,null),daily:store.setting?.('daily:'+p.id,null),agentReview:store.setting?.('agentReview:'+p.id,null),outcomes:outcomes.list(p.id),outcomeSummary:outcomes.summary(p.id)}));const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
         if(path==='/api/agenda')return reply(200,agenda);
         return reply(200,{token,networks,projects,agenda,tracker:store.setting?.('trackerResult',null),events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
       }
@@ -61,7 +67,9 @@ export function createApp(store, options = {}) {
         }
         const workflowMatch=path.match(/^\/api\/projects\/([\w-]+)\/workflow$/);
         if(workflowMatch)return reply(200,store.setWorkflow(workflowMatch[1],body));
+        if(path==='/api/agents/guide'){const p=store.project(body.projectId);const guide=await readIncryptedGuide(p.source);store.setSetting('guide:'+p.id,guide);return reply(200,{ok:true});}
         if(path==='/api/agents/analyze')return reply(200,await agents.analyze(body.projectId));
+        if(path==='/api/materials/import')return reply(200,materials.save(body));
         if(path==='/api/agents/chat')return reply(200,await agents.ask(body));
         if (path === '/api/projects') return reply(201, store.create(body));
         const outcomeMatch=path.match(/^\/api\/projects\/([\w-]+)\/outcomes$/);
@@ -72,7 +80,7 @@ export function createApp(store, options = {}) {
         if(planMatch)return reply(200,store.adoptResearch(planMatch[1],body));
         const assessmentMatch = path.match(/^\/api\/projects\/([\w-]+)\/assessment$/);
         if (assessmentMatch) return reply(201,store.saveAssessment(assessmentMatch[1],body));
-        if (path === '/api/discovery/projects') return reply(200,await tracker.scan());
+        if (path === '/api/discovery/projects') return reply(200,await tracker.scan(body.sourceId));
         if (path === '/api/discovery/scan') return reply(200, await discovery.scan(body.sourceId));
         if (path === '/api/monitor') { if (typeof body.enabled !== 'boolean') throw new Error('Потрібне enabled: boolean'); store.setSetting('monitorEnabled', body.enabled); return reply(200, monitor.state()); }
         const match = path.match(/^\/api\/projects\/([\w-]+)\/(verify|tasks)$/);
@@ -82,7 +90,7 @@ export function createApp(store, options = {}) {
         const task = path.match(/^\/api\/tasks\/([\w-]+)\/complete$/);
         if (task) return reply(200, store.complete(task[1], body));
       }
-      const files = { '/local-chat.js':['local-chat.js','text/javascript'], '/robot.js':['robot.js','text/javascript'], '/backup.js': ['backup.js','text/javascript'], '/outcomes.js': ['outcomes.js','text/javascript'], '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
+      const files = { '/material-import.js':['material-import.js','text/javascript'], '/local-chat.js':['local-chat.js','text/javascript'], '/robot.js':['robot.js','text/javascript'], '/backup.js': ['backup.js','text/javascript'], '/outcomes.js': ['outcomes.js','text/javascript'], '/agenda.js': ['agenda.js','text/javascript'], '/research.js': ['research.js','text/javascript'], '/schedule.js': ['schedule.js','text/javascript'], '/assessment.js': ['assessment.js', 'text/javascript'], '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
       if (req.method === 'GET' && Object.hasOwn(files, path)) {
         const [file, type] = files[path]; const data = await readFile(new URL(`../public/${file}`, import.meta.url));
         res.writeHead(200, { 'Content-Type': `${type}; charset=utf-8` }); return res.end(data);
@@ -90,7 +98,7 @@ export function createApp(store, options = {}) {
       reply(404, { error: 'Не знайдено' });
     } catch (error) { if(res.headersSent || res.destroyed){res.destroy();return;}reply(400, { error: error.message }); }
   });
-  app.on('close', () => monitor.stop());
+  app.on('close', () => {monitor.stop();daily.stop();});
   return app;
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
