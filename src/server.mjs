@@ -48,7 +48,7 @@ export function createApp(store, options = {}) {
         if(path==='/api/agenda')return reply(200,agenda);
         return reply(200,{token,networks,projects,agenda,dailyRunning:daily.running,tracker:store.setting?.('trackerResult',null),events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
       }
-      if(req.method==='GET' && path==='/api/agents/progress')return reply(200,{...daily.progress,running:daily.running});
+      if(req.method==='GET' && path==='/api/agents/progress')return reply(200,{...daily.progress,running:daily.running,queue:analysisQueue.summary()});
       if(req.method==='GET' && path==='/api/agents')return reply(200,{status:await agents.status(),messages:agents.history()});
       const draftMatch=path.match(/^\/api\/projects\/([\w-]+)\/research-draft$/);
       if(req.method==='GET' && draftMatch)return reply(200,store.researchDraft(draftMatch[1]));
