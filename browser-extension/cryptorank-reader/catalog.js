@@ -4,14 +4,15 @@ async function catalogTick(){
  if(catalogBusy)return;catalogBusy=true;
  try{
  let {catalog}=await chrome.storage.local.get('catalog');if(!catalog?.enabled)return;
- const apps=await chrome.tabs.query({url:'http://127.0.0.1:4317/*'});if(!apps.length)throw Error('Відкрий AI Drop Hunter у цьому браузері та віднови збір.');
+ const apps=await chrome.tabs.query({url:'http://127.0.0.1:4317/*'});if(!apps.length){await chrome.tabs.create({url:'http://127.0.0.1:4317/',active:false});catalog.message='Відкрито AI Drop Hunter у цьому браузері. Очікую завантаження.';await chrome.storage.local.set({catalog});return;}
  if(!catalog.tabId){
  const url=catalog.urls[0];if(!url){catalog.enabled=false;catalog.message='Збір завершено';await chrome.storage.local.set({catalog});return;}
  if(!validCard(url))throw Error('Непідтримуване посилання');
  const tab=await chrome.tabs.create({url,active:false});catalog.tabId=tab.id;catalog.openedAt=Date.now();catalog.message='Читаю '+url;await chrome.storage.local.set({catalog});return;
  }
- const tab=await chrome.tabs.get(catalog.tabId);if(tab.url!==catalog.urls[0])throw Error('Адреса вкладки змінилася. Перевір її та запусти збір знову.');
+ const tab=await chrome.tabs.get(catalog.tabId);
  if(tab.status!=='complete'){if(Date.now()-catalog.openedAt>90000)throw Error('Сторінка не завантажилася');return;}
+ if(tab.url!==catalog.urls[0])throw Error('Адреса вкладки змінилася. Перевір її та запусти збір знову.');
  const [{result:data}]=await chrome.scripting.executeScript({target:{tabId:tab.id},func:()=>{
  const root=document.querySelector('main')||document.body;
  const text=root.innerText.trim();
@@ -43,6 +44,6 @@ chrome.runtime.onMessage.addListener((m,sender,reply)=>{
  if(m.type==='catalog-stop'){if(old)await chrome.storage.local.set({catalog:{...old,enabled:false,message:'Зупинено користувачем'}});return {ok:true};}
  if(old?.enabled)throw Error('Збір уже працює');
  const urls=[...new Set((Array.isArray(m.urls)?m.urls:[]).filter(validCard))].slice(0,10);if(!urls.length)throw Error('На відкритій сторінці не знайдено карток CryptoRank');
- await chrome.storage.local.set({catalog:{enabled:true,urls,done:0,tabId:null,message:'Починаю збір'}});await chrome.alarms.create('catalog',{periodInMinutes:0.5});await catalogTick();return {ok:true};
+ await chrome.storage.local.set({catalog:{enabled:true,urls,done:0,tabId:null,message:'Починаю збір'}});await chrome.alarms.create('catalog',{periodInMinutes:0.5});await catalogTick();const {catalog}=await chrome.storage.local.get('catalog');return catalog?.enabled?{ok:true}:{error:catalog?.message||'Не вдалося запустити збір'};
  })().then(reply).catch(e=>reply({error:e.message}));return true;
 });
