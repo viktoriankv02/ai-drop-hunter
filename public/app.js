@@ -48,24 +48,36 @@ function projectCard(p) {
   const workflow=node('select');workflow.setAttribute('aria-label','Статус проєкту '+p.name);
   for(const [value,label] of Object.entries({new:'Новий',watching:'Цікавить',active:'У роботі',paused:'Відкладено',dismissed:'Не підходить'})){const o=node('option',label);o.value=value;workflow.append(o);}
   workflow.value=p.workflow||'new';workflow.onchange=async()=>{workflow.disabled=true;try{await mutate('/api/projects/'+p.id+'/workflow',{workflow:workflow.value});}catch(e){$('#message').textContent=e.message;workflow.value=p.workflow||'new';workflow.disabled=false;}};
-  top.append(workflow);
-  card.append(top, node('h3', p.name), node('p', p.notes || 'Додайте завдання після дослідження джерела.', 'muted'));
-  const link = node('a', 'Відкрити джерело ↗'); link.href = p.source; link.target = '_blank'; link.rel = 'noopener noreferrer'; card.append(link);
+  const statusLabel=node('label','Мій статус');statusLabel.append(workflow);top.append(statusLabel);
+  card.append(top, node('h3', p.name));
+  const incrypted=p.source.startsWith('https://incrypted.com/airdrops/?single=');
+  const overview=node('div',undefined,'project-overview');
+  const sourceName=incrypted?'Incrypted':new URL(p.source).hostname;
+  const info=(title,text)=>{const block=node('div');block.append(node('strong',title),node('p',text));overview.append(block);};
+  info('Джерело',sourceName);
+  info('Матеріали',p.guide?'Інструкція отримана':p.importedMaterial?'Матеріали імпортовані':'Інструкцію ще не отримано');
+  info('Аналіз ШІ',p.agentReview?'Чернетка готова — відкрий нижче':'Ще не виконано');
+  card.append(overview);
+  if(p.notes){const notes=node('details',undefined,'project-notes');notes.append(node('summary','Опис і нотатки'),node('p',p.notes,'ai-review'));card.append(notes);}
+  const help=incrypted ? (['watching','active'].includes(p.workflow)?'Проєкт обрано для щоденної перевірки. Запусти агентів у блоці вище або отримай інструкцію й аналіз кнопками нижче.':'Хочеш стежити за цим проєктом? У полі «Мій статус» обери «Цікавить». Для початку відкрий джерело або отримай інструкцію.') : 'Відкрий джерело, додай матеріали та замов аналіз. Щоденна перевірка поки підтримує лише картки Incrypted.';
+  card.append(node('p',help,'project-next-step'));
+  const actions=node('div',undefined,'project-actions');card.append(actions);
+  const link = node('a', 'Відкрити джерело ↗'); link.href = p.source; link.target = '_blank'; link.rel = 'noopener noreferrer'; actions.append(link);
   const rewardLabels={unconfirmed:'Винагорода не підтверджена',announced:'Оголошено за перевіркою користувача',closed:'Кампанію позначено завершеною'};
   card.append(node('p', `План участі: ${p.analysis?.score ?? '—'}/100 · ${rewardLabels[p.analysis?.rewardStatus || 'unconfirmed']}`, 'score'));
-  if (!p.verified) card.append(action('Підтвердити перевірку джерела', async () => { const evidence = prompt('Що підтверджує офіційність джерела? Запишіть результат власної перевірки.'); if (evidence) await mutate(`/api/projects/${p.id}/verify`, { evidence }); }));
+  if (!p.verified) actions.append(action('Підтвердити перевірку джерела', async () => { const evidence = prompt('Що підтверджує офіційність джерела? Запишіть результат власної перевірки.'); if (evidence) await mutate(`/api/projects/${p.id}/verify`, { evidence }); }));
   for (const evidence of p.evidence || []) {
     const details = node('details'); details.append(node('summary', 'Знімок джерела · '+new Date(evidence.attemptedAt).toLocaleString('uk-UA')),node('p',evidence.excerpt,'muted')); card.append(details);
   }
-  card.append(action('Аналіз локальним ШІ',async()=>{ $('#message').textContent='Локальна модель аналізує. Це може тривати кілька хвилин…';await mutate('/api/agents/analyze',{projectId:p.id}); }));
+  actions.append(action('Аналіз локальним ШІ',async()=>{ $('#message').textContent='Локальна модель аналізує. Це може тривати кілька хвилин…';await mutate('/api/agents/analyze',{projectId:p.id}); }));
   if(p.agentReview){const review=node('details');review.append(node('summary','Чернетка ШІ · '+new Date(p.agentReview.createdAt).toLocaleString('uk-UA')),node('p','Висновок за збереженими матеріалами, без нової перевірки сайту.','muted'),node('p',p.agentReview.answer,'ai-review'));card.append(review);}
-  if(p.source.startsWith('https://incrypted.com/airdrops/?single='))card.append(action('Отримати інструкцію Incrypted',()=>mutate('/api/agents/guide',{projectId:p.id})));
+  if(incrypted)actions.append(action('Отримати інструкцію Incrypted',()=>mutate('/api/agents/guide',{projectId:p.id})));
   if(p.importedMaterial){const m=node('details');m.append(node('summary','Імпорт CryptoRank · '+new Date(p.importedMaterial.createdAt).toLocaleString('uk-UA')),node('p',p.importedMaterial.content,'ai-review'));card.append(m);}
   if(p.guide)card.append(guideReader(p.guide));
-  if(p.daily){const d=node('details');d.append(node('summary','Щоденна перевірка Incrypted'),node('p',p.daily.error||('Перевірено '+new Date(p.daily.attemptedAt).toLocaleString('uk-UA')+' · '+p.daily.snapshot.actions+(p.daily.aiError?' · ШІ: '+p.daily.aiError:''))));card.append(d);}
+  if(p.daily){const d=node('details');d.append(node('summary','Щоденна перевірка Incrypted'),node('p',p.daily.error||('Перевірено '+new Date(p.daily.attemptedAt).toLocaleString('uk-UA')+' · '+(p.daily.snapshot?.actions||'Без нових даних')+(p.daily.aiError?' · ШІ: '+p.daily.aiError:''))));card.append(d);}
   if(p.latestEvidence)card.append(researchPanel(p,{node,mutate}));
   card.append(assessmentPanel(p,{node,mutate}),outcomePanel(p,{node,mutate}));
-  const tasks = node('div', undefined, 'tasks');
+  const tasks = node('div', undefined, 'tasks');tasks.append(node('h4','Мій план дій'),node('p',p.tasks.length?'Твої завдання та строки виконання.':'Поки немає завдань. Прочитай інструкцію та додай перший крок нижче.','muted')); 
   for (const t of p.tasks) {
     const row = node('div', undefined, 'task'); row.id='task-'+t.id;row.tabIndex=-1; row.append(node('strong', `${t.status === 'completed' ? '✓' : '○'} ${t.title}`), node('small', t.status === 'completed' ? `Виконання повідомлено користувачем. ${t.evidence}` : policies[t.policy]));
     if (t.status !== 'completed' && p.verified) row.append(action('Записати виконання', async () => { const evidence = prompt('Додайте доказ уже виконаної дії: URL, tx hash або опис. Це лише запис у журналі, без виконання транзакції.'); if (evidence) await mutate(`/api/tasks/${t.id}/complete`, { evidence,scheduledFor:t.schedule?.dueAt,scheduleRevision:t.schedule?.revision }); }));
