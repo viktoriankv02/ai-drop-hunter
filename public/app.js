@@ -10,6 +10,10 @@ import { renderAgenda } from './agenda.js';
 import { outcomePanel } from './outcomes.js';
 import { setupBackup } from './backup.js';
 let state;
+const filterIds=['filter','workflow-filter','search','source-filter','review-filter','sort-projects'];
+function clearFilters(){for(const id of filterIds)document.getElementById(id).value=id==='sort-projects'?'newest':'';saveFilters();}
+function saveFilters(){try{localStorage.setItem('project-filters',JSON.stringify(Object.fromEntries(filterIds.map(id=>[id,document.getElementById(id).value]))));}catch{}}
+function restoreFilters(){try{const saved=JSON.parse(localStorage.getItem('project-filters')||'{}');for(const id of filterIds){const input=document.getElementById(id);if(typeof saved[id]==='string'&&(input.tagName!=='SELECT'||[...input.options].some(o=>o.value===saved[id])))input.value=saved[id];}}catch{}}
 const $ = s => document.querySelector(s);
 const node = (tag, text, cls) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; };
 const labels = { research: 'Дослідження', 'check-in': 'Check-in', social: 'Соціальне завдання', faucet: 'Faucet', bridge: 'Bridge', swap: 'Swap', deploy: 'Деплой контракту', 'contract-call': 'Виклик контракту', mint: 'Mint', stake: 'Stake' };
@@ -31,14 +35,18 @@ function render() {
   renderSources();
   $('#agent-work-status').textContent=state.dailyRunning?'Агенти працюють. Результати з’являться в картках; онови сторінку через кілька хвилин.':'Автоматичний цикл очікує. Для першого запуску вибери проєкти Incrypted.';
   $('#tracker-status').textContent=state.tracker ? (state.tracker.error ? 'Помилка пошуку: '+state.tracker.error : 'Останній пошук: додано '+state.tracker.added+', вже у списку '+state.tracker.duplicates)+' · '+new Date(state.tracker.fetchedAt).toLocaleString('uk-UA') : 'Пошук ще не запускався.';
-  renderAgenda(state.agenda,{node,onOpen:async item=>{try{await load();$('#filter').value='';$('#workflow-filter').value='';$('#search').value='';render();const target=document.getElementById('task-'+item.taskId);if(target){target.scrollIntoView({block:'center'});target.focus({preventScroll:true});}else{$('#message').textContent='Завдання більше не доступне.';}}catch(error){$('#message').textContent=error.message;}}});
+  renderAgenda(state.agenda,{node,onOpen:async item=>{try{await load();clearFilters();render();const target=document.getElementById('task-'+item.taskId);if(target){target.scrollIntoView({block:'center'});target.focus({preventScroll:true});}else{$('#message').textContent='Завдання більше не доступне.';}}catch(error){$('#message').textContent=error.message;}}});
   const allTasks = state.projects.flatMap(p => p.tasks);
   $('#metrics').replaceChildren(...[[state.projects.length, 'Проєктів у дослідженні'], [state.projects.filter(p => p.verified).length, 'Джерел підтверджено'], [allTasks.filter(t => t.status !== 'completed').length, 'Завдань у плані']].map(([count, label]) => { const el = node('div', undefined, 'metric'); el.append(node('strong', count), node('span', label)); return el; }));
   const query=$('#search').value.trim().toLocaleLowerCase('uk-UA');
   const list = state.projects.filter(p => (!$('#filter').value || p.network === $('#filter').value) && (!$('#workflow-filter').value || p.workflow === $('#workflow-filter').value) && (!query || (p.name+' '+p.notes).toLocaleLowerCase('uk-UA').includes(query)));
-  $('#result-count').textContent='Показано '+list.length+' із '+state.projects.length;
-  $('#projects').replaceChildren(...list.map(projectCard));
-  if (!list.length) $('#projects').append(node('div', 'Тут починається дослідження. Додай проєкт із посиланням на джерело — і сформуй свій перший план дій.', 'empty'));
+  const source=$('#source-filter').value,review=$('#review-filter').value;
+  const visible=list.filter(p=>{const host=new URL(p.source).hostname.replace(/^www\./,'');return (!source||(source==='other'?!['incrypted.com','airdrops.io','cryptorank.io'].includes(host):host===source))&&(!review||(review==='ready'?!!p.agentReview:review==='pending'?!p.agentReview:review==='guide'?!!p.guide:!!(p.daily?.error||p.daily?.aiError)));});
+  if($('#sort-projects').value==='name')visible.sort((a,b)=>a.name.localeCompare(b.name,'uk'));
+  if($('#sort-projects').value==='selected')visible.sort((a,b)=>Number(['watching','active'].includes(b.workflow))-Number(['watching','active'].includes(a.workflow)));
+  $('#result-count').textContent='Показано '+visible.length+' із '+state.projects.length;
+  $('#projects').replaceChildren(...visible.map(projectCard));
+  if (!visible.length) $('#projects').append(node('div', state.projects.length ? 'За цими фільтрами проєктів немає. Скинь фільтри або знайди нові проєкти кнопкою вище.' : 'Тут починається дослідження. Знайди нові проєкти кнопкою вище або додай власний.', 'empty'));
   $('#events').replaceChildren(...state.events.map(e => { const row = node('div', undefined, 'event'); row.append(node('time', new Date(e.createdAt).toLocaleString('uk-UA')), node('span', e.message)); return row; }));
   if (!state.events.length) $('#events').append(node('p', 'Історія з’явиться після першої дії.', 'muted'));
 }
@@ -99,11 +107,10 @@ setupMaterialImport({mutate});
 setupLocalChat(()=>state);
 $('#find-projects').onclick=async()=>{const b=$('#find-projects');b.disabled=true;$('#tracker-status').textContent='Шукаю проєкти…';try{await mutate('/api/discovery/projects',{sourceId:$('#tracker-source').value});}catch(e){$('#tracker-status').textContent=e.message;}finally{b.disabled=false;}};
 $('#run-agents').onclick=async()=>{const b=$('#run-agents');b.disabled=true;try{await mutate('/api/agents/run',{});}catch(e){$('#agent-work-status').textContent=e.message;}finally{b.disabled=false;}};
-$('#filter').onchange = render;
-$('#workflow-filter').onchange=render;
-$('#search').oninput=render;
+for(const id of filterIds){const input=document.getElementById(id);input.addEventListener(id==='search'?'input':'change',()=>{saveFilters();render();});}
+$('#reset-filters').onclick=()=>{clearFilters();render();};
 $('#project-form').onsubmit = async e => { e.preventDefault(); const form = e.currentTarget; const b = form.querySelector('button'); b.disabled = true; try { await mutate('/api/projects', Object.fromEntries(new FormData(form))); form.reset(); } catch (error) { $('#message').textContent = error.message; } finally { b.disabled = false; } };
-try { await load(); for (const n of state.networks) { for (const target of ['#network', '#filter']) { const o = node('option', `${n.name}`); o.value = n.id; $(target).append(o); } } } catch (e) { $('#message').textContent = e.message; }
+try { await load(); for (const n of state.networks) { for (const target of ['#network', '#filter']) { const o = node('option', `${n.name}`); o.value = n.id; $(target).append(o); } } restoreFilters();render(); } catch (e) { $('#message').textContent = e.message; }
 
 function renderSources() {
   const box = $('#sources'); if (!box) return;
