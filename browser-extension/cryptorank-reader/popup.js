@@ -11,3 +11,8 @@ document.querySelector('#export').onclick=async()=>{
  }catch(e){status.textContent=e.message;}
 };
 chrome.storage.local.get(['autoCapture','captureStatus']).then(s=>{document.querySelector('#auto').checked=!!s.autoCapture;document.querySelector('#status').textContent=s.captureStatus||'';});document.querySelector('#auto').onchange=e=>chrome.storage.local.set({autoCapture:e.target.checked});
+
+const catalogStatus=document.querySelector('#catalog-status');
+document.querySelector('#catalog-start').onclick=async()=>{try{const [tab]=await chrome.tabs.query({active:true,currentWindow:true});if(!tab.url?.startsWith('https://cryptorank.io/'))throw Error('Відкрий каталог CryptoRank');const [{result:urls}]=await chrome.scripting.executeScript({target:{tabId:tab.id},func:()=>[...document.querySelectorAll('a[href]')].filter(a=>a.getClientRects().length).map(a=>a.href)});const r=await chrome.runtime.sendMessage({type:'catalog-start',urls});catalogStatus.textContent=r.error||'Збір запущено';}catch(e){catalogStatus.textContent=e.message;}};
+document.querySelector('#catalog-stop').onclick=()=>chrome.runtime.sendMessage({type:'catalog-stop'});
+async function statusCatalog(){const {catalog}=await chrome.storage.local.get('catalog');catalogStatus.textContent=catalog?.message||'Збір ще не запускався';}statusCatalog();setInterval(statusCatalog,2000);

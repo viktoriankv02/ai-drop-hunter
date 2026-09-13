@@ -8,3 +8,4 @@ chrome.runtime.onMessage.addListener((message,sender,reply)=>{
  }});await chrome.storage.local.set({captureStatus:result.ok?'Матеріал передано в застосунок':result.error});reply(result);
  })().catch(async e=>{await chrome.storage.local.set({captureStatus:e.message});reply({ok:false,error:e.message});});return true;
 });
+importScripts('catalog.js');
