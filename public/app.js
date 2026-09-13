@@ -41,7 +41,7 @@ function render() {
   const query=$('#search').value.trim().toLocaleLowerCase('uk-UA');
   const list = state.projects.filter(p => (!$('#filter').value || p.network === $('#filter').value) && (!$('#workflow-filter').value || p.workflow === $('#workflow-filter').value) && (!query || (p.name+' '+p.notes).toLocaleLowerCase('uk-UA').includes(query)));
   const source=$('#source-filter').value,review=$('#review-filter').value;
-  const visible=list.filter(p=>{const host=new URL(p.source).hostname.replace(/^www\./,'');return (!source||(source==='other'?!['incrypted.com','airdrops.io','cryptorank.io'].includes(host):host===source))&&(!review||(review==='ready'?!!p.agentReview:review==='pending'?!p.agentReview:review==='guide'?!!p.guide:!!(p.daily?.error||p.daily?.aiError)));});
+  const visible=list.filter(p=>{const host=new URL(p.source).hostname.replace(/^www\./,'');return (!source||(source==='other'?!['incrypted.com','airdrops.io','cryptorank.io','dropstab.com'].includes(host):host===source))&&(!review||(review==='ready'?!!p.agentReview:review==='pending'?!p.agentReview:review==='guide'?!!p.guide:!!(p.daily?.error||p.daily?.aiError)));});
   if($('#sort-projects').value==='name')visible.sort((a,b)=>a.name.localeCompare(b.name,'uk'));
   if($('#sort-projects').value==='selected')visible.sort((a,b)=>Number(['watching','active'].includes(b.workflow))-Number(['watching','active'].includes(a.workflow)));
   $('#result-count').textContent='Показано '+visible.length+' із '+state.projects.length;

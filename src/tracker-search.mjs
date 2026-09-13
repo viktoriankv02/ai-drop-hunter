@@ -31,10 +31,21 @@ export function parseIncrypted(html,limit=true) {
  return limit?[...found.values()].slice(0,40):[...found.values()];
 }
 
+export function parseDropsTab(html){
+ const found=new Map();
+ for(const m of html.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)){
+  let url;try{url=new URL(m[1],'https://dropstab.com');}catch{continue;}
+  if(url.origin!=='https://dropstab.com'||url.username||url.password||!/^\/coins\/[a-z0-9-]+\/activities$/.test(url.pathname))continue;
+  const name=readableText(m[2].match(/<span class="font-semibold text-sm[^">]*"[^>]*>([\s\S]*?)<\/span>/)?.[1]||'').slice(0,120);
+  const actions=readableText(m[2]).slice(0,600);if(!name||!actions.includes('Active'))continue;
+  url.search='';url.hash='';found.set(url.href,{name,source:url.href,network:'unknown',actions});
+ }
+ if(!found.size)throw Error('Активні картки DropsTab не знайдено; формат міг змінитися');return [...found.values()].slice(0,40);
+}
 export class TrackerSearch {
  constructor(store,fetcher=fetch){this.store=store;this.fetcher=fetcher;this.running=null;}
  scan(sourceId='airdrops'){
-  if(!['airdrops','incrypted'].includes(sourceId))return Promise.reject(Error('Невідомий трекер'));
+  if(!['airdrops','incrypted','dropstab'].includes(sourceId))return Promise.reject(Error('Невідомий трекер'));
   if(this.running && this.sourceId!==sourceId)return Promise.reject(Error('Інший пошук уже працює'));
   this.sourceId=sourceId;
   if(this.running)return this.running;
@@ -45,13 +56,13 @@ export class TrackerSearch {
   return this.running;
  }
  async perform(sourceId){
-  const name=sourceId==='incrypted'?'Incrypted':'Airdrops.io';
+  const name=sourceId==='dropstab'?'DropsTab':sourceId==='incrypted'?'Incrypted':'Airdrops.io';
   try{
-   const response=await this.fetcher(sourceId==='incrypted'?'https://incrypted.com/airdrops/':'https://airdrops.io/',{redirect:'error',signal:AbortSignal.timeout(15000)});
+   const response=await this.fetcher(sourceId==='dropstab'?'https://dropstab.com/activities':sourceId==='incrypted'?'https://incrypted.com/airdrops/':'https://airdrops.io/',{redirect:'error',signal:AbortSignal.timeout(15000)});
    if(!response.ok||!response.headers.get('content-type')?.includes('text/html'))throw Error('Трекер недоступний або не повернув HTML');
    const reader=response.body.getReader();const chunks=[];let size=0;
    try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>2000000)throw Error('Сторінка перевищує 2 MB');chunks.push(Buffer.from(value));}}finally{await reader.cancel();}
-   const candidates=(sourceId==='incrypted'?parseIncrypted:parseTracker)(Buffer.concat(chunks).toString('utf8'));const fetchedAt=new Date().toISOString();
+   const candidates=(sourceId==='dropstab'?parseDropsTab:sourceId==='incrypted'?parseIncrypted:parseTracker)(Buffer.concat(chunks).toString('utf8'));const fetchedAt=new Date().toISOString();
    const result=this.store.transaction(()=>{
     let added=0,duplicates=0;
     for(const p of candidates){
