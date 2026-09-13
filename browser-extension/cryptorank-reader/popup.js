@@ -10,3 +10,4 @@ document.querySelector('#export').onclick=async()=>{
  status.textContent='Файл збережено. У AI Drop Hunter → Імпорт CryptoRank вибери цей файл і натисни «Імпортувати матеріал».';
  }catch(e){status.textContent=e.message;}
 };
+chrome.storage.local.get(['autoCapture','captureStatus']).then(s=>{document.querySelector('#auto').checked=!!s.autoCapture;document.querySelector('#status').textContent=s.captureStatus||'';});document.querySelector('#auto').onchange=e=>chrome.storage.local.set({autoCapture:e.target.checked});
