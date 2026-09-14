@@ -7,7 +7,7 @@ export function guideReader(guide){
  const link=el('a','Відкрити оригінал інструкції ↗');link.href=guide.url;link.target='_blank';link.rel='noopener noreferrer';panel.append(link);
  if(guide.links?.length){const links=el('details');links.append(el('summary','Посилання з інструкції ('+guide.links.length+')'));const list=el('ul');for(const item of guide.links){let url;try{url=new URL(item.url);if(url.protocol!=='https:'||url.username||url.password)continue;}catch{continue;}const row=el('li'),a=el('a',item.label+' — '+url.hostname);a.href=url.href;a.target='_blank';a.rel='noopener noreferrer';row.append(a);list.append(row);}links.append(el('p','Адреси взято з джерела; це не підтвердження безпеки сайту.'),list);panel.append(links);}
  const controls=el('div');controls.className='reader-controls';panel.append(controls);
- let prefs={size:'18',theme:'dark'};try{prefs={...prefs,...JSON.parse(localStorage.getItem(key)||'{}')};}catch{}
+ let prefs={size:'18',theme:'light'};try{prefs={...prefs,...JSON.parse(localStorage.getItem(key)||'{}')};}catch{}
  function select(title,values,value){const label=el('label',title),input=el('select');for(const [v,t] of values){const o=el('option',t);o.value=v;input.append(o);}input.value=value;label.append(input);controls.append(label);return input;}
  const size=select('Розмір шрифту',[['16','16 — компактний'],['18','18 — стандартний'],['20','20 — великий'],['24','24 — дуже великий']],prefs.size);
  const theme=select('Колір тексту та фону',[['dark','Світлий текст / темний фон'],['light','Темний текст / білий фон'],['sepia','Коричневий текст / кремовий фон']],prefs.theme);
