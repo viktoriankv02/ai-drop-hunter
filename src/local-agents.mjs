@@ -32,7 +32,7 @@ export class LocalAgents {
    const projects=this.store.list();
    const selected=input.projectId?projects.find(p=>p.id===input.projectId):null;
    if(input.projectId&&!selected)throw Error('Проєкт не знайдено');
-   const compact=(value,limit)=>{if(!value)return null;const text=value.text||value.content||'';return {url:value.url,text:text.slice(0,limit),partial:text.length>limit};};
+   const compact=(value,limit)=>{if(!value)return null;const text=value.text||value.content||'';return {url:value.url,text:text.slice(0,limit),links:(value.links||[]).slice(0,15),partial:text.length>limit};};
    const context=(selected?[selected]:projects.slice(0,6)).map(p=>({id:p.id,name:p.name,source:p.source,notes:p.notes.slice(0,500),importedMaterial:compact(this.materials.latest(p.id),selected?3500:300),guide:compact(this.store.setting('guide:'+p.id,null),selected?3500:300),trackerSnapshot:this.store.setting('daily:'+p.id,null)?.snapshot,sourceRole:'Матеріал трекера, не підтвердження офіційності',workflow:p.workflow,tasks:p.tasks.slice(0,6).map(t=>({title:t.title,status:t.status}))}));
    const feedback=selected?this.store.setting('agentFeedback:'+selected.id,null):null;
    const history=(input.useHistory===false?[]:this.history()).slice(-4).map(m=>({role:m.role,content:m.content.slice(0,600)}));
