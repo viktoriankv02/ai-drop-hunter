@@ -33,6 +33,13 @@ function action(label, fn) {
 }
 function render() {
   renderSources();
+  const summary=$('#research-summary');summary.replaceChildren();
+  for(const [title,value,filter] of [
+   ['Інструкції',state.projects.filter(p=>p.guide).length,'guide'],
+   ['Аналізи ШІ',state.projects.filter(p=>p.agentReview).length,'ready'],
+   ['Потребують уваги',state.projects.filter(p=>p.daily?.error||p.daily?.aiError||p.analysisJob?.status==='failed').length,'error']
+  ]){const block=node('div');block.append(node('strong',title),node('p',String(value)));block.append(action('Показати '+title.toLocaleLowerCase('uk-UA'),()=>{clearFilters();$('#review-filter').value=filter;saveFilters();render();$('#opportunities').scrollIntoView({block:'start'});}));summary.append(block);}
+
   $('#agent-work-status').textContent=state.dailyRunning?'Агенти працюють. Результати з’являться в картках; онови сторінку через кілька хвилин.':'Автоматичний цикл очікує. Для першого запуску вибери проєкти Incrypted.';
   $('#tracker-status').textContent=state.tracker ? (state.tracker.error ? 'Помилка пошуку: '+state.tracker.error : 'Останній пошук: додано '+state.tracker.added+', вже у списку '+state.tracker.duplicates)+' · '+new Date(state.tracker.fetchedAt).toLocaleString('uk-UA') : 'Пошук ще не запускався.';
   renderAgenda(state.agenda,{node,onOpen:async item=>{try{await load();clearFilters();render();const target=document.getElementById('task-'+item.taskId);if(target){target.scrollIntoView({block:'center'});target.focus({preventScroll:true});}else{$('#message').textContent='Завдання більше не доступне.';}}catch(error){$('#message').textContent=error.message;}}});
@@ -41,7 +48,7 @@ function render() {
   const query=$('#search').value.trim().toLocaleLowerCase('uk-UA');
   const list = state.projects.filter(p => (!$('#filter').value || p.network === $('#filter').value) && (!$('#workflow-filter').value || p.workflow === $('#workflow-filter').value) && (!query || (p.name+' '+p.notes).toLocaleLowerCase('uk-UA').includes(query)));
   const source=$('#source-filter').value,review=$('#review-filter').value;
-  const visible=list.filter(p=>{const host=new URL(p.source).hostname.replace(/^www\./,'');return (!source||(source==='other'?!['incrypted.com','airdrops.io','cryptorank.io','dropstab.com'].includes(host):host===source))&&(!review||(review==='ready'?!!p.agentReview:review==='pending'?!p.agentReview:review==='guide'?!!p.guide:!!(p.daily?.error||p.daily?.aiError)));});
+  const visible=list.filter(p=>{const host=new URL(p.source).hostname.replace(/^www\./,'');return (!source||(source==='other'?!['incrypted.com','airdrops.io','cryptorank.io','dropstab.com'].includes(host):host===source))&&(!review||(review==='ready'?!!p.agentReview:review==='pending'?!p.agentReview:review==='guide'?!!p.guide:!!(p.daily?.error||p.daily?.aiError||p.analysisJob?.status==='failed')));});
   if($('#sort-projects').value==='name')visible.sort((a,b)=>a.name.localeCompare(b.name,'uk'));
   if($('#sort-projects').value==='selected')visible.sort((a,b)=>Number(['watching','active'].includes(b.workflow))-Number(['watching','active'].includes(a.workflow)));
   $('#result-count').textContent='Показано '+visible.length+' із '+state.projects.length;
