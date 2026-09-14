@@ -1,3 +1,4 @@
+import {reviewStatus} from './review-status.mjs';
 import { AnalysisQueue } from './analysis-queue.mjs';
 import { MaterialImport } from './material-import.mjs';
 import { readIncryptedGuide } from './incrypted-guide.mjs';
@@ -44,7 +45,7 @@ export function createApp(store, options = {}) {
     try {
       const path = new URL(req.url, `http://${host}`).pathname;
       if (req.method === 'GET' && (path === '/api/state' || path === '/api/agenda')) {
-        const projects=store.list().map(p=>({...p,analysisJob:analysisQueue.latest(p.id),importedMaterial:materials.latest(p.id),guide:store.setting?.('guide:'+p.id,null),daily:store.setting?.('daily:'+p.id,null),agentFeedback:store.setting?.('agentFeedback:'+p.id,null),agentReview:store.setting?.('agentReview:'+p.id,null),outcomes:outcomes.list(p.id),outcomeSummary:outcomes.summary(p.id)}));const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
+        const projects=store.list().map(p=>({...p,analysisJob:analysisQueue.latest(p.id),importedMaterial:materials.latest(p.id),guide:store.setting?.('guide:'+p.id,null),daily:store.setting?.('daily:'+p.id,null),agentFeedback:store.setting?.('agentFeedback:'+p.id,null),agentReview:store.setting?.('agentReview:'+p.id,null),outcomes:outcomes.list(p.id),outcomeSummary:outcomes.summary(p.id)}));for(const p of projects)p.reviewStatus=reviewStatus(p.agentReview,p);const agenda=buildAgenda(projects,store.clock ? store.clock().getTime() : Date.now());
         if(path==='/api/agenda')return reply(200,agenda);
         return reply(200,{token,networks,projects,agenda,dailyRunning:daily.running,tracker:store.setting?.('trackerResult',null),events:store.history(),sources:sources.map(s=>({...s,lastScan:store.latestScan?.(s.id)||null})),monitor:store.setting?monitor.state():null});
       }

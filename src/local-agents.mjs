@@ -17,9 +17,10 @@ export class LocalAgents {
   this.store.setSetting('agentFeedback:'+id,feedback);return {ok:true};
  }
  async status(){try{const r=await this.fetcher('http://127.0.0.1:11434/api/tags',{signal:AbortSignal.timeout(3000)});if(!r.ok)throw Error();const data=await r.json();return {available:data.models?.some(m=>m.name==='qwen3:4b-instruct')||false,busy:this.busy,model:'qwen3:4b-instruct'};}catch{return {available:false,busy:this.busy,model:'qwen3:4b-instruct'};}}
- materialVersion(projectId,expectedHash){return expectedHash?.startsWith('guide:')?'guide:'+this.store.setting('guide:'+projectId,null)?.hash:this.materials.latest(projectId)?.hash;}
+ materialVersion(projectId,expectedHash){return expectedHash?.startsWith('daily:')?'daily:'+this.store.setting('daily:'+projectId,null)?.hash:expectedHash?.startsWith('guide:')?'guide:'+this.store.setting('guide:'+projectId,null)?.hash:this.materials.latest(projectId)?.hash;}
  async analyze(projectId,expectedHash){
   this.store.project(requiredText(projectId,'Проєкт',100));
+  expectedHash ||= this.materials.latest(projectId)?.hash || (this.store.setting('guide:'+projectId,null)?.hash ? 'guide:'+this.store.setting('guide:'+projectId).hash : this.store.setting('daily:'+projectId,null)?.hash ? 'daily:'+this.store.setting('daily:'+projectId).hash : undefined);
   const result=await this.ask({projectId,useHistory:false,recordHistory:false,message:'Проаналізуй цей проєкт за наданими матеріалами. Дай короткий план дослідження та невідомі умови; не вигадуй факти.'});
   if(expectedHash&&this.materialVersion(projectId,expectedHash)!==expectedHash){const error=Error('Матеріал змінився під час аналізу');error.code='MATERIAL_CHANGED';throw error;}
   this.store.setSetting('agentReview:'+projectId,{...result,materialHash:expectedHash||null,createdAt:new Date().toISOString()});return result;

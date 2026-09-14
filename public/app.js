@@ -44,7 +44,7 @@ function render() {
   const summary=$('#research-summary');summary.replaceChildren();
   for(const [title,value,filter] of [
    ['Інструкції',state.projects.filter(p=>p.guide).length,'guide'],
-   ['Аналізи ШІ',state.projects.filter(p=>p.agentReview).length,'ready'],
+   ['Актуальні аналізи ШІ',state.projects.filter(p=>p.reviewStatus==='current').length,'current'],
    ['Потребують уваги',state.projects.filter(p=>p.daily?.error||p.daily?.aiError||p.analysisJob?.status==='failed').length,'error']
   ]){const block=node('div');block.append(node('strong',title),node('p',String(value)));block.append(action('Показати '+title.toLocaleLowerCase('uk-UA'),()=>{clearFilters();$('#review-filter').value=filter;saveFilters();render();$('#opportunities').scrollIntoView({block:'start'});}));summary.append(block);}
 
@@ -56,7 +56,7 @@ function render() {
   const query=$('#search').value.trim().toLocaleLowerCase('uk-UA');
   const list = state.projects.filter(p => (!$('#filter').value || p.network === $('#filter').value) && (!$('#workflow-filter').value || p.workflow === $('#workflow-filter').value) && (!query || (p.name+' '+p.notes).toLocaleLowerCase('uk-UA').includes(query)));
   const source=$('#source-filter').value,review=$('#review-filter').value;
-  const visible=list.filter(p=>{const host=new URL(p.source).hostname.replace(/^www\./,'');return (!source||(source==='other'?!['incrypted.com','airdrops.io','cryptorank.io','dropstab.com'].includes(host):host===source))&&(!review||(review==='ready'?!!p.agentReview:review==='pending'?!p.agentReview:review==='guide'?!!p.guide:!!(p.daily?.error||p.daily?.aiError||p.analysisJob?.status==='failed')));});
+  const visible=list.filter(p=>{const host=new URL(p.source).hostname.replace(/^www\./,'');return (!source||(source==='other'?!['incrypted.com','airdrops.io','cryptorank.io','dropstab.com'].includes(host):host===source))&&(!review||(review==='current'?p.reviewStatus==='current':review==='stale'?['stale','unversioned'].includes(p.reviewStatus):review==='ready'?!!p.agentReview:review==='pending'?!p.agentReview:review==='guide'?!!p.guide:!!(p.daily?.error||p.daily?.aiError||p.analysisJob?.status==='failed')));});
   if($('#sort-projects').value==='name')visible.sort((a,b)=>a.name.localeCompare(b.name,'uk'));
   if($('#sort-projects').value==='selected')visible.sort((a,b)=>Number(['watching','active'].includes(b.workflow))-Number(['watching','active'].includes(a.workflow)));
   $('#result-count').textContent='Показано '+visible.length+' із '+state.projects.length;
@@ -79,7 +79,7 @@ function projectCard(p) {
   const info=(title,text)=>{const block=node('div');block.append(node('strong',title),node('p',text));overview.append(block);};
   info('Джерело',sourceName);
   info('Матеріали',p.guide?'Інструкція отримана':p.importedMaterial?'Матеріали імпортовані':'Інструкцію ще не отримано');
-  info('Аналіз ШІ',p.agentReview?'Чернетка готова — відкрий нижче':'Ще не виконано');
+  info('Аналіз ШІ',p.reviewStatus==='current'?'Аналіз поточної версії матеріалу':p.agentReview?'Потрібне оновлення аналізу':'Ще не виконано');
   card.append(overview);
   if(p.notes){const notes=node('details',undefined,'project-notes');notes.append(node('summary','Опис і нотатки'),node('p',p.notes,'ai-review'));card.append(notes);}
   const help=incrypted ? (['watching','active'].includes(p.workflow)?'Проєкт обрано для щоденної перевірки. Запусти агентів у блоці вище або отримай інструкцію й аналіз кнопками нижче.':'Хочеш стежити за цим проєктом? У полі «Мій статус» обери «Цікавить». Для початку відкрий джерело або отримай інструкцію.') : 'Відкрий джерело, додай матеріали та замов аналіз. Щоденна перевірка підтримує також картки DropsTab і Airdrops.io зі статусом «Цікавить» або «У роботі».';
@@ -94,7 +94,7 @@ function projectCard(p) {
   }
   actions.append(action('Аналіз локальним ШІ',async()=>{ $('#message').textContent='Локальна модель аналізує. Це може тривати кілька хвилин…';await mutate('/api/agents/analyze',{projectId:p.id}); }));
   if(p.analysisJob){const labels={pending:'Очікує аналізу',running:'Ollama аналізує матеріал',succeeded:'Аналіз завершено',failed:'Помилка аналізу',superseded:'Матеріал оновлено — попередню версію пропущено'};card.append(node('p',labels[p.analysisJob.status]+(p.analysisJob.error?' · '+p.analysisJob.error:''),'notice'));if(p.analysisJob.status==='failed')card.append(action('Повторити автоматичний аналіз',()=>mutate('/api/agents/retry',{projectId:p.id})));}
-  if(p.agentReview){const review=node('details');review.append(node('summary','Чернетка ШІ · '+new Date(p.agentReview.createdAt).toLocaleString('uk-UA')),node('p',p.importedMaterial&&p.agentReview.materialHash!==p.importedMaterial.hash?'Цей висновок не прив’язаний до поточної версії матеріалу. Дочекайся нового аналізу.':'Висновок за збереженими матеріалами, без незалежної перевірки сайту.','muted'),node('p',p.agentReview.answer,'ai-review'));if(p.agentReview.quality)review.append(node('p',p.agentReview.quality.unknownLinks.length?'Перевірка: у відповіді є посилання, відсутні в матеріалах. Не використовуй їх без окремої перевірки.':p.agentReview.quality.scope,'notice'));card.append(review);}
+  if(p.agentReview){const review=node('details');review.append(node('summary','Чернетка ШІ · '+new Date(p.agentReview.createdAt).toLocaleString('uk-UA')),node('p',p.reviewStatus!=='current'?'Цей висновок не прив’язаний до поточної версії матеріалу. Дочекайся нового аналізу.':'Висновок за збереженими матеріалами, без незалежної перевірки сайту.','muted'),node('p',p.agentReview.answer,'ai-review'));if(p.agentReview.quality)review.append(node('p',p.agentReview.quality.unknownLinks.length?'Перевірка: у відповіді є посилання, відсутні в матеріалах. Не використовуй їх без окремої перевірки.':p.agentReview.quality.scope,'notice'));card.append(review);}
   if(p.agentReview){
    const feedback=node('details',undefined,'assessment');feedback.append(node('summary','Навчити помічника: оцінити аналіз'),node('p','Твоє уточнення збережеться для наступних аналізів цього проєкту. Це пам’ять помічника, а не перенавчання моделі.','muted'));
    const f=node('form',undefined,'form-grid'),rating=node('select');const ratingLabel=node('label','Оцінка аналізу');ratingLabel.append(rating);
