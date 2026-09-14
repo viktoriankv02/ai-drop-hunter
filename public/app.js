@@ -16,6 +16,14 @@ function saveFilters(){try{localStorage.setItem('project-filters',JSON.stringify
 function restoreFilters(){try{const saved=JSON.parse(localStorage.getItem('project-filters')||'{}');for(const id of filterIds){const input=document.getElementById(id);if(typeof saved[id]==='string'&&(input.tagName!=='SELECT'||[...input.options].some(o=>o.value===saved[id])))input.value=saved[id];}}catch{}}
 const $ = s => document.querySelector(s);
 const node = (tag, text, cls) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; };
+function materialText(text){
+ const box=node('div',undefined,'material-text');
+ for(const paragraph of String(text).split(/\n\s*\n/)){const line=node('p',undefined,'ai-review');let offset=0;
+ for(const match of paragraph.matchAll(/https:\/\/[^\s<>"']+/g)){const raw=match[0].replace(/[.,;!?]+$/,'');line.append(document.createTextNode(paragraph.slice(offset,match.index)));let url;try{url=new URL(raw);}catch{}
+ if(url&&url.protocol==='https:'&&!url.username&&!url.password){const a=node('a',raw);a.href=url.href;a.target='_blank';a.rel='noopener noreferrer';line.append(a);}else line.append(document.createTextNode(raw));offset=match.index+raw.length;
+ }line.append(document.createTextNode(paragraph.slice(offset)));box.append(line);
+ }return box;
+}
 const labels = { research: 'Дослідження', 'check-in': 'Check-in', social: 'Соціальне завдання', faucet: 'Faucet', bridge: 'Bridge', swap: 'Swap', deploy: 'Деплой контракту', 'contract-call': 'Виклик контракту', mint: 'Mint', stake: 'Stake' };
 const policies = { blocked: 'Спочатку перевірте джерело', approval: 'Операція потребує підпису в гаманці', manual: 'Виконується вручну' };
 async function load() {
@@ -97,7 +105,7 @@ function projectCard(p) {
    feedback.append(f);if(p.agentFeedback){feedback.append(node('p','Уточнення збережене. Агент врахує його під час наступного аналізу.','muted'),action('Забути це уточнення',()=>mutate('/api/agents/feedback',{projectId:p.id,rating:'clear'})));}card.append(feedback);
   }
   if(incrypted)actions.append(action('Отримати інструкцію Incrypted',()=>mutate('/api/agents/guide',{projectId:p.id})));
-  if(p.importedMaterial){const m=node('details');m.append(node('summary','Імпорт CryptoRank · '+new Date(p.importedMaterial.createdAt).toLocaleString('uk-UA')),node('p',p.importedMaterial.content,'ai-review'));card.append(m);}
+  if(p.importedMaterial){const m=node('details');m.append(node('summary','Імпорт CryptoRank · '+new Date(p.importedMaterial.createdAt).toLocaleString('uk-UA')),materialText(p.importedMaterial.content));card.append(m);}
   if(p.guide)card.append(guideReader(p.guide));
   if(p.daily){const d=node('details');d.append(node('summary','Щоденна перевірка джерела'),node('p',p.daily.error||('Перевірено '+new Date(p.daily.attemptedAt).toLocaleString('uk-UA')+' · '+(p.daily.snapshot?.actions||'Без нових даних')+(p.daily.aiError?' · ШІ: '+p.daily.aiError:''))));if(p.daily.previous){d.append(node('h4','Було'),node('p',p.daily.previous.actions,'ai-review'),node('h4','Останні отримані дані'),node('p',p.daily.snapshot?.actions||'Немає даних','ai-review'));}card.append(d);}
   if(p.latestEvidence)card.append(researchPanel(p,{node,mutate}));

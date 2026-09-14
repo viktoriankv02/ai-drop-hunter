@@ -23,3 +23,5 @@ footer{padding-bottom:65px}
 
 /* Light surfaces keep controls and hover states readable. */
 button:hover{color:#fff}.secondary:hover,.robot-actions button:hover{background:#ddd2ee;color:#382052}.panel,.metric{box-shadow:0 3px 14px #25304708}.reader-body[data-theme=dark]{color-scheme:dark}input[type=checkbox]{accent-color:#6745a1}
+
+.material-text{max-width:78ch;line-height:1.85}.material-text p{margin:1.2em 0}.material-text a{overflow-wrap:anywhere;text-decoration-thickness:1px;text-underline-offset:3px}
