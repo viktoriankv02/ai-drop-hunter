@@ -71,7 +71,7 @@ export function createApp(store, options = {}) {
         }
         const workflowMatch=path.match(/^\/api\/projects\/([\w-]+)\/workflow$/);
         if(workflowMatch)return reply(200,store.setWorkflow(workflowMatch[1],body));
-        if(path==='/api/agents/guide'){const p=store.project(body.projectId);const guide=await readIncryptedGuide(p.source);store.setSetting('guide:'+p.id,guide);return reply(200,{ok:true});}
+        if(path==='/api/agents/guide'){const p=store.project(body.projectId);const guide=await readIncryptedGuide(p.source);store.setSetting('guide:'+p.id,guide);analysisQueue.enqueue(p.id,'guide:'+guide.hash);return reply(200,{ok:true,queued:true});}
         if(path==='/api/agents/feedback')return reply(200,agents.feedback(body));
         if(path==='/api/agents/analyze')return reply(200,await agents.analyze(body.projectId));
         if(path==='/api/materials/import'){const result=materials.save(body);const latest=materials.latest(result.id);analysisQueue.enqueue(result.id,latest.hash);return reply(200,{...result,queued:true});}

@@ -11,7 +11,7 @@ export class AnalysisQueue {
  async tick(){if(this.stopped||this.running||this.agents.busy)return;const job=this.store.db.prepare("SELECT * FROM analysis_jobs WHERE status='pending' ORDER BY id LIMIT 1").get();if(!job)return;
  this.running=true;const update=(status,error=null)=>this.store.db.prepare('UPDATE analysis_jobs SET status=?,error=?,updatedAt=? WHERE id=?').run(status,error,new Date().toISOString(),job.id);
  try{
- const current=this.agents.materials.latest(job.projectId);if(current?.hash!==job.materialHash){update('superseded');return;}
+ const current=this.agents.materialVersion?this.agents.materialVersion(job.projectId,job.materialHash):this.agents.materials.latest(job.projectId)?.hash;if(current!==job.materialHash){update('superseded');return;}
  update('running');this.store.db.prepare('UPDATE analysis_jobs SET attempts=attempts+1 WHERE id=?').run(job.id);
  await this.agents.analyze(job.projectId,job.materialHash);
  if(!this.stopped){update('succeeded');this.store.event(job.projectId,'Агент завершив аналіз отриманого матеріалу.');}
