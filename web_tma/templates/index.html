@@ -1,0 +1,442 @@
+﻿<!DOCTYPE html>
+<html lang="uk" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Drop Hunter | Control Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0e14',
+                        darkCard: '#151921',
+                        darkBorder: '#232936',
+                        accent: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.theme === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-100 text-slate-800 dark:bg-[#0b0e14] dark:text-gray-200 min-h-screen font-sans antialiased p-4 md:p-8 transition-colors duration-200">
+
+    <div class="max-w-5xl mx-auto space-y-6">
+        
+        <!-- Верхня панель -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-slate-200 dark:border-gray-800">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
+                    <span>⚡ AI Drop Hunter</span>
+                    <span class="text-xs bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2.5 py-1 rounded-full border border-emerald-500/20 font-medium">Auto-Sync 24h</span>
+                </h1>
+                <p class="text-sm text-slate-500 dark:text-gray-400 mt-1">Тріаж проєктів, фоновий агент-монітор та інтерактивні чек-листи дій</p>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <button onclick="openSourcesModal()" class="flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-xl border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 shadow-sm transition-all cursor-pointer">
+                    <span>📂 Ресурси ({{ stats.active_sources }}/{{ stats.total_sources }})</span>
+                </button>
+
+                <button onclick="toggleTheme()" id="themeToggleBtn" class="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-gray-700 bg-white dark:bg-[#151921] hover:bg-slate-50 dark:hover:bg-gray-800 text-slate-700 dark:text-gray-200 shadow-sm transition-all cursor-pointer">
+                    <span id="themeIcon">🌙</span>
+                    <span id="themeText">Темна</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Вкладки стану проєктів (Тріаж) -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button onclick="setStatusTab('new')" id="tab-new" class="status-tab active-tab bg-white dark:bg-[#151921] border-2 border-blue-500 p-4 rounded-xl shadow-sm text-left transition-all">
+                <span class="text-xs text-slate-500 dark:text-gray-400 block font-medium">📥 Потребують оцінки</span>
+                <span class="text-xl font-bold text-blue-600 dark:text-blue-400 mt-1 block">{{ stats.new }}</span>
+            </button>
+            <button onclick="setStatusTab('tracking')" id="tab-tracking" class="status-tab bg-white dark:bg-[#151921] border border-slate-200 dark:border-[#232936] p-4 rounded-xl shadow-sm text-left transition-all hover:border-emerald-500/50">
+                <span class="text-xs text-slate-500 dark:text-gray-400 block font-medium">⭐ В роботі (Стежимо)</span>
+                <span class="text-xl font-bold text-emerald-600 dark:text-emerald-400 mt-1 block">{{ stats.tracking }}</span>
+            </button>
+            <button onclick="setStatusTab('archived')" id="tab-archived" class="status-tab bg-white dark:bg-[#151921] border border-slate-200 dark:border-[#232936] p-4 rounded-xl shadow-sm text-left transition-all hover:border-gray-500/50">
+                <span class="text-xs text-slate-500 dark:text-gray-400 block font-medium">🗄️ Архів (Не цікаві)</span>
+                <span class="text-xl font-bold text-slate-400 dark:text-gray-400 mt-1 block">{{ stats.archived }}</span>
+            </button>
+            <button onclick="setStatusTab('all')" id="tab-all" class="status-tab bg-white dark:bg-[#151921] border border-slate-200 dark:border-[#232936] p-4 rounded-xl shadow-sm text-left transition-all hover:border-purple-500/50">
+                <span class="text-xs text-slate-500 dark:text-gray-400 block font-medium">🌐 Усі збережені</span>
+                <span class="text-xl font-bold text-purple-600 dark:text-purple-400 mt-1 block">{{ stats.total }}</span>
+            </button>
+        </div>
+
+        <!-- Пошук та фільтри -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white dark:bg-[#151921] border border-slate-200 dark:border-[#232936] p-3 rounded-xl shadow-sm">
+            <div class="flex flex-wrap items-center gap-2" id="tier-filters">
+                <button onclick="setTierFilter('all')" class="tier-btn text-xs px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium">Всі рівні</button>
+                <button onclick="setTierFilter('Tier-1')" class="tier-btn text-xs px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-300">Tier-1</button>
+                <button onclick="setTierFilter('Tier-2')" class="tier-btn text-xs px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-300">Tier-2</button>
+                <button onclick="setTierFilter('testnet')" class="tier-btn text-xs px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-300">Testnet</button>
+            </div>
+
+            <div class="relative">
+                <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Пошук назви чи фонду..." 
+                       class="w-full sm:w-64 bg-slate-50 dark:bg-[#0b0e14] border border-slate-300 dark:border-gray-700 text-xs text-slate-800 dark:text-gray-200 px-3 py-1.5 rounded-lg focus:outline-none focus:border-blue-500">
+            </div>
+        </div>
+
+        <!-- Стрічка проєктів -->
+        <main class="space-y-6" id="projects-container">
+            {% for p in projects %}
+            {% set current_tier = p.tier.value if p.tier.value is defined else (p.tier if p.tier else 'Unverified') %}
+            {% set current_status = p.tracking_status if p.tracking_status is defined and p.tracking_status else 'new' %}
+            <article class="project-card bg-white dark:bg-[#151921] border border-slate-200 dark:border-[#232936] rounded-2xl p-5 md:p-6 transition-all hover:border-slate-400 dark:hover:border-gray-700 shadow-sm dark:shadow-xl space-y-5"
+                     id="project-card-{{ p.id }}"
+                     data-status="{{ current_status }}"
+                     data-tier="{{ current_tier }}"
+                     data-stage="{{ p.stage if p.stage else '' }}"
+                     data-title="{{ (p.title or '') | lower }}"
+                     data-backers="{{ (p.backers or '') | lower }}"
+                     data-testnet="{{ 'true' if p.is_testnet else 'false' }}">
+                
+                <div class="flex flex-wrap justify-between items-start gap-4">
+                    <div>
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-xl font-bold text-slate-900 dark:text-white">{{ p.title }}</h2>
+                            <span class="text-xs px-2.5 py-0.5 rounded-md font-semibold
+                                {% if 'Tier-1' in current_tier %} bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20
+                                {% elif 'Tier-2' in current_tier %} bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20
+                                {% else %} bg-gray-500/10 text-gray-600 dark:text-gray-400 border border-gray-500/20 {% endif %}">
+                                {{ current_tier }}
+                            </span>
+                            <span class="text-xs bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded font-semibold">
+                                Бал: {{ p.score or 0 }}/100
+                            </span>
+                            {% if current_status == 'tracking' %}
+                            <span class="text-xs bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-medium flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                В роботі
+                            </span>
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-gray-400 mt-2">
+                            <span>Категорія: <strong class="text-slate-700 dark:text-gray-200">{{ p.category or 'DeFi' }}</strong></span>
+                            <span>•</span>
+                            <span>Стадія: <strong class="text-slate-700 dark:text-gray-200">{{ p.stage or 'Early' }}</strong></span>
+                            <span>•</span>
+                            <span>Нагорода: <strong class="text-emerald-600 dark:text-emerald-400 font-semibold">{{ p.status_reward or 'Потенційно' }}</strong></span>
+                            <span>•</span>
+                            <span>Джерело: <span class="capitalize text-slate-600 dark:text-gray-300">{{ p.source_platform }}</span></span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        {% if current_status != 'tracking' %}
+                        <button onclick="setProjectStatus({{ p.id }}, 'tracking')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-all flex items-center gap-1 cursor-pointer">
+                            <span>⭐ В роботу</span>
+                        </button>
+                        {% endif %}
+
+                        {% if current_status != 'archived' %}
+                        <button onclick="setProjectStatus({{ p.id }}, 'archived')" class="text-xs bg-slate-100 hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-slate-600 dark:text-gray-300 font-medium px-3 py-1.5 rounded-xl border border-slate-300 dark:border-gray-700 transition-all cursor-pointer">
+                            <span>🗑️ Не цікаво</span>
+                        </button>
+                        {% else %}
+                        <button onclick="setProjectStatus({{ p.id }}, 'new')" class="text-xs bg-blue-600 hover:bg-blue-700 text-white font-medium px-3 py-1.5 rounded-xl transition-all cursor-pointer">
+                            <span>↩️ Відновити</span>
+                        </button>
+                        {% endif %}
+
+                        <a href="{{ p.source_url }}" target="_blank" class="text-xs bg-slate-100 hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-300 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-gray-700 flex items-center gap-1 transition-colors font-medium">
+                            Джерело ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Метрики -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 dark:bg-[#0e1117] p-3.5 rounded-xl border border-slate-200 dark:border-gray-800/80 text-xs">
+                    <div>
+                        <span class="text-slate-500 dark:text-gray-400 block">Інвестиції</span>
+                        <span class="text-sm font-semibold text-slate-900 dark:text-white">{{ p.raised_amount or 'N/A' }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 dark:text-gray-400 block">Бейкери / Фонди</span>
+                        <span class="text-sm font-semibold text-slate-700 dark:text-gray-200 truncate block" title="{{ p.backers }}">
+                            {{ p.backers if p.backers else 'Не вказано' }}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 dark:text-gray-400 block">Витрати газу</span>
+                        <span class="text-sm font-semibold text-slate-700 dark:text-gray-200">
+                            {% if p.is_testnet %} $0.00 (Безкоштовно) {% else %} ~${{ p.estimated_cost_usd }} {% endif %}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 dark:text-gray-400 block">Завдань у чек-листі</span>
+                        <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">{{ (p.tasks or [])|length }} дій</span>
+                    </div>
+                </div>
+
+                {% if p.summary %}
+                <p class="text-sm text-slate-700 dark:text-gray-300 leading-relaxed bg-slate-50 dark:bg-gray-900/40 p-3 rounded-lg border border-slate-200 dark:border-gray-800/40">
+                    {{ p.summary }}
+                </p>
+                {% endif %}
+
+                <!-- Покроковий чек-лист -->
+                <div class="space-y-2 pt-2">
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">Покроковий план дій</h3>
+                    <div class="space-y-2">
+                        {% for task in (p.tasks or []) %}
+                        <div class="flex items-start justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-[#0e1117] border border-slate-200 dark:border-gray-800 hover:border-slate-300 dark:hover:border-gray-700 transition-colors">
+                            <div class="flex items-start gap-3">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 text-xs flex items-center justify-center font-bold text-slate-700 dark:text-gray-300">
+                                    {{ task.step_number }}
+                                </span>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <h4 class="text-sm font-medium text-slate-900 dark:text-white">{{ task.title }}</h4>
+                                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-gray-800 text-slate-600 dark:text-gray-400 uppercase font-mono">
+                                            {{ task.action_type }}
+                                        </span>
+                                    </div>
+                                    <p class="text-xs text-slate-600 dark:text-gray-400 mt-1 leading-normal">{{ task.description }}</p>
+                                </div>
+                            </div>
+
+                            {% if task.target_url %}
+                            <a href="{{ task.target_url }}" target="_blank" class="flex-shrink-0 text-xs text-blue-600 dark:text-blue-400 hover:underline pt-0.5 font-medium">
+                                Виконати ↗
+                            </a>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </article>
+            {% else %}
+            <div class="text-center py-16 bg-white dark:bg-[#151921] rounded-2xl border border-slate-200 dark:border-gray-800 text-slate-500 dark:text-gray-400">
+                <p class="text-lg">Немає збережених проєктів у цьому розділі</p>
+                <p class="text-xs mt-1">Перемкніть вкладку зверху або натисніть «📂 Ресурси» ➔ «Запустити збір зараз»</p>
+            </div>
+            {% endfor %}
+        </main>
+    </div>
+
+    <!-- Модальне вікно ресурсів з тумблерами вимкнення/ввімкнення -->
+    <div id="sourcesModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-[#151921] border border-slate-200 dark:border-gray-800 rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-5">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-200 dark:border-gray-800">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">📂 Список ресурсів для авто-сканування</h3>
+                    <p class="text-xs text-slate-500 dark:text-gray-400 mt-0.5">Клікніть тумблер, щоб тимчасово призупинити або відновити джерело</p>
+                </div>
+                <button onclick="closeSourcesModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white text-xl">✕</button>
+            </div>
+
+            <!-- Форма додавання -->
+            <form id="addResourceForm" onsubmit="submitNewResource(event)" class="space-y-3 bg-slate-50 dark:bg-[#0e1117] p-3.5 rounded-xl border border-slate-200 dark:border-gray-800">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <input type="text" id="resName" placeholder="Назва ресурсу" required
+                           class="bg-white dark:bg-[#151921] border border-slate-300 dark:border-gray-700 text-xs px-3 py-2 rounded-lg text-slate-800 dark:text-gray-200 focus:outline-none">
+                    <select id="resType" onchange="updatePlaceholder()" class="bg-white dark:bg-[#151921] border border-slate-300 dark:border-gray-700 text-xs px-3 py-2 rounded-lg text-slate-800 dark:text-gray-200 focus:outline-none">
+                        <option value="telegram">Telegram канал</option>
+                        <option value="website">Вебсайт / Блог</option>
+                        <option value="twitter">X.com (Twitter)</option>
+                    </select>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-2 px-3 rounded-lg transition-colors cursor-pointer">
+                        ➕ Додати
+                    </button>
+                </div>
+                <input type="text" id="resUrl" placeholder="@назва_каналу або назва (напр: @incrypted_airdrop)" required
+                       class="w-full bg-white dark:bg-[#151921] border border-slate-300 dark:border-gray-700 text-xs px-3 py-2 rounded-lg text-slate-800 dark:text-gray-200 focus:outline-none">
+            </form>
+
+            <!-- Список ресурсів з тумблерами активності -->
+            <div class="space-y-2 max-h-72 overflow-y-auto pr-1">
+                {% for s in (sources or []) %}
+                {% set is_on = s.enabled if s.enabled is defined else true %}
+                <div class="flex items-center justify-between p-2.5 rounded-xl border text-xs transition-all {% if is_on %}bg-slate-50 dark:bg-[#0e1117] border-slate-200 dark:border-gray-800{% else %}bg-slate-100/50 dark:bg-gray-900/40 border-dashed border-slate-300 dark:border-gray-800/80 opacity-60{% endif %}">
+                    <div class="flex items-center gap-3">
+                        <!-- Тумблер активності (Увімкнено / Пауза) -->
+                        <button onclick="toggleResource({{ s.id }})" title="{% if is_on %}Поставити на паузу{% else %}Увімкнути сканування{% endif %}" 
+                                class="relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none {% if is_on %}bg-emerald-500{% else %}bg-slate-300 dark:bg-gray-700{% endif %}">
+                            <span class="pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {% if is_on %}translate-x-4{% else %}translate-x-0{% endif %}"></span>
+                        </button>
+
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-semibold text-slate-900 dark:text-white {% if not is_on %}line-through text-slate-400 dark:text-gray-500{% endif %}">
+                                    {{ s.name }}
+                                </span>
+                                <span class="text-[10px] uppercase px-1.5 py-0.5 rounded bg-slate-200 dark:bg-gray-800 text-slate-600 dark:text-gray-400">
+                                    {{ s.type }}
+                                </span>
+                                {% if not is_on %}
+                                <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-medium">
+                                    Пауза
+                                </span>
+                                {% endif %}
+                            </div>
+                            <p class="text-[11px] text-slate-400 truncate max-w-xs mt-0.5">{{ s.url }}</p>
+                        </div>
+                    </div>
+
+                    <button onclick="deleteResource({{ s.id }})" class="text-rose-500 hover:text-rose-700 p-1.5 text-xs cursor-pointer" title="Видалити зі списку">
+                        ✕
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="triggerScanNow()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer">
+                    <span>⚡ Запустити збір зараз</span>
+                </button>
+                <button onclick="closeSourcesModal()" class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-white">Закрити</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStatusTab = 'new';
+        let currentTierFilter = 'all';
+
+        function updatePlaceholder() {
+            const t = document.getElementById('resType').value;
+            const input = document.getElementById('resUrl');
+            if (t === 'telegram') {
+                input.placeholder = "@назва_каналу або назва (напр: @incrypted_airdrop)";
+            } else if (t === 'twitter') {
+                input.placeholder = "@username або посилання на профіль";
+            } else {
+                input.placeholder = "https://cryptorank.io/... або посилання на сайт";
+            }
+        }
+
+        async function toggleResource(id) {
+            await fetch(`/api/resources/${id}/toggle`, {method: 'POST'});
+            window.location.reload();
+        }
+
+        async function setProjectStatus(projectId, newStatus) {
+            await fetch(`/api/projects/${projectId}/status`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({status: newStatus})
+            });
+            window.location.reload();
+        }
+
+        function setStatusTab(status) {
+            currentStatusTab = status;
+            document.querySelectorAll('.status-tab').forEach(t => {
+                t.classList.remove('border-2', 'border-blue-500');
+                t.classList.add('border', 'border-slate-200', 'dark:border-[#232936]');
+            });
+            const activeTab = document.getElementById(`tab-${status}`);
+            if (activeTab) {
+                activeTab.classList.remove('border-slate-200', 'dark:border-[#232936]');
+                activeTab.classList.add('border-2', 'border-blue-500');
+            }
+            applyFilters();
+        }
+
+        function setTierFilter(tier) {
+            currentTierFilter = tier;
+            document.querySelectorAll('.tier-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'dark:bg-gray-800', 'text-slate-700', 'dark:text-gray-300');
+            });
+            event.target.classList.remove('bg-slate-100', 'dark:bg-gray-800', 'text-slate-700', 'dark:text-gray-300');
+            event.target.classList.add('bg-blue-600', 'text-white');
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.project-card');
+
+            cards.forEach(card => {
+                const status = card.getAttribute('data-status') || 'new';
+                const tier = card.getAttribute('data-tier') || '';
+                const isTestnet = card.getAttribute('data-testnet') === 'true';
+                const title = card.getAttribute('data-title') || '';
+                const backers = card.getAttribute('data-backers') || '';
+
+                let matchesStatus = (currentStatusTab === 'all') || (status === currentStatusTab);
+
+                let matchesTier = true;
+                if (currentTierFilter === 'Tier-1') matchesTier = tier.includes('Tier-1');
+                else if (currentTierFilter === 'Tier-2') matchesTier = tier.includes('Tier-2');
+                else if (currentTierFilter === 'testnet') matchesTier = isTestnet;
+
+                const matchesSearch = !query || title.includes(query) || backers.includes(query);
+
+                if (matchesStatus && matchesTier && matchesSearch) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function openSourcesModal() { document.getElementById('sourcesModal').classList.remove('hidden'); }
+        function closeSourcesModal() { document.getElementById('sourcesModal').classList.add('hidden'); }
+
+        async function submitNewResource(e) {
+            e.preventDefault();
+            const name = document.getElementById('resName').value;
+            const url = document.getElementById('resUrl').value;
+            const type = document.getElementById('resType').value;
+            await fetch('/api/resources', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name, url, type})
+            });
+            window.location.reload();
+        }
+
+        async function deleteResource(id) {
+            if (confirm('Видалити це джерело зі списку?')) {
+                await fetch(`/api/resources/${id}`, {method: 'DELETE'});
+                window.location.reload();
+            }
+        }
+
+        async function triggerScanNow() {
+            alert('Збір активностей запущено у фоні!');
+            await fetch('/api/scan-now', {method: 'POST'});
+            closeSourcesModal();
+        }
+
+        function updateThemeUI() {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.getElementById('themeIcon').textContent = isDark ? '🌙' : '☀️';
+            document.getElementById('themeText').textContent = isDark ? 'Темна' : 'Світла';
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+            updateThemeUI();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateThemeUI();
+            updatePlaceholder();
+            applyFilters();
+        });
+    </script>
+</body>
+</html>

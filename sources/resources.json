@@ -1,0 +1,184 @@
+[
+  {
+    "id": 1,
+    "name": "CryptoRank Drops",
+    "type": "website",
+    "url": "https://cryptorank.io/drophunting",
+    "enabled": true
+  },
+  {
+    "id": 2,
+    "name": "Airdrops.io Speculative",
+    "type": "website",
+    "url": "https://airdrops.io/speculative/",
+    "enabled": true
+  },
+  {
+    "id": 3,
+    "name": "Dropsearn Airdrops",
+    "type": "website",
+    "url": "https://dropsearn.com/airdrops/",
+    "enabled": true
+  },
+  {
+    "id": 4,
+    "name": "Galxe Quests",
+    "type": "website",
+    "url": "https://app.galxe.com",
+    "enabled": false
+  },
+  {
+    "id": 5,
+    "name": "TaskOn Quests",
+    "type": "website",
+    "url": "https://taskon.xyz/campaign",
+    "enabled": false
+  },
+  {
+    "id": 6,
+    "name": "Incrypted Airdrop (UA)",
+    "type": "telegram",
+    "url": "https://t.me/s/incrypted_airdrop",
+    "enabled": true
+  },
+  {
+    "id": 7,
+    "name": "DoubleTop Airdrop (UA)",
+    "type": "telegram",
+    "url": "https://t.me/s/doubletop_airdrop",
+    "enabled": true
+  },
+  {
+    "id": 8,
+    "name": "Crypto Davy (UA)",
+    "type": "telegram",
+    "url": "https://t.me/s/crypto_davy",
+    "enabled": true
+  },
+  {
+    "id": 9,
+    "name": "Slon Crypto (UA)",
+    "type": "telegram",
+    "url": "https://t.me/s/slon_crypto",
+    "enabled": true
+  },
+  {
+    "id": 10,
+    "name": "LowBank Crypto (UA)",
+    "type": "telegram",
+    "url": "https://t.me/s/lowbank_crypto",
+    "enabled": true
+  },
+  {
+    "id": 11,
+    "name": "Maloy Crypto Hub (UA)",
+    "type": "telegram",
+    "url": "https://t.me/s/maloy_crypto",
+    "enabled": true
+  },
+  {
+    "id": 12,
+    "name": "CoinMarketCap Airdrops",
+    "type": "website",
+    "url": "https://coinmarketcap.com/airdrop/",
+    "enabled": true
+  },
+  {
+    "id": 13,
+    "name": "Bankless Guide",
+    "type": "website",
+    "url": "https://www.bankless.com/claimables",
+    "enabled": true
+  },
+  {
+    "id": 14,
+    "name": "Airdrop Alert Global",
+    "type": "telegram",
+    "url": "https://t.me/s/airdropalert_com",
+    "enabled": true
+  },
+  {
+    "id": 15,
+    "name": "crypto fortochka",
+    "url": "https://t.me/s/cryptoforto",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 16,
+    "name": "incrypted airdrops",
+    "url": "https://t.me/s/incrypted_airdrops",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 17,
+    "name": "whitelist",
+    "url": "https://t.me/s/whitelist1",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 18,
+    "name": "profit drive",
+    "url": "https://t.me/s/profit_drive",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 19,
+    "name": "crypto solanka",
+    "url": "https://t.me/s/crypto_solyanka",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 20,
+    "name": "na 100 kryptan",
+    "url": "https://t.me/s/on100_percent_crypto",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 21,
+    "name": "easy crypto",
+    "url": "https://t.me/s/easy_follow",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 22,
+    "name": "ay crypto",
+    "url": "https://t.me/s/ay_cry",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 23,
+    "name": "dreamer",
+    "url": "https://t.me/s/DreamerCrypt",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 24,
+    "name": "crypto prime",
+    "url": "https://t.me/s/Crypto_Prime11",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 25,
+    "name": "criptinho",
+    "url": "https://t.me/s/criptinho",
+    "type": "telegram",
+    "enabled": true
+  },
+  {
+    "id": 26,
+    "name": "Certik_Scynet",
+    "url": "https://skynet.certik.com/",
+    "type": "website",
+    "enabled": true
+  }
+]

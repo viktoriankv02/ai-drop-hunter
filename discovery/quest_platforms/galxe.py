@@ -1,24 +1,20 @@
 ﻿import httpx
 from typing import List, Dict, Any
 from loguru import logger
-from discovery.base import BaseScraper
 
-class GalxeScraper(BaseScraper):
+class GalxeScraper:
     def __init__(self):
-        super().__init__(
-            platform_name="galxe",
-            base_url="https://graphigo.prd.galaxy.eco/query"
-        )
-        self.headers.update({
+        self.platform_name = "galxe"
+        self.base_url = "https://graphigo.prd.galaxy.eco/query"
+        self.headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
             "Content-Type": "application/json",
             "Origin": "https://app.galxe.com",
             "Referer": "https://app.galxe.com/"
-        })
+        }
 
-    async def parse_latest(self) -> List[Dict[str, Any]]:
-        logger.info("[galxe] Запит актуальних квестів через GraphQL API...")
-
-        # Додано обов'язковий суфікс "!" до типу ListCampaignInput!
+    async def get_candidate_urls(self) -> List[Dict[str, str]]:
+        logger.info(f"[{self.platform_name}] Запит актуальних трендових квестів...")
         graphql_query = """
         query ExploreCampaigns($input: ListCampaignInput!) {
           campaigns(input: $input) {
@@ -27,19 +23,13 @@ class GalxeScraper(BaseScraper):
               name
               info
               chain
-              status
             }
           }
         }
         """
-
         payload = {
             "operationName": "ExploreCampaigns",
-            "variables": {
-                "input": {
-                    "first": 5
-                }
-            },
+            "variables": {"input": {"first": 15}},
             "query": graphql_query
         }
 
@@ -47,35 +37,25 @@ class GalxeScraper(BaseScraper):
             try:
                 response = await client.post(self.base_url, json=payload)
                 if response.status_code != 200:
-                    logger.error(f"[galxe] Код відповіді {response.status_code}. Деталі: {response.text}")
                     return []
                 data = response.json()
             except Exception as e:
-                logger.error(f"[galxe] Помилка мережевого з'єднання: {e}")
+                logger.error(f"[{self.platform_name}] Помилка з'єднання: {e}")
                 return []
-
-        if "errors" in data:
-            logger.error(f"[galxe] GraphQL помилка: {data['errors']}")
-            return []
 
         campaigns = data.get("data", {}).get("campaigns", {}).get("list", [])
         results = []
-
         for item in campaigns:
-            campaign_id = item.get("id")
+            cid = item.get("id")
             name = item.get("name", "").strip()
-            chain = item.get("chain", "EVM")
-            raw_info = item.get("info", "") or f"Galxe Quest: {name}"
-
-            target_url = f"https://app.galxe.com/quest/{campaign_id}"
-
-            results.append({
-                "source_platform": self.platform_name,
-                "title": name,
-                "url": target_url,
-                "chain": chain,
-                "raw_text": f"Campaign: {name}\nPlatform: Galxe\nChain: {chain}\nDetails: {raw_info[:500]}"
-            })
-
-        logger.success(f"[galxe] Успішно завантажено {len(results)} квестів.")
+            if cid and name:
+                results.append({
+                    "title": name,
+                    "url": f"https://app.galxe.com/quest/{cid}",
+                    "platform": self.platform_name,
+                    "details": f"Platform: Galxe\nName: {name}\nChain: {item.get('chain', 'EVM')}\nDescription: {item.get('info', '')}"
+                })
         return results
+
+    async def fetch_details(self, item: Dict[str, str]) -> str:
+        return item.get("details", item.get("title", ""))

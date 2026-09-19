@@ -1,5 +1,6 @@
-﻿import asyncio
-import re
+﻿import re
+import json
+import httpx
 import litellm
 from loguru import logger
 from core.config import settings
@@ -8,65 +9,64 @@ class AIGateway:
     def __init__(self):
         if settings.GEMINI_API_KEY:
             litellm.gemini_api_key = settings.GEMINI_API_KEY
-        if settings.ANTHROPIC_API_KEY:
-            litellm.anthropic_api_key = settings.ANTHROPIC_API_KEY
-        if settings.OPENAI_API_KEY:
-            litellm.openai_api_key = settings.OPENAI_API_KEY
-        if settings.DEEPSEEK_API_KEY:
-            litellm.deepseek_api_key = settings.DEEPSEEK_API_KEY
+        self.ollama_url = "http://127.0.0.1:11434/api/chat"
+        self.local_model = "qwen3:4b-instruct"
+
+    async def _call_ollama(self, prompt: str, system_prompt: str, json_format: bool = False) -> str:
+        """Пряме звернення до локального сервера Ollama на диску D"""
+        logger.info(f"[Ollama-Local] Обробка локальною моделлю {self.local_model}...")
+        payload = {
+            "model": self.local_model,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ],
+            "stream": False,
+            "options": {
+                "temperature": 0.2,
+                "num_ctx": 4096
+            }
+        }
+        if json_format:
+            payload["format"] = "json"
+
+        async with httpx.AsyncClient(timeout=120.0) as client:
+            resp = await client.post(self.ollama_url, json=payload)
+            if resp.status_code == 200:
+                data = resp.json()
+                return data.get("message", {}).get("content", "")
+            else:
+                raise RuntimeError(f"Ollama повернула статус {resp.status_code}: {resp.text}")
 
     async def complete(
         self, 
         prompt: str, 
         system_prompt: str = "", 
         model: str = None, 
-        response_format: dict = None,
-        max_retries: int = 4
+        response_format: dict = None
     ) -> str:
-        selected_model = model or settings.DEFAULT_AI_MODEL
-        messages = []
-        if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
-        messages.append({"role": "user", "content": prompt})
+        # 1. Спроба виконати через Gemini 3.6-flash
+        try:
+            kwargs = {
+                "model": "gemini/gemini-3.6-flash",
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                "timeout": 20
+            }
+            if response_format:
+                kwargs["response_format"] = response_format
 
-        kwargs = {
-            "model": selected_model,
-            "messages": messages
-        }
+            resp = await litellm.acompletion(**kwargs)
+            content = resp.choices[0].message.content
+            if content:
+                return content
+        except Exception as e:
+            logger.warning(f"Хмарний Gemini недоступний ({e}). Перемикання на локальну {self.local_model}...")
 
-        if settings.CUSTOM_AI_GATEWAY_URL:
-            kwargs["api_base"] = settings.CUSTOM_AI_GATEWAY_URL
-            if settings.CUSTOM_AI_GATEWAY_KEY:
-                kwargs["api_key"] = settings.CUSTOM_AI_GATEWAY_KEY
-
-        if response_format:
-            kwargs["response_format"] = response_format
-
-        last_error = None
-        for attempt in range(1, max_retries + 1):
-            try:
-                response = await litellm.acompletion(**kwargs)
-                content = response.choices[0].message.content
-                if content:
-                    return content
-                raise ValueError("Отримано порожню відповідь від моделі.")
-            except Exception as e:
-                last_error = e
-                err_text = str(e)
-
-                if "429" in err_text or "RESOURCE_EXHAUSTED" in err_text:
-                    retry_match = re.search(r"retry in (\d+)", err_text)
-                    wait_seconds = int(retry_match.group(1)) + 2 if retry_match else 35
-                    logger.warning(f"Ліміт запитів 429. Очікування {wait_seconds}с (спроба {attempt}/{max_retries})...")
-                    await asyncio.sleep(wait_seconds)
-                elif "503" in err_text or "high demand" in err_text.lower():
-                    wait_time = attempt * 6
-                    logger.warning(f"Сервер 503 (High Demand). Очікування {wait_time}с (спроба {attempt}/{max_retries})...")
-                    await asyncio.sleep(wait_time)
-                else:
-                    logger.error(f"Помилка API ({selected_model}): {e}")
-                    raise e
-
-        raise RuntimeError(f"Не вдалося отримати відповідь після {max_retries} спроб: {last_error}")
+        # 2. Безвідмовний резерв: локальна модель Qwen
+        is_json = bool(response_format and response_format.get("type") == "json_object")
+        return await self._call_ollama(prompt, system_prompt, json_format=is_json)
 
 ai_gateway = AIGateway()

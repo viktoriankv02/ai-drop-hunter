@@ -1,6 +1,25 @@
-﻿venv/
-.env
+﻿# Віртуальне оточення
+venv/
+env/
+ENV/
+
+# База даних та логи WAL
 *.db
+*.db-wal
+*.db-shm
+*.sqlite3
+
+# Конфіденційні ключі
+.env
+*.env
+
+# Кеш Python та Playwright
 __pycache__/
-*.pyc
-.DS_Store
+*.py[cod]
+*$py.class
+.pytest_cache/
+discovery/.playwright/
+
+# Логи
+*.log
+logs/

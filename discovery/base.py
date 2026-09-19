@@ -1,26 +1,31 @@
 ﻿from abc import ABC, abstractmethod
 from typing import List, Dict, Any
-import httpx
+from curl_cffi.requests import AsyncSession
 from loguru import logger
 
 class BaseScraper(ABC):
     def __init__(self, platform_name: str, base_url: str):
         self.platform_name = platform_name
         self.base_url = base_url
-        self.headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-            "Accept-Language": "uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        }
 
     async def fetch_page(self, url: str) -> str:
-        async with httpx.AsyncClient(headers=self.headers, timeout=20.0, follow_redirects=True) as client:
+        # impersonate="chrome124" емулює TLS-відбиток реального Chrome
+        async with AsyncSession(impersonate="chrome124", timeout=25.0) as session:
             try:
-                response = await client.get(url)
-                response.raise_for_status()
-                return response.text
+                headers = {
+                    "Accept-Language": "en-US,en;q=0.9,uk;q=0.8",
+                    "Referer": "https://cryptorank.io/",
+                    "Sec-Ch-Ua": '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+                    "Sec-Ch-Ua-Mobile": "?0",
+                    "Sec-Ch-Ua-Platform": '"Windows"',
+                }
+                response = await session.get(url, headers=headers)
+                if response.status_code == 200:
+                    return response.text
+                logger.error(f"[{self.platform_name}] Статус {response.status_code} для {url}")
+                return ""
             except Exception as e:
-                logger.error(f"[{self.platform_name}] Помилка завантаження {url}: {e}")
+                logger.error(f"[{self.platform_name}] Помилка з'єднання з {url}: {e}")
                 return ""
 
     @abstractmethod
