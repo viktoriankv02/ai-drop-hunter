@@ -1,48 +1,52 @@
 ﻿import os
-import sqlite3
-import enum
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, Float, Boolean, DateTime, Enum, ForeignKey
-from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
-from core.config import settings
+from enum import Enum
+from sqlalchemy import Column, Integer, String, Text, Boolean, Float, DateTime, ForeignKey, Enum as SQLEnum
+from sqlalchemy.orm import declarative_base, relationship, sessionmaker
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 
+DB_FILE = os.path.join(os.path.dirname(__file__), "..", "drop_hunter.db")
+DATABASE_URL = f"sqlite+aiosqlite:///{os.path.abspath(DB_FILE)}"
+
+engine = create_async_engine(DATABASE_URL, echo=False)
+async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 Base = declarative_base()
 
-class ProjectTier(str, enum.Enum):
+class ProjectTier(str, Enum):
     TIER_1 = "Tier-1"
     TIER_2 = "Tier-2"
     TIER_3 = "Tier-3"
     UNVERIFIED = "Unverified"
     SCAM = "Scam"
 
-class TaskStatus(str, enum.Enum):
+class TaskStatus(str, Enum):
     PENDING = "pending"
     APPROVED = "approved"
     EXECUTING = "executing"
     COMPLETED = "completed"
     FAILED = "failed"
+    SKIPPED = "skipped"
 
 class DropProject(Base):
     __tablename__ = "drop_projects"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True, nullable=False)
-    source_url = Column(String, unique=True, index=True, nullable=False)
-    source_platform = Column(String, nullable=False)
-    tier = Column(Enum(ProjectTier), default=ProjectTier.UNVERIFIED, nullable=False)
+    title = Column(String(255), nullable=False)
+    source_url = Column(String(512), unique=True, nullable=False)
+    source_platform = Column(String(100), nullable=True)
+    tier = Column(SQLEnum(ProjectTier), default=ProjectTier.UNVERIFIED)
     score = Column(Integer, default=0)
-    raised_amount = Column(String, default="Не оголошено")
+    raised_amount = Column(String(100), default="Не оголошено")
     backers = Column(Text, default="")
-    category = Column(String, default="DeFi")
-    stage = Column(String, default="Testnet")
-    status_reward = Column(String, default="Потенційно")
+    category = Column(String(100), default="DeFi")
+    stage = Column(String(100), default="Testnet")
+    status_reward = Column(String(100), default="Потенційно")
     is_testnet = Column(Boolean, default=True)
     estimated_cost_usd = Column(Float, default=0.0)
     summary = Column(Text, default="")
     guide_markdown = Column(Text, default="")
     raw_content = Column(Text, default="")
-    tracking_status = Column(String, default="new", index=True)
+    tracking_status = Column(String(50), default="new")
     created_at = Column(DateTime, default=datetime.utcnow)
 
     tasks = relationship("ActionTask", back_populates="project", cascade="all, delete-orphan")
@@ -51,56 +55,32 @@ class ActionTask(Base):
     __tablename__ = "action_tasks"
 
     id = Column(Integer, primary_key=True, index=True)
-    project_id = Column(Integer, ForeignKey("drop_projects.id", ondelete="CASCADE"), nullable=False)
+    project_id = Column(Integer, ForeignKey("drop_projects.id"), nullable=False)
     step_number = Column(Integer, default=1)
-    title = Column(String, nullable=False)
-    action_type = Column(String, default="other")
-    network = Column(String, default="Off-Chain")
+    title = Column(String(255), nullable=False)
+    action_type = Column(String(50), default="other")
+    network = Column(String(100), default="Off-Chain")
     is_autonomous = Column(Boolean, default=False)
-    target_url = Column(String, nullable=True)
+    target_url = Column(String(512), nullable=True)
     description = Column(Text, default="")
-    status = Column(Enum(TaskStatus), default=TaskStatus.PENDING, nullable=False)
-    tx_hash = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    status = Column(SQLEnum(TaskStatus), default=TaskStatus.PENDING)
+    last_run_at = Column(DateTime, nullable=True)
+    result_log = Column(Text, default="")
 
     project = relationship("DropProject", back_populates="tasks")
 
-engine = create_async_engine(
-    settings.DATABASE_URL, 
-    echo=False, 
-    connect_args={"timeout": 30.0}
-)
-async_session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+class AgentSkill(Base):
+    """Пам'ять успішних дій агента для конкретних доменів (навчання)"""
+    __tablename__ = "agent_skills"
 
-def ensure_sqlite_schema_sync():
-    """Автоматична синхронізація структури SQLite для збереження сумісності"""
-    db_file = "drop_hunter.db"
-    if os.path.exists(db_file):
-        try:
-            conn = sqlite3.connect(db_file, timeout=30.0)
-            cur = conn.cursor()
-            
-            # 1. Синхронізація drop_projects
-            cur.execute("PRAGMA table_info(drop_projects)")
-            cols_p = [c[1] for c in cur.fetchall()]
-            if cols_p and "tracking_status" not in cols_p:
-                cur.execute("ALTER TABLE drop_projects ADD COLUMN tracking_status TEXT DEFAULT 'new'")
-
-            # 2. Синхронізація action_tasks
-            cur.execute("PRAGMA table_info(action_tasks)")
-            cols_t = [c[1] for c in cur.fetchall()]
-            if cols_t:
-                if "created_at" not in cols_t:
-                    cur.execute("ALTER TABLE action_tasks ADD COLUMN created_at TIMESTAMP")
-                if "tx_hash" not in cols_t:
-                    cur.execute("ALTER TABLE action_tasks ADD COLUMN tx_hash TEXT")
-
-            conn.commit()
-            conn.close()
-        except Exception:
-            pass
+    id = Column(Integer, primary_key=True)
+    domain = Column(String(255), index=True)      # наприклад: faucet.testnet.chain
+    action_type = Column(String(50))             # faucet, checkin, connect
+    input_selector = Column(String(255))          # знайдений селектор поля гаманця
+    button_selector = Column(String(255))         # знайдений селектор кнопки
+    success_count = Column(Integer, default=1)   # кількість успішних виконань
+    last_verified = Column(DateTime, default=datetime.utcnow)
 
 async def init_db():
-    ensure_sqlite_schema_sync()
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

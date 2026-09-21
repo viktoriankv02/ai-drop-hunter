@@ -53,14 +53,14 @@
     "name": "Crypto Davy (UA)",
     "type": "telegram",
     "url": "https://t.me/s/crypto_davy",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 9,
     "name": "Slon Crypto (UA)",
     "type": "telegram",
     "url": "https://t.me/s/slon_crypto",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 10,
@@ -74,7 +74,7 @@
     "name": "Maloy Crypto Hub (UA)",
     "type": "telegram",
     "url": "https://t.me/s/maloy_crypto",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 12,
@@ -88,7 +88,7 @@
     "name": "Bankless Guide",
     "type": "website",
     "url": "https://www.bankless.com/claimables",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 14,
@@ -130,14 +130,14 @@
     "name": "crypto solanka",
     "url": "https://t.me/s/crypto_solyanka",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 20,
     "name": "na 100 kryptan",
     "url": "https://t.me/s/on100_percent_crypto",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 21,
@@ -158,7 +158,7 @@
     "name": "dreamer",
     "url": "https://t.me/s/DreamerCrypt",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 24,
@@ -172,7 +172,7 @@
     "name": "criptinho",
     "url": "https://t.me/s/criptinho",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 26,

@@ -33,12 +33,10 @@ def save_sources(sources_list):
         json.dump(sources_list, f, ensure_ascii=False, indent=2)
 
 def parse_post_datetime(time_tag) -> datetime:
-    """Витягує точну дату та час публікації з HTML-тегу Telegram"""
     if not time_tag or not time_tag.has_attr("datetime"):
         return None
     raw_dt = time_tag["datetime"]
     try:
-        # Формат Telegram: 2026-09-19T18:24:00+00:00
         return datetime.fromisoformat(raw_dt.replace("Z", "+00:00"))
     except Exception:
         return None
@@ -48,17 +46,26 @@ async def extract_items_from_source(resource: dict, days_back: int = 30) -> list
     r_type = resource.get("type", "website")
     name = resource.get("name", "Джерело")
     
-    # Розрахунок часового порогу (місяць тому від поточного моменту)
-    cutoff_date = datetime.now(timezone.utc) - timedelta(days=days_back)
+    is_cryptorank = "cryptorank.io" in url
+    max_items = 40 if is_cryptorank else 20
     
     target_url = url
     if "t.me/" in url and "/s/" not in url:
         channel = url.split("t.me/")[-1].strip("/")
         target_url = f"https://t.me/s/{channel}"
 
-    logger.info(f"[{name}] Сканування за період від {cutoff_date.strftime('%d.%m.%Y')}: {target_url}")
+    logger.info(f"[{name}] Сканування {'(ФЛАГМАН)' if is_cryptorank else ''}: {target_url}")
+    
+    # Для CryptoRank робимо глибокий скрол
     page_data = await fetch_page_with_browser(target_url, scroll_down=True)
     html = page_data.get("html", "")
+    
+    if "Трохи зачекайте" in html or "Just a moment" in html or "Cloudflare" in html:
+        logger.warning(f"[{name}] Очікування проходження захисту Cloudflare (5с)...")
+        await asyncio.sleep(5)
+        page_data = await fetch_page_with_browser(target_url, scroll_down=True)
+        html = page_data.get("html", "")
+
     if not html:
         return []
 
@@ -66,11 +73,37 @@ async def extract_items_from_source(resource: dict, days_back: int = 30) -> list
     collected = []
     seen_urls = set()
 
-    # 1. Обробка Telegram-каналів з жорстким контролем дати публікації
-    if r_type == "telegram" or "t.me/s/" in target_url:
+    # 1. СПЕЦІАЛЬНИЙ ПАРСИНГ ДЛЯ CRYPTORANK DROPHUNTING
+    if is_cryptorank:
+        for a in soup.find_all("a", href=True):
+            href = a["href"].split("?")[0].split("#")[0]
+            
+            # Шукаємо всі сторінки активностей та дропів
+            if ("-activity" in href) or ("/drophunting/" in href and href.strip("/") != "https://cryptorank.io/drophunting"):
+                if not any(bad in href for bad in ["/category/", "/funds/", "/exchanges/", "/tags/", "/ico/"]):
+                    clean_url = href if href.startswith("http") else f"https://cryptorank.io{href}"
+                    clean_url = clean_url.rstrip("/") + "/"
+                    
+                    if clean_url not in seen_urls:
+                        seen_urls.add(clean_url)
+                        text = a.get_text(strip=True)
+                        if not text or len(text) < 2:
+                            text = clean_url.split("/")[-2].replace("-activity", "").replace("-", " ").title()
+                        
+                        collected.append({
+                            "title": f"[CryptoRank] {text}",
+                            "url": clean_url,
+                            "text": ""
+                        })
+
+            if len(collected) >= max_items:
+                break
+
+    # 2. TELEGRAM-КАНАЛИ
+    elif r_type == "telegram" or "t.me/s/" in target_url:
+        cutoff_date = datetime.now(timezone.utc) - timedelta(days=days_back)
         posts = soup.select("div.tgme_widget_message_wrap")
         
-        # Переглядаємо пости від найновіших до старіших
         for post in reversed(posts):
             text_el = post.select_one("div.tgme_widget_message_text")
             link_el = post.select_one("a.tgme_widget_message_date")
@@ -80,34 +113,38 @@ async def extract_items_from_source(resource: dict, days_back: int = 30) -> list
             if not text_el:
                 continue
 
-            # Перевірка дати
             post_dt = parse_post_datetime(time_el)
             if post_dt and post_dt < cutoff_date:
-                # Зупиняємо збір, оскільки дійшли до постів старіших за 30 днів
-                logger.info(f"[{name}] Дійшли до старіших публікацій ({post_dt.strftime('%d.%m.%Y')}). Зупинка збору каналу.")
-                break
+                continue
 
             raw_text = text_el.get_text(separator="\n", strip=True)
-            if len(raw_text) > 80:
-                dt_str = post_dt.strftime("%d.%m.%Y") if post_dt else "Свіже"
+            if len(raw_text) > 70:
+                dt_str = post_dt.strftime("%d.%m") if post_dt else "Свіже"
                 collected.append({
-                    "title": f"[{dt_str}] " + raw_text[:50].replace("\n", " "),
+                    "title": f"[{dt_str}] " + raw_text[:60].replace("\n", " "),
                     "url": post_url,
                     "text": raw_text
                 })
 
-    # 2. Обробка агрегаторів (CryptoRank, Airdrops.io, Dropsearn)
+            if len(collected) >= max_items:
+                break
+
+    # 3. ІНШІ САЙТИ (Airdrops.io, CertiK)
     else:
         for a in soup.find_all("a", href=True):
             href = a["href"].split("?")[0].split("#")[0]
-            is_project_link = (
-                ("-activity" in href and "/drophunting/" in href) or
-                ("airdrops.io/" in href and not any(x in href for x in ["/speculative/", "/category/", "/tag/", "/contact/"])) or
-                ("dropsearn.com/airdrops/" in href and href.strip("/") != "https://dropsearn.com/airdrops")
-            )
-            if is_project_link:
-                clean_url = href if href.startswith("http") else f"https://cryptorank.io{href}"
-                clean_url = clean_url.rstrip("/") + "/"
+            is_valid = False
+            
+            if "airdrops.io" in target_url:
+                if not any(x in href for x in ["/speculative/", "/category/", "/tag/", "/contact/", "/about/"]):
+                    if href.startswith("https://airdrops.io/") and len(href.strip("/").split("/")) == 4:
+                        is_valid = True
+            elif "certik.com" in target_url:
+                if "/quest" in href or "/alert" in href or "/project/" in href:
+                    is_valid = True
+
+            if is_valid:
+                clean_url = href if href.startswith("http") else href
                 if clean_url not in seen_urls:
                     seen_urls.add(clean_url)
                     text = a.get_text(strip=True) or clean_url.split("/")[-2]
@@ -116,10 +153,11 @@ async def extract_items_from_source(resource: dict, days_back: int = 30) -> list
                         "url": clean_url,
                         "text": ""
                     })
-            # Для сайтів беремо актуальні проєкти першої лінії
-            if len(collected) >= 8:
+
+            if len(collected) >= max_items:
                 break
 
+    logger.info(f"[{name}] Відібрано для поглибленого аналізу: {len(collected)} проєктів.")
     return collected
 
 async def process_item(item: dict, platform_name: str) -> bool:
@@ -133,24 +171,26 @@ async def process_item(item: dict, platform_name: str) -> bool:
 
     raw_content = item.get("text", "")
     if not raw_content:
-        detail_data = await fetch_page_with_browser(target_url, scroll_down=False)
+        detail_data = await fetch_page_with_browser(target_url, scroll_down=True)
         html = detail_data.get("html", "")
         if html:
             dsoup = BeautifulSoup(html, "lxml")
-            main = dsoup.find("main") or dsoup.find("body") or dsoup
-            for tag in main(["script", "style", "nav", "footer"]):
+            main = dsoup.find("main") or dsoup.find("article") or dsoup.find("body") or dsoup
+            for tag in main(["script", "style", "nav", "footer", "header"]):
                 tag.decompose()
-            raw_content = main.get_text(separator="\n", strip=True)[:6000]
+            raw_content = main.get_text(separator="\n", strip=True)[:7000]
 
     if len(raw_content) < 60:
         return False
 
-    logger.info(f"ШІ розбирає дані: {item['title']}...")
+    logger.info(f"ШІ оцінює: {item['title'][:45]}...")
     try:
         analysis = await analyze_cryptorank_project(raw_content, target_url)
 
-        if analysis.score < 20 or analysis.tier == ProjectTier.SCAM:
-            logger.warning(f"Відсіяно (бал {analysis.score} < 20 або Scam): {analysis.project_name}")
+        # Для проєктів із CryptoRank поріг відбору м'якший (бал 15+), оскільки це верифікований каталог
+        min_score = 15 if "cryptorank" in target_url else 20
+        if not analysis.is_actionable_drop or analysis.score < min_score or analysis.tier == ProjectTier.SCAM:
+            logger.warning(f"Відсіяно: {analysis.project_name} (Бал: {analysis.score} | Дроп: {analysis.is_actionable_drop})")
             return False
 
         async with async_session_maker() as session:
@@ -193,13 +233,12 @@ async def process_item(item: dict, platform_name: str) -> bool:
                     ))
 
                 await session.commit()
-                logger.success(f"✓ Додано: {analysis.project_name} (Бал: {analysis.score}/100)")
+                logger.success(f"⭐ [CryptoRank/Головне] Додано: {analysis.project_name} (Бал: {analysis.score}/100, Інвестиції: {analysis.raised_amount})")
                 return True
             else:
                 current.summary = analysis.summary
                 current.guide_markdown = analysis.guide_markdown
                 await session.commit()
-                logger.success(f"✓ Оновлено: {current.title}")
                 return True
 
     except Exception as e:
@@ -209,8 +248,12 @@ async def process_item(item: dict, platform_name: str) -> bool:
 async def run_all_sources(days_back: int = 30):
     await init_db()
     sources = load_sources()
+    
+    # Примусово ставимо CryptoRank першим у черзі
+    sources.sort(key=lambda s: 0 if "cryptorank" in s.get("url", "").lower() else 1)
+    
     active_sources = [s for s in sources if s.get("enabled", True)]
-    logger.info(f"Запуск обходу. Активних джерел: {len(active_sources)} | Вікно: останні {days_back} днів")
+    logger.info(f"Запуск обходу. Першим стартує CryptoRank. Активних джерел: {len(active_sources)}")
 
     total_added = 0
     for s in active_sources:
@@ -220,7 +263,7 @@ async def run_all_sources(days_back: int = 30):
             if added:
                 total_added += 1
 
-    logger.success(f"Обхід завершено. Усього додано нових проєктів за місяць: {total_added}")
+    logger.success(f"Обхід завершено! Усього додано проєктів: {total_added}")
 
 if __name__ == "__main__":
     asyncio.run(run_all_sources(days_back=30))

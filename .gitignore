@@ -1,11 +1,25 @@
-﻿venv/
+﻿# Віртуальне оточення
+venv/
+.venv/
 env/
+
+# База даних та локальні логи
 *.db
-*.db-wal
-*.db-shm
 *.sqlite3
+drop_hunter.db
+logs/
+*.log
+
+# Кеш та профіль браузера
+discovery/.browser_profile/
+.browser_profile/
+
+# Секрети та змінні оточення
 .env
-*.env
+.env.local
+
+# Python кеш
 __pycache__/
 *.py[cod]
-logs/
+*$py.class
+.pytest_cache/

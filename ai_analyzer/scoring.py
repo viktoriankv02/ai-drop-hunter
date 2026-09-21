@@ -1,100 +1,98 @@
-﻿import re
-import json
-from pydantic import BaseModel, Field
-from typing import List, Optional
+﻿import json
+import re
 from loguru import logger
-from ai_analyzer.gateway import ai_gateway
+from pydantic import BaseModel
+from typing import List, Optional
 from core.database import ProjectTier
+from ai_analyzer.gateway import llm_gateway
 
-class TaskDefinition(BaseModel):
-    step_number: int = Field(default=1)
-    title: str = Field(default="Завдання")
-    action_type: str = Field(default="other")
-    network: str = Field(default="Off-Chain")
-    is_autonomous: bool = Field(default=False)
-    target_url: Optional[str] = Field(default=None)
-    description: str = Field(default="")
+class ExtractedTask(BaseModel):
+    step_number: int = 1
+    title: str = "Виконати активність"
+    action_type: str = "other"
+    network: str = "Off-Chain"
+    is_autonomous: bool = False
+    target_url: Optional[str] = None
+    description: str = ""
 
-class DropDetailedAnalysis(BaseModel):
-    project_name: str = Field(default="Web3 Project")
-    tier: ProjectTier = Field(default=ProjectTier.TIER_2)
-    score: int = Field(default=70)
-    category: str = Field(default="DeFi")
-    stage: str = Field(default="Testnet")
-    raised_amount: str = Field(default="Не оголошено")
-    backers: str = Field(default="")
-    status_reward: str = Field(default="Потенційно")
-    is_testnet_only: bool = Field(default=True)
-    estimated_gas_cost_usd: float = Field(default=0.0)
-    summary: str = Field(default="")
-    guide_markdown: str = Field(default="")
-    tasks: List[TaskDefinition] = Field(default_factory=list)
+class ProjectAnalysis(BaseModel):
+    is_actionable_drop: bool = True
+    project_name: str = "Crypto Project"
+    tier: ProjectTier = ProjectTier.TIER_2
+    score: int = 65
+    raised_amount: str = "Не оголошено"
+    backers: str = ""
+    category: str = "DeFi"
+    stage: str = "Testnet"
+    status_reward: str = "Потенційно"
+    is_testnet_only: bool = True
+    estimated_gas_cost_usd: float = 0.0
+    summary: str = ""
+    guide_markdown: str = ""
+    tasks: List[ExtractedTask] = []
 
-SYSTEM_PROMPT = """Ти — Web3 аналітик ретродропів. Твоє завдання — проаналізувати текст про криптопроєкт та повернути валідний JSON за шаблоном:
-{
-  "project_name": "Назва",
+def extract_fallback_name(source_url: str) -> str:
+    slug = source_url.strip("/").split("/")[-1].replace("-activity", "").replace("-", " ")
+    # Видаляємо цифри з кінця slug
+    slug = re.sub(r'\d+$', '', slug).strip()
+    return slug.title() or "Web3 Drop"
+
+async def analyze_cryptorank_project(raw_text: str, source_url: str) -> ProjectAnalysis:
+    default_name = extract_fallback_name(source_url)
+    clean_text = re.sub(r'\s+', ' ', raw_text)[:900].strip()
+
+    # Шукаємо суму зборів прямо в тексті регулярним виразом
+    raised_match = re.search(r'\$(\d+(?:\.\d+)?\s*[MKmk])', clean_text)
+    found_raised = raised_match.group(0).upper() if raised_match else "Не оголошено"
+
+    prompt = f"""Витягни дані проєкту у форматі JSON без коментарів.
+Текст: "{clean_text}"
+
+Формат відповіді:
+{{
+  "is_actionable_drop": true,
+  "project_name": "{default_name}",
   "tier": "Tier-2",
-  "score": 75,
-  "category": "Layer 1",
-  "stage": "Testnet",
-  "raised_amount": "$10M",
+  "score": 70,
+  "raised_amount": "{found_raised}",
   "backers": "Фонди",
-  "status_reward": "Потенційно",
-  "is_testnet_only": true,
-  "estimated_gas_cost_usd": 0.0,
-  "summary": "Короткий огляд",
-  "guide_markdown": "Покроковий план",
+  "category": "DeFi / L2",
+  "stage": "Testnet",
+  "summary": "Короткий опис",
   "tasks": [
-    {
-      "step_number": 1,
-      "title": "Підключення гаманця",
-      "action_type": "profile",
-      "network": "Testnet",
-      "is_autonomous": false,
-      "target_url": "",
-      "description": "Перейти на платформу та підключити гаманець"
-    }
+    {{"step_number": 1, "title": "Перейти на платформу та підключити гаманець", "action_type": "checkin", "is_autonomous": true}}
   ]
-}
-tier має бути: Tier-1, Tier-2, Tier-3, Unverified або Scam.
-Повертай виключно валідний JSON.
-"""
+}}"""
 
-def extract_json(raw_text: str) -> dict:
-    cleaned = raw_text.strip()
-    if "```json" in cleaned:
-        cleaned = re.sub(r"^```json\s*", "", cleaned)
-        cleaned = re.sub(r"\s*```$", "", cleaned)
-    elif "```" in cleaned:
-        cleaned = re.sub(r"^```\s*", "", cleaned)
-        cleaned = re.sub(r"\s*```$", "", cleaned)
-    
-    match = re.search(r"(\{.*\})", cleaned, re.DOTALL)
-    if match:
-        cleaned = match.group(1)
+    response_text = await llm_gateway.complete(prompt=prompt, system_prompt="Answer only valid JSON.")
 
-    return json.loads(cleaned)
-
-async def analyze_cryptorank_project(raw_data: str, url: str) -> DropDetailedAnalysis:
-    prompt = f"URL проєкту: {url}\n\nЗміст інформації:\n{raw_data[:4000]}"
-    response_text = await ai_gateway.complete(
-        prompt=prompt,
-        system_prompt=SYSTEM_PROMPT,
-        response_format={"type": "json_object"}
-    )
-    
     try:
-        data = extract_json(response_text)
-    except Exception:
-        data = {
-            "project_name": url.split("/")[-2].replace("-", " ").title(),
-            "tier": "Tier-2",
-            "score": 65,
-            "summary": raw_data[:300]
-        }
+        clean_json = response_text.strip()
+        if "```json" in clean_json:
+            clean_json = clean_json.split("```json")[1].split("```")[0].strip()
+        elif "```" in clean_json:
+            clean_json = clean_json.split("```")[1].split("```")[0].strip()
 
-    valid_tiers = [e.value for e in ProjectTier]
-    if data.get("tier") not in valid_tiers:
-        data["tier"] = ProjectTier.TIER_2.value
-
-    return DropDetailedAnalysis(**data)
+        data = json.loads(clean_json)
+        if not data.get("project_name") or data.get("project_name") in ["Crypto Project", "Unknown"]:
+            data["project_name"] = default_name
+        data["is_actionable_drop"] = True
+        return ProjectAnalysis(**data)
+    except Exception as e:
+        logger.warning(f"ШІ затримався ({e}). Використовуємо страхувальні дані: {default_name}")
+        return ProjectAnalysis(
+            is_actionable_drop=True,
+            project_name=default_name,
+            score=65,
+            raised_amount=found_raised,
+            summary=clean_text[:220],
+            tasks=[
+                ExtractedTask(
+                    step_number=1,
+                    title=f"Дослідити гайд активності {default_name}",
+                    action_type="checkin",
+                    is_autonomous=True,
+                    target_url=source_url
+                )
+            ]
+        )

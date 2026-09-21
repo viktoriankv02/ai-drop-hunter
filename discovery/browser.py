@@ -1,50 +1,56 @@
-﻿import json
-from playwright.async_api import async_playwright
+﻿import os
+import sys
+import asyncio
 from loguru import logger
+from playwright.async_api import async_playwright
 
-async def fetch_page_with_browser(url: str, scroll_down: bool = False) -> dict:
-    """Завантажує сторінку через Chromium з маскуванням під звичайного користувача"""
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+PROFILE_DIR = os.path.join(ROOT_DIR, "discovery", ".browser_profile")
+
+async def fetch_page_with_browser(url: str, scroll_down: bool = True, timeout_ms: int = 50000) -> dict:
+    os.makedirs(PROFILE_DIR, exist_ok=True)
+    
     async with async_playwright() as p:
-        browser = await p.chromium.launch(
-            headless=True,
+        # Запускаємо через реальний профіль у видимому вікні, щоб Cloudflare не блокував запити
+        context = await p.chromium.launch_persistent_context(
+            user_data_dir=PROFILE_DIR,
+            headless=False,
             args=[
                 "--disable-blink-features=AutomationControlled",
                 "--no-sandbox",
-                "--disable-dev-shm-usage"
-            ]
+                "--window-size=1280,800"
+            ],
+            viewport={"width": 1280, "height": 800}
         )
-        context = await browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-            viewport={"width": 1440, "height": 900},
-            locale="uk-UA"
-        )
+
         page = await context.new_page()
 
-        # Приховуємо прапорець автоматизації браузера від Cloudflare
-        await page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-
-        logger.info(f"[browser] Відкриття сторінки: {url}")
         try:
-            await page.goto(url, wait_until="domcontentloaded", timeout=45000)
-            await page.wait_for_timeout(3500)
+            logger.info(f"[Browser] Відкриття: {url}")
+            await page.goto(url, timeout=timeout_ms, wait_until="domcontentloaded")
+            
+            # Чекаємо 4 секунди на завантаження React / Next.js
+            await asyncio.sleep(4)
 
             title = await page.title()
-            logger.info(f"[browser] Заголовок сторінки: {title}")
+            if any(cf in title.lower() for cf in ["just a moment", "трохи зачекайте", "cloudflare"]):
+                logger.warning("[Browser] Чекаємо авто-проходження перевірки Cloudflare...")
+                await asyncio.sleep(6)
 
             if scroll_down:
-                for _ in range(2):
-                    await page.evaluate("window.scrollBy(0, 1000)")
-                    await page.wait_for_timeout(1500)
+                for _ in range(4):
+                    await page.evaluate("window.scrollBy(0, 1200)")
+                    await asyncio.sleep(1.2)
 
-            next_data = await page.evaluate("() => window.__NEXT_DATA__ || null")
             html = await page.content()
+            final_title = await page.title()
+            await context.close()
+            return {"html": html, "title": final_title}
 
-            await browser.close()
-            return {
-                "next_data": next_data,
-                "html": html
-            }
         except Exception as e:
-            logger.error(f"[browser] Помилка завантаження {url}: {e}")
-            await browser.close()
-            return {"next_data": None, "html": ""}
+            logger.error(f"[Browser] Помилка на {url}: {e}")
+            try:
+                await context.close()
+            except Exception:
+                pass
+            return {"html": "", "title": ""}
