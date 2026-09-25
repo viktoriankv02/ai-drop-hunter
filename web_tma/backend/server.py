@@ -1,179 +1,194 @@
-﻿import os
+import os
 import sys
 import json
+import sqlite3
 import asyncio
-import subprocess
-import traceback
-from contextlib import asynccontextmanager
+from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
+from typing import Optional
 
-if sys.platform == "win32":
-    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
-
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
-import uvicorn
-from loguru import logger
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel
-from sqlalchemy import select, update
-from sqlalchemy.orm import selectinload
-from core.database import init_db, async_session_maker, DropProject
-from discovery.universal_scanner import load_sources, save_sources
+from market_intelligence.scanner import run_market_scanner
+from market_intelligence.forecaster import get_klines_data, generate_ai_token_forecast
 
-_scanner_process = None
+DB_PATH = os.path.join(ROOT_DIR, "drop_hunter.db")
+SOURCES_PATH = os.path.join(ROOT_DIR, "sources", "resources.json")
 
-def start_scanner_subprocess() -> bool:
-    global _scanner_process
-    if _scanner_process is not None and _scanner_process.poll() is None:
-        logger.warning("[Scanner] Сканування вже виконується у фоні.")
-        return False
+app = FastAPI(title="AI Crypto Hub & Hunter")
 
-    scanner_path = os.path.join(ROOT_DIR, "discovery", "universal_scanner.py")
-    _scanner_process = subprocess.Popen([sys.executable, scanner_path], cwd=ROOT_DIR)
-    logger.success("[Scanner] Фоновий процес збору запущено.")
-    return True
+def get_db():
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
 
-async def daily_scanner_loop():
-    await asyncio.sleep(8)
-    while True:
-        logger.info("[Scheduler] Щоденний авто-пошук нових дропів...")
-        try:
-            start_scanner_subprocess()
-        except Exception as e:
-            logger.error(f"[Scheduler] Помилка: {e}")
-        await asyncio.sleep(86400)
+def read_sources():
+    if not os.path.exists(SOURCES_PATH): return []
+    try:
+        with open(SOURCES_PATH, "r", encoding="utf-8-sig") as f: return json.load(f)
+    except Exception: return []
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    await init_db()
-    scheduler_task = asyncio.create_task(daily_scanner_loop())
-    yield
-    scheduler_task.cancel()
+@app.get("/api/stats")
+async def get_stats():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("SELECT COUNT(*) FROM drop_projects WHERE tracking_status = 'tracking'")
+    tr = cur.fetchone()[0]
+    cur.execute("SELECT COUNT(*) FROM drop_projects WHERE tracking_status = 'new'")
+    nw = cur.fetchone()[0]
+    cur.execute("SELECT COUNT(*) FROM drop_projects")
+    tot = cur.fetchone()[0]
+    conn.close()
 
-app = FastAPI(title="AI Drop Hunter TMA", lifespan=lifespan)
-templates_dir = os.path.join(ROOT_DIR, "web_tma", "templates")
-templates = Jinja2Templates(directory=templates_dir)
-templates.env.cache = None
+    srcs = read_sources()
+    act = sum(1 for s in srcs if s.get("enabled", True))
+    return {"tracking": tr, "new": nw, "total": tot, "sources": f"{act}/{len(srcs)}"}
 
-class StatusUpdateModel(BaseModel):
+@app.get("/api/sources")
+async def get_sources():
+    return read_sources()
+
+@app.post("/api/sources/{source_id}/toggle")
+async def toggle_source(source_id: int):
+    srcs = read_sources()
+    for s in srcs:
+        if s.get("id") == source_id:
+            s["enabled"] = not s.get("enabled", True)
+            break
+    with open(SOURCES_PATH, "w", encoding="utf-8") as f:
+        json.dump(srcs, f, ensure_ascii=False, indent=2)
+    return {"success": True}
+
+@app.get("/api/projects")
+async def get_projects(status: str = "new"):
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT id, title, source_platform, tier, score, raised_amount, 
+               backers, category, stage, status_reward, is_testnet, 
+               estimated_cost_usd, summary, source_url, tracking_status,
+               sybil_rules, deep_strategy
+        FROM drop_projects
+        WHERE tracking_status = ?
+        ORDER BY score DESC, id DESC
+    """, (status,))
+    projects = [dict(row) for row in cur.fetchall()]
+
+    for p in projects:
+        cur.execute("""
+            SELECT id, step_number, title, action_type, status, target_url, is_autonomous
+            FROM action_tasks
+            WHERE project_id = ?
+            ORDER BY step_number ASC, id ASC
+        """, (p["id"],))
+        p["tasks"] = [dict(t) for t in cur.fetchall()]
+
+        cur.execute("SELECT title, details, created_at FROM project_daily_intel WHERE project_id = ? ORDER BY id DESC LIMIT 1", (p["id"],))
+        intel = cur.fetchone()
+        p["latest_intel"] = dict(intel) if intel else None
+
+    conn.close()
+    return projects
+
+class StatusUpdate(BaseModel):
     status: str
 
-class NewResourceModel(BaseModel):
-    name: str
-    url: str
-    type: str = "website"
-
-@app.get("/", response_class=HTMLResponse)
-async def get_dashboard(request: Request):
-    try:
-        async with async_session_maker() as session:
-            query = select(DropProject).options(selectinload(DropProject.tasks)).order_by(DropProject.score.desc())
-            projects = (await session.execute(query)).scalars().all()
-
-        sources = load_sources()
-        active_sources_count = sum(1 for s in sources if s.get("enabled", True))
-
-        stats = {
-            "total": len(projects),
-            "new": sum(1 for p in projects if getattr(p, "tracking_status", "new") == "new"),
-            "tracking": sum(1 for p in projects if getattr(p, "tracking_status", "new") == "tracking"),
-            "archived": sum(1 for p in projects if getattr(p, "tracking_status", "new") == "archived"),
-            "tasks": sum(len(p.tasks) for p in projects if p.tasks),
-            "active_sources": active_sources_count,
-            "total_sources": len(sources)
-        }
-
-        return templates.TemplateResponse(
-            request=request,
-            name="index.html",
-            context={"projects": projects, "sources": sources, "stats": stats}
-        )
-    except Exception as e:
-        err_msg = traceback.format_exc()
-        logger.error(f"Помилка рендерингу дашборду: {err_msg}")
-        return HTMLResponse(
-            f"<html><body style='font-family:sans-serif;padding:30px;background:#0b0e14;color:#f87171;'>"
-            f"<h2 style='color:#ef4444;'>Помилка сервера: {e}</h2>"
-            f"<pre style='background:#151921;color:#e2e8f0;padding:15px;border-radius:10px;'>{err_msg}</pre>"
-            f"</body></html>",
-            status_code=500
-        )
-
+# ВИПРАВЛЕНО: повноцінний async def без падінь у threadpool
 @app.post("/api/projects/{project_id}/status")
-async def update_project_status(project_id: int, body: StatusUpdateModel):
-    async with async_session_maker() as session:
-        await session.execute(
-            update(DropProject)
-            .where(DropProject.id == project_id)
-            .values(tracking_status=body.status)
-        )
-        await session.commit()
-    logger.info(f"Проєкт #{project_id} отримав статус: {body.status}")
-    return {"status": "ok", "project_id": project_id, "new_status": body.status}
+async def update_project_status(project_id: int, payload: StatusUpdate):
+    try:
+        conn = get_db()
+        cur = conn.cursor()
+        cur.execute("UPDATE drop_projects SET tracking_status = ? WHERE id = ?", (payload.status, project_id))
+        if payload.status == "tracking":
+            cur.execute("UPDATE action_tasks SET status = 'PENDING', is_autonomous = 1 WHERE project_id = ?", (project_id,))
+        conn.commit()
+        conn.close()
 
-@app.post("/api/resources")
-async def add_resource(item: NewResourceModel):
-    sources = load_sources()
-    new_id = max([s.get("id", 0) for s in sources], default=0) + 1
-    
-    clean_val = item.url.strip()
-    r_type = item.type
+        # Фоновий аналіз викликаємо безпечно
+        if payload.status == "tracking":
+            try:
+                from ai_analyzer.deep_researcher import conduct_deep_research
+                asyncio.create_task(conduct_deep_research(project_id))
+            except Exception as e:
+                print(f"[Warn] Deep research bypass: {e}")
 
-    if r_type == "telegram" or clean_val.startswith("@") or "t.me" in clean_val:
-        r_type = "telegram"
-        channel = clean_val.replace("https://t.me/s/", "").replace("http://t.me/s/", "")
-        channel = channel.replace("https://t.me/", "").replace("http://t.me/", "").replace("t.me/", "")
-        channel = channel.lstrip("@").strip("/")
-        clean_url = f"https://t.me/s/{channel}"
-    elif r_type == "twitter" or "x.com" in clean_val or "twitter.com" in clean_val:
-        user = clean_val.replace("https://x.com/", "").replace("https://twitter.com/", "").lstrip("@").strip("/")
-        clean_url = f"https://x.com/{user}"
-    else:
-        clean_url = clean_val if clean_val.startswith("http") else f"https://{clean_val}"
+        return {"success": True, "id": project_id, "status": payload.status}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
-    new_entry = {
-        "id": new_id,
-        "name": item.name.strip(),
-        "url": clean_url,
-        "type": r_type,
-        "enabled": True
-    }
-    sources.append(new_entry)
-    save_sources(sources)
-    return {"status": "ok", "resource": new_entry}
+class ManualProject(BaseModel):
+    title: str
+    source_platform: Optional[str] = "Власне джерело"
+    source_url: str
+    category: Optional[str] = "Web3 / Testnet"
+    summary: Optional[str] = ""
+    tasks: Optional[str] = ""
 
-# Ендпоінт для вмикання / вимикання ресурсу
-@app.post("/api/resources/{resource_id}/toggle")
-async def toggle_resource(resource_id: int):
-    sources = load_sources()
-    found = False
-    new_state = False
-    for s in sources:
-        if s.get("id") == resource_id:
-            s["enabled"] = not s.get("enabled", True)
-            new_state = s["enabled"]
-            found = True
-            break
-    if found:
-        save_sources(sources)
-        logger.info(f"Ресурс #{resource_id} перемкнуто: {'Увімкнено' if new_state else 'Вимкнено'}")
-    return {"status": "ok", "enabled": new_state}
+@app.post("/api/projects/manual")
+async def add_manual_project(payload: ManualProject):
+    if not payload.title.strip() or not payload.source_url.strip():
+        raise HTTPException(status_code=400, detail="Назва та посилання обов'язкові")
 
-@app.delete("/api/resources/{resource_id}")
-async def delete_resource(resource_id: int):
-    sources = load_sources()
-    sources = [s for s in sources if s.get("id") != resource_id]
-    save_sources(sources)
-    return {"status": "ok"}
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("""
+    INSERT INTO drop_projects (
+        title, source_platform, tier, score, raised_amount, backers,
+        category, stage, status_reward, is_testnet, estimated_cost_usd,
+        summary, source_url, tracking_status
+    ) VALUES (?, ?, 'Tier-1', 92, 'Під наглядом', 'Обрано вручну', ?, 'Active', 'Очікується', 1, 0.0, ?, ?, 'new')
+    """, (payload.title.strip(), payload.source_platform.strip(), payload.category.strip(), payload.summary.strip(), payload.source_url.strip()))
+    proj_id = cur.lastrowid
 
-@app.post("/api/scan-now")
-async def trigger_scan():
-    started = start_scanner_subprocess()
-    return {"status": "started" if started else "already_running"}
+    raw_tasks = [t.strip() for t in payload.tasks.split("\n") if t.strip()] or ["Підключити гаманець", "Отримати тестові токени", "Зробити свап"]
+    for idx, t_title in enumerate(raw_tasks):
+        cur.execute("""
+        INSERT INTO action_tasks (project_id, step_number, title, action_type, network, status, target_url, is_autonomous, description)
+        VALUES (?, ?, ?, 'task', 'EVM / Testnet', 'PENDING', ?, 1, '')
+        """, (proj_id, idx + 1, t_title, payload.source_url.strip()))
+
+    conn.commit()
+    conn.close()
+    return {"success": True, "project_id": proj_id}
+
+@app.get("/api/signals")
+async def get_market_signals():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM market_signals ORDER BY id DESC LIMIT 50")
+    signals = [dict(row) for row in cur.fetchall()]
+    conn.close()
+    return signals
+
+@app.post("/api/signals/scan")
+async def trigger_market_scan():
+    asyncio.create_task(run_market_scanner())
+    return {"message": "Сканування запущено"}
+
+@app.get("/api/market/chart")
+async def get_chart(symbol: str = "BTC", period: str = "24h"):
+    res = await get_klines_data(symbol, period)
+    if "error" in res: raise HTTPException(status_code=400, detail=res["error"])
+    return res
+
+@app.get("/api/market/forecast")
+async def get_forecast(symbol: str = "BTC", horizon: str = "24h"):
+    res = await generate_ai_token_forecast(symbol, horizon)
+    if "error" in res: raise HTTPException(status_code=400, detail=res["error"])
+    return res
+
+FRONTEND_DIR = os.path.join(ROOT_DIR, "web_tma", "frontend")
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
+
+@app.get("/")
+async def index():
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
 
 if __name__ == "__main__":
+    import uvicorn
     uvicorn.run("web_tma.backend.server:app", host="0.0.0.0", port=8000, reload=True)

@@ -1,269 +1,296 @@
-﻿import os
+import os
 import sys
 import json
 import asyncio
-from datetime import datetime, timedelta, timezone
+import re
+import httpx
 from bs4 import BeautifulSoup
 from loguru import logger
-from sqlalchemy import select
+import sqlite3
+from datetime import datetime, timedelta
+from playwright.async_api import async_playwright
 
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-if ROOT_DIR not in sys.path:
-    sys.path.insert(0, ROOT_DIR)
-
-from core.database import init_db, async_session_maker, DropProject, ActionTask, TaskStatus, ProjectTier
-from discovery.browser import fetch_page_with_browser
-from ai_analyzer.scoring import analyze_cryptorank_project
-
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB_PATH = os.path.join(ROOT_DIR, "drop_hunter.db")
 SOURCES_FILE = os.path.join(ROOT_DIR, "sources", "resources.json")
+PROFILE_DIR = os.path.join(ROOT_DIR, "discovery", ".browser_profile")
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7"
+}
+
+THREE_MONTHS_AGO = datetime.now() - timedelta(days=90)
 
 def load_sources():
-    if not os.path.exists(SOURCES_FILE):
-        return []
+    if not os.path.exists(SOURCES_FILE): return []
     try:
         with open(SOURCES_FILE, "r", encoding="utf-8-sig") as f:
-            return json.load(f)
-    except Exception as e:
-        logger.error(f"Помилка читання resources.json: {e}")
-        return []
+            return [s for s in json.load(f) if s.get("enabled", True)]
+    except Exception: return []
 
-def save_sources(sources_list):
-    os.makedirs(os.path.dirname(SOURCES_FILE), exist_ok=True)
-    with open(SOURCES_FILE, "w", encoding="utf-8") as f:
-        json.dump(sources_list, f, ensure_ascii=False, indent=2)
+def save_project(p: dict) -> str:
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    cur.execute("SELECT id FROM drop_projects WHERE title = ? OR source_url = ?", (p["title"], p["source_url"]))
+    if cur.fetchone():
+        conn.close()
+        return "EXISTS"
 
-def parse_post_datetime(time_tag) -> datetime:
-    if not time_tag or not time_tag.has_attr("datetime"):
-        return None
-    raw_dt = time_tag["datetime"]
+    is_testnet = 1 if "testnet" in p.get("stage", "").lower() or p.get("is_testnet") else 0
+
+    cur.execute("""
+    INSERT INTO drop_projects (
+        title, source_platform, tier, score, raised_amount, backers,
+        category, stage, status_reward, is_testnet, estimated_cost_usd,
+        summary, source_url, tracking_status
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, 'Active', 'Підтверджено', ?, 0.0, ?, ?, 'new')
+    """, (
+        p["title"], p["source_platform"], p.get("tier", "Tier-2"), p.get("score", 85),
+        p.get("raised_amount", "Оцінюється"), p.get("backers", "Венчурні фонди"),
+        p.get("category", "L1 / L2 / DeFi"), is_testnet, p.get("summary", ""), p["source_url"]
+    ))
+    proj_id = cur.lastrowid
+
+    tasks = [
+        "Підключити гаманець до офіційної платформи",
+        "Отримати тестові токени через кран / верифікацію",
+        "Виконати обмін (Swap) або взаємодію з контрактом"
+    ]
+    for idx, t_title in enumerate(tasks):
+        cur.execute("""
+        INSERT INTO action_tasks (project_id, step_number, title, action_type, network, status, target_url, is_autonomous, description)
+        VALUES (?, ?, ?, 'task', 'EVM / Testnet', 'PENDING', ?, 1, '')
+        """, (proj_id, idx + 1, t_title, p["source_url"]))
+
+    conn.commit()
+    conn.close()
+    return "ADDED"
+
+# 1. CRYPTORANK: швидкий DOM-скролер без networkidle
+async def scan_cryptorank():
+    logger.info("🌐 [CryptoRank] Запуск браузера для вивантаження каталогу (до 200 проєктів)...")
+    added, exist = 0, 0
+    os.makedirs(PROFILE_DIR, exist_ok=True)
+
     try:
-        return datetime.fromisoformat(raw_dt.replace("Z", "+00:00"))
-    except Exception:
-        return None
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(
+                headless=True,
+                args=["--headless=new", "--disable-blink-features=AutomationControlled", "--no-sandbox"]
+            )
+            context = await browser.new_context(user_agent=HEADERS["User-Agent"], viewport={"width": 1920, "height": 1080})
+            page = await context.new_page()
 
-async def extract_items_from_source(resource: dict, days_back: int = 30) -> list:
-    url = resource.get("url")
-    r_type = resource.get("type", "website")
-    name = resource.get("name", "Джерело")
-    
-    is_cryptorank = "cryptorank.io" in url
-    max_items = 40 if is_cryptorank else 20
-    
-    target_url = url
-    if "t.me/" in url and "/s/" not in url:
-        channel = url.split("t.me/")[-1].strip("/")
-        target_url = f"https://t.me/s/{channel}"
+            # Завантажуємо тільки DOM без вічного очікування мережі
+            logger.info("Відкриття сторінки https://cryptorank.io/drophunting...")
+            await page.goto("https://cryptorank.io/drophunting", wait_until="domcontentloaded", timeout=20000)
+            await asyncio.sleep(3)
 
-    logger.info(f"[{name}] Сканування {'(ФЛАГМАН)' if is_cryptorank else ''}: {target_url}")
-    
-    # Для CryptoRank робимо глибокий скрол
-    page_data = await fetch_page_with_browser(target_url, scroll_down=True)
-    html = page_data.get("html", "")
-    
-    if "Трохи зачекайте" in html or "Just a moment" in html or "Cloudflare" in html:
-        logger.warning(f"[{name}] Очікування проходження захисту Cloudflare (5с)...")
-        await asyncio.sleep(5)
-        page_data = await fetch_page_with_browser(target_url, scroll_down=True)
-        html = page_data.get("html", "")
+            # Прокрутка вниз для завантаження списку
+            for s in range(5):
+                await page.evaluate("window.scrollBy(0, 2500)")
+                await asyncio.sleep(1.2)
 
-    if not html:
-        return []
+            links = await page.query_selector_all('a[href*="/drophunting/"]')
+            logger.info(f"[CryptoRank] На сторінці знайдено {len(links)} посилань")
 
-    soup = BeautifulSoup(html, "lxml")
-    collected = []
-    seen_urls = set()
+            seen = set()
+            for a in links:
+                href = await a.get_attribute("href")
+                if not href or href == "/drophunting": continue
+                slug = href.strip("/").split("/")[-1].replace("-activity", "")
+                if slug in seen or any(x in slug for x in ["funds", "tags", "ico"]): continue
+                seen.add(slug)
 
-    # 1. СПЕЦІАЛЬНИЙ ПАРСИНГ ДЛЯ CRYPTORANK DROPHUNTING
-    if is_cryptorank:
-        for a in soup.find_all("a", href=True):
-            href = a["href"].split("?")[0].split("#")[0]
+                text = await a.inner_text()
+                title = text.strip().split("\n")[0] if text else slug.replace("-", " ").title()
+                if len(title) < 2 or "view all" in title.lower():
+                    title = slug.replace("-", " ").title()
+
+                full_url = href if href.startswith("http") else f"https://cryptorank.io{href}"
+                tier = "Tier-1" if any(k in title.lower() for k in ["monad", "story", "bera", "nexus", "abstract", "movement", "sonic", "fuel", "sui"]) else "Tier-2"
+
+                proj = {
+                    "title": title,
+                    "source_platform": "CryptoRank",
+                    "tier": tier,
+                    "score": 92 if tier == "Tier-1" else 82,
+                    "raised_amount": "Раунд фінансування",
+                    "backers": "Top VCs" if tier == "Tier-1" else "Венчурні фонди",
+                    "category": "L1 / L2 / Testnet",
+                    "summary": f"Активний тестнет та кампанія {title} на CryptoRank.",
+                    "source_url": full_url,
+                    "is_testnet": True
+                }
+
+                st = save_project(proj)
+                if st == "ADDED":
+                    added += 1
+                    logger.success(f"✓ [CryptoRank #{added}] Додано: {title}")
+                else:
+                    exist += 1
+
+            await browser.close()
+    except Exception as e:
+        logger.error(f"Помилка CryptoRank: {e}")
+
+    logger.info(f"🏁 [CryptoRank] Додано нових: {added} | Вже було в базі: {exist}")
+
+# 2. INCRYPTED: пагінація без блокувань
+async def scan_incrypted(client: httpx.AsyncClient):
+    logger.info("🌐 [Incrypted] Сканування гайдів...")
+    added, exist = 0, 0
+
+    for page_idx in range(1, 4):
+        url = f"https://incrypted.com/airdrops/page/{page_idx}/" if page_idx > 1 else "https://incrypted.com/airdrops/"
+        try:
+            res = await client.get(url, timeout=12)
+            if res.status_code != 200: break
+            soup = BeautifulSoup(res.text, "lxml")
             
-            # Шукаємо всі сторінки активностей та дропів
-            if ("-activity" in href) or ("/drophunting/" in href and href.strip("/") != "https://cryptorank.io/drophunting"):
-                if not any(bad in href for bad in ["/category/", "/funds/", "/exchanges/", "/tags/", "/ico/"]):
-                    clean_url = href if href.startswith("http") else f"https://cryptorank.io{href}"
-                    clean_url = clean_url.rstrip("/") + "/"
-                    
-                    if clean_url not in seen_urls:
-                        seen_urls.add(clean_url)
-                        text = a.get_text(strip=True)
-                        if not text or len(text) < 2:
-                            text = clean_url.split("/")[-2].replace("-activity", "").replace("-", " ").title()
-                        
-                        collected.append({
-                            "title": f"[CryptoRank] {text}",
-                            "url": clean_url,
-                            "text": ""
-                        })
+            # Шукаємо всі посилання на гайди
+            links = soup.find_all("a", href=True)
+            for a in links:
+                h = a["href"]
+                txt = a.get_text(strip=True)
+                if "/airdrop" in h and len(txt) > 5 and not any(x in txt.lower() for x in ["всі", "новини", "читати"]):
+                    clean_name = txt.split(":")[0].replace("Як отримати аірдроп від", "").replace("Гайд по тестнету", "").replace("Гайд по", "").strip()
+                    if len(clean_name) < 3 or len(clean_name) > 40: continue
 
-            if len(collected) >= max_items:
-                break
+                    proj = {
+                        "title": clean_name,
+                        "source_platform": "Incrypted",
+                        "tier": "Tier-2",
+                        "score": 84,
+                        "raised_amount": "Раунд закрито",
+                        "backers": "Венчурні фонди",
+                        "category": "Testnet / DeFi",
+                        "summary": txt,
+                        "source_url": h,
+                        "is_testnet": True
+                    }
+                    st = save_project(proj)
+                    if st == "ADDED":
+                        added += 1
+                        logger.success(f"✓ [Incrypted #{added}] Додано: {clean_name}")
+                    else:
+                        exist += 1
+        except Exception as e:
+            logger.debug(f"Incrypted помилка: {e}")
+            break
 
-    # 2. TELEGRAM-КАНАЛИ
-    elif r_type == "telegram" or "t.me/s/" in target_url:
-        cutoff_date = datetime.now(timezone.utc) - timedelta(days=days_back)
-        posts = soup.select("div.tgme_widget_message_wrap")
-        
-        for post in reversed(posts):
-            text_el = post.select_one("div.tgme_widget_message_text")
-            link_el = post.select_one("a.tgme_widget_message_date")
-            time_el = post.select_one("time[datetime]")
-            
-            post_url = link_el["href"] if link_el and link_el.has_attr("href") else target_url
-            if not text_el:
+    logger.info(f"🏁 [Incrypted] Додано нових: {added} | Вже було в базі: {exist}")
+
+# 3. AIRDROPS.IO
+async def scan_airdrops_io(client: httpx.AsyncClient):
+    logger.info("🌐 [Airdrops.io] Сканування Hot та Latest...")
+    added, exist = 0, 0
+    for u in ["https://airdrops.io/hot/", "https://airdrops.io/"]:
+        try:
+            res = await client.get(u, timeout=12)
+            if res.status_code != 200: continue
+            soup = BeautifulSoup(res.text, "lxml")
+            for a in soup.find_all("a", href=True):
+                h = a["href"]
+                t = a.get_text(strip=True)
+                if "airdrops.io/" in h and len(t) > 2 and not any(x in t.lower() for x in ["view", "airdrop", "contact", "privacy"]):
+                    proj = {
+                        "title": t[:35],
+                        "source_platform": "Airdrops.io",
+                        "tier": "Tier-2",
+                        "score": 82,
+                        "raised_amount": "Не оголошено",
+                        "backers": "Екосистемні гранти",
+                        "category": "Testnet",
+                        "summary": f"Активність {t} з Airdrops.io",
+                        "source_url": h,
+                        "is_testnet": True
+                    }
+                    st = save_project(proj)
+                    if st == "ADDED":
+                        added += 1
+                        logger.success(f"✓ [Airdrops.io #{added}] Додано: {t[:35]}")
+                    else:
+                        exist += 1
+        except Exception: pass
+
+    logger.info(f"🏁 [Airdrops.io] Додано нових: {added} | Вже було в базі: {exist}")
+
+# 4. TELEGRAM: останні 3 місяці
+async def scan_telegram(client: httpx.AsyncClient, source: dict):
+    name = source.get("name", "TG")
+    url = source.get("url", "")
+    added = 0
+    try:
+        res = await client.get(url, timeout=10)
+        if res.status_code != 200: return
+        soup = BeautifulSoup(res.text, "lxml")
+        messages = soup.find_all("div", class_="tgme_widget_message_wrap")
+
+        for msg in reversed(messages):
+            time_el = msg.find("time")
+            if time_el and time_el.has_attr("datetime"):
+                try:
+                    dt = datetime.fromisoformat(time_el["datetime"].replace("Z", "+00:00")).replace(tzinfo=None)
+                    if dt < THREE_MONTHS_AGO: continue
+                except Exception: pass
+
+            text_el = msg.find("div", class_="tgme_widget_message_text")
+            if not text_el: continue
+            full_txt = text_el.get_text("\n", strip=True)
+            if len(full_txt) < 45 or any(s in full_txt.lower() for s in ["реклама", "розіграш", "канал продається"]):
                 continue
 
-            post_dt = parse_post_datetime(time_el)
-            if post_dt and post_dt < cutoff_date:
-                continue
+            bold = text_el.find(["b", "strong"])
+            title = bold.get_text(strip=True) if bold else full_txt.split("\n")[0]
+            title = re.sub(r"[#🔥⚡🚀🎁👉💎]", "", title).strip()
+            if len(title) > 35: title = title[:35].strip() + "..."
+            if len(title) < 3 or "web3 drop" in title.lower(): continue
 
-            raw_text = text_el.get_text(separator="\n", strip=True)
-            if len(raw_text) > 70:
-                dt_str = post_dt.strftime("%d.%m") if post_dt else "Свіже"
-                collected.append({
-                    "title": f"[{dt_str}] " + raw_text[:60].replace("\n", " "),
-                    "url": post_url,
-                    "text": raw_text
-                })
+            links = text_el.find_all("a", href=True)
+            target = ""
+            for a in links:
+                if "t.me" not in a["href"] and not a["href"].startswith("tg://"):
+                    target = a["href"]; break
+            if not target and links: target = links[0]["href"]
+            if not target: continue
 
-            if len(collected) >= max_items:
-                break
+            proj = {
+                "title": title,
+                "source_platform": name,
+                "tier": "Tier-1" if any(w in full_txt.lower() for w in ["paradigm", "a16z", "tier-1"]) else "Tier-2",
+                "score": 85,
+                "raised_amount": "Деталі в пості",
+                "backers": "Венчурні фонди",
+                "category": "Airdrop / Testnet",
+                "summary": full_txt[:260] + "...",
+                "source_url": target,
+                "is_testnet": True
+            }
+            if save_project(proj) == "ADDED":
+                added += 1
+                logger.success(f"✓ [{name} #{added}] Додано: {title}")
+    except Exception: pass
 
-    # 3. ІНШІ САЙТИ (Airdrops.io, CertiK)
-    else:
-        for a in soup.find_all("a", href=True):
-            href = a["href"].split("?")[0].split("#")[0]
-            is_valid = False
-            
-            if "airdrops.io" in target_url:
-                if not any(x in href for x in ["/speculative/", "/category/", "/tag/", "/contact/", "/about/"]):
-                    if href.startswith("https://airdrops.io/") and len(href.strip("/").split("/")) == 4:
-                        is_valid = True
-            elif "certik.com" in target_url:
-                if "/quest" in href or "/alert" in href or "/project/" in href:
-                    is_valid = True
+async def main():
+    logger.info("🚀 Запуск повного збору: сайти без обмежень, Telegram - 3 місяці...")
+    # 1. CryptoRank
+    await scan_cryptorank()
 
-            if is_valid:
-                clean_url = href if href.startswith("http") else href
-                if clean_url not in seen_urls:
-                    seen_urls.add(clean_url)
-                    text = a.get_text(strip=True) or clean_url.split("/")[-2]
-                    collected.append({
-                        "title": text,
-                        "url": clean_url,
-                        "text": ""
-                    })
-
-            if len(collected) >= max_items:
-                break
-
-    logger.info(f"[{name}] Відібрано для поглибленого аналізу: {len(collected)} проєктів.")
-    return collected
-
-async def process_item(item: dict, platform_name: str) -> bool:
-    target_url = item["url"]
-
-    async with async_session_maker() as session:
-        query = select(DropProject).where(DropProject.source_url == target_url)
-        existing = (await session.execute(query)).scalar_one_or_none()
-        if existing and existing.tracking_status != "tracking":
-            return False
-
-    raw_content = item.get("text", "")
-    if not raw_content:
-        detail_data = await fetch_page_with_browser(target_url, scroll_down=True)
-        html = detail_data.get("html", "")
-        if html:
-            dsoup = BeautifulSoup(html, "lxml")
-            main = dsoup.find("main") or dsoup.find("article") or dsoup.find("body") or dsoup
-            for tag in main(["script", "style", "nav", "footer", "header"]):
-                tag.decompose()
-            raw_content = main.get_text(separator="\n", strip=True)[:7000]
-
-    if len(raw_content) < 60:
-        return False
-
-    logger.info(f"ШІ оцінює: {item['title'][:45]}...")
-    try:
-        analysis = await analyze_cryptorank_project(raw_content, target_url)
-
-        # Для проєктів із CryptoRank поріг відбору м'якший (бал 15+), оскільки це верифікований каталог
-        min_score = 15 if "cryptorank" in target_url else 20
-        if not analysis.is_actionable_drop or analysis.score < min_score or analysis.tier == ProjectTier.SCAM:
-            logger.warning(f"Відсіяно: {analysis.project_name} (Бал: {analysis.score} | Дроп: {analysis.is_actionable_drop})")
-            return False
-
-        async with async_session_maker() as session:
-            query = select(DropProject).where(DropProject.source_url == target_url)
-            current = (await session.execute(query)).scalar_one_or_none()
-
-            if not current:
-                project = DropProject(
-                    title=analysis.project_name,
-                    source_url=target_url,
-                    source_platform=platform_name,
-                    tier=analysis.tier,
-                    score=analysis.score,
-                    raised_amount=analysis.raised_amount,
-                    backers=analysis.backers,
-                    category=analysis.category,
-                    stage=analysis.stage,
-                    status_reward=analysis.status_reward,
-                    is_testnet=analysis.is_testnet_only,
-                    estimated_cost_usd=analysis.estimated_gas_cost_usd,
-                    summary=analysis.summary,
-                    guide_markdown=analysis.guide_markdown,
-                    raw_content=raw_content[:1500],
-                    tracking_status="new"
-                )
-                session.add(project)
-                await session.flush()
-
-                for t in analysis.tasks:
-                    session.add(ActionTask(
-                        project_id=project.id,
-                        step_number=t.step_number,
-                        title=t.title,
-                        action_type=t.action_type,
-                        network=t.network,
-                        is_autonomous=t.is_autonomous,
-                        target_url=t.target_url,
-                        description=t.description,
-                        status=TaskStatus.APPROVED if t.is_autonomous else TaskStatus.PENDING
-                    ))
-
-                await session.commit()
-                logger.success(f"⭐ [CryptoRank/Головне] Додано: {analysis.project_name} (Бал: {analysis.score}/100, Інвестиції: {analysis.raised_amount})")
-                return True
-            else:
-                current.summary = analysis.summary
-                current.guide_markdown = analysis.guide_markdown
-                await session.commit()
-                return True
-
-    except Exception as e:
-        logger.error(f"Помилка обробки {target_url}: {e}")
-        return False
-
-async def run_all_sources(days_back: int = 30):
-    await init_db()
+    # 2. Incrypted + Airdrops.io + Telegram
     sources = load_sources()
-    
-    # Примусово ставимо CryptoRank першим у черзі
-    sources.sort(key=lambda s: 0 if "cryptorank" in s.get("url", "").lower() else 1)
-    
-    active_sources = [s for s in sources if s.get("enabled", True)]
-    logger.info(f"Запуск обходу. Першим стартує CryptoRank. Активних джерел: {len(active_sources)}")
+    async with httpx.AsyncClient(headers=HEADERS, follow_redirects=True) as client:
+        await scan_incrypted(client)
+        await scan_airdrops_io(client)
 
-    total_added = 0
-    for s in active_sources:
-        items = await extract_items_from_source(s, days_back=days_back)
-        for it in items:
-            added = await process_item(it, s.get("name"))
-            if added:
-                total_added += 1
+        for s in sources:
+            if s.get("type") == "telegram" or "t.me" in s.get("url", ""):
+                await scan_telegram(client, s)
+                await asyncio.sleep(0.4)
 
-    logger.success(f"Обхід завершено! Усього додано проєктів: {total_added}")
+    logger.success("✓ Збір завершено! Усі нові проєкти додані до бази.")
 
 if __name__ == "__main__":
-    asyncio.run(run_all_sources(days_back=30))
+    asyncio.run(main())

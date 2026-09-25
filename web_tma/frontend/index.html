@@ -1,0 +1,705 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Crypto Hub & Hunter</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #0d121f;
+            --card-bg: #151d30;
+            --card-inner: #0f1626;
+            --accent: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #222f49;
+            --green: #22c55e;
+            --red: #ef4444;
+            --yellow: #f59e0b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 16px auto;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 14px;
+        }
+        .header h1 { margin: 0; font-size: 20px; display: flex; align-items: center; gap: 8px; }
+        .stats-badges { display: flex; gap: 8px; font-size: 12px; }
+        .stat-pill {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        .stat-pill strong { color: var(--accent); }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 9px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #1e293b;
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+        .btn-add-manual {
+            margin-left: auto;
+            background: #0284c7;
+            color: #fff;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .btn-add-manual:hover { background: #0369a1; }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Повні оригінальні картки */
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .project-title { font-size: 22px; font-weight: bold; margin-right: 10px; }
+        .badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .badge-tier { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .badge-score { background: rgba(30, 58, 138, 0.4); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-status { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .badge-green { background: rgba(34, 197, 94, 0.15); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.3); }
+        .badge-red { background: rgba(239, 68, 68, 0.15); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .badge-yellow { background: rgba(245, 158, 11, 0.15); color: var(--yellow); border: 1px solid rgba(245, 158, 11, 0.3); }
+
+        .meta-line { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+        .meta-line span { color: #f1f5f9; font-weight: 600; }
+
+        .props-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            background: var(--card-inner);
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .prop-item span { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+        .prop-item strong { font-size: 14px; font-weight: 600; color: #f8fafc; }
+
+        .summary-text { font-size: 13.5px; line-height: 1.6; color: #cbd5e1; margin-bottom: 20px; }
+        .section-heading { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 700; margin-bottom: 12px; }
+
+        .step-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-inner);
+            border: 1px solid var(--border);
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .step-left { display: flex; align-items: center; gap: 12px; }
+        .step-num {
+            width: 22px; height: 22px; background: #1e293b; color: #94a3b8;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: bold;
+        }
+        .step-title { font-size: 13.5px; font-weight: 500; }
+        .step-type { font-size: 10px; text-transform: uppercase; background: #1e293b; color: #94a3b8; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+
+        .btn-ui {
+            background: #1a2333; color: #cbd5e1; border: 1px solid var(--border);
+            padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px;
+            display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+        }
+        .btn-ui:hover { background: #26334a; color: #fff; }
+        .btn-ui-primary { background: #0284c7; border-color: #0284c7; color: #fff; }
+        .btn-ui-primary:hover { background: #0369a1; }
+
+        /* Вкладка джерел */
+        .source-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-inner);
+            border: 1px solid var(--border);
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .toggle-switch {
+            position: relative; display: inline-block; width: 44px; height: 24px;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #334155; transition: .3s; border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+            background-color: white; transition: .3s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--green); }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        /* Модальне вікно */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-box {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 12px; padding: 24px; width: 500px; max-width: 90%;
+        }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+        .form-group input, .form-group textarea {
+            width: 100%; background: var(--card-inner); border: 1px solid var(--border);
+            color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; box-sizing: border-box;
+        }
+
+        /* Графіки */
+        .token-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+        .pill { background: var(--card-inner); border: 1px solid var(--border); color: #cbd5e1; padding: 5px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; font-weight: 600; }
+        .pill.active { background: var(--accent); color: #080c14; border-color: var(--accent); }
+        .chart-container { position: relative; height: 380px; width: 100%; margin-top: 10px; }
+        .quant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 16px; }
+        .quant-card { background: var(--card-inner); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>⚡ AI Crypto Hub & Hunter</h1>
+        <div class="stats-badges" id="stats-header">
+            <div class="stat-pill">В роботі: <strong id="st-tracking">0</strong></div>
+            <div class="stat-pill">Потребують оцінки: <strong id="st-new">0</strong></div>
+            <div class="stat-pill">Всього: <strong id="st-total">0</strong></div>
+            <div class="stat-pill">Джерел: <strong id="st-sources">0</strong></div>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('tracking')">⭐ В роботі</button>
+        <button class="tab-btn" onclick="switchTab('new')">📥 Потребують оцінки</button>
+        <button class="tab-btn" onclick="switchTab('sources')">⚙️ Джерела та Ресурси</button>
+        <button class="tab-btn" onclick="switchTab('signals')">📈 Ринковий Радар</button>
+        <button class="tab-btn" onclick="switchTab('forecaster')">🔮 ШІ-Прогноз & Графік</button>
+        <button class="btn-add-manual" onclick="openAddModal()">➕ Додати свій проєкт</button>
+    </div>
+
+    <div class="container" id="content-area"></div>
+
+    <!-- Модальне вікно для додавання проєктів -->
+    <div id="add-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="margin-top:0; font-size:18px;">➕ Додати власний проєкт</h2>
+            <div class="form-group">
+                <label>Назва проєкту *</label>
+                <input type="text" id="m-title" placeholder="Наприклад: Monad Testnet">
+            </div>
+            <div class="form-group">
+                <label>Посилання на проєкт або пост *</label>
+                <input type="text" id="m-url" placeholder="https://...">
+            </div>
+            <div class="form-group">
+                <label>Джерело</label>
+                <input type="text" id="m-source" placeholder="Telegram @cryptoforto, Incrypted...">
+            </div>
+            <div class="form-group">
+                <label>Опис або нотатки</label>
+                <textarea id="m-summary" rows="2" placeholder="Опис проєкту"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Завдання (по одному на рядок)</label>
+                <textarea id="m-tasks" rows="3" placeholder="Підключити гаманець&#10;Виконати свап"></textarea>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
+                <button class="btn-ui" onclick="closeAddModal()">Скасувати</button>
+                <button class="btn-ui btn-ui-primary" onclick="submitManualProject()">Зберегти</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 'tracking';
+        let currentSymbol = 'BTC';
+        let currentPeriod = '24h';
+        let currentHorizon = '24h';
+        let quantChart = null;
+
+        const QUICK_TOKENS = ['BTC', 'ETH', 'SOL', 'SUI', 'PEPE', 'TON', 'BNB'];
+
+        async function updateStats() {
+            try {
+                const res = await fetch('/api/stats');
+                const s = await res.json();
+                document.getElementById('st-tracking').innerText = s.tracking;
+                document.getElementById('st-new').innerText = s.new;
+                document.getElementById('st-total').innerText = s.total;
+                document.getElementById('st-sources').innerText = s.sources;
+            } catch (e) {}
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            if (event && event.target && event.target.classList.contains('tab-btn')) {
+                event.target.classList.add('active');
+            }
+            loadContent();
+        }
+
+        function loadContent() {
+            updateStats();
+            const container = document.getElementById('content-area');
+            if (currentTab === 'sources') renderSourcesTab(container);
+            else if (currentTab === 'forecaster') renderForecasterTab(container);
+            else if (currentTab === 'signals') renderSignalsTab(container);
+            else renderProjectsTab(container, currentTab);
+        }
+
+        function openAddModal() { document.getElementById('add-modal').style.display = 'flex'; }
+        function closeAddModal() { document.getElementById('add-modal').style.display = 'none'; }
+
+        async function submitManualProject() {
+            const title = document.getElementById('m-title').value.trim();
+            const url = document.getElementById('m-url').value.trim();
+            const source = document.getElementById('m-source').value.trim() || 'Власне джерело';
+            const summary = document.getElementById('m-summary').value.trim();
+            const tasks = document.getElementById('m-tasks').value.trim();
+
+            if (!title || !url) { alert('Вкажіть назву та посилання!'); return; }
+
+            const res = await fetch('/api/projects/manual', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({title, source_platform: source, source_url: url, summary, tasks})
+            });
+            if (res.ok) {
+                closeAddModal();
+                alert('✓ Проєкт успішно додано!');
+                currentTab = 'new';
+                loadContent();
+            }
+        }
+
+        // Вкладка Джерел та Ресурсів
+        async function renderSourcesTab(container) {
+            container.innerHTML = `
+                <div class="project-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                        <h2 style="margin:0; font-size:18px;">⚙️ Моніторинг ресурсів та каналів</h2>
+                    </div>
+
+                    <div id="sources-list">Завантаження ресурсів...</div>
+
+                    <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border);">
+                        <h3 style="font-size:14px; margin-bottom:10px;">➕ Додати новий сайт або Telegram-канал</h3>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                            <input type="text" id="ns-name" class="btn-ui" style="width:200px;" placeholder="Назва (напр. Crypto Channel)">
+                            <input type="text" id="ns-url" class="btn-ui" style="flex:1; min-width:250px;" placeholder="URL (напр. https://t.me/s/channel або сайт)">
+                            <select id="ns-type" class="btn-ui">
+                                <option value="telegram">Telegram</option>
+                                <option value="website">Веб-сайт</option>
+                            </select>
+                            <button class="btn-ui btn-ui-primary" onclick="addNewSource()">Додати джерело</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            try {
+                const res = await fetch('/api/sources');
+                const sources = await res.json();
+                const list = document.getElementById('sources-list');
+
+                if (!sources.length) {
+                    list.innerHTML = '<div style="color:var(--text-muted);">Джерел не знайдено.</div>';
+                    return;
+                }
+
+                list.innerHTML = sources.map(s => `
+                    <div class="source-item">
+                        <div>
+                            <strong style="font-size:15px;">${s.name}</strong>
+                            <span class="badge ${s.type === 'telegram' ? 'badge-tier' : 'badge-score'}" style="margin-left:8px;">${s.type.toUpperCase()}</span>
+                            <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${s.url}</div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <span style="font-size:12px; color:${s.enabled ? 'var(--green)' : 'var(--text-muted)'}; font-weight:600;">
+                                ${s.enabled ? 'АКТИВНЕ' : 'ПАУЗА'}
+                            </span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" ${s.enabled ? 'checked' : ''} onchange="toggleSource(${s.id})">
+                                <span class="slider"></span>
+                            </label>
+                            <button class="btn-ui" style="color:var(--red); padding:4px 8px;" onclick="deleteSource(${s.id})">✕</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                container.innerHTML = `<div class="project-card" style="color:var(--red);">Помилка завантаження джерел: ${e}</div>`;
+            }
+        }
+
+        async function toggleSource(id) {
+            await fetch(`/api/sources/${id}/toggle`, {method: 'POST'});
+            renderSourcesTab(document.getElementById('content-area'));
+        }
+
+        async function deleteSource(id) {
+            if (confirm('Видалити це джерело?')) {
+                await fetch(`/api/sources/${id}`, {method: 'DELETE'});
+                renderSourcesTab(document.getElementById('content-area'));
+            }
+        }
+
+        async function addNewSource() {
+            const name = document.getElementById('ns-name').value.trim();
+            const url = document.getElementById('ns-url').value.trim();
+            const type = document.getElementById('ns-type').value;
+            if (!name || !url) { alert('Вкажіть назву та URL!'); return; }
+
+            await fetch('/api/sources', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name, url, type, enabled: true})
+            });
+            renderSourcesTab(document.getElementById('content-area'));
+        }
+
+        // Вкладка проєктів (Оригінальні картки)
+        async function renderProjectsTab(container, status) {
+            container.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--text-muted);">Завантаження списку...</div>';
+            try {
+                const res = await fetch(`/api/projects?status=${status}`);
+                const projects = await res.json();
+
+                if (!projects || !projects.length) {
+                    container.innerHTML = `
+                        <div class="project-card" style="text-align:center; padding:40px;">
+                            <p style="color:var(--text-muted); margin-bottom:15px;">Проєктів у статусі '${status}' зараз немає.</p>
+                            <button class="btn-ui btn-ui-primary" onclick="openAddModal()">➕ Додати перший проєкт вручну</button>
+                        </div>`;
+                    return;
+                }
+
+                container.innerHTML = projects.map(p => `
+                    <div class="project-card">
+                        <div class="card-top">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="project-title">${p.title}</span>
+                                <span class="badge badge-tier">${p.tier || 'Tier-1'}</span>
+                                <span class="badge badge-score">Бал: ${p.score}/100</span>
+                                ${status === 'tracking' ? '<span class="badge badge-status">● В роботі</span>' : ''}
+                                ${p.is_testnet ? '<span class="badge badge-green">🔥 ТЕСТНЕТ</span>' : ''}
+                            </div>
+                            <div style="display:flex; gap:8px;">
+                                ${status === 'new' ? `<button class="btn-ui btn-ui-primary" onclick="setProjectStatus(${p.id}, 'tracking')">⭐ В роботу</button>` : ''}
+                                <button class="btn-ui" onclick="setProjectStatus(${p.id}, 'ignored')">🗑 Не цікаво</button>
+                                <a href="${p.source_url}" target="_blank" class="btn-ui">Джерело ↗</a>
+                            </div>
+                        </div>
+
+                        <div class="meta-line">
+                            Категорія: <span>${p.category || 'Web3'}</span> &nbsp;•&nbsp;
+                            Стадія: <span>${p.stage || 'Active'}</span> &nbsp;•&nbsp;
+                            Нагорода: <span>${p.status_reward || 'Очікується'}</span> &nbsp;•&nbsp;
+                            Джерело: <span>${p.source_platform || 'Власне'}</span>
+                        </div>
+
+                        <div class="props-grid">
+                            <div class="prop-item">
+                                <span>Інвестиції</span>
+                                <strong>${p.raised_amount || 'Не оголошено'}</strong>
+                            </div>
+                            <div class="prop-item">
+                                <span>Бейкери / Фонди</span>
+                                <strong>${p.backers || 'Команда'}</strong>
+                            </div>
+                            <div class="prop-item">
+                                <span>Витрати газу</span>
+                                <strong style="color:var(--green);">${p.estimated_cost_usd > 0 ? '$' + p.estimated_cost_usd : '$0.00 (Безкоштовно)'}</strong>
+                            </div>
+                            <div class="prop-item">
+                                <span>Завдань у чек-листі</span>
+                                <strong style="color:var(--accent);">${(p.tasks || []).length} дій</strong>
+                            </div>
+                        </div>
+
+                        <div class="summary-text">${p.summary || ''}</div>
+
+                        <div class="section-heading">Покроковий план дій</div>
+                        <div>
+                            ${(p.tasks || []).map((t, idx) => `
+                                <div class="step-row">
+                                    <div class="step-left">
+                                        <div class="step-num">${idx + 1}</div>
+                                        <div class="step-title">${t.title}</div>
+                                        <span class="step-type">${t.action_type || 'task'}</span>
+                                    </div>
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <span class="badge ${t.status === 'COMPLETED' ? 'badge-green' : t.status === 'FAILED' ? 'badge-red' : 'badge-yellow'}">
+                                            ${t.status === 'COMPLETED' ? '✅ Виконано' : t.status === 'FAILED' ? '❌ Помилка' : '⏳ В черзі'}
+                                        </span>
+                                        ${t.target_url ? `<a href="${t.target_url}" target="_blank" class="btn-ui" style="padding:4px 10px;">Виконати ↗</a>` : ''}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = `<div class="project-card" style="color:var(--red);">Помилка: ${err}</div>`;
+            }
+        }
+
+        async function setProjectStatus(id, newStatus) {
+            await fetch(`/api/projects/${id}/status`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({status: newStatus})
+            });
+            loadContent();
+        }
+
+        // ШІ-Прогноз
+        function renderForecasterTab(container) {
+            container.innerHTML = `
+                <div class="project-card">
+                    <div class="token-bar">
+                        <div style="display:flex; gap:6px;">
+                            ${QUICK_TOKENS.map(t => `<div class="pill ${t === currentSymbol ? 'active' : ''}" onclick="selectToken('${t}')">${t}</div>`).join('')}
+                        </div>
+                        <input type="text" id="manual-sym" class="btn-ui" style="width:120px; text-transform:uppercase;" placeholder="ТИКЕР..." value="${currentSymbol}">
+                        <button class="btn-ui btn-ui-primary" onclick="searchManual()">Аналіз</button>
+
+                        <div style="margin-left: auto; display: flex; gap: 6px;">
+                            <button class="btn-ui ${currentPeriod === '1h' ? 'btn-ui-primary' : ''}" onclick="setPeriod('1h')">1г</button>
+                            <button class="btn-ui ${currentPeriod === '24h' ? 'btn-ui-primary' : ''}" onclick="setPeriod('24h')">24г</button>
+                            <button class="btn-ui ${currentPeriod === '1m' ? 'btn-ui-primary' : ''}" onclick="setPeriod('1m')">1м</button>
+                            <button class="btn-ui ${currentPeriod === '1y' ? 'btn-ui-primary' : ''}" onclick="setPeriod('1y')">1р</button>
+                            <button class="btn-ui ${currentPeriod === '5y' ? 'btn-ui-primary' : ''}" onclick="setPeriod('5y')">5р</button>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 10px;">
+                        <div>
+                            <span id="sym-header" style="font-size: 22px; font-weight: bold;">${currentSymbol}/USDT</span>
+                            <span id="price-header" style="font-size: 22px; font-weight: bold; margin-left: 12px; color: var(--accent);">$0.00</span>
+                            <span id="change-header" class="badge badge-green" style="margin-left: 8px;">0.0%</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; align-items:center;">
+                            <span style="font-size:12px; color:var(--text-muted);">Горизонт:</span>
+                            <button class="btn-ui ${currentHorizon === '1h' ? 'btn-ui-primary' : ''}" onclick="setHorizon('1h')">1 Година</button>
+                            <button class="btn-ui ${currentHorizon === '24h' ? 'btn-ui-primary' : ''}" onclick="setHorizon('24h')">24 Години</button>
+                            <button class="btn-ui ${currentHorizon === '7d' ? 'btn-ui-primary' : ''}" onclick="setHorizon('7d')">1 Тиждень</button>
+                        </div>
+                    </div>
+
+                    <div id="chart-err" style="display:none; padding:10px; background:rgba(239,68,68,0.15); color:#f87171; border-radius:6px; margin:10px 0; font-size:13px;"></div>
+                    <div class="chart-container"><canvas id="quantChartCanvas"></canvas></div>
+                </div>
+
+                <div class="project-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3 style="margin:0; font-size:16px;">🧠 Кількісний аналіз & Прогноз ШІ</h3>
+                        <span id="ai-status" style="font-size:12px; color:var(--text-muted);">Синхронізація...</span>
+                    </div>
+                    <div class="quant-grid" id="quant-metrics-view"></div>
+                </div>
+            `;
+            setTimeout(fetchAnalytics, 50);
+        }
+
+        function selectToken(sym) { currentSymbol = sym; renderForecasterTab(document.getElementById('content-area')); }
+        function searchManual() {
+            const v = document.getElementById('manual-sym').value.trim().toUpperCase();
+            if (v) { currentSymbol = v; renderForecasterTab(document.getElementById('content-area')); }
+        }
+        function setPeriod(p) { currentPeriod = p; fetchAnalytics(); }
+        function setHorizon(h) { currentHorizon = h; fetchAnalytics(); }
+
+        async function fetchAnalytics() {
+            const errBox = document.getElementById('chart-err');
+            const statusEl = document.getElementById('ai-status');
+            if (errBox) errBox.style.display = 'none';
+            if (statusEl) statusEl.innerText = '⚡ Завантаження...';
+
+            try {
+                const chartRes = await fetch(`/api/market/chart?symbol=${currentSymbol}&period=${currentPeriod}`);
+                const cData = await chartRes.json();
+                if (!chartRes.ok || cData.error || cData.detail) {
+                    if (errBox) { errBox.innerText = `⚠️ ${cData.error || cData.detail || 'Не знайдено'}`; errBox.style.display = 'block'; }
+                    return;
+                }
+
+                const fRes = await fetch(`/api/market/forecast?symbol=${currentSymbol}&horizon=${currentHorizon}`);
+                const fData = await fRes.json();
+
+                document.getElementById('sym-header').innerText = `${cData.symbol} (${cData.exchange})`;
+                document.getElementById('price-header').innerText = `$${cData.current_price.toLocaleString()}`;
+                const chg = document.getElementById('change-header');
+                chg.innerText = `${cData.price_change_pct >= 0 ? '+' : ''}${cData.price_change_pct}%`;
+                chg.className = `badge ${cData.price_change_pct >= 0 ? 'badge-green' : 'badge-red'}`;
+
+                renderChart(cData, fData);
+                renderMetrics(cData, fData);
+                if (statusEl) statusEl.innerText = `✓ Джерело: ${cData.exchange} | ${new Date().toLocaleTimeString()}`;
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function renderChart(cData, fData) {
+            const canvas = document.getElementById('quantChartCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (quantChart) quantChart.destroy();
+
+            const histLabels = cData.chart.map(p => p.time);
+            const histPrices = cData.chart.map(p => p.price);
+            const proj = fData.projection_timeline || { labels: [], bull_curve: [], base_curve: [], bear_curve: [] };
+
+            const fullLabels = [...histLabels, ...proj.labels];
+            const nullPadding = new Array(histLabels.length - 1).fill(null);
+            const lastP = histPrices[histPrices.length - 1];
+
+            quantChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: fullLabels,
+                    datasets: [
+                        { label: 'Історія', data: [...histPrices, ...new Array(proj.labels.length).fill(null)], borderColor: '#38bdf8', borderWidth: 2, tension: 0.1, pointRadius: 0 },
+                        { label: 'Bull (+)', data: [...nullPadding, lastP, ...proj.bull_curve], borderColor: '#22c55e', borderDash: [5, 5], pointRadius: 3 },
+                        { label: 'Base', data: [...nullPadding, lastP, ...proj.base_curve], borderColor: '#38bdf8', borderDash: [2, 2], pointRadius: 3 },
+                        { label: 'Bear (-)', data: [...nullPadding, lastP, ...proj.bear_curve], borderColor: '#ef4444', borderDash: [5, 5], pointRadius: 3 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { color: '#162032' }, ticks: { color: '#64748b', maxTicksLimit: 9 } },
+                        y: { grid: { color: '#162032' }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
+        }
+
+        function renderMetrics(cData, fData) {
+            const m = cData.metrics || {};
+            const fc = fData.forecast || {};
+            const p = fc.probabilities || { bull: 33, base: 34, bear: 33 };
+            const lv = fc.levels || {};
+
+            document.getElementById('quant-metrics-view').innerHTML = `
+                <div class="quant-card">
+                    <div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">ЙМОВІРНОСТІ (${fData.horizon})</div>
+                    <div style="display:flex; justify-content:space-between; font-size:12px;">
+                        <span style="color:var(--green)">Bull: ${p.bull}%</span>
+                        <span style="color:var(--accent)">Base: ${p.base}%</span>
+                        <span style="color:var(--red)">Bear: ${p.bear}%</span>
+                    </div>
+                    <div style="margin-top:10px; font-size:13px;">Тренд: <strong>${fc.dominant_trend || 'NEUTRAL'}</strong></div>
+                </div>
+                <div class="quant-card">
+                    <div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">ІНДИКАТОРИ</div>
+                    <div style="font-size:13px;">RSI (14): <strong>${m.rsi || 50}</strong></div>
+                    <div style="font-size:13px; margin-top:4px;">EMA 20/50: <strong>$${m.ema20} / $${m.ema50}</strong></div>
+                </div>
+                <div class="quant-card">
+                    <div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">РІВНІ ТОРГІВЛІ</div>
+                    <div style="font-size:12px;">TP: <strong style="color:var(--green);">$${lv.take_profit_1 || 0}</strong> | SL: <strong style="color:var(--red);">$${lv.stop_loss || 0}</strong></div>
+                    <div style="font-size:12px; margin-top:4px;">Risk/Reward: <strong>${lv.risk_reward_ratio || '1:2'}</strong></div>
+                </div>
+                <div class="quant-card" style="grid-column: 1 / -1;">
+                    <div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">ВИСНОВОК:</div>
+                    <div style="font-size:13px; color:#cbd5e1;">${fc.summary || 'Готово'}</div>
+                </div>
+            `;
+        }
+
+        async function renderSignalsTab(container) {
+            container.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h2 style="font-size:18px; margin:0;">Аномалії бірж (Binance + OKX)</h2>
+                    <button class="btn-ui btn-ui-primary" onclick="triggerScanner()">⚡ Сканувати зараз</button>
+                </div>
+                <div id="signals-list" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px;">Завантаження...</div>
+            `;
+            try {
+                const res = await fetch('/api/signals');
+                const signals = await res.json();
+                const list = document.getElementById('signals-list');
+                if (!signals.length) {
+                    list.innerHTML = `<div class="project-card" style="grid-column:1/-1; text-align:center;">Сигналів поки немає. Натисніть "Сканувати зараз"!</div>`;
+                    return;
+                }
+                list.innerHTML = signals.map(s => `
+                    <div class="project-card" style="margin:0; padding:16px;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <strong>${s.symbol}</strong>
+                            <span class="badge ${s.direction === 'LONG' ? 'badge-green' : 'badge-red'}">${s.direction}</span>
+                        </div>
+                        <div style="font-size:12px; color:var(--text-muted); margin:6px 0;">${s.exchange} | 24h: ${s.change_24h}% | $${s.entry_price}</div>
+                        <div style="font-size:12px; color:#cbd5e1;">🧠 ${s.ai_reason}</div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                container.innerHTML = `<div class="project-card" style="color:var(--red);">Помилка: ${e}</div>`;
+            }
+        }
+
+        async function triggerScanner() {
+            alert('Сканування бірж запущено!');
+            await fetch('/api/signals/scan', {method: 'POST'});
+            setTimeout(loadContent, 6000);
+        }
+
+        loadContent();
+    </script>
+</body>
+</html>

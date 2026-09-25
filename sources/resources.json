@@ -1,184 +1,184 @@
 [
   {
     "id": 1,
-    "name": "CryptoRank Drops",
-    "type": "website",
+    "name": "CryptoRank Drophunting",
     "url": "https://cryptorank.io/drophunting",
+    "type": "website",
     "enabled": true
   },
   {
     "id": 2,
-    "name": "Airdrops.io Speculative",
+    "name": "CryptoRank Funding Rounds",
+    "url": "https://cryptorank.io/funding-rounds",
     "type": "website",
-    "url": "https://airdrops.io/speculative/",
     "enabled": true
   },
   {
     "id": 3,
-    "name": "Dropsearn Airdrops",
+    "name": "Incrypted Airdrops",
+    "url": "https://incrypted.com/airdrops/",
     "type": "website",
-    "url": "https://dropsearn.com/airdrops/",
     "enabled": true
   },
   {
     "id": 4,
-    "name": "Galxe Quests",
+    "name": "Airdrops.io (Hot)",
+    "url": "https://airdrops.io/hot/",
     "type": "website",
-    "url": "https://app.galxe.com",
-    "enabled": false
+    "enabled": true
   },
   {
     "id": 5,
-    "name": "TaskOn Quests",
+    "name": "Airdrops.io (Latest)",
+    "url": "https://airdrops.io/",
     "type": "website",
-    "url": "https://taskon.xyz/campaign",
-    "enabled": false
+    "enabled": true
   },
   {
     "id": 6,
-    "name": "Incrypted Airdrop (UA)",
-    "type": "telegram",
-    "url": "https://t.me/s/incrypted_airdrop",
+    "name": "Airdrops.io (Speculative)",
+    "url": "https://airdrops.io/speculative/",
+    "type": "website",
     "enabled": true
   },
   {
     "id": 7,
-    "name": "DoubleTop Airdrop (UA)",
-    "type": "telegram",
-    "url": "https://t.me/s/doubletop_airdrop",
+    "name": "Dropstab Airdrops",
+    "url": "https://dropstab.com/insights/airdrops",
+    "type": "website",
     "enabled": true
   },
   {
     "id": 8,
-    "name": "Crypto Davy (UA)",
-    "type": "telegram",
-    "url": "https://t.me/s/crypto_davy",
-    "enabled": false
+    "name": "DappRadar Airdrops",
+    "url": "https://dappradar.com/hub/airdrops",
+    "type": "website",
+    "enabled": true
   },
   {
     "id": 9,
-    "name": "Slon Crypto (UA)",
-    "type": "telegram",
-    "url": "https://t.me/s/slon_crypto",
-    "enabled": false
+    "name": "DefiLlama Airdrops",
+    "url": "https://defillama.com/airdrops",
+    "type": "website",
+    "enabled": true
   },
   {
     "id": 10,
-    "name": "LowBank Crypto (UA)",
-    "type": "telegram",
-    "url": "https://t.me/s/lowbank_crypto",
+    "name": "AlphaDrops Portal",
+    "url": "https://alphadrops.net/",
+    "type": "website",
     "enabled": true
   },
   {
     "id": 11,
-    "name": "Maloy Crypto Hub (UA)",
+    "name": "Crypto Fortochka",
+    "url": "https://t.me/s/cryptoforto",
     "type": "telegram",
-    "url": "https://t.me/s/maloy_crypto",
     "enabled": false
   },
   {
     "id": 12,
-    "name": "CoinMarketCap Airdrops",
-    "type": "website",
-    "url": "https://coinmarketcap.com/airdrop/",
-    "enabled": true
+    "name": "Incrypted Airdrops TG",
+    "url": "https://t.me/s/incrypted_airdrops",
+    "type": "telegram",
+    "enabled": false
   },
   {
     "id": 13,
-    "name": "Bankless Guide",
-    "type": "website",
-    "url": "https://www.bankless.com/claimables",
+    "name": "DoubleTop Airdrops",
+    "url": "https://t.me/s/doubletop",
+    "type": "telegram",
     "enabled": false
   },
   {
     "id": 14,
-    "name": "Airdrop Alert Global",
+    "name": "Crypto Davy",
+    "url": "https://t.me/s/cryptodavy_ru",
     "type": "telegram",
-    "url": "https://t.me/s/airdropalert_com",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 15,
-    "name": "crypto fortochka",
-    "url": "https://t.me/s/cryptoforto",
+    "name": "Bankless Drops Feed",
+    "url": "https://t.me/s/bankless_drop",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 16,
-    "name": "incrypted airdrops",
-    "url": "https://t.me/s/incrypted_airdrops",
+    "name": "Hotties Drops",
+    "url": "https://t.me/s/hottiesdrops",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 17,
-    "name": "whitelist",
-    "url": "https://t.me/s/whitelist1",
+    "name": "Cyber Airdrops",
+    "url": "https://t.me/s/cyber_airdrops",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 18,
-    "name": "profit drive",
-    "url": "https://t.me/s/profit_drive",
+    "name": "Drops Daily Updates",
+    "url": "https://t.me/s/drops_daily",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 19,
-    "name": "crypto solanka",
-    "url": "https://t.me/s/crypto_solyanka",
+    "name": "Web3 Testnets Hub",
+    "url": "https://t.me/s/web3_testnet",
     "type": "telegram",
     "enabled": false
   },
   {
     "id": 20,
-    "name": "na 100 kryptan",
-    "url": "https://t.me/s/on100_percent_crypto",
+    "name": "Node & Drop Channel",
+    "url": "https://t.me/s/node_drop",
     "type": "telegram",
     "enabled": false
   },
   {
     "id": 21,
-    "name": "easy crypto",
-    "url": "https://t.me/s/easy_follow",
+    "name": "0xAirdrops News",
+    "url": "https://t.me/s/oxairdrops",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 22,
-    "name": "ay crypto",
-    "url": "https://t.me/s/ay_cry",
+    "name": "Prophunt Drops",
+    "url": "https://t.me/s/prophunt",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 23,
-    "name": "dreamer",
-    "url": "https://t.me/s/DreamerCrypt",
+    "name": "Crypto Lambo Hunters",
+    "url": "https://t.me/s/crypto_lambo_hunt",
     "type": "telegram",
     "enabled": false
   },
   {
     "id": 24,
-    "name": "crypto prime",
-    "url": "https://t.me/s/Crypto_Prime11",
+    "name": "Galxe Quests Tracker",
+    "url": "https://t.me/s/galxe_tracker",
     "type": "telegram",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": 25,
-    "name": "criptinho",
-    "url": "https://t.me/s/criptinho",
+    "name": "Layer3 Alpha Feed",
+    "url": "https://t.me/s/layer3_alpha",
     "type": "telegram",
     "enabled": false
   },
   {
     "id": 26,
-    "name": "Certik_Scynet",
-    "url": "https://skynet.certik.com/",
-    "type": "website",
-    "enabled": true
+    "name": "RetroDrop Hunter Feed",
+    "url": "https://t.me/s/retrodrop_hunter",
+    "type": "telegram",
+    "enabled": false
   }
 ]

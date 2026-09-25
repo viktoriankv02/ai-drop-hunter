@@ -1,25 +1,19 @@
-﻿# Віртуальне оточення
+﻿# Віртуальне оточення та системний кеш
 venv/
-.venv/
-env/
+__pycache__/
+*.pyc
 
-# База даних та локальні логи
-*.db
-*.sqlite3
-drop_hunter.db
-logs/
-*.log
+# Чутливі дані, ключі та конфіги
+.env
+*.pem
+*.key
 
-# Кеш та профіль браузера
+# Профілі браузера та сесії Playwright
 discovery/.browser_profile/
 .browser_profile/
 
-# Секрети та змінні оточення
-.env
-.env.local
-
-# Python кеш
-__pycache__/
-*.py[cod]
-*$py.class
-.pytest_cache/
+# Тимчасові файли та логи
+logs/
+*.log
+.DS_Store
+Thumbs.db
