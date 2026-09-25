@@ -56,7 +56,7 @@ function render() {
   const query=$('#search').value.trim().toLocaleLowerCase('uk-UA');
   const list = state.projects.filter(p => (!$('#filter').value || p.network === $('#filter').value) && (!$('#workflow-filter').value || p.workflow === $('#workflow-filter').value) && (!query || (p.name+' '+p.notes).toLocaleLowerCase('uk-UA').includes(query)));
   const source=$('#source-filter').value,review=$('#review-filter').value;
-  const visible=list.filter(p=>{const host=new URL(p.source).hostname.replace(/^www\./,'');return (!source||(source==='other'?!['incrypted.com','airdrops.io','cryptorank.io','dropstab.com'].includes(host):host===source))&&(!review||(review==='current'?p.reviewStatus==='current':review==='stale'?['stale','unversioned'].includes(p.reviewStatus):review==='ready'?!!p.agentReview:review==='pending'?!p.agentReview:review==='guide'?!!p.guide:!!(p.daily?.error||p.daily?.aiError||p.analysisJob?.status==='failed')));});
+  const visible=list.filter(p=>{const host=new URL(p.source).hostname.replace(/^www\./,'');return (!source||(source==='other'?!['incrypted.com','airdrops.io','cryptorank.io','dropstab.com','airdropalert.com','skynet.certik.com'].includes(host):host===source))&&(!review||(review==='current'?p.reviewStatus==='current':review==='stale'?['stale','unversioned'].includes(p.reviewStatus):review==='ready'?!!p.agentReview:review==='pending'?!p.agentReview:review==='guide'?!!p.guide:!!(p.daily?.error||p.daily?.aiError||p.analysisJob?.status==='failed')));});
   if($('#sort-projects').value==='name')visible.sort((a,b)=>a.name.localeCompare(b.name,'uk'));
   if($('#sort-projects').value==='selected')visible.sort((a,b)=>Number(['watching','active'].includes(b.workflow))-Number(['watching','active'].includes(a.workflow)));
   $('#result-count').textContent='Показано '+visible.length+' із '+state.projects.length;
@@ -130,7 +130,8 @@ setupRobot(()=>state);
 setupAgentProgress(load);
 setupMaterialImport({mutate});
 setupLocalChat(()=>state);
-$('#find-projects').onclick=async()=>{const b=$('#find-projects');b.disabled=true;$('#tracker-status').textContent='Шукаю проєкти…';try{await mutate('/api/discovery/projects',{sourceId:$('#tracker-source').value});}catch(e){$('#tracker-status').textContent=e.message;}finally{b.disabled=false;}};
+$('#tracker-source').onchange=()=>{$('#find-projects').textContent=['cryptorank','certik'].includes($('#tracker-source').value)?'Відкрити джерело':'Знайти нові проєкти';};$('#tracker-source').onchange();
+$('#find-projects').onclick=async()=>{const source=$('#tracker-source').value;if(source==='cryptorank'||source==='certik'){window.open(source==='cryptorank'?'https://cryptorank.io/ru/drophunting':'https://skynet.certik.com/','_blank','noopener,noreferrer');$('#tracker-status').textContent=source==='cryptorank'?'У браузері Chrome/Edge відкрий CryptoRank Reader → «Зібрати проєкти зі сторінки». Матеріали автоматично потраплять до черги аналізу.':'CertiK відкрито для перевірки. Автоматичний аналіз цього джерела ще не підключений.';return;}const b=$('#find-projects');b.disabled=true;$('#tracker-status').textContent='Шукаю проєкти…';try{await mutate('/api/discovery/projects',{sourceId:$('#tracker-source').value});}catch(e){$('#tracker-status').textContent=e.message;}finally{b.disabled=false;}};
 $('#run-agents').onclick=async()=>{const b=$('#run-agents');b.disabled=true;try{await mutate('/api/agents/run',{});}catch(e){$('#agent-work-status').textContent=e.message;}finally{b.disabled=false;}};
 for(const id of filterIds){const input=document.getElementById(id);input.addEventListener(id==='search'?'input':'change',()=>{saveFilters();render();});}
 $('#reset-filters').onclick=()=>{clearFilters();render();};

@@ -42,10 +42,22 @@ export function parseDropsTab(html){
  }
  if(!found.size)throw Error('Активні картки DropsTab не знайдено; формат міг змінитися');return [...found.values()].slice(0,40);
 }
+export function parseAirdropAlert(html){
+ const found=[];const parts=html.split(/(?=<div\b[^>]*class="row card card-item)/);
+ for(const block of parts){const href=block.match(/data-href="([^"]+)"/)?.[1];if(!href)continue;let url;try{url=new URL(href);}catch{continue;}if(url.origin!=='https://airdropalert.com'||url.username||url.password||!/^\/airdrops\/[a-z0-9-]+\/$/.test(url.pathname))continue;
+ const name=readableText(block.match(/<h4\b[^>]*>([\s\S]*?)<\/h4>/)?.[1]||'').slice(0,120);if(!name)continue;found.push({name,source:url.href,network:'unknown',actions:readableText(block).slice(0,600)});
+ }if(!found.length)throw Error('Картки AirdropAlert не знайдені');return [...new Map(found.map(p=>[p.source,p])).values()].slice(0,40);
+}
+async function alertResponse(fetcher){
+ const page=await fetcher('https://airdropalert.com/browse-airdrops/',{redirect:'error',signal:AbortSignal.timeout(15000)});if(!page.ok)throw Error('AirdropAlert HTTP '+page.status);
+ const reader=page.body.getReader();let size=0;const chunks=[];try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>2000000)throw Error('Ліміт каталогу');chunks.push(Buffer.from(value));}}finally{await reader.cancel();}
+ const nonce=Buffer.concat(chunks).toString('utf8').match(/&_wpnonce=([a-z0-9]+)/)?.[1];if(!nonce)throw Error('Формат каталогу AirdropAlert змінився');
+ return fetcher('https://airdropalert.com/wp-admin/admin-ajax.php',{method:'POST',redirect:'error',signal:AbortSignal.timeout(15000),headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({action:'fetch_airdrops',kyc:'',status:'',category:'',blockchain:'',sort:'',search_query:'',paged:'1',_wpnonce:nonce})});
+}
 export class TrackerSearch {
  constructor(store,fetcher=fetch){this.store=store;this.fetcher=fetcher;this.running=null;}
  scan(sourceId='airdrops'){
-  if(!['airdrops','incrypted','dropstab'].includes(sourceId))return Promise.reject(Error('Невідомий трекер'));
+  if(!['airdrops','incrypted','dropstab','airdropalert'].includes(sourceId))return Promise.reject(Error('Невідомий трекер'));
   if(this.running && this.sourceId!==sourceId)return Promise.reject(Error('Інший пошук уже працює'));
   this.sourceId=sourceId;
   if(this.running)return this.running;
@@ -56,13 +68,13 @@ export class TrackerSearch {
   return this.running;
  }
  async perform(sourceId){
-  const name=sourceId==='dropstab'?'DropsTab':sourceId==='incrypted'?'Incrypted':'Airdrops.io';
+  const name=sourceId==='airdropalert'?'AirdropAlert':sourceId==='dropstab'?'DropsTab':sourceId==='incrypted'?'Incrypted':'Airdrops.io';
   try{
-   const response=await this.fetcher(sourceId==='dropstab'?'https://dropstab.com/activities':sourceId==='incrypted'?'https://incrypted.com/airdrops/':'https://airdrops.io/',{redirect:'error',signal:AbortSignal.timeout(15000)});
+   const response=sourceId==='airdropalert'?await alertResponse(this.fetcher):await this.fetcher(sourceId==='dropstab'?'https://dropstab.com/activities':sourceId==='incrypted'?'https://incrypted.com/airdrops/':'https://airdrops.io/',{redirect:'error',signal:AbortSignal.timeout(15000)});
    if(!response.ok||!response.headers.get('content-type')?.includes('text/html'))throw Error('Трекер недоступний або не повернув HTML');
    const reader=response.body.getReader();const chunks=[];let size=0;
    try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>2000000)throw Error('Сторінка перевищує 2 MB');chunks.push(Buffer.from(value));}}finally{await reader.cancel();}
-   const candidates=(sourceId==='dropstab'?parseDropsTab:sourceId==='incrypted'?parseIncrypted:parseTracker)(Buffer.concat(chunks).toString('utf8'));const fetchedAt=new Date().toISOString();
+   const candidates=(sourceId==='airdropalert'?parseAirdropAlert:sourceId==='dropstab'?parseDropsTab:sourceId==='incrypted'?parseIncrypted:parseTracker)(Buffer.concat(chunks).toString('utf8'));const fetchedAt=new Date().toISOString();
    const result=this.store.transaction(()=>{
     let added=0,duplicates=0;
     for(const p of candidates){
