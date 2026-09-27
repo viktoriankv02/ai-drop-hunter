@@ -13,3 +13,12 @@ def test_catalogue_is_not_counted_as_mainnet_or_completed_research():
     pyth=next(c for c in history["cases"] if c["project"]=="Pyth")
     assert pyth["outcome"]["claimed"] is None
     assert pyth["outcome"]["evidence_level"]=="issuer_report"
+
+def test_new_cases_do_not_confuse_earned_and_claimed():
+    data=load_history()
+    cases={c["project"]:c for c in data["cases"]}
+    assert len(cases)>=14
+    assert cases["dYdX"]["outcome"]["claimed"] is None
+    assert cases["ENS"]["outcome"]["paid_wallets"] is None
+    assert not cases["Optimism"]["allocation_audit"]["is_claims_verification"]
+    assert cases["Optimism"]["allocation_audit"]["unique_addresses"]==248699

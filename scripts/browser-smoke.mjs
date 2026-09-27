@@ -48,6 +48,12 @@ try{
  await uni.getByRole('heading',{name:'Опублікована оцінка виплат',exact:true}).waitFor();
  assert((await uni.innerText()).includes('2025-01-28'));
 
+ await page.setViewportSize({width:390,height:844});
+ const op=page.locator('article').filter({has:page.getByRole('heading',{name:'Optimism',exact:true})});
+ await op.locator('summary').click();
+ await op.getByRole('heading',{name:'Відтворений підрахунок CSV',exact:true}).waitFor();
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Historical audit mobile overflow');
+ await page.setViewportSize({width:1440,height:960});
  await page.getByRole('button',{name:'Команда агентів',exact:true}).click();
  await page.getByText('У черзі',{exact:true}).waitFor();
  await page.getByRole('button',{name:'Ринок і сценарії',exact:true}).click();

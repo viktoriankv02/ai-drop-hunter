@@ -424,6 +424,218 @@
         "evidence_level": "published_onchain_analysis_not_reproduced",
         "note": "Dragonfly, таблиця 2: оцінка за ціною під час claim. Це сума до витрат, не прибуток. Запит Dune нами ще не відтворено; документ розміщено на сайті SEC, автор — Dragonfly."
       }
+    },
+    {
+      "status": "partial",
+      "checked_at": "2026-09-27",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "mainnet": {
+        "date": null,
+        "source_url": null
+      },
+      "criteria_scope": "Історичні правила; не поточне завдання й не обіцянка нової винагороди",
+      "project": "ENS",
+      "year": 2021,
+      "category": "domain_registration",
+      "finding": "25 млн ENS виділили колишнім реєстрантам доменів .eth до snapshot 31.10.2021. У підсумку DAO повідомляє приблизно 19,6 млн отриманих ENS і 103 тис. адрес.",
+      "product_lesson": "Відрізняти право на claim від отримання. Зберігати тривалість користування, множники та строк claim. Нову покупку домену не подавати як умову історичного дропу.",
+      "sources": [
+        {
+          "title": "ENS DAO: правила та підсумки розподілу",
+          "url": "https://basics.ensdao.org/ens-token"
+        },
+        {
+          "title": "ENS Docs: офіційний токен",
+          "url": "https://docs.ens.domains/dao/token/"
+        }
+      ],
+      "criteria": [
+        {
+          "cohort": "Реєстранти .eth",
+          "requirement": "Історія реєстрації до snapshot; враховували минулий і майбутній строк, останній обмежували 8 роками. Primary Name давав множник 2.",
+          "source_url": "https://basics.ensdao.org/ens-token"
+        }
+      ],
+      "reward": {
+        "token": "ENS",
+        "allocated": 25000000,
+        "source_url": "https://basics.ensdao.org/ens-token"
+      },
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "issuer_report_rounded",
+        "statement": "DAO повідомляє округлено 19,6 млн ENS, отриманих 103 тис. адрес за вікно 08.11.2021–04.05.2022. Точний onchain-підрахунок не відтворено.",
+        "as_of": "2022-05-04",
+        "source_url": "https://basics.ensdao.org/ens-token"
+      },
+      "remaining": "Точні claims і витрати; дата першого mainnet протоколу може бути поза 8-річним вікном. Запуск токена у 2021 не є датою запуску ENS.",
+      "current_status_note": "Документація ENS прямо повідомляє, що планів нового airdrop немає."
+    },
+    {
+      "status": "partial",
+      "checked_at": "2026-09-27",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "mainnet": {
+        "date": null,
+        "source_url": null
+      },
+      "criteria_scope": "Історичні правила; не поточне завдання й не обіцянка нової винагороди",
+      "project": "Optimism",
+      "year": 2022,
+      "category": "overlapping_criteria",
+      "finding": "Airdrop 1 поєднував використання OP Mainnet, повторні тижні активності, DAO, multisig, Gitcoin і активність Ethereum. Власний підрахунок офіційного CSV: 248 699 унікальних адрес, близько 214,748 млн OP алокації.",
+      "product_lesson": "Підтримати кілька незалежних критеріїв та їх перетини. Рахувати активні тижні за правилами кампанії, а не кількість натискань. Не змішувати eligible, claim і пряму доставку.",
+      "sources": [
+        {
+          "title": "Optimism: Airdrop 1, офіційні правила",
+          "url": "https://raw.githubusercontent.com/ethereum-optimism/community-hub/main/pages/op-token/airdrops/airdrop-1.mdx"
+        },
+        {
+          "title": "Optimism: офіційний CSV алокації",
+          "url": "https://raw.githubusercontent.com/ethereum-optimism/op-analytics/main/reference_data/address_lists/op_airdrop1_addresses_detailed_list.csv"
+        }
+      ],
+      "criteria": [
+        {
+          "cohort": "Користувачі OP",
+          "requirement": "Ранній міст або використання в різні дні; для repeat — застосунки щонайменше у 4 різні тижні. Snapshot 25.03.2022.",
+          "source_url": "https://raw.githubusercontent.com/ethereum-optimism/community-hub/main/pages/op-token/airdrops/airdrop-1.mdx"
+        },
+        {
+          "cohort": "Спільнота Ethereum",
+          "requirement": "Окремі критерії голосування, multisig, донатів Gitcoin і переходу до інших мереж; бонуси за перетини.",
+          "source_url": "https://raw.githubusercontent.com/ethereum-optimism/community-hub/main/pages/op-token/airdrops/airdrop-1.mdx"
+        }
+      ],
+      "reward": {
+        "token": "OP",
+        "allocated": 214748364.8,
+        "scope": "Приблизне відображення суми CSV за масштабу 18 decimals; точне число в аудиті.",
+        "source_url": "https://raw.githubusercontent.com/ethereum-optimism/op-analytics/main/reference_data/address_lists/op_airdrop1_addresses_detailed_list.csv"
+      },
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "issuer_distribution_statement",
+        "statement": "За офіційними правилами, 15.09.2023 залишок доставили безпосередньо eligible-адресам. Це не означає, що всі самі викликали claim.",
+        "as_of": "2023-09-15",
+        "source_url": "https://raw.githubusercontent.com/ethereum-optimism/community-hub/main/pages/op-token/airdrops/airdrop-1.mdx"
+      },
+      "allocation_audit": {
+        "rows": 248699,
+        "unique_addresses": 248699,
+        "tokens": "214748364.799999522780217344",
+        "decimals_applied": 18,
+        "sha256": "4c729136df62a9d7c208e461f3592e793c69caf785a5c9aa57dd0d32e71781c5",
+        "is_claims_verification": false,
+        "note": "47 659 рядків мають дрібну різницю суми компонентів і total. Найбільша різниця — 0,000000000001507328 OP за 18 decimals; причина не підтверджена."
+      },
+      "remaining": "Відтворити контрактні події claims та прямих доставок, підтвердити дату mainnet і оцінити витрати. Не підсумовувати перетинні групи як різних людей."
+    },
+    {
+      "status": "partial",
+      "checked_at": "2026-09-27",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "mainnet": {
+        "date": null,
+        "source_url": null
+      },
+      "criteria_scope": "Історичні правила; не поточне завдання й не обіцянка нової винагороди",
+      "project": "dYdX",
+      "year": 2021,
+      "category": "retroactive_with_activation",
+      "finding": "Для ретронагород виділили 75 млн DYDX. У підсумку Epoch 0 фонд повідомив: 50 309 197 зароблено й доступно до claim для 30 292 користувачів; 24 690 803 не зароблено та передано скарбниці.",
+      "product_lesson": "Зберігати окремо snapshot, право участі, додатковий milestone і крайній строк. Наявність попередньої активності не означає автоматичну виплату. Не рекомендувати штучний торговий обсяг.",
+      "sources": [
+        {
+          "title": "dYdX Foundation: початкові правила",
+          "url": "https://www.dydx.foundation/blog/introducing-dydx-token"
+        },
+        {
+          "title": "dYdX Foundation: підсумки Epoch 0",
+          "url": "https://www.dydx.foundation/blog/epoch-0"
+        }
+      ],
+      "criteria": [
+        {
+          "cohort": "Історичні користувачі",
+          "requirement": "Snapshot до 26.07.2021 00:00 UTC; 5 рівнів минулої активності та додатковий L2 milestone протягом Epoch 0. Незароблена частина втрачалася.",
+          "source_url": "https://www.dydx.foundation/blog/introducing-dydx-token"
+        },
+        {
+          "cohort": "Допуск",
+          "requirement": "Територіальні обмеження й виключення бот-активності. У торговій програмі Epoch 0 окремо виключили 80 адрес wash trading.",
+          "source_url": "https://www.dydx.foundation/blog/epoch-0"
+        }
+      ],
+      "reward": {
+        "token": "DYDX",
+        "allocated": 75000000,
+        "scope": "Лише Retroactive Mining; окремо від Trading Rewards та інших пулів.",
+        "source_url": "https://www.dydx.foundation/blog/introducing-dydx-token"
+      },
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "earned_not_claimed",
+        "statement": "50 309 197 DYDX для 30 292 користувачів — зароблене право на claim за звітом 03.09.2021, а не підтвердження вже отриманих токенів.",
+        "as_of": "2021-09-03",
+        "source_url": "https://www.dydx.foundation/blog/epoch-0"
+      },
+      "remaining": "Точні 5 рівнів і milestones; фактичні claims; витрати та розмежування запусків протоколу, L2 і dYdX Chain."
+    },
+    {
+      "project": "1inch",
+      "year": 2021,
+      "category": "alternative_criteria_and_corrections",
+      "status": "partial",
+      "checked_at": "2026-09-27",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "mainnet": {
+        "date": null,
+        "source_url": null
+      },
+      "criteria_scope": "Історичні хвилі одного проєкту; не поточні завдання.",
+      "finding": "Повторна хвиля охоплювала пропущених користувачів Mooniswap, relayer-гаманців, limit orders і LP; окремо залучали користувачів Uniswap.",
+      "product_lesson": "Зберігати логіку «І/АБО», роль посередника та версію кампанії. Кілька хвиль одного проєкту не рахувати як різні проєкти.",
+      "sources": [
+        {
+          "title": "1inch Foundation: розподіл 12.02.2021",
+          "url": "https://1inch.com/blog/post/1inch-foundation-distributes-more-1inch-tokens"
+        }
+      ],
+      "criteria": [
+        {
+          "cohort": "Історичні користувачі 1inch",
+          "requirement": "Взаємодія до 24.12.2020 І хоча б одна умова: угода до 15.09.2020 АБО 4 угоди загалом АБО обсяг від $20.",
+          "source_url": "https://1inch.com/blog/post/1inch-foundation-distributes-more-1inch-tokens"
+        },
+        {
+          "cohort": "Користувачі Uniswap",
+          "requirement": "Не користувалися свапами 1inch/Mooniswap; щонайменше 20 різних торгових днів і 3 угоди у 2021, з виключенням ботів.",
+          "source_url": "https://1inch.com/blog/post/1inch-foundation-distributes-more-1inch-tokens"
+        }
+      ],
+      "reward": {
+        "token": "1INCH",
+        "allocated": 15055000,
+        "scope": "Сума названих у публікації груп лютневої хвилі; не вся історія розподілу.",
+        "source_url": "https://1inch.com/blog/post/1inch-foundation-distributes-more-1inch-tokens"
+      },
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "issuer_report_not_reproduced",
+        "statement": "Фонд повідомив про розподіл окремим групам. Незалежний підрахунок транзакцій і кількості одержувачів не виконано.",
+        "as_of": "2021-02-12",
+        "source_url": "https://1inch.com/blog/post/1inch-foundation-distributes-more-1inch-tokens"
+      },
+      "remaining": "Фактичні claims, витрати, дедлайни та дата запуску протоколу. Наявність умов не підтверджує право будь-якої нової адреси."
     }
   ],
   "target_projects": 1000

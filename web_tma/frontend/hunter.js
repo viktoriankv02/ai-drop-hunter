@@ -130,6 +130,8 @@ function historyEvidence(c){
  (outcome.statement?'<p>'+escape(outcome.statement)+'</p>':'')+
  '<p class="muted">Оголошена алокація не дорівнює отриманим токенам. Кількість адрес не дорівнює кількості людей.</p>'+
  (c.reported_outcome?'<h3>Опублікована оцінка виплат</h3><p>Зріз '+escape(c.reported_outcome.as_of)+': '+number(c.reported_outcome.claimers)+' адрес; '+number(c.reported_outcome.claimed_value_usd)+' USD за цінами під час отримання. Медіана: '+number(c.reported_outcome.median_claim_usd)+' USD.</p><p class="muted">'+escape(c.reported_outcome.note)+'</p>'+link(c.reported_outcome.source_url,'Таблиця дослідження ↗'):'')+
+ (c.current_status_note?'<p class="badge warn">'+escape(c.current_status_note)+'</p>':'')+
+ (c.allocation_audit?'<h3>Відтворений підрахунок CSV</h3><p>'+number(c.allocation_audit.unique_addresses)+' унікальних адрес; '+escape(c.allocation_audit.tokens)+' OP за масштабу '+c.allocation_audit.decimals_applied+' decimals.</p><p class="muted">Перевірено список алокації, не фактичні claims. '+escape(c.allocation_audit.note)+'</p><small>SHA-256: '+escape(c.allocation_audit.sha256)+'</small>':'')+
  (c.missing_evidence?.length?'<h3>Що не дозволяє вважати кейс завершеним</h3><ul>'+c.missing_evidence.map(x=>'<li>'+escape(x)+'</li>').join('')+'</ul>':'')+'</details>';
 }
 async function history(generation){

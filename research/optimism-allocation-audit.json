@@ -1,0 +1,22 @@
+{
+  "source_url": "https://raw.githubusercontent.com/ethereum-optimism/op-analytics/main/reference_data/address_lists/op_airdrop1_addresses_detailed_list.csv",
+  "sha256": "4c729136df62a9d7c208e461f3592e793c69caf785a5c9aa57dd0d32e71781c5",
+  "rows": 248699,
+  "unique_addresses": 248699,
+  "decimals_applied": 18,
+  "allocation_sum_raw": "214748364799999522780217344",
+  "allocation_sum_tokens": "214748364.799999522780217344",
+  "category_counts": {
+    "a_is_voter": 84015,
+    "b_is_multisig_signer": 19542,
+    "c_is_gitcoin": 23925,
+    "d_is_price_out": 74272,
+    "e_op_user": 92157,
+    "f_op_repeat": 19174,
+    "g_overlap_bonus": 3379
+  },
+  "component_difference_rows": 47659,
+  "maximum_component_difference_raw": "1507328",
+  "is_claims_verification": false,
+  "note": "Підрахунок алокації у завантаженій версії CSV. Не доказ фактичних виплат. Масштаб одиниць задано параметром decimals; вихідна сума збережена точно."
+}
