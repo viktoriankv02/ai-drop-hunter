@@ -15,6 +15,10 @@
         {
           "title": "Uniswap — Introducing UNI",
           "url": "https://blog.uniswap.org/uni"
+        },
+        {
+          "title": "Dragonfly: Airdrop Claim Data, таблиця 2, стор. 35 PDF",
+          "url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf"
         }
       ],
       "remaining": "Перевірка фактичних claims, витрат учасників і того, які відомості були доступні до snapshot.",
@@ -49,6 +53,15 @@
         "claimed": null,
         "paid_wallets": null,
         "evidence_level": "allocation_only"
+      },
+      "reported_outcome": {
+        "as_of": "2025-01-28",
+        "claimed_value_usd": 670104171,
+        "claimers": 221288,
+        "median_claim_usd": 1660,
+        "source_url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf",
+        "evidence_level": "published_onchain_analysis_not_reproduced",
+        "note": "Dragonfly, таблиця 2: оцінка за ціною під час claim. Це сума до витрат, не прибуток. Запит Dune нами ще не відтворено; документ розміщено на сайті SEC, автор — Dragonfly."
       }
     },
     {
@@ -61,6 +74,10 @@
         {
           "title": "Arbitrum Foundation — eligibility and distribution",
           "url": "https://docs.arbitrum.foundation/airdrop-eligibility-distribution"
+        },
+        {
+          "title": "Dragonfly: Airdrop Claim Data, таблиця 2, стор. 35 PDF",
+          "url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf"
         }
       ],
       "remaining": "Незалежна перевірка виплат і витрат, версії умов до оголошення, відбір контрольної групи.",
@@ -68,7 +85,16 @@
       "checked_at": "2026-09-26",
       "mainnet_verified": false,
       "outcome_verified": false,
-      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження",
+      "reported_outcome": {
+        "as_of": "2025-01-28",
+        "claimed_value_usd": 1394397547,
+        "claimers": 583137,
+        "median_claim_usd": 1787,
+        "source_url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf",
+        "evidence_level": "published_onchain_analysis_not_reproduced",
+        "note": "Dragonfly, таблиця 2: оцінка за ціною під час claim. Це сума до витрат, не прибуток. Запит Dune нами ще не відтворено; документ розміщено на сайті SEC, автор — Dragonfly."
+      }
     },
     {
       "project": "Celestia",
@@ -348,6 +374,10 @@
         {
           "title": "Eigen Foundation: Phase 2",
           "url": "https://blog.eigenfoundation.org/claims-s1-p2/"
+        },
+        {
+          "title": "Dragonfly: Airdrop Claim Data, таблиця 2, стор. 35 PDF",
+          "url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf"
         }
       ],
       "criteria": [
@@ -384,6 +414,15 @@
       "mainnet": {
         "date": null,
         "source_url": null
+      },
+      "reported_outcome": {
+        "as_of": "2025-01-28",
+        "claimed_value_usd": 645390084,
+        "claimers": 232366,
+        "median_claim_usd": 441,
+        "source_url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf",
+        "evidence_level": "published_onchain_analysis_not_reproduced",
+        "note": "Dragonfly, таблиця 2: оцінка за ціною під час claim. Це сума до витрат, не прибуток. Запит Dune нами ще не відтворено; документ розміщено на сайті SEC, автор — Dragonfly."
       }
     }
   ],

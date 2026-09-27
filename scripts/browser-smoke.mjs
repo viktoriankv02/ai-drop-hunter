@@ -43,6 +43,11 @@ try{
  await page.getByRole('button',{name:'Історичні кейси',exact:true}).click();
  await page.getByRole('heading',{name:'Arbitrum',exact:true}).waitFor();
  await page.getByText('0 / 1000',{exact:true}).waitFor();
+ const uni=page.locator('article').filter({has:page.getByRole('heading',{name:'Uniswap',exact:true})});
+ await uni.locator('summary').click();
+ await uni.getByRole('heading',{name:'Опублікована оцінка виплат',exact:true}).waitFor();
+ assert((await uni.innerText()).includes('2025-01-28'));
+
  await page.getByRole('button',{name:'Команда агентів',exact:true}).click();
  await page.getByText('У черзі',{exact:true}).waitFor();
  await page.getByRole('button',{name:'Ринок і сценарії',exact:true}).click();
