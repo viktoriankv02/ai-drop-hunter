@@ -1,5 +1,6 @@
 let catalogBusy=false;
 const validCard=u=>{try{const x=new URL(u);return x.origin==='https://cryptorank.io'&&!x.username&&!x.password&&/^\/(?:ru\/)?drophunting\/[a-z0-9-]+-activity\d+\/?$/.test(x.pathname);}catch{return false;}};
+const cardIdentity=u=>{const x=new URL(u);const parts=x.pathname.split('/').filter(Boolean);if(parts[0]==='ru')parts.shift();return x.origin+'/'+parts.join('/');};
 async function catalogTick(){
  if(catalogBusy)return;catalogBusy=true;
  try{
@@ -12,11 +13,11 @@ async function catalogTick(){
  }
  const tab=await chrome.tabs.get(catalog.tabId);
  if(tab.status!=='complete'){if(Date.now()-catalog.openedAt>90000)throw Error('Сторінка не завантажилася');return;}
- if(tab.url!==catalog.urls[0])throw Error('Адреса вкладки змінилася. Перевір її та запусти збір знову.');
+ if(!validCard(tab.url)||cardIdentity(tab.url)!==cardIdentity(catalog.urls[0]))throw Error('Адреса вкладки змінилася. Перевір її та запусти збір знову.');
  const [{result:data}]=await chrome.scripting.executeScript({target:{tabId:tab.id},func:()=>{
  const root=document.querySelector('main')||document.body;
  const text=root.innerText.trim();
- if(/Just a moment|Verify you are human|Проверка безопасности/i.test(document.title+' '+text))return {error:'Потрібна перевірка у вкладці CryptoRank. Збір призупинено.'};
+ if(/Just a moment|Verify you are human|Проверка безопасности|Трохи зачекайте|Проверка браузера/i.test(document.title+' '+text))return {error:'Потрібна перевірка у вкладці CryptoRank. Збір призупинено.'};
  if(text.length<150)return {error:'Недостатньо відкритого тексту. Перевір сторінку.'};
  const links=[...root.querySelectorAll('a[href]')].filter(a=>a.getClientRects().length&&a.innerText.trim()&&a.href.startsWith('https://')).slice(0,60).map(a=>a.innerText.trim()+' — '+a.href).join('\n');
  const content=text+'\n\nПосилання зі сторінки:\n'+links;
@@ -24,7 +25,7 @@ async function catalogTick(){
  return {name:(document.querySelector('h1')?.innerText||document.title).slice(0,120),source:location.href,text:content};
  }});
  if(data.error)throw Error(data.error);
- if(data.source!==catalog.urls[0]||!validCard(data.source))throw Error('Адреса матеріалу змінилася під час читання');
+ if(!validCard(data.source)||cardIdentity(data.source)!==cardIdentity(catalog.urls[0]))throw Error('Адреса матеріалу змінилася під час читання');
  const beforeSave=await chrome.storage.local.get('catalog');if(!beforeSave.catalog?.enabled)return;
  const [{result:stored}]=await chrome.scripting.executeScript({target:{tabId:apps[0].id},args:[data],func:async data=>{
  const s=await(await fetch('/api/session')).json();const r=await fetch('/api/materials/import',{method:'POST',headers:{'Content-Type':'application/json','X-Hunter-Session':s.token},body:JSON.stringify(data)});const result=await r.json();return r.ok?{ok:true}:{error:result.detail || result.error};
@@ -38,7 +39,7 @@ async function catalogTick(){
 chrome.alarms.onAlarm.addListener(a=>{if(a.name==='catalog')catalogTick();});
 chrome.runtime.onMessage.addListener((m,sender,reply)=>{
  if(!['catalog-start','catalog-stop'].includes(m.type))return;
- if(sender.tab)return;
+ if(sender.tab && sender.url!==chrome.runtime.getURL('popup.html'))return;
  (async()=>{
  const {catalog:old}=await chrome.storage.local.get('catalog');
  if(m.type==='catalog-stop'){if(old)await chrome.storage.local.set({catalog:{...old,enabled:false,message:'Зупинено користувачем'}});return {ok:true};}

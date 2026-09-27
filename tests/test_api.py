@@ -46,10 +46,10 @@ def test_crypto_browser_material_and_secret_panel_rejection(client):
     assert res.status_code==200
     assert client.get("/api/jobs").json()[0]["kind"]=="analyze"
 
-def test_history_count_is_not_500(client):
+def test_history_count_is_not_1000(client):
     h=client.get("/api/research/history").json()
-    assert h["target_projects"]==500 and h["fully_reviewed"]==0
-    assert h["partial_cases"]==7
+    assert h["target_projects"]==1000 and h["fully_reviewed"]==0
+    assert h["partial_cases"]>=11
 
 def test_job_retry_is_idempotent_and_keeps_target_names(client):
     pid=client.post("/api/projects/manual",json={"title":"Named project","source_url":"https://airdrops.io/named/"}).json()["project_id"]
@@ -72,3 +72,25 @@ def test_retry_does_not_reenable_paused_source(client):
     client.post("/api/sources/1/toggle",json={})
     assert client.post(f"/api/jobs/{jid}/retry",json={}).status_code==400
     assert not client.get("/api/sources").json()[0]["enabled"]
+
+def test_catalog_pagination_search_and_url_alias(client):
+    store=client.app.state.store
+    for i in range(125):
+        store.add_project(f"Catalog {i:03d}",f"https://cryptorank.io/ru/drophunting/item-activity{i}","CryptoRank")
+    first=client.get("/api/projects?limit=60").json()
+    second=client.get("/api/projects?limit=60&offset=60").json()
+    assert len(first)==60 and len(second)==60
+    assert not {p["id"] for p in first} & {p["id"] for p in second}
+    found=client.get("/api/projects?q=Catalog%20000").json()
+    assert len(found)==1 and found[0]["title"]=="Catalog 000"
+    pid,added=store.add_project("Alias","https://cryptorank.io/drophunting/item-activity0/?ref=example","CryptoRank")
+    assert not added and pid==found[0]["id"]
+    text="Public campaign evidence with sufficiently detailed instructions. "*5
+    res=client.post("/api/materials/import",json={"name":"Alias","source":"https://cryptorank.io/drophunting/item-activity0/","text":text})
+    assert res.status_code==200
+    assert store.detail(pid)["snapshots"]
+
+def test_ukrainian_challenge_is_not_research(client):
+    text="Трохи зачекайте. "*30
+    res=client.post("/api/materials/import",json={"name":"Test","source":"https://cryptorank.io/ru/drophunting/test-activity1","text":text})
+    assert res.status_code==400

@@ -226,7 +226,7 @@ class Workspace:
             for task in body.get("tasks",[]):
                 fingerprint=digest(task["title"].strip().lower()+"|"+(task.get("url") or ""))
                 existing=c.execute("SELECT id,evidence_json FROM tasks WHERE project_id=? AND fingerprint=?",(pid,fingerprint)).fetchone()
-                evidence=json.dumps({"report_id":rid,"snapshot_id":sid,"quote":task["quote"]},ensure_ascii=False)
+                evidence=json.dumps({"report_id":rid,"snapshot_id":sid,"quote":task["quote"],"source_url":task.get("source_url")},ensure_ascii=False)
                 if existing:
                     old=json.loads(existing["evidence_json"] or "{}")
                     if old.get("quote")!=task["quote"]:
@@ -235,7 +235,7 @@ class Workspace:
                     continue
                 c.execute("""INSERT OR IGNORE INTO tasks(project_id,fingerprint,title,target_url,evidence_json,created_at)
                     VALUES (?,?,?,?,?,?)""",(pid,fingerprint,task["title"],task.get("url"),
-                    json.dumps({"report_id":rid,"snapshot_id":sid,"quote":task["quote"]},ensure_ascii=False),utcnow()))
+                    json.dumps({"report_id":rid,"snapshot_id":sid,"quote":task["quote"],"source_url":task.get("source_url")},ensure_ascii=False),utcnow()))
             self._event(c,pid,"analysis_ready",str(rid))
             return rid
     def complete_task(self,tid,done):
@@ -252,6 +252,8 @@ class Workspace:
         p["events"]=self.rows("SELECT * FROM events WHERE project_id=? ORDER BY id DESC LIMIT 30",(pid,))
         p["snapshots"]=self.rows("SELECT id,url,fetched_at,via,content_hash FROM snapshots WHERE project_id=? ORDER BY id DESC LIMIT 20",(pid,))
         reports=self.rows("SELECT * FROM reports WHERE project_id=? ORDER BY id DESC LIMIT 1",(pid,))
+        notes=self.rows("SELECT body_json FROM snapshots WHERE project_id=? AND via='reviewed_research_note' ORDER BY id DESC LIMIT 1",(pid,))
+        p["reviewed_note"]=json.loads(notes[0]["body_json"]).get("research_note") if notes else None
         p["report"]=None
         if reports:
             p["report"]={**reports[0],"body":json.loads(reports[0]["body_json"])}

@@ -79,7 +79,9 @@ def historical_context(text):
     if not path.exists(): return []
     keywords={"Uniswap":["swap","liquidity","свап","ліквід"],"Arbitrum":["bridge","month","міст","місяц"],
               "Celestia":["github","developer","contribut","розроб"],"Starknet":["balance","transaction","баланс"],
-              "ZKsync":["deposit","points","депозит","поінт"],"Sui":["whitelist","sale","allowlist"],"Aptos":["tokenomics","allocation","токеном"]}
+              "ZKsync":["deposit","points","депозит","поінт"],"Sui":["whitelist","sale","allowlist"],"Aptos":["tokenomics","allocation","токеном"],
+              "Jito":["jitosol","validator","mev"],"Pyth":["oracle","оракул","discord"],
+              "Wormhole":["cross-chain","cross chain","міжмереж"],"EigenLayer":["restaking","restake","lrt","рестейк"]}
     lowered=text.lower()
     cases=json.loads(path.read_text("utf-8"))["cases"]
     matches=[c for c in cases if any(k in lowered for k in keywords.get(c["project"],[]))]

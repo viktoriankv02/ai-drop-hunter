@@ -1,8 +1,9 @@
-import asyncio, json
+import asyncio, json, os
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlsplit
 from core.workspace import utcnow
-from core.source_policy import source_allows_url
+from discovery.cryptorank_api import fetch_map
+from core.source_policy import source_allows_url, canonical_url
 from discovery.evidence import read_html, material, catalog, telegram_messages, SourceUnavailable
 from ai_analyzer.grounded import analyze
 from ai_analyzer.gateway import OLLAMA_MODEL
@@ -25,8 +26,15 @@ class Coordinator:
             raise SourceUnavailable("Для цього джерела ще потрібен окремий адаптер; автоматичний збір не реалізовано.")
         host=urlsplit(s["url"]).hostname
         try:
-            html,url=await read_html(s["url"],{host})
-            if s["kind"]=="telegram":
+            if s["adapter"]=="cryptorank" and os.getenv("CRYPTORANK_API_KEY"):
+                candidates=await fetch_map()
+                data={"history_complete":False,"route":"official_api_map","tasks_included":False,
+                      "scope":"Повний отриманий API-каталог назв; статуси, завдання і mainnet ще не перевірені."}
+            else:
+                html,url=await read_html(s["url"],{host})
+            if s["adapter"]=="cryptorank" and os.getenv("CRYPTORANK_API_KEY"):
+                pass
+            elif s["kind"]=="telegram":
                 if s["added_by"]!="user": raise SourceUnavailable("Канал не доданий користувачем")
                 previous=datetime.fromisoformat(s["last_check"]) if s["last_check"] else None
                 data=telegram_messages(html,datetime.now(timezone.utc),previous)
@@ -36,12 +44,16 @@ class Coordinator:
                 data={"history_complete":False,"scope":"Посилання з однієї доступної сторінки; пагінація ще не реалізована."}
             if not candidates: raise SourceUnavailable("Не знайдено карток у доступному HTML. Це не означає відсутність проєктів.")
             added=0
-            for item in candidates[:200]:
+            limit=len(candidates) if data.get("route")=="official_api_map" else 200
+            for item in candidates[:limit]:
                 # Do not invent rating, costs or participation tasks from a catalogue title.
                 _,fresh=self.store.add_project(item["title"],item["url"],s["name"],item.get("text",""))
                 added+=fresh
-            outcome={"found":len(candidates),"added":added,"duplicates":min(len(candidates),200)-added,
-                     "limited":len(candidates)>200,**{k:v for k,v in data.items() if k!="messages"}}
+                if fresh and data.get("route")=="official_api_map":
+                    with self.store.db() as c:
+                        c.execute("UPDATE projects SET check_status='catalog_only' WHERE id=?",(_,))
+            outcome={"found":len(candidates),"added":added,"duplicates":min(len(candidates),limit)-added,
+                     "limited":len(candidates)>limit,**{k:v for k,v in data.items() if k!="messages"}}
             with self.store.db() as c:
                 c.execute("UPDATE sources SET last_check=?,last_status='partial',last_error=NULL WHERE id=?",(utcnow(),sid))
             return outcome
@@ -49,6 +61,44 @@ class Coordinator:
             with self.store.db() as c:
                 c.execute("UPDATE sources SET last_check=?,last_status='failed',last_error=? WHERE id=?",(utcnow(),str(error)[:600],sid))
             raise
+    async def read_project(self,p):
+        """Fallback only to reviewed official URLs, never arbitrary links suggested by a model."""
+        try:
+            html,url=await read_html(p["source_url"],{urlsplit(p["source_url"]).hostname})
+            return material(html,url),"web"
+        except SourceUnavailable as primary_error:
+            notes=self.store.rows("SELECT body_json FROM snapshots WHERE project_id=? AND via='reviewed_research_note' ORDER BY id DESC LIMIT 1",(p["id"],))
+            if not notes: raise
+            note=json.loads(notes[0]["body_json"]).get("research_note",{})
+            sources=[x for x in note.get("sources",[]) if x.get("access")=="official_document"][:3]
+            documents=[];errors=[]
+            for source in sources:
+                try:
+                    url=canonical_url(source["url"])
+                    html,resolved=await read_html(url,{urlsplit(url).hostname})
+                    doc=material(html,resolved)
+                    documents.append(doc)
+                except Exception as error:
+                    errors.append(str(error)[:200])
+            if not documents:
+                raise SourceUnavailable(str(primary_error)+" Офіційні документи також недоступні.")
+            text="\n\n".join("Джерело: "+d["url"]+"\n"+d["text"] for d in documents)
+            links=[{"url":d["url"],"label":"Офіційна документація"} for d in documents]
+            links.extend(link for d in documents for link in d["links"])
+            return {"url":p["source_url"],"text":text,"links":links[:150],
+                    "truncated":True,"characters_available":len(text),
+                    "documents":documents,"source_errors":errors,
+                    "provenance":"Агрегатор недоступний. Прочитано раніше перевірені офіційні документи; загальне досьє неповне."},"official_documents_fallback"
+
+    @staticmethod
+    def attach_provenance(result,body):
+        if body.get("provenance"):
+            result["provenance"]=body["provenance"]
+            result.setdefault("unknowns",[]).extend(body.get("source_errors",[]))
+            for item in result.get("facts",[])+result.get("tasks",[]):
+                matches=[d["url"] for d in body.get("documents",[]) if item.get("quote") and item["quote"] in d["text"]]
+                if len(matches)==1: item["source_url"]=matches[0]
+
     async def research(self,pid):
         p=self.store.project(pid)
         host=urlsplit(p["source_url"]).hostname
@@ -56,15 +106,16 @@ class Coordinator:
         if not permitted: raise SourceUnavailable("Джерело не ввімкнене в дозволеному списку")
         if all(s["adapter"]=="manual" for s in permitted):
             raise SourceUnavailable("Автоматичне читання цього джерела ще не реалізовано")
-        html,url=await read_html(p["source_url"],{host})
-        body=material(html,url)
-        sid,changed=self.store.save_snapshot(pid,url,body)
+        body,via=await self.read_project(p)
+        url=p["source_url"]
+        sid,changed=self.store.save_snapshot(pid,url,body,via=via)
         previous=self.store.rows("SELECT body_json,created_at FROM reports WHERE project_id=? AND snapshot_id=? ORDER BY id DESC LIMIT 1",(pid,sid))
         new_feedback=self.store.rows("SELECT 1 FROM feedback WHERE project_id=? AND created_at>? LIMIT 1",(pid,previous[0]["created_at"] if previous else ""))
         if not changed and previous and json.loads(previous[0]["body_json"]).get("coverage",{}).get("complete") and not new_feedback:
             return {"snapshot_id":sid,"changed":False,"analysis":"unchanged"}
         corrections=self.store.rows("SELECT text FROM feedback WHERE project_id=? ORDER BY id DESC LIMIT 5",(pid,))
         result=await analyze(body,[r["text"] for r in reversed(corrections)],self.progress,self.store.cached_analysis,self.store.cache_analysis)
+        self.attach_provenance(result,body)
         self.store.save_report(pid,sid,result,OLLAMA_MODEL)
         return {"snapshot_id":sid,"changed":changed,"analysis":result["status"],"coverage":result["coverage"]}
     async def analyze_snapshot(self,sid):
@@ -74,6 +125,7 @@ class Coordinator:
         body=json.loads(snapshot["body_json"])
         corrections=self.store.rows("SELECT text FROM feedback WHERE project_id=? ORDER BY id DESC LIMIT 5",(snapshot["project_id"],))
         result=await analyze(body,[r["text"] for r in reversed(corrections)],self.progress,self.store.cached_analysis,self.store.cache_analysis)
+        self.attach_provenance(result,body)
         self.store.save_report(snapshot["project_id"],sid,result,OLLAMA_MODEL)
         return {"snapshot_id":sid,"analysis":result["status"],"coverage":result["coverage"]}
     async def run(self):

@@ -3,7 +3,7 @@ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>'
 const url=s=>{try{const u=new URL(s);return u.protocol==='https:'?escape(u.href):'#';}catch{return '#';}};
 const stamp=s=>s?new Date(s).toLocaleString('uk-UA'):'Ще не перевірено';
 const money=x=>Number(x).toLocaleString('uk-UA',{maximumSignificantDigits:8});
-let token='',tab='tracking',detailId=null,marketData=null,viewGeneration=0;
+let token='',tab='tracking',detailId=null,marketData=null,viewGeneration=0,projectOffset=0,projectQuery='';
 function notice(text){$('#notice').hidden=false;$('#notice').textContent=text;const b=document.createElement('button');b.textContent='Закрити';b.onclick=()=>$('#notice').hidden=true;$('#notice').append(b);}
 async function api(path,method='GET',body){
  const r=await fetch(path,{method,headers:{'Content-Type':'application/json',...(method!=='GET'?{'X-Hunter-Session':token}:{})},...(body!==undefined?{body:JSON.stringify(body)}:{})});
@@ -12,7 +12,7 @@ async function api(path,method='GET',body){
  return value;
 }
 async function action(fn){try{await fn();}catch(e){notice(e.message);}}
-async function stats(){const s=await api('/api/stats');$('#stats').textContent=s.total+' проєктів · '+s.tracking+' у роботі'+(s.migration_issues?' · '+s.migration_issues+' записи імпорту потребують відновлення':'');}
+async function stats(){const s=await api('/api/stats');$('#stats').textContent=s.total+' карток · '+s.tracking+' у роботі'+(s.migration_issues?' · '+s.migration_issues+' записи імпорту потребують відновлення':'');}
 const badge=(s,kind='')=>'<span class="badge '+kind+'">'+escape(s)+'</span>';
 function link(h,label='Відкрити джерело ↗'){return '<a href="'+url(h)+'" target="_blank" rel="noopener noreferrer">'+escape(label)+'</a>';}
 async function load(){
@@ -21,11 +21,11 @@ async function load(){
  if(tab==='jobs')return jobs(generation);
  if(tab==='history')return history(generation);
  if(tab==='market')return market();
- const ps=await api('/api/projects?status='+tab);if(generation!==viewGeneration)return;
- $('#content').innerHTML='<h1>'+(tab==='tracking'?'Твої проєкти у роботі':'Знайдені проєкти')+'</h1><p class="muted">CryptoRank → Incrypted → додаткові джерела. «Цікаво» додає проєкт до щоденного дослідження.</p><div class="toolbar"><input id="filter" aria-label="Пошук проєкту" placeholder="Знайти за назвою або джерелом"><button id="discover" class="primary">Зібрати зі сайтів</button><button id="manual">Додати свій проєкт</button></div><div id="cards" class="grid"></div>';
+ let ps=await api('/api/projects?status='+tab+'&limit=61&offset='+projectOffset+'&q='+encodeURIComponent(projectQuery));if(generation!==viewGeneration)return;
+ $('#content').innerHTML='<h1>'+(tab==='tracking'?'Твої проєкти у роботі':'Знайдені проєкти')+'</h1><p class="muted">CryptoRank → Incrypted → додаткові джерела. «Цікаво» додає проєкт до щоденного дослідження.</p><div class="toolbar"><input id="filter" aria-label="Пошук проєкту" placeholder="Знайти за назвою або джерелом"><button id="discover" class="primary">Зібрати зі сайтів</button><button id="manual">Додати свій проєкт</button></div><div id="cards" class="grid"></div><div class="toolbar"><button id="previous-page">← Попередні</button><span id="page-number"></span><button id="next-page">Наступні →</button></div>';
  const render=q=>{
-  $('#cards').innerHTML=ps.filter(p=>(p.title+' '+p.source_platform).toLowerCase().includes(q.toLowerCase())).map(p=>'<article class="card">'+
-   '<div>'+badge(p.source_platform)+badge(p.check_status,p.check_status==='failed'?'bad':'')+'</div><h2>'+escape(p.title)+'</h2>'+
+  $('#cards').innerHTML=ps.slice(0,60).filter(p=>(p.title+' '+p.source_platform).toLowerCase().includes(q.toLowerCase())).map(p=>'<article class="card">'+
+   '<div>'+badge(p.source_platform)+badge(p.check_status==='catalog_only'?'Каталог — очікує дослідження':p.check_status,p.check_status==='failed'?'bad':'')+'</div><h2>'+escape(p.title)+'</h2>'+
    '<p class="muted">'+escape(p.summary?.slice(0,230)||'Кандидат для дослідження. Умови й винагорода ще не підтверджені.')+'</p>'+
    (p.legacy?'<small>Імпорт Gemini: старі оцінки потребують перевірки.</small>':'')+
    '<small>Перевірка: '+stamp(p.last_checked)+'</small><div class="toolbar"><button data-open="'+p.id+'">План і докази</button>'+
@@ -33,7 +33,13 @@ async function load(){
   document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>action(()=>detail(+b.dataset.open)));
   document.querySelectorAll('[data-interest]').forEach(b=>b.onclick=()=>action(async()=>{await api('/api/projects/'+b.dataset.interest+'/status','POST',{status:'tracking'});notice('Додано до роботи. Агент дослідить проєкт у черзі.');load();}));
  };
- render('');$('#filter').oninput=e=>render(e.target.value);
+ const controls=()=>{$('#previous-page').disabled=projectOffset===0;$('#next-page').disabled=ps.length<=60;$('#page-number').textContent='Сторінка '+(Math.floor(projectOffset/60)+1);};
+ $('#filter').value=projectQuery;render(projectQuery);controls();
+ let searchVersion=0,searchTimer;
+ const fetchPage=async()=>{const version=++searchVersion;const rows=await api('/api/projects?status='+tab+'&limit=61&offset='+projectOffset+'&q='+encodeURIComponent(projectQuery));if(version!==searchVersion||generation!==viewGeneration)return;ps=rows;render(projectQuery);controls();};
+ $('#filter').oninput=e=>{projectQuery=e.target.value;projectOffset=0;searchVersion++;clearTimeout(searchTimer);searchTimer=setTimeout(()=>action(fetchPage),300);};
+ $('#previous-page').onclick=()=>{projectOffset=Math.max(0,projectOffset-60);action(fetchPage);};
+ $('#next-page').onclick=()=>{projectOffset+=60;action(fetchPage);};
  $('#discover').onclick=()=>action(async()=>{const r=await api('/api/discovery/run','POST',{});notice('Поставлено джерел у чергу: '+r.job_ids.length+'. Прогрес — у розділі «Команда агентів».');});
  $('#manual').onclick=()=>{const title=prompt('Назва проєкту');if(!title)return;const source_url=prompt('HTTPS-посилання на проєкт');if(!source_url)return;action(async()=>{await api('/api/projects/manual','POST',{title,source_url});load();});};
 }
@@ -55,9 +61,12 @@ async function detail(id){
  (p.legacy_warning?'<p class="badge warn">Старі оцінки й автоматичні позначки Gemini не підтверджують винагороду або виконання.</p>':'')+
  '<section class="panel"><h2>Висновки за джерелом</h2>'+
  (r?badge(r.status)+(p.report.stale?badge('Матеріал змінився — висновок застарів','warn'):'')+'<small> Опрацьовано '+r.coverage.processed_characters+' із '+r.coverage.available_characters+' символів.</small>'+
- r.facts.map(f=>'<p>'+escape(f.title)+'</p><blockquote>'+escape(f.quote)+'</blockquote>').join(''):
+ (r.provenance?'<p class="badge warn">'+escape(r.provenance)+'</p>':'')+
+ (r.unknowns?.length?'<ul class="muted">'+r.unknowns.map(x=>'<li>'+escape(x)+'</li>').join('')+'</ul>':'')+
+ r.facts.map(f=>'<p>'+escape(f.title)+'</p><blockquote>'+escape(f.quote)+'</blockquote>'+(f.source_url?link(f.source_url,'Джерело висновку ↗'):'')).join(''):
  '<p class="muted">Ще немає доказового аналізу. Запусти агента або додай матеріал відкритої сторінки нижче.</p>')+'</section>'+
  (r?.historical_comparisons?.length?'<section class="panel"><h2>Що підказують історичні кейси</h2><p class="muted">Аналогії для перевірки, не вимоги цього проєкту.</p>'+r.historical_comparisons.map(c=>'<p><strong>'+escape(c.project)+'</strong>: '+escape(c.lesson)+' '+link(c.source_url,'Джерело кейсу ↗')+'</p>').join('')+'</section>':'')+
+ (p.reviewed_note && p.report?.model!=='codex-reviewed-research-note'?'<section class="panel"><h2>Збережена перевірена нотатка</h2><p class="muted">'+escape(p.reviewed_note.provenance)+'</p>'+p.reviewed_note.facts.map(f=>'<p>'+escape(f.title)+' '+link(f.source_url,'Джерело ↗')+'</p>').join('')+'</section>':'')+
  revisionPanel(p.source_changes)+
  '<section><h2>План дій</h2><p class="muted">Галочка означає твоє повідомлення про виконання. Вона не є перевіркою транзакції.</p>'+
  p.tasks.map(t=>'<div class="task"><input type="checkbox" aria-label="Позначити виконаним: '+escape(t.title)+'" data-task="'+t.id+'" '+(t.status==='user_reported'?'checked':'')+'><div><strong>'+escape(t.title)+'</strong><div>'+badge(t.status==='user_reported'?'Позначено тобою':t.status==='legacy_unverified'?'Старе завдання — перевірити':'Чернетка з джерела',t.status==='user_reported'?'good':'warn')+'</div>'+
@@ -76,7 +85,7 @@ async function detail(id){
 }
 async function sources(generation){
  const ss=await api('/api/sources');if(generation!==viewGeneration)return;
- $('#content').innerHTML='<h1>Джерела під твоїм контролем</h1><p class="muted">Telegram порожній, доки ти сам не додаси канали. Увімкнення джерела не означає, що сайт дозволяє автоматичне читання.</p><section class="panel">'+ss.map(s=>'<div class="source"><div><strong>'+escape(s.name)+'</strong> '+badge('Пріоритет '+s.priority)+badge(s.type)+'<div>'+link(s.url)+'</div><small>'+escape(s.last_error||s.last_status||'Не перевірено')+'</small>'+(s.adapter==='manual'?'<div>'+badge('Адаптер ще не підключений','warn')+'</div>':'')+'</div><div class="toolbar"><button data-toggle="'+s.id+'">'+(s.enabled?'На паузу':'Увімкнути')+'</button><button data-scan="'+s.id+'" '+(!s.enabled||s.adapter==='manual'?'disabled':'')+'>Зібрати</button><button data-delete="'+s.id+'">Видалити</button></div></div>').join('')+'</section>'+
+ $('#content').innerHTML='<h1>Джерела під твоїм контролем</h1><p>CryptoRank: каталог може надходити через офіційний API. Назва в каталозі ще не підтверджує mainnet, актуальні завдання або винагороду.</p><p class="muted">Telegram порожній, доки ти сам не додаси канали. Увімкнення джерела не означає, що сайт дозволяє автоматичне читання.</p><section class="panel">'+ss.map(s=>'<div class="source"><div><strong>'+escape(s.name)+'</strong> '+badge('Пріоритет '+s.priority)+badge(s.type)+'<div>'+link(s.url)+'</div><small>'+escape(s.last_error||s.last_status||'Не перевірено')+'</small>'+(s.adapter==='manual'?'<div>'+badge('Адаптер ще не підключений','warn')+'</div>':'')+'</div><div class="toolbar"><button data-toggle="'+s.id+'">'+(s.enabled?'На паузу':'Увімкнути')+'</button><button data-scan="'+s.id+'" '+(!s.enabled||s.adapter==='manual'?'disabled':'')+'>Зібрати</button><button data-delete="'+s.id+'">Видалити</button></div></div>').join('')+'</section>'+
  '<details class="panel"><summary>Як читати CryptoRank зі свого браузера</summary><ol><li>Відкрий chrome://extensions або edge://extensions і ввімкни режим розробника.</li><li>Натисни «Завантажити розпаковане» та вибери папку <code>D:\\\\Projects\\\\ai-hub-hunter-gemini\\\\browser-extension\\\\cryptorank-reader</code>.</li><li>У тому самому браузері відкрий цей застосунок на порту 4318 і сайт CryptoRank Drophunting.</li><li>У розширенні натисни «Зібрати проєкти зі сторінки». Якщо з’явиться перевірка сайту, пройди її самостійно.</li></ol><p>Імпорт працює, поки браузер та застосунок відкриті. Агент аналізує збережені матеріали через Ollama.</p></details>'+
  '<form id="source-form" class="panel form-grid"><label>Назва<input name="name" required maxlength="120"></label><label>URL або @канал<input name="url" required></label><label>Тип<select name="type"><option value="website">Сайт</option><option value="telegram">Telegram</option></select></label><button class="primary">Додати</button></form>';
  document.querySelectorAll('[data-toggle]').forEach(b=>b.onclick=()=>action(async()=>{await api('/api/sources/'+b.dataset.toggle+'/toggle','POST',{});load();}));
@@ -105,9 +114,25 @@ async function jobs(generation){
  document.querySelectorAll('[data-job-project]').forEach(b=>b.onclick=()=>action(()=>detail(+b.dataset.jobProject)));
  document.querySelectorAll('[data-retry]').forEach(b=>b.onclick=()=>action(async()=>{await api('/api/jobs/'+b.dataset.retry+'/retry','POST',{});await jobs(generation);notice('Роботу поставлено в чергу. Збережені частини аналізу буде використано повторно.');}));
 }
+function historyEvidence(c){
+ const number=v=>typeof v==='number'?v.toLocaleString('uk-UA'):'Немає підтверджених даних';
+ const reward=c.reward||{},outcome=c.outcome||{};
+ return '<details><summary>Умови, суми та рівень доказів</summary>'+
+ (c.criteria?.length?'<h3>Кому й за які дії</h3><ul>'+c.criteria.map(x=>'<li><strong>'+escape(x.cohort)+'</strong>: '+escape(x.requirement)+' '+link(x.source_url,'Доказ ↗')+'</li>').join('')+'</ul>':'<p>Структуровані критерії ще перевіряються.</p>')+
+ '<h3>Оголошена алокація</h3><p>'+number(reward.allocated)+' '+escape(reward.token||'')+(reward.scope?' · '+escape(reward.scope):'')+'</p>'+
+ (reward.cohorts?.length?'<ul>'+reward.cohorts.map(x=>'<li>'+escape(x.name||x.cohort||'Група')+
+ (x.eligible_wallets!=null?' · адрес з правом участі: '+number(x.eligible_wallets):'')+
+ (x.per_wallet!=null?' · на адресу: '+number(x.per_wallet):'')+
+ (x.allocated!=null?' · алокація групи: '+number(x.allocated):'')+'</li>').join('')+'</ul>':'')+
+ (reward.per_wallet_tiers?'<p>Рівні на адресу: '+reward.per_wallet_tiers.map(number).join(' / ')+' '+escape(reward.token)+'</p>':'')+
+ '<h3>Фактично отримані винагороди</h3><p>Отримано токенів: '+number(outcome.claimed)+'. Адрес-одержувачів: '+number(outcome.paid_wallets)+'.</p>'+
+ (outcome.statement?'<p>'+escape(outcome.statement)+'</p>':'')+
+ '<p class="muted">Оголошена алокація не дорівнює отриманим токенам. Кількість адрес не дорівнює кількості людей.</p>'+
+ (c.missing_evidence?.length?'<h3>Що не дозволяє вважати кейс завершеним</h3><ul>'+c.missing_evidence.map(x=>'<li>'+escape(x)+'</li>').join('')+'</ul>':'')+'</details>';
+}
 async function history(generation){
  const h=await api('/api/research/history');if(generation!==viewGeneration)return;
- $('#content').innerHTML='<h1>Історичні кейси винагород</h1><div class="metrics"><div class="metric">Повністю досліджено<strong>'+h.fully_reviewed+' / '+h.target_projects+'</strong></div><div class="metric">Початкові кейси<strong>'+h.partial_cases+'</strong></div></div><p class="muted">Початкові кейси мають перевірені джерела окремих умов. Це ще не завершене дослідження 500 проєктів і не універсальні правила для нових кампаній.</p><div class="grid">'+h.cases.map(c=>'<article class="card"><h2>'+escape(c.project)+'</h2>'+badge(c.year)+'<p>'+escape(c.finding)+'</p><p><strong>Для нашого застосунку:</strong> '+escape(c.product_lesson)+'</p>'+c.sources.map(s=>link(s.url,s.title)).join('<br>')+'<small>Ще перевірити: '+escape(c.remaining)+'</small></article>').join('')+'</div>';
+ $('#content').innerHTML='<h1>Історичні кейси винагород</h1><div class="metrics"><div class="metric">Повністю досліджено<strong>'+h.fully_reviewed+' / '+h.target_projects+'</strong></div><div class="metric">Початкові кейси<strong>'+h.partial_cases+'</strong></div></div><p class="muted">Період: '+escape(h.window.from)+' — '+escape(h.window.to)+'. Кейс зараховується після перевірки mainnet, умов, алокації, фактичних виплат і витрат. Історичні умови не є правилами нових кампаній.</p><div class="grid">'+h.cases.map(c=>'<article class="card"><h2>'+escape(c.project)+'</h2>'+badge(c.year)+'<p>'+escape(c.finding)+'</p><p><strong>Для нашого застосунку:</strong> '+escape(c.product_lesson)+'</p>'+historyEvidence(c)+c.sources.map(s=>link(s.url,s.title)).join('<br>')+'<small>Ще перевірити: '+escape(c.remaining)+'</small></article>').join('')+'</div>';
 }
 function market(){
  $('#content').innerHTML='<h1>Ринок · історія та сценарії</h1><p class="muted">Дані Binance / OKX. Історичний діапазон — експериментальна основа, не готова модель торгових сигналів.</p>'+
@@ -134,8 +159,8 @@ function drawChart(d){
  $('#price-chart').onpointermove=e=>{const rect=e.currentTarget.getBoundingClientRect();const i=Math.round(Math.max(0,Math.min(1,((e.clientX-rect.left)/rect.width*1000-65)/880))*(points.length-1));$('#candle-slider').value=i;show(i);};
 }
 $('#close-detail').onclick=()=>$('#project').close();
-document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));action(load);});
-action(async()=>{token=(await api('/api/session')).token;await load();});
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;projectOffset=0;projectQuery='';document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));action(load);});
+action(async()=>{token=(await api('/api/session')).token;await load();const pid=new URLSearchParams(location.search).get('project');if(pid && /^[1-9][0-9]*$/.test(pid))await detail(Number(pid));});
 setInterval(()=>{if(!document.hidden)stats().catch(()=>{});},10000);
 
 setInterval(()=>{if(!document.hidden && tab==='jobs')jobs(viewGeneration).catch(()=>{});},5000);

@@ -42,7 +42,7 @@ try{
  await page.getByText('My approved channel',{exact:true}).waitFor({state:'detached'});
  await page.getByRole('button',{name:'Історичні кейси',exact:true}).click();
  await page.getByRole('heading',{name:'Arbitrum',exact:true}).waitFor();
- await page.getByText('0 / 500',{exact:true}).waitFor();
+ await page.getByText('0 / 1000',{exact:true}).waitFor();
  await page.getByRole('button',{name:'Команда агентів',exact:true}).click();
  await page.getByText('У черзі',{exact:true}).waitFor();
  await page.getByRole('button',{name:'Ринок і сценарії',exact:true}).click();

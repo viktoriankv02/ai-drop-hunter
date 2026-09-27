@@ -1,7 +1,7 @@
 {
   "window": {
-    "from": "2018-09-26",
-    "to": "2026-09-26"
+    "from": "2018-09-27",
+    "to": "2026-09-27"
   },
   "methodology": "Official-source pilot. No extrapolation of success rates. Unique projects, not seasons. Include negative and non-airdrop outcomes.",
   "cases": [
@@ -22,7 +22,34 @@
       "checked_at": "2026-09-26",
       "mainnet_verified": false,
       "outcome_verified": false,
-      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження",
+      "reward": {
+        "token": "UNI",
+        "allocated": 150000000,
+        "cohorts": [
+          {
+            "name": "Історичні користувачі",
+            "eligible_wallets": 251534,
+            "per_wallet": 400
+          },
+          {
+            "name": "Історичні LP",
+            "eligible_wallets": 49192,
+            "allocated": 49166400
+          },
+          {
+            "name": "SOCKS holders/redeemers",
+            "eligible_wallets": 220,
+            "per_wallet": 1000
+          }
+        ],
+        "source_url": "https://blog.uniswap.org/uni"
+      },
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "allocation_only"
+      }
     },
     {
       "project": "Arbitrum",
@@ -137,6 +164,228 @@
       "mainnet_verified": true,
       "outcome_verified": false,
       "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+    },
+    {
+      "project": "Jito",
+      "year": 2023,
+      "category": "staking_and_infrastructure",
+      "finding": "100 млн JTO виділено трьом групам: користувачам JitoSOL, валідаторам та MEV-учасникам. Виділено — не тотожне фактично отриманому.",
+      "product_lesson": "Визначати роль учасника, поріг, snapshot і vesting окремо; не радити всім однаковий набір транзакцій.",
+      "sources": [
+        {
+          "title": "Jito Foundation: eligibility and allocation",
+          "url": "https://www.jito.network/blog/jto-airdrop-eligibility-and-allocation-specifications/"
+        }
+      ],
+      "criteria": [
+        {
+          "cohort": "JitoSOL users",
+          "requirement": "Щонайменше 100 points до 25.11.2023; holding JitoSOL, DeFi та реферали; застосовано фільтри Sybil.",
+          "source_url": "https://www.jito.network/blog/jto-airdrop-eligibility-and-allocation-specifications/"
+        },
+        {
+          "cohort": "Validators",
+          "requirement": "Робота Jito-Solana у визначених епохах 366–536, з активністю принаймні в одній із 527–536.",
+          "source_url": "https://www.jito.network/blog/jto-airdrop-eligibility-and-allocation-specifications/"
+        },
+        {
+          "cohort": "MEV searchers",
+          "requirement": "Сумарні tips від 1 SOL в епохах 366–536.",
+          "source_url": "https://www.jito.network/blog/jto-airdrop-eligibility-and-allocation-specifications/"
+        }
+      ],
+      "reward": {
+        "token": "JTO",
+        "allocated": 100000000,
+        "cohorts": [
+          {
+            "name": "JitoSOL users",
+            "allocated": 80000000,
+            "eligible_wallets": 9852
+          },
+          {
+            "name": "Validators",
+            "allocated": 15000000
+          },
+          {
+            "name": "MEV searchers",
+            "allocated": 5000000
+          }
+        ],
+        "source_url": "https://www.jito.network/blog/jto-airdrop-eligibility-and-allocation-specifications/"
+      },
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "allocation_only"
+      },
+      "remaining": "Mainnet-дата, фактичні claims за адресами, витрати та повна таблиця індивідуальних алокацій.",
+      "status": "partial",
+      "checked_at": "2026-09-27",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Історичні умови; не інструкція для поточної участі",
+      "mainnet": {
+        "date": null,
+        "source_url": null
+      }
+    },
+    {
+      "project": "Pyth",
+      "year": 2023,
+      "category": "cross_chain_and_community",
+      "finding": "Відбір DeFi-користувачів залежав від мережі та активності; ролі Discord, NFT й амбасадорські внески оцінювалися окремо.",
+      "product_lesson": "Зберігати пороги за мережею та роллю. Розрізняти гаманець, комбінацію адреса–мережа й людину.",
+      "sources": [
+        {
+          "title": "Pyth: eligibility specifications",
+          "url": "https://www.pyth.network/blog/pyth-network-retrospective-airdrop-eligibility-and-distribution-specifications"
+        },
+        {
+          "title": "Pyth: claim progress as of 4 December 2023",
+          "url": "https://www.pyth.network/blog/expanding-the-pyth-community-strategic-capital-and-new-builders"
+        }
+      ],
+      "criteria": [
+        {
+          "cohort": "DeFi users",
+          "requirement": "Snapshot 01.09.2023. Використання застосунків з даними Pyth; три групи за активністю, різні мережеві пороги.",
+          "source_url": "https://www.pyth.network/blog/pyth-network-retrospective-airdrop-eligibility-and-distribution-specifications"
+        },
+        {
+          "cohort": "Community",
+          "requirement": "Окремі ролі Discord, NFT або внески амбасадорів; snapshot ролей/NFT 25.10.2023.",
+          "source_url": "https://www.pyth.network/blog/pyth-network-retrospective-airdrop-eligibility-and-distribution-specifications"
+        }
+      ],
+      "reward": {
+        "token": "PYTH",
+        "allocated": 200000000,
+        "scope": "Лише група DeFi, не весь airdrop",
+        "per_wallet_tiers": [
+          4049,
+          2175,
+          1475
+        ],
+        "source_url": "https://www.pyth.network/blog/pyth-network-retrospective-airdrop-eligibility-and-distribution-specifications"
+      },
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "issuer_report",
+        "statement": "За повідомленням Pyth, станом на 04.12.2023 отримано понад 60% загального ретродропу; незалежного підрахунку тут немає.",
+        "as_of": "2023-12-04",
+        "source_url": "https://www.pyth.network/blog/expanding-the-pyth-community-strategic-capital-and-new-builders"
+      },
+      "remaining": "Точна кінцева сума claims, кількість одержувачів без міжмережевих дублів, витрати, дата mainnet.",
+      "status": "partial",
+      "checked_at": "2026-09-27",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Історичні умови; не інструкція для поточної участі",
+      "mainnet": {
+        "date": null,
+        "source_url": null
+      }
+    },
+    {
+      "project": "Wormhole",
+      "year": 2024,
+      "category": "cross_chain_usage",
+      "finding": "Після перевірок відбору заявлено понад 400 тис. eligible wallets та алокацію 678 823 000 W; це не лічильник фактичних claims.",
+      "product_lesson": "Оцінювати регулярність, час і спосіб використання; не прирівнювати кількість адрес до кількості людей.",
+      "sources": [
+        {
+          "title": "Wormhole: eligibility and allocation methodology",
+          "url": "https://wormhole.com/blog/from-eligibility-to-sybil-detection-a-deep-dive-into-wormholes-multichain"
+        }
+      ],
+      "criteria": [
+        {
+          "cohort": "Onchain users",
+          "requirement": "Snapshot 06.02.2024 23:59 UTC; враховували обсяг, час і сталість активності, з перевірками пов'язаних адрес.",
+          "source_url": "https://wormhole.com/blog/from-eligibility-to-sybil-detection-a-deep-dive-into-wormholes-multichain"
+        },
+        {
+          "cohort": "Community",
+          "requirement": "Внески спільноти та окремі ролі Discord до snapshot.",
+          "source_url": "https://wormhole.com/blog/from-eligibility-to-sybil-detection-a-deep-dive-into-wormholes-multichain"
+        }
+      ],
+      "reward": {
+        "token": "W",
+        "allocated": 678823000,
+        "eligible_wallets_min": 400000,
+        "source_url": "https://wormhole.com/blog/from-eligibility-to-sybil-detection-a-deep-dive-into-wormholes-multichain"
+      },
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "allocation_only"
+      },
+      "remaining": "Індивідуальні виплати, кінцеві claims, витрати, точна дата й доказ mainnet.",
+      "status": "partial",
+      "checked_at": "2026-09-27",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Історичні умови; не інструкція для поточної участі",
+      "mainnet": {
+        "date": null,
+        "source_url": null
+      }
+    },
+    {
+      "project": "EigenLayer",
+      "year": 2024,
+      "category": "restaking",
+      "finding": "Season 1 передбачав приблизно 113 млн EIGEN; прямий рестейкінг і складні LRT-позиції розподілялися за різними фазами.",
+      "product_lesson": "Враховувати шлях депозиту, фазу й посередника LRT. Дата та версія умов важливі для перевірки eligibility.",
+      "sources": [
+        {
+          "title": "Eigen Foundation: Season 1 claims",
+          "url": "https://blog.eigenfoundation.org/claims-s1-p1/"
+        },
+        {
+          "title": "Eigen Foundation: Phase 2",
+          "url": "https://blog.eigenfoundation.org/claims-s1-p2/"
+        }
+      ],
+      "criteria": [
+        {
+          "cohort": "Direct restakers / simple LRT",
+          "requirement": "ETH/LST або відповідні LRT до 15.03.2024; окремо описано бонус 100 EIGEN і пізніших учасників.",
+          "source_url": "https://blog.eigenfoundation.org/claims-s1-p1/"
+        },
+        {
+          "cohort": "Complex LRT",
+          "requirement": "Phase 2: алокації за даними LRT-проєктів, перевірки eligibility та Sybil; бонус не дублюється.",
+          "source_url": "https://blog.eigenfoundation.org/claims-s1-p2/"
+        }
+      ],
+      "reward": {
+        "token": "EIGEN",
+        "allocated_approximately": 113000000,
+        "source_url": "https://blog.eigenfoundation.org/claims-s1-p1/"
+      },
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "issuer_report",
+        "statement": "Фонд повідомив, що понад 88% отриманих у Phase 1 токенів були застейкані й делеговані; це не частка всього airdrop, яку отримано.",
+        "as_of": "2024-06-19",
+        "source_url": "https://blog.eigenfoundation.org/claims-s1-p2/"
+      },
+      "remaining": "Кінцева кількість одержувачів і claims, витрати капіталу, mainnet-дата та деталі винятків.",
+      "status": "partial",
+      "checked_at": "2026-09-27",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Історичні умови; не інструкція для поточної участі",
+      "mainnet": {
+        "date": null,
+        "source_url": null
+      }
     }
-  ]
+  ],
+  "target_projects": 1000
 }

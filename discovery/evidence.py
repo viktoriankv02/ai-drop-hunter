@@ -33,7 +33,7 @@ async def read_html(url, allowed_hosts):
                     if len(content)>2_000_000: raise SourceUnavailable("Сторінка завелика для одного читання")
                 text=bytes(content).decode("utf-8","replace")
                 sample=text[:25000].lower()
-                if any(x in sample for x in ("cf-chl-","verify you are human","just a moment...","enable javascript and cookies to continue")):
+                if any(x in sample for x in ("cf-chl-","verify you are human","just a moment...","трохи зачекайте","enable javascript and cookies to continue")):
                     raise SourceUnavailable("Сторінка перевірки браузера: потрібен імпорт відкритого матеріалу")
                 return text,url
     raise SourceUnavailable("Забагато перенаправлень")

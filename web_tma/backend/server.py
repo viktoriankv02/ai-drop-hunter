@@ -10,6 +10,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from core.workspace import Workspace, ROOT, utcnow
 from core.source_policy import canonical_url
+from core.historical_research import load_history
 from discovery.coordinator import Coordinator
 from market_intelligence.forecaster import get_klines_data, generate_ai_token_forecast, MarketUnavailable
 
@@ -101,14 +102,16 @@ def create_app(store=None,background=True,legacy=None):
         return {"job_ids":[store.enqueue("discover",s["id"]) for s in store.sources()
                            if s["enabled"] and s["purpose"]=="discovery" and s["adapter"]!="manual"]}
     @app.get("/api/projects")
-    def projects(status:str="new",q:str=""):
+    def projects(status:str="new",q:str="",limit:int=60,offset:int=0):
         if status not in ("new","tracking","ignored","archived","all"): raise ValueError("Невідомий статус")
+        limit=max(1,min(100,limit));offset=max(0,offset)
         rows=store.rows("""SELECT id,title,source_url,source_platform,status,summary,last_checked,last_success,check_status,
                            (legacy_json IS NOT NULL) AS legacy FROM projects
                            WHERE (?='all' OR status=?) AND (title LIKE ? OR source_platform LIKE ?)
-                           ORDER BY CASE WHEN source_platform LIKE '%CryptoRank%' THEN 0
-                                         WHEN source_platform LIKE '%Incrypted%' THEN 1 ELSE 2 END,id DESC""",
-                        (status,status,"%"+q[:120]+"%","%"+q[:120]+"%"))
+                           ORDER BY EXISTS(SELECT 1 FROM reports r WHERE r.project_id=projects.id) DESC,
+                           CASE WHEN source_platform LIKE '%CryptoRank%' THEN 0
+                                         WHEN source_platform LIKE '%Incrypted%' THEN 1 ELSE 2 END,id DESC LIMIT ? OFFSET ?""",
+                        (status,status,"%"+q[:120]+"%","%"+q[:120]+"%",limit,offset))
         return rows
     @app.get("/api/projects/{pid}")
     def project(pid:int): return store.detail(pid)
@@ -148,7 +151,7 @@ def create_app(store=None,background=True,legacy=None):
             raise ValueError("Потрібна картка CryptoRank Drophunting, не API-панель")
         if not any(s["enabled"] and s["adapter"]=="cryptorank" for s in store.sources()):
             raise ValueError("CryptoRank вимкнений у списку джерел")
-        if any(x in body.text.lower() for x in ("verify you are human","just a moment","cf-chl-")):
+        if any(x in body.text.lower() for x in ("verify you are human","just a moment","cf-chl-","трохи зачекайте")):
             raise ValueError("Це сторінка перевірки браузера, а не матеріал")
         pid,_=store.add_project(body.name,source,"CryptoRank")
         return import_material(pid,MaterialInput(text=body.text,url=source))
@@ -191,10 +194,7 @@ def create_app(store=None,background=True,legacy=None):
 
     @app.get("/api/research/history")
     def history():
-        path=ROOT/"research"/"historical-cases.json"
-        data=json.loads(path.read_text("utf-8")) if path.exists() else {"cases":[]}
-        return {**data,"target_projects":500,"fully_reviewed":sum(c.get("status")=="complete" for c in data["cases"]),
-                "partial_cases":sum(c.get("status")!="complete" for c in data["cases"])}
+        return load_history()
     @app.get("/api/market/chart")
     async def chart(symbol:str="BTC",period:str="24h"): return await get_klines_data(symbol,period)
     @app.post("/api/market/forecast")

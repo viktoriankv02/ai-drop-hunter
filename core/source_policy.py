@@ -23,7 +23,11 @@ def canonical_url(value: str) -> str:
         raise ValueError("Дозволений лише стандартний HTTPS-порт.")
     if parsed.hostname.lower() in ("localhost",) or "." not in parsed.hostname:
         raise ValueError("Локальні адреси не є джерелами.")
-    return urlunsplit(("https", parsed.hostname.lower(), parsed.path or "/", parsed.query, ""))
+    path, query = parsed.path or "/", parsed.query
+    if parsed.hostname.lower() == "cryptorank.io" and re.fullmatch(r"/(?:ru/)?drophunting/[a-z0-9-]+-activity[0-9]+/?", path):
+        path = "/ru/drophunting/" + path.strip("/").split("/")[-1]
+        query = ""
+    return urlunsplit(("https", parsed.hostname.lower(), path, query, ""))
 
 def telegram_url(value: str) -> str:
     if value.startswith("@"):

@@ -46,3 +46,39 @@ def test_imported_snapshot_uses_progress_and_cache(tmp_path,monkeypatch):
     asyncio.run(coordinator.analyze_snapshot(sid))
     assert "1/2" in store.rows("SELECT phase FROM jobs WHERE id=?",(job,))[0]["phase"]
     assert len(store.rows("SELECT id FROM reports"))==1
+
+def test_official_document_fallback_keeps_provenance(tmp_path,monkeypatch):
+    from pathlib import Path
+    from scripts.import_research_note import import_note
+    store=Workspace(tmp_path/"workspace.sqlite");store.initialize()
+    note=Path(__file__).resolve().parents[1]/"research"/"variational-note.json"
+    pid=import_note(store,note)["project_id"]
+    visited=[]
+    quote="This official statement is specific evidence about points and participation."
+    async def read(url,hosts):
+        visited.append(url)
+        if "cryptorank.io" in url: raise SourceUnavailable("HTTP 403")
+        assert hosts=={"docs.variational.io"}
+        return "<main><p>"+quote+(" Current program details."*6)+"</p></main>",url
+    monkeypatch.setattr(module,"read_html",read)
+    body,via=asyncio.run(Coordinator(store).read_project(store.project(pid)))
+    assert via=="official_documents_fallback"
+    assert body["truncated"] and len(body["documents"])==2
+    assert len(visited)==3
+    result={"facts":[{"quote":quote}],"tasks":[]}
+    Coordinator.attach_provenance(result,body)
+    assert result["provenance"]
+    assert "source_url" not in result["facts"][0] # ambiguous quote in both documents
+
+def test_unreviewed_import_cannot_authorize_fallback(tmp_path,monkeypatch):
+    store=Workspace(tmp_path/"workspace.sqlite");store.initialize()
+    pid,_=store.add_project("Test","https://cryptorank.io/ru/drophunting/test-activity1","CryptoRank")
+    store.save_snapshot(pid,store.project(pid)["source_url"],{"research_note":{"sources":[{"access":"official_document","url":"https://evil.example"}]}},via="user_paste")
+    visited=[]
+    async def read(url,hosts):
+        visited.append(url)
+        raise SourceUnavailable("HTTP 403")
+    monkeypatch.setattr(module,"read_html",read)
+    with pytest.raises(SourceUnavailable):
+        asyncio.run(Coordinator(store).read_project(store.project(pid)))
+    assert len(visited)==1
