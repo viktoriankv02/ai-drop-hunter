@@ -129,6 +129,9 @@ class Coordinator:
         rows=self.store.rows("SELECT * FROM snapshots WHERE id=?",(sid,))
         if not rows: raise ValueError("Матеріал не знайдено")
         snapshot=rows[0]
+        project=self.store.project(snapshot["project_id"])
+        if not any(source_allows_url(source,project["source_url"]) for source in self.store.sources()):
+            raise SourceUnavailable("Джерело вимкнене: аналіз призупинено.")
         body=json.loads(snapshot["body_json"])
         corrections=self.store.rows("SELECT text FROM feedback WHERE project_id=? ORDER BY id DESC LIMIT 5",(snapshot["project_id"],))
         result=await analyze(body,[r["text"] for r in reversed(corrections)],self.progress,self.store.cached_analysis,self.store.cache_analysis)
@@ -162,7 +165,9 @@ class Coordinator:
             for source in self.store.sources():
                 if source["enabled"] and source["purpose"]=="discovery" and source["adapter"]!="manual" and (not source["last_check"] or source["last_check"]<cutoff):
                     self.store.enqueue("discover",source["id"])
+            enabled_sources=self.store.sources()
             for project in self.store.due_projects():
-                self.store.enqueue("research",project["id"])
+                if any(source_allows_url(source,project["source_url"]) for source in enabled_sources):
+                    self.store.enqueue("research",project["id"])
             try: await asyncio.wait_for(self.stop.wait(),timeout=60)
             except TimeoutError: pass

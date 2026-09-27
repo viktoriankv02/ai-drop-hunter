@@ -103,3 +103,13 @@ def test_chunks_preserve_text_and_do_not_split_words():
     assert all(not(c[-1].isalnum() and chunks[i+1][0].isalnum()) for i,c in enumerate(chunks[:-1]))
     result=validate_analysis({"facts":[{"title":"Bad fragment","quote":"lable margin required to open the position."}]},"Available margin required to open the position.","https://example.com",[])
     assert not result["facts"]
+
+def test_paused_source_blocks_saved_analysis(tmp_path,monkeypatch):
+    s=Workspace(tmp_path/"db.sqlite");s.initialize()
+    pid,_=s.add_project("Example","https://airdrops.io/example/","Airdrops.io")
+    sid,_=s.save_snapshot(pid,"https://airdrops.io/example/",{"text":"Saved material"})
+    source=next(x for x in s.sources() if x["adapter"]=="airdrops")
+    s.source_change(source["id"])
+    async def forbidden(*args):pytest.fail("Paused source reached model")
+    monkeypatch.setattr(module,"analyze",forbidden)
+    with pytest.raises(SourceUnavailable):asyncio.run(Coordinator(s).analyze_snapshot(sid))

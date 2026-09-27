@@ -94,3 +94,24 @@ def test_ukrainian_challenge_is_not_research(client):
     text="Трохи зачекайте. "*30
     res=client.post("/api/materials/import",json={"name":"Test","source":"https://cryptorank.io/ru/drophunting/test-activity1","text":text})
     assert res.status_code==400
+
+def test_activity_filter_covers_entire_folder_and_updates(client):
+    store=client.app.state.store
+    good,_=store.add_project("Test activity","https://airdrops.io/test-only/","Airdrops.io")
+    bad,_=store.add_project("Prediction market","https://airdrops.io/prediction/","Airdrops.io")
+    unknown,_=store.add_project("Unknown","https://airdrops.io/unknown/","Airdrops.io")
+    store.save_snapshot(good,"https://airdrops.io/test-only/",{"text":"Testnet faucet provides test tokens.","truncated":False})
+    assert [p["id"] for p in client.get("/api/projects?screen=test_only").json()]==[good]
+    assert [p["id"] for p in client.get("/api/projects?screen=excluded").json()]==[bad]
+    assert [p["id"] for p in client.get("/api/projects?screen=needs_review").json()]==[unknown]
+    assert client.get("/api/activity-screening").json()=={"test_only":1,"excluded":1,"needs_review":1}
+    store.save_snapshot(good,"https://airdrops.io/test-only/",{"text":"Deposit USDC on Arbitrum to trade.","truncated":False})
+    assert client.get("/api/projects?screen=test_only").json()==[]
+
+def test_user_source_scope_hides_other_catalogues(client):
+    s=client.app.state.store
+    s.add_project("Crypto candidate","https://cryptorank.io/ru/drophunting/candidate-activity1","CryptoRank")
+    s.add_project("Other candidate","https://airdrops.io/candidate/","Airdrops.io")
+    with s.db() as c:c.execute("INSERT INTO meta VALUES ('active_source_scope','cryptorank,incrypted')")
+    assert len(client.get("/api/projects?screen=all").json())==1
+    assert client.get("/api/activity-screening").json()["needs_review"]==1

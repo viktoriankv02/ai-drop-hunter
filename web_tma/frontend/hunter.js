@@ -3,7 +3,7 @@ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>'
 const url=s=>{try{const u=new URL(s);return u.protocol==='https:'?escape(u.href):'#';}catch{return '#';}};
 const stamp=s=>s?new Date(s).toLocaleString('uk-UA'):'Ще не перевірено';
 const money=x=>Number(x).toLocaleString('uk-UA',{maximumSignificantDigits:8});
-let token='',tab='tracking',detailId=null,marketData=null,viewGeneration=0,projectOffset=0,projectQuery='';
+let token='',tab='tracking',detailId=null,marketData=null,viewGeneration=0,projectOffset=0,projectQuery='',activityFilter='test_only';
 function notice(text){$('#notice').hidden=false;$('#notice').textContent=text;const b=document.createElement('button');b.textContent='Закрити';b.onclick=()=>$('#notice').hidden=true;$('#notice').append(b);}
 async function api(path,method='GET',body){
  const r=await fetch(path,{method,headers:{'Content-Type':'application/json',...(method!=='GET'?{'X-Hunter-Session':token}:{})},...(body!==undefined?{body:JSON.stringify(body)}:{})});
@@ -21,22 +21,25 @@ async function load(){
  if(tab==='jobs')return jobs(generation);
  if(tab==='history')return history(generation);
  if(tab==='market')return market();
- let ps=await api('/api/projects?status='+tab+'&limit=61&offset='+projectOffset+'&q='+encodeURIComponent(projectQuery));if(generation!==viewGeneration)return;
- $('#content').innerHTML='<h1>'+(tab==='tracking'?'Твої проєкти у роботі':'Знайдені проєкти')+'</h1><p class="muted">CryptoRank → Incrypted → додаткові джерела. «Цікаво» додає проєкт до щоденного дослідження.</p><div class="toolbar"><input id="filter" aria-label="Пошук проєкту" placeholder="Знайти за назвою або джерелом"><button id="discover" class="primary">Зібрати зі сайтів</button><button id="manual">Додати свій проєкт</button></div><div id="cards" class="grid"></div><div class="toolbar"><button id="previous-page">← Попередні</button><span id="page-number"></span><button id="next-page">Наступні →</button></div>';
+ let ps=await api('/api/projects?status='+tab+'&limit=61&offset='+projectOffset+'&q='+encodeURIComponent(projectQuery)+'&screen='+(tab==='new'?activityFilter:'all'));if(generation!==viewGeneration)return;
+ $('#content').innerHTML='<h1>'+(tab==='tracking'?'Твої проєкти у роботі':'Знайдені проєкти')+'</h1><p class="muted">CryptoRank → Incrypted. Інші джерела призупинені за твоєю вказівкою. «Цікаво» додає проєкт до щоденного дослідження.</p><div class="toolbar"><input id="filter" aria-label="Пошук проєкту" placeholder="Знайти за назвою або джерелом"><select id="activity-filter" aria-label="Тип активності"><option value="test_only">Лише тестові токени</option><option value="needs_review">Потребують перевірки</option><option value="excluded">Виключено за твоїми правилами</option><option value="all">Усі для аудиту</option></select><button id="discover" class="primary">Зібрати зі сайтів</button><button id="manual">Додати свій проєкт</button></div><p id="screening-counts" class="muted"></p><div id="cards" class="grid"></div><div class="toolbar"><button id="previous-page">← Попередні</button><span id="page-number"></span><button id="next-page">Наступні →</button></div>';
  const render=q=>{
   $('#cards').innerHTML=ps.slice(0,60).filter(p=>(p.title+' '+p.source_platform).toLowerCase().includes(q.toLowerCase())).map(p=>'<article class="card">'+
    '<div>'+badge(p.source_platform)+badge(p.check_status==='catalog_only'?'Каталог — очікує дослідження':p.check_status,p.check_status==='failed'?'bad':'')+'</div><h2>'+escape(p.title)+'</h2>'+
    '<p class="muted">'+escape(p.summary?.slice(0,230)||'Кандидат для дослідження. Умови й винагорода ще не підтверджені.')+'</p>'+
+   (p.activity_reason?'<small>'+escape(p.activity_reason)+'</small>':'')+
    (p.legacy?'<small>Імпорт Gemini: старі оцінки потребують перевірки.</small>':'')+
    '<small>Перевірка: '+stamp(p.last_checked)+'</small><div class="toolbar"><button data-open="'+p.id+'">План і докази</button>'+
-   (p.status!=='tracking'?'<button class="primary" data-interest="'+p.id+'">☆ Цікаво</button>':'')+'</div></article>').join('')||'<div class="empty">Проєктів поки немає. Запусти збір або додай посилання.</div>';
+   (p.status!=='tracking'?'<button class="primary" data-interest="'+p.id+'">☆ Цікаво</button>':'')+'</div></article>').join('')||'<div class="empty">Немає карток за цим фільтром. Непідтверджені картки — у списку «Потребують перевірки».</div>';
   document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>action(()=>detail(+b.dataset.open)));
   document.querySelectorAll('[data-interest]').forEach(b=>b.onclick=()=>action(async()=>{await api('/api/projects/'+b.dataset.interest+'/status','POST',{status:'tracking'});notice('Додано до роботи. Агент дослідить проєкт у черзі.');load();}));
  };
  const controls=()=>{$('#previous-page').disabled=projectOffset===0;$('#next-page').disabled=ps.length<=60;$('#page-number').textContent='Сторінка '+(Math.floor(projectOffset/60)+1);};
- $('#filter').value=projectQuery;render(projectQuery);controls();
+ $('#filter').value=projectQuery;$('#activity-filter').value=activityFilter;$('#activity-filter').hidden=tab!=='new';render(projectQuery);controls();
+ if(tab==='new'){const c=await api('/api/activity-screening');if(generation!==viewGeneration)return;$('#screening-counts').textContent='Тестові: '+c.test_only+' · Потребують перевірки: '+c.needs_review+' · Виключено: '+c.excluded+'. Це фільтр за доступними доказами, не гарантія винагороди.';}
  let searchVersion=0,searchTimer;
- const fetchPage=async()=>{const version=++searchVersion;const rows=await api('/api/projects?status='+tab+'&limit=61&offset='+projectOffset+'&q='+encodeURIComponent(projectQuery));if(version!==searchVersion||generation!==viewGeneration)return;ps=rows;render(projectQuery);controls();};
+ const fetchPage=async()=>{const version=++searchVersion;const rows=await api('/api/projects?status='+tab+'&limit=61&offset='+projectOffset+'&q='+encodeURIComponent(projectQuery)+'&screen='+(tab==='new'?activityFilter:'all'));if(version!==searchVersion||generation!==viewGeneration)return;ps=rows;render(projectQuery);controls();};
+ $('#activity-filter').onchange=e=>{activityFilter=e.target.value;projectOffset=0;action(fetchPage);};
  $('#filter').oninput=e=>{projectQuery=e.target.value;projectOffset=0;searchVersion++;clearTimeout(searchTimer);searchTimer=setTimeout(()=>action(fetchPage),300);};
  $('#previous-page').onclick=()=>{projectOffset=Math.max(0,projectOffset-60);action(fetchPage);};
  $('#next-page').onclick=()=>{projectOffset+=60;action(fetchPage);};

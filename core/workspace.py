@@ -5,6 +5,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone, timedelta
 from core.source_policy import DEFAULT_SOURCES, ADAPTERS, canonical_url, telegram_url
 from core.revisions import compare_materials
+from core.activity_policy import screen_in_connection
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,6 +47,7 @@ class Workspace:
                 source_platform TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'new',
                 summary TEXT NOT NULL DEFAULT '', legacy_json TEXT, created_at TEXT NOT NULL,
                 last_checked TEXT, last_success TEXT, check_status TEXT NOT NULL DEFAULT 'unreviewed');
+            CREATE TABLE IF NOT EXISTS activity_screening(project_id INTEGER PRIMARY KEY REFERENCES projects(id), decision TEXT NOT NULL, reason TEXT NOT NULL, policy_version TEXT NOT NULL, checked_at TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS snapshots(
                 id INTEGER PRIMARY KEY, project_id INTEGER NOT NULL REFERENCES projects(id),
                 url TEXT NOT NULL, content_hash TEXT NOT NULL, body_json TEXT NOT NULL,
@@ -148,8 +150,10 @@ class Workspace:
             cur = c.execute("""INSERT OR IGNORE INTO projects
                 (title,source_url,source_platform,summary,created_at) VALUES (?,?,?,?,?)""",
                 (title[:200],url,source,summary[:6000],utcnow()))
-            return (cur.lastrowid if cur.rowcount else
-                    c.execute("SELECT id FROM projects WHERE source_url=?",(url,)).fetchone()[0]), bool(cur.rowcount)
+            fresh=bool(cur.rowcount)
+            pid=cur.lastrowid if fresh else c.execute("SELECT id FROM projects WHERE source_url=?",(url,)).fetchone()[0]
+            screen_in_connection(c,pid)
+            return pid,fresh
     def project(self, pid):
         rows = self.rows("SELECT * FROM projects WHERE id=?", (pid,))
         if not rows: raise ValueError("Проєкт не знайдено")
@@ -216,6 +220,7 @@ class Workspace:
             else: sid=prev["id"]
             c.execute("UPDATE projects SET last_checked=?,last_success=?,check_status=? WHERE id=?",
                       (utcnow(),utcnow(),"changed" if changed else "unchanged",pid))
+            screen_in_connection(c,pid)
             return sid,changed
     def save_report(self,pid,sid,body,model):
         with self.db() as c:
@@ -247,6 +252,8 @@ class Workspace:
             self._event(c,task["project_id"],"task_user_report",json.dumps({"id":tid,"status":state}))
     def detail(self,pid):
         p=self.project(pid)
+        screening=self.rows("SELECT * FROM activity_screening WHERE project_id=?",(pid,))
+        p["activity_screening"]=screening[0] if screening else None
         p["legacy_warning"]=bool(p.pop("legacy_json",None))
         p["tasks"]=self.rows("SELECT id,title,target_url,status,evidence_json FROM tasks WHERE project_id=? AND status!='reference_only' ORDER BY id",(pid,))
         p["events"]=self.rows("SELECT * FROM events WHERE project_id=? ORDER BY id DESC LIMIT 30",(pid,))

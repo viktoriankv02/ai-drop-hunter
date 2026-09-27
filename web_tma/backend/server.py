@@ -101,17 +101,31 @@ def create_app(store=None,background=True,legacy=None):
     def discovery():
         return {"job_ids":[store.enqueue("discover",s["id"]) for s in store.sources()
                            if s["enabled"] and s["purpose"]=="discovery" and s["adapter"]!="manual"]}
+    @app.get("/api/activity-screening")
+    def activity_counts():
+        restricted=bool(store.rows("SELECT 1 FROM meta WHERE key='active_source_scope'"))
+        result={"test_only":0,"needs_review":0,"excluded":0}
+        for row in store.rows("""SELECT COALESCE(a.decision,'needs_review') AS decision,COUNT(*) AS n
+            FROM projects p LEFT JOIN activity_screening a ON a.project_id=p.id WHERE p.status='new' AND (?=0 OR p.source_url LIKE 'https://cryptorank.io/%' OR p.source_url LIKE 'https://incrypted.com/%') GROUP BY 1""",(int(restricted),)):
+            result[row["decision"]]=row["n"]
+        return result
     @app.get("/api/projects")
-    def projects(status:str="new",q:str="",limit:int=60,offset:int=0):
+    def projects(status:str="new",q:str="",limit:int=60,offset:int=0,screen:str="all"):
         if status not in ("new","tracking","ignored","archived","all"): raise ValueError("Невідомий статус")
+        restricted=bool(store.rows("SELECT 1 FROM meta WHERE key='active_source_scope'"))
+        if screen not in ("all","test_only","needs_review","excluded"): raise ValueError("Невідомий фільтр активності")
         limit=max(1,min(100,limit));offset=max(0,offset)
         rows=store.rows("""SELECT id,title,source_url,source_platform,status,summary,last_checked,last_success,check_status,
-                           (legacy_json IS NOT NULL) AS legacy FROM projects
+                           (legacy_json IS NOT NULL) AS legacy,
+                           (SELECT decision FROM activity_screening a WHERE a.project_id=projects.id) AS activity_decision,
+                           (SELECT reason FROM activity_screening a WHERE a.project_id=projects.id) AS activity_reason FROM projects
                            WHERE (?='all' OR status=?) AND (title LIKE ? OR source_platform LIKE ?)
+                           AND (?=0 OR projects.status!='new' OR source_url LIKE 'https://cryptorank.io/%' OR source_url LIKE 'https://incrypted.com/%')
+                           AND (?='all' OR COALESCE((SELECT decision FROM activity_screening a WHERE a.project_id=projects.id),'needs_review')=?)
                            ORDER BY EXISTS(SELECT 1 FROM reports r WHERE r.project_id=projects.id) DESC,
                            CASE WHEN source_platform LIKE '%CryptoRank%' THEN 0
                                          WHEN source_platform LIKE '%Incrypted%' THEN 1 ELSE 2 END,id DESC LIMIT ? OFFSET ?""",
-                        (status,status,"%"+q[:120]+"%","%"+q[:120]+"%",limit,offset))
+                        (status,status,"%"+q[:120]+"%","%"+q[:120]+"%",int(restricted),screen,screen,limit,offset))
         return rows
     @app.get("/api/projects/{pid}")
     def project(pid:int): return store.detail(pid)
