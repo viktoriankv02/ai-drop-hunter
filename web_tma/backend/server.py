@@ -1,194 +1,219 @@
-import os
-import sys
-import json
-import sqlite3
-import asyncio
-from fastapi import FastAPI, HTTPException
+"""Local single-user API. Public deployment requires an authentication layer."""
+import asyncio, json, os, secrets, sqlite3
+from pathlib import Path
+from contextlib import asynccontextmanager
+from typing import Literal
+from urllib.parse import urlsplit
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, Field
+from core.workspace import Workspace, ROOT, utcnow
+from core.source_policy import canonical_url
+from discovery.coordinator import Coordinator
+from market_intelligence.forecaster import get_klines_data, generate_ai_token_forecast, MarketUnavailable
 
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-if ROOT_DIR not in sys.path:
-    sys.path.insert(0, ROOT_DIR)
+class SourceInput(BaseModel):
+    name: str=Field(min_length=2,max_length=120)
+    url: str=Field(min_length=5,max_length=1500)
+    type: Literal["website","telegram"]="website"
+class ProjectInput(BaseModel):
+    title: str=Field(min_length=2,max_length=200)
+    source_url: str=Field(max_length=1500)
+    source_platform: str=Field(default="Власне джерело",max_length=100)
+    summary: str=Field(default="",max_length=6000)
+class StatusInput(BaseModel):
+    status: Literal["new","tracking","ignored","archived"]
+class TaskInput(BaseModel):
+    done: bool
+class FeedbackInput(BaseModel):
+    text: str=Field(min_length=3,max_length=1500)
+class BrowserMaterialInput(BaseModel):
+    name: str=Field(min_length=2,max_length=200)
+    source: str=Field(max_length=1500)
+    text: str=Field(min_length=100,max_length=60000)
 
-from market_intelligence.scanner import run_market_scanner
-from market_intelligence.forecaster import get_klines_data, generate_ai_token_forecast
+class MaterialInput(BaseModel):
+    text: str=Field(min_length=100,max_length=60000)
+    url: str=Field(max_length=1500)
 
-DB_PATH = os.path.join(ROOT_DIR, "drop_hunter.db")
-SOURCES_PATH = os.path.join(ROOT_DIR, "sources", "resources.json")
+def create_app(store=None,background=True,legacy=None):
+    store=store or Workspace()
+    token=secrets.token_urlsafe(32)
+    coordinator=Coordinator(store)
+    @asynccontextmanager
+    async def lifespan(app):
+        store.initialize(legacy=legacy)
+        tasks=[]
+        if background:
+            tasks=[asyncio.create_task(coordinator.run()),asyncio.create_task(coordinator.schedule())]
+        try: yield
+        finally:
+            coordinator.stop.set()
+            for task in tasks: task.cancel()
+            await asyncio.gather(*tasks,return_exceptions=True)
+    app=FastAPI(title="AI Crypto Hub & Hunter",lifespan=lifespan)
+    app.state.store=store
+    @app.middleware("http")
+    async def local_access(request:Request,call_next):
+        host=request.url.hostname
+        if host not in ("127.0.0.1","localhost","testserver"):
+            return JSONResponse({"detail":"Локальний режим"},status_code=403)
+        if request.method not in ("GET","HEAD","OPTIONS"):
+            if request.headers.get("origin")!=str(request.base_url).rstrip("/"):
+                return JSONResponse({"detail":"Невідоме походження запиту"},status_code=403)
+            if not secrets.compare_digest(request.headers.get("x-hunter-session",""),token):
+                return JSONResponse({"detail":"Оновіть сторінку: сесія змінилась"},status_code=403)
+        return await call_next(request)
+    @app.exception_handler(ValueError)
+    async def invalid(request,error): return JSONResponse({"detail":str(error)},status_code=400)
+    @app.exception_handler(sqlite3.IntegrityError)
+    async def duplicate(request,error): return JSONResponse({"detail":"Такий запис уже є або порушено зв’язок даних"},status_code=409)
+    @app.exception_handler(MarketUnavailable)
+    async def unavailable(request,error): return JSONResponse({"detail":str(error)},status_code=503)
+    @app.get("/api/session")
+    def session(): return {"token":token,"mode":"local","autonomous_execution":False}
+    @app.get("/api/stats")
+    def stats():
+        projects=store.rows("SELECT status,count(*) AS n FROM projects WHERE check_status!=\'excluded_catalog_navigation\' GROUP BY status")
+        counts={p["status"]:p["n"] for p in projects}
+        sources=store.sources()
+        return {"tracking":counts.get("tracking",0),"new":counts.get("new",0),
+                "total":sum(counts.values()),"sources":sum(s["enabled"] for s in sources),
+                "migration_issues":store.rows("SELECT count(*) n FROM migration_issues")[0]["n"],
+                "jobs":store.rows("SELECT state,count(*) n FROM jobs GROUP BY state")}
+    @app.get("/api/migration/issues")
+    def migration_issues(): return store.rows("SELECT id,entity,legacy_id,reason FROM migration_issues ORDER BY id")
+    @app.get("/api/sources")
+    def sources(): return [{**s,"type":s["kind"]} for s in store.sources()]
+    @app.post("/api/sources")
+    def add_source(body:SourceInput): return {"id":store.add_source(body.name,body.url,body.type)}
+    @app.delete("/api/sources/{sid}")
+    def delete_source(sid:int): store.source_change(sid,True); return {"ok":True}
+    @app.post("/api/sources/{sid}/toggle")
+    def toggle_source(sid:int): store.source_change(sid); return {"ok":True}
+    @app.post("/api/sources/{sid}/scan")
+    def scan_source(sid:int):
+        if not any(s["id"]==sid and s["enabled"] for s in store.sources()): raise ValueError("Джерело вимкнено або відсутнє")
+        return {"job_id":store.enqueue("discover",sid)}
+    @app.post("/api/discovery/run")
+    def discovery():
+        return {"job_ids":[store.enqueue("discover",s["id"]) for s in store.sources()
+                           if s["enabled"] and s["purpose"]=="discovery" and s["adapter"]!="manual"]}
+    @app.get("/api/projects")
+    def projects(status:str="new",q:str=""):
+        if status not in ("new","tracking","ignored","archived","all"): raise ValueError("Невідомий статус")
+        rows=store.rows("""SELECT id,title,source_url,source_platform,status,summary,last_checked,last_success,check_status,
+                           (legacy_json IS NOT NULL) AS legacy FROM projects
+                           WHERE (?='all' OR status=?) AND (title LIKE ? OR source_platform LIKE ?)
+                           ORDER BY CASE WHEN source_platform LIKE '%CryptoRank%' THEN 0
+                                         WHEN source_platform LIKE '%Incrypted%' THEN 1 ELSE 2 END,id DESC""",
+                        (status,status,"%"+q[:120]+"%","%"+q[:120]+"%"))
+        return rows
+    @app.get("/api/projects/{pid}")
+    def project(pid:int): return store.detail(pid)
+    @app.post("/api/projects/manual")
+    def manual(body:ProjectInput):
+        pid,added=store.add_project(body.title,body.source_url,body.source_platform,body.summary)
+        return {"project_id":pid,"added":added}
+    @app.post("/api/projects/{pid}/status")
+    def status(pid:int,body:StatusInput):
+        store.set_status(pid,body.status)
+        job=store.enqueue("research",pid) if body.status=="tracking" else None
+        return {"ok":True,"job_id":job}
+    @app.post("/api/projects/{pid}/research")
+    def research(pid:int):
+        store.project(pid)
+        return {"job_id":store.enqueue("research",pid)}
+    @app.post("/api/projects/{pid}/material")
+    def import_material(pid:int,body:MaterialInput):
+        p=store.project(pid)
+        url=canonical_url(body.url)
+        if url!=canonical_url(p["source_url"]):
+            raise ValueError("Для цього імпорту вкажіть URL картки проєкту. Додаткові джерела підключатимуться окремо.")
+        import re
+        links=[]
+        for candidate in re.findall(r"https://[^\s<>\"']+",body.text):
+            try: links.append({"url":canonical_url(candidate),"label":""})
+            except ValueError: pass
+        sid,changed=store.save_snapshot(pid,url,{"text":body.text,"links":links[:150],"url":url,
+                       "truncated":False,"characters_available":len(body.text)},via="user_paste")
+        return {"snapshot_id":sid,"changed":changed,"job_id":store.enqueue("analyze",sid)}
+    @app.post("/api/materials/import")
+    def browser_material(body:BrowserMaterialInput):
+        import re
+        source=canonical_url(body.source)
+        parsed=urlsplit(source)
+        if parsed.hostname!="cryptorank.io" or not re.fullmatch(r"/(?:ru/)?drophunting/[a-z0-9-]+-activity[0-9]*/?",parsed.path):
+            raise ValueError("Потрібна картка CryptoRank Drophunting, не API-панель")
+        if not any(s["enabled"] and s["adapter"]=="cryptorank" for s in store.sources()):
+            raise ValueError("CryptoRank вимкнений у списку джерел")
+        if any(x in body.text.lower() for x in ("verify you are human","just a moment","cf-chl-")):
+            raise ValueError("Це сторінка перевірки браузера, а не матеріал")
+        pid,_=store.add_project(body.name,source,"CryptoRank")
+        return import_material(pid,MaterialInput(text=body.text,url=source))
 
-app = FastAPI(title="AI Crypto Hub & Hunter")
+    @app.post("/api/tasks/{tid}/completion")
+    def complete(tid:int,body:TaskInput): store.complete_task(tid,body.done); return {"ok":True}
+    @app.post("/api/projects/{pid}/feedback")
+    def feedback(pid:int,body:FeedbackInput):
+        store.project(pid)
+        with store.db() as c:
+            c.execute("INSERT INTO feedback(project_id,text,created_at) VALUES (?,?,?)",(pid,body.text,utcnow()))
+        return {"ok":True,"learning":"Корекцію буде включено в наступний аналіз; ваги моделі не змінюються."}
+    @app.get("/api/jobs")
+    def jobs():
+        return store.rows("""SELECT j.*,CASE WHEN j.kind='discover' THEN s.name
+                       ELSE p.title END AS target_name,
+                       CASE WHEN j.kind='discover' THEN NULL ELSE p.id END AS project_id
+                       FROM jobs j
+                       LEFT JOIN sources s ON j.kind='discover' AND j.target_id=s.id
+                       LEFT JOIN snapshots sn ON j.kind='analyze' AND j.target_id=sn.id
+                       LEFT JOIN projects p ON (j.kind='research' AND j.target_id=p.id)
+                                            OR (j.kind='analyze' AND sn.project_id=p.id)
+                       ORDER BY CASE j.state WHEN 'running' THEN 0 WHEN 'queued' THEN 1 ELSE 2 END,
+                                CASE WHEN j.state='queued' THEN j.id ELSE -j.id END LIMIT 100""")
+    @app.post("/api/jobs/{jid}/retry")
+    def retry_job(jid:int):
+        rows=store.rows("SELECT * FROM jobs WHERE id=?",(jid,))
+        if not rows: raise ValueError("Роботу не знайдено")
+        job=rows[0]
+        if job["state"] not in ("failed","succeeded"):
+            return {"job_id":job["id"]}
+        if job["kind"]=="discover":
+            if not any(s["id"]==job["target_id"] and s["enabled"] for s in store.sources()):
+                raise ValueError("Спочатку ввімкни джерело")
+        elif job["kind"]=="research":
+            store.project(job["target_id"])
+        elif not store.rows("SELECT id FROM snapshots WHERE id=?",(job["target_id"],)):
+            raise ValueError("Збережений матеріал відсутній")
+        return {"job_id":store.enqueue(job["kind"],job["target_id"])}
 
-def get_db():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    @app.get("/api/research/history")
+    def history():
+        path=ROOT/"research"/"historical-cases.json"
+        data=json.loads(path.read_text("utf-8")) if path.exists() else {"cases":[]}
+        return {**data,"target_projects":500,"fully_reviewed":sum(c.get("status")=="complete" for c in data["cases"]),
+                "partial_cases":sum(c.get("status")!="complete" for c in data["cases"])}
+    @app.get("/api/market/chart")
+    async def chart(symbol:str="BTC",period:str="24h"): return await get_klines_data(symbol,period)
+    @app.post("/api/market/forecast")
+    async def forecast(symbol:str="BTC",horizon:str="24h"):
+        result=await generate_ai_token_forecast(symbol,horizon)
+        with store.db() as c:
+            fid=c.execute("INSERT INTO forecasts(symbol,horizon,issued_at,target_at,body_json) VALUES (?,?,?,?,?)",
+                          (result["symbol"],horizon,result["issued_at"],result["target_at"],json.dumps(result,ensure_ascii=False))).lastrowid
+        return {**result,"id":fid}
+    @app.get("/api/market/forecasts")
+    def forecasts():
+        return [{"id":r["id"],**json.loads(r["body_json"]),"outcome":json.loads(r["outcome_json"]) if r["outcome_json"] else None}
+                for r in store.rows("SELECT * FROM forecasts ORDER BY id DESC LIMIT 30")]
+    app.mount("/static",StaticFiles(directory=ROOT/"web_tma"/"frontend"),name="static")
+    @app.get("/")
+    def index(): return FileResponse(ROOT/"web_tma"/"frontend"/"index.html")
+    return app
 
-def read_sources():
-    if not os.path.exists(SOURCES_PATH): return []
-    try:
-        with open(SOURCES_PATH, "r", encoding="utf-8-sig") as f: return json.load(f)
-    except Exception: return []
-
-@app.get("/api/stats")
-async def get_stats():
-    conn = get_db()
-    cur = conn.cursor()
-    cur.execute("SELECT COUNT(*) FROM drop_projects WHERE tracking_status = 'tracking'")
-    tr = cur.fetchone()[0]
-    cur.execute("SELECT COUNT(*) FROM drop_projects WHERE tracking_status = 'new'")
-    nw = cur.fetchone()[0]
-    cur.execute("SELECT COUNT(*) FROM drop_projects")
-    tot = cur.fetchone()[0]
-    conn.close()
-
-    srcs = read_sources()
-    act = sum(1 for s in srcs if s.get("enabled", True))
-    return {"tracking": tr, "new": nw, "total": tot, "sources": f"{act}/{len(srcs)}"}
-
-@app.get("/api/sources")
-async def get_sources():
-    return read_sources()
-
-@app.post("/api/sources/{source_id}/toggle")
-async def toggle_source(source_id: int):
-    srcs = read_sources()
-    for s in srcs:
-        if s.get("id") == source_id:
-            s["enabled"] = not s.get("enabled", True)
-            break
-    with open(SOURCES_PATH, "w", encoding="utf-8") as f:
-        json.dump(srcs, f, ensure_ascii=False, indent=2)
-    return {"success": True}
-
-@app.get("/api/projects")
-async def get_projects(status: str = "new"):
-    conn = get_db()
-    cur = conn.cursor()
-    cur.execute("""
-        SELECT id, title, source_platform, tier, score, raised_amount, 
-               backers, category, stage, status_reward, is_testnet, 
-               estimated_cost_usd, summary, source_url, tracking_status,
-               sybil_rules, deep_strategy
-        FROM drop_projects
-        WHERE tracking_status = ?
-        ORDER BY score DESC, id DESC
-    """, (status,))
-    projects = [dict(row) for row in cur.fetchall()]
-
-    for p in projects:
-        cur.execute("""
-            SELECT id, step_number, title, action_type, status, target_url, is_autonomous
-            FROM action_tasks
-            WHERE project_id = ?
-            ORDER BY step_number ASC, id ASC
-        """, (p["id"],))
-        p["tasks"] = [dict(t) for t in cur.fetchall()]
-
-        cur.execute("SELECT title, details, created_at FROM project_daily_intel WHERE project_id = ? ORDER BY id DESC LIMIT 1", (p["id"],))
-        intel = cur.fetchone()
-        p["latest_intel"] = dict(intel) if intel else None
-
-    conn.close()
-    return projects
-
-class StatusUpdate(BaseModel):
-    status: str
-
-# ВИПРАВЛЕНО: повноцінний async def без падінь у threadpool
-@app.post("/api/projects/{project_id}/status")
-async def update_project_status(project_id: int, payload: StatusUpdate):
-    try:
-        conn = get_db()
-        cur = conn.cursor()
-        cur.execute("UPDATE drop_projects SET tracking_status = ? WHERE id = ?", (payload.status, project_id))
-        if payload.status == "tracking":
-            cur.execute("UPDATE action_tasks SET status = 'PENDING', is_autonomous = 1 WHERE project_id = ?", (project_id,))
-        conn.commit()
-        conn.close()
-
-        # Фоновий аналіз викликаємо безпечно
-        if payload.status == "tracking":
-            try:
-                from ai_analyzer.deep_researcher import conduct_deep_research
-                asyncio.create_task(conduct_deep_research(project_id))
-            except Exception as e:
-                print(f"[Warn] Deep research bypass: {e}")
-
-        return {"success": True, "id": project_id, "status": payload.status}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-class ManualProject(BaseModel):
-    title: str
-    source_platform: Optional[str] = "Власне джерело"
-    source_url: str
-    category: Optional[str] = "Web3 / Testnet"
-    summary: Optional[str] = ""
-    tasks: Optional[str] = ""
-
-@app.post("/api/projects/manual")
-async def add_manual_project(payload: ManualProject):
-    if not payload.title.strip() or not payload.source_url.strip():
-        raise HTTPException(status_code=400, detail="Назва та посилання обов'язкові")
-
-    conn = get_db()
-    cur = conn.cursor()
-    cur.execute("""
-    INSERT INTO drop_projects (
-        title, source_platform, tier, score, raised_amount, backers,
-        category, stage, status_reward, is_testnet, estimated_cost_usd,
-        summary, source_url, tracking_status
-    ) VALUES (?, ?, 'Tier-1', 92, 'Під наглядом', 'Обрано вручну', ?, 'Active', 'Очікується', 1, 0.0, ?, ?, 'new')
-    """, (payload.title.strip(), payload.source_platform.strip(), payload.category.strip(), payload.summary.strip(), payload.source_url.strip()))
-    proj_id = cur.lastrowid
-
-    raw_tasks = [t.strip() for t in payload.tasks.split("\n") if t.strip()] or ["Підключити гаманець", "Отримати тестові токени", "Зробити свап"]
-    for idx, t_title in enumerate(raw_tasks):
-        cur.execute("""
-        INSERT INTO action_tasks (project_id, step_number, title, action_type, network, status, target_url, is_autonomous, description)
-        VALUES (?, ?, ?, 'task', 'EVM / Testnet', 'PENDING', ?, 1, '')
-        """, (proj_id, idx + 1, t_title, payload.source_url.strip()))
-
-    conn.commit()
-    conn.close()
-    return {"success": True, "project_id": proj_id}
-
-@app.get("/api/signals")
-async def get_market_signals():
-    conn = get_db()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM market_signals ORDER BY id DESC LIMIT 50")
-    signals = [dict(row) for row in cur.fetchall()]
-    conn.close()
-    return signals
-
-@app.post("/api/signals/scan")
-async def trigger_market_scan():
-    asyncio.create_task(run_market_scanner())
-    return {"message": "Сканування запущено"}
-
-@app.get("/api/market/chart")
-async def get_chart(symbol: str = "BTC", period: str = "24h"):
-    res = await get_klines_data(symbol, period)
-    if "error" in res: raise HTTPException(status_code=400, detail=res["error"])
-    return res
-
-@app.get("/api/market/forecast")
-async def get_forecast(symbol: str = "BTC", horizon: str = "24h"):
-    res = await generate_ai_token_forecast(symbol, horizon)
-    if "error" in res: raise HTTPException(status_code=400, detail=res["error"])
-    return res
-
-FRONTEND_DIR = os.path.join(ROOT_DIR, "web_tma", "frontend")
-app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
-
-@app.get("/")
-async def index():
-    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
-
-if __name__ == "__main__":
+app=create_app(legacy=ROOT/"drop_hunter.db",background=os.getenv("HUNTER_BACKGROUND","1")=="1")
+if __name__=="__main__":
     import uvicorn
-    uvicorn.run("web_tma.backend.server:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(app,host="127.0.0.1",port=4318)

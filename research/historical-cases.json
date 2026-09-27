@@ -1,0 +1,142 @@
+{
+  "window": {
+    "from": "2018-09-26",
+    "to": "2026-09-26"
+  },
+  "methodology": "Official-source pilot. No extrapolation of success rates. Unique projects, not seasons. Include negative and non-airdrop outcomes.",
+  "cases": [
+    {
+      "project": "Uniswap",
+      "year": 2020,
+      "category": "retroactive_usage",
+      "finding": "Історичним користувачам v1/v2 перед snapshot 01.09.2020 пропонувалося 400 UNI; враховувалися навіть деякі невдалі транзакції. Для LP діяла інша формула, пов’язана з ліквідністю та часом.",
+      "product_lesson": "Моделювати окремі категорії участі й дату snapshot. Успішність транзакції та право на винагороду — різні поля.",
+      "sources": [
+        {
+          "title": "Uniswap — Introducing UNI",
+          "url": "https://blog.uniswap.org/uni"
+        }
+      ],
+      "remaining": "Перевірка фактичних claims, витрат учасників і того, які відомості були доступні до snapshot.",
+      "status": "partial",
+      "checked_at": "2026-09-26",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+    },
+    {
+      "project": "Arbitrum",
+      "year": 2023,
+      "category": "multi_criteria",
+      "finding": "Правила включали міст, різні місяці активності, кількість транзакцій/контрактів, обсяги й окремі умови Nova. Snapshot — 06.02.2023; claim завершився 24.09.2023.",
+      "product_lesson": "Календар активності, окремі перевірювані умови та завершення кампанії. Не переносити історичні обсяги на нові мережі.",
+      "sources": [
+        {
+          "title": "Arbitrum Foundation — eligibility and distribution",
+          "url": "https://docs.arbitrum.foundation/airdrop-eligibility-distribution"
+        }
+      ],
+      "remaining": "Незалежна перевірка виплат і витрат, версії умов до оголошення, відбір контрольної групи.",
+      "status": "partial",
+      "checked_at": "2026-09-26",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+    },
+    {
+      "project": "Celestia",
+      "year": 2023,
+      "category": "cross_ecosystem_contribution",
+      "finding": "Genesis Drop охоплював внески у відкритий код і дослідження, активність користувачів rollup, стейкерів Cosmos/Osmosis та IBC relayer. У різних категорій були різні вимоги.",
+      "product_lesson": "Не зводити план до транзакцій. Враховувати внески розробника, ролі учасника та попередню діяльність в екосистемах.",
+      "sources": [
+        {
+          "title": "Celestia Foundation — Initiating Genesis Drop",
+          "url": "https://blog.celestia.org/genesis-drop/"
+        }
+      ],
+      "remaining": "Зіставлення правил з genesis-розподілом, фактичні витрати, оцінка можливості передбачити відбір.",
+      "status": "partial",
+      "checked_at": "2026-09-26",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+    },
+    {
+      "project": "Starknet",
+      "year": 2024,
+      "category": "conjunctive_requirements",
+      "finding": "Для категорії ранніх користувачів: понад 5 транзакцій, активність щонайменше 3 місяці, обсяг від $100 і баланс від 0.005 ETH на 15.11.2023. Інші категорії мали власні умови.",
+      "product_lesson": "Зберігати логіку «усі умови одночасно», дату вимірювання балансу й конкретну категорію; кількість завдань сама по собі нічого не доводить.",
+      "sources": [
+        {
+          "title": "Starknet — Provisions Program",
+          "url": "https://www.starknet.io/blog/starknet-provisions-program/"
+        }
+      ],
+      "remaining": "Винятки, перегляди eligibility, фактичні результати й витрати різних груп.",
+      "status": "partial",
+      "checked_at": "2026-09-26",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+    },
+    {
+      "project": "ZKsync",
+      "year": 2024,
+      "category": "time_weighted_allocation",
+      "finding": "Відбір і розрахунок алокації були окремими етапами. Розрахунок враховував активи в мережі та тривалість їх перебування, доповнювався множниками; snapshot — 24.03.2024.",
+      "product_lesson": "Розділяти eligibility та allocation, враховувати час і капітал. Більше транзакцій не означає пропорційно більшу нагороду.",
+      "sources": [
+        {
+          "title": "ZK Nation — Introducing the ZK Token",
+          "url": "https://www.zknation.io/blog/zk-token"
+        }
+      ],
+      "remaining": "Детальна формула, перелік eligibility, остаточні claims, контрольна група та оцінка витрат.",
+      "status": "partial",
+      "checked_at": "2026-09-26",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+    },
+    {
+      "project": "Sui",
+      "year": 2022,
+      "category": "purchase_access_not_free_airdrop",
+      "finding": "Оголошення Community Access Program від 06.12.2022 описувало можливість придбати токени на ранньому етапі. Саме це оголошення не доводить безкоштовну роздачу за тестнет.",
+      "product_lesson": "Розрізняти винагороду, доступ до продажу, грант і непідтверджене очікування. Не записувати всі кампанії як «airdrop підтверджено».",
+      "sources": [
+        {
+          "title": "Sui — Token Community Access Program",
+          "url": "https://www.sui.io/blog/sui-token-community-access-program"
+        }
+      ],
+      "remaining": "Остаточні умови програми й результати учасників; цей кейс не є твердженням про відсутність будь-яких винагород Sui.",
+      "status": "partial",
+      "checked_at": "2026-09-26",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+    },
+    {
+      "project": "Aptos",
+      "year": 2022,
+      "category": "tokenomics_not_eligibility",
+      "finding": "Tokenomics Overview підтверджує запуск mainnet 12.10.2022 і передбачає community-алокацію для грантів, стимулів та розвитку. Частка community не є списком умов роздачі користувачам.",
+      "product_lesson": "Не перетворювати відсоток community у whitepaper на обіцянку винагороди. Потрібен окремий документ конкретної кампанії.",
+      "sources": [
+        {
+          "title": "Aptos — Tokenomics Overview",
+          "url": "https://aptosnetwork.com/currents/aptos-tokenomics-overview"
+        }
+      ],
+      "remaining": "Першоджерело умов airdrop, критерії, фактичні виплати, витрати та часові обмеження.",
+      "status": "partial",
+      "checked_at": "2026-09-26",
+      "mainnet_verified": true,
+      "outcome_verified": false,
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+    }
+  ]
+}

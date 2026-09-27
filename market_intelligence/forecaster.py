@@ -1,199 +1,163 @@
-﻿import httpx
-import json
-import asyncio
-from datetime import datetime, timedelta
-from loguru import logger
-from ai_analyzer.gateway import llm_gateway
+"""Historical scenarios with a chronological holdout. No LLM-invented prices."""
+import math, re, statistics, time
+from datetime import datetime, timezone, timedelta
+import httpx
 
-BINANCE_KLINES_URL = "https://api.binance.com/api/v3/klines"
-OKX_CANDLES_URL = "https://www.okx.com/api/v5/market/candles"
+PERIODS={"1h":("1m","1m",60,60),"24h":("15m","15m",96,900),
+         "1m":("4h","4H",180,14400),"1y":("1d","1Dutc",365,86400),
+         "5y":("1w","1Wutc",261,604800)}
+HORIZONS={"1h":1,"24h":24,"7d":168}
+ALIASES={"BITCOIN":"BTC","ETHEREUM":"ETH","SOLANA":"SOL","БІТКОЇН":"BTC","БИТКОИН":"BTC"}
+STOCKS={"XAAPL","XTSLA","XNVDA","XMSFT","XAMZN","XGOOGL","XMETA","XSPY","XQQQ"}
+class MarketUnavailable(RuntimeError): pass
 
-TIMEFRAME_MAP_BINANCE = {
-    "1h": ("1m", 60),
-    "24h": ("15m", 96),
-    "1m": ("4h", 180),
-    "1y": ("1d", 365),
-    "5y": ("1w", 260)
-}
+def normalize_symbol(symbol):
+    value=symbol.strip().upper().replace("/","").replace("-","")
+    value=ALIASES.get(value,value)
+    if value.endswith("USDT"): value=value[:-4]
+    if not re.fullmatch("[A-Z0-9]{2,20}",value): raise ValueError("Вкажіть біржовий символ, наприклад BTC або ETH.")
+    if value in {"AAPL","TSLA","NVDA","MSFT","AMZN","GOOGL","META","SPY","QQQ"}:
+        raise ValueError("Це символ акції/ETF. Прямі котирування фондової біржі ще не підключені. "
+                         "Токенізований інструмент OKX обирається окремо, наприклад XAAPL.")
+    return value
 
-TIMEFRAME_MAP_OKX = {
-    "1h": ("1m", 60),
-    "24h": ("15m", 96),
-    "1m": ("4H", 180),
-    "1y": ("1Dutc", 300),
-    "5y": ("1W", 260)
-}
+def validate_candles(rows, interval, now_ms=None):
+    now_ms=now_ms or int(time.time()*1000)
+    unique={}
+    for row in rows:
+        ts=int(row["timestamp"])
+        numbers=[float(row[k]) for k in ("open","high","low","close","volume")]
+        if any(not math.isfinite(x) for x in numbers) or min(numbers[:4])<=0 or numbers[4]<0:
+            raise MarketUnavailable("Некоректні значення свічок")
+        o,h,l,c,v=numbers
+        if h<max(o,l,c) or l>min(o,h,c): raise MarketUnavailable("Некоректна OHLC-свічка")
+        if ts+interval*1000>now_ms: continue
+        unique[ts]={"timestamp":ts,"open":o,"high":h,"low":l,"close":c,"volume":v,
+                    "time":datetime.fromtimestamp(ts/1000,timezone.utc).isoformat(),"price":c}
+    result=sorted(unique.values(),key=lambda r:r["timestamp"])
+    if not result: raise MarketUnavailable("Немає закритих свічок")
+    return result
 
-def normalize_symbol(symbol: str) -> str:
-    s = symbol.strip().upper().replace("/", "").replace("-", "")
-    for stable in ["USDT", "BUSD", "USDC"]:
-        if s.endswith(stable):
-            s = s[:-len(stable)]
-            break
-    return s
-
-def calculate_rsi(prices: list, period: int = 14) -> float:
-    if len(prices) < period + 1:
-        return 50.0
-    gains, losses = [], []
-    for i in range(1, len(prices)):
-        d = prices[i] - prices[i - 1]
-        gains.append(max(d, 0.0))
-        losses.append(abs(min(d, 0.0)))
-    avg_g = sum(gains[-period:]) / period
-    avg_l = sum(losses[-period:]) / period
-    if avg_l == 0:
-        return 100.0
-    rs = avg_g / avg_l
-    return round(100.0 - (100.0 / (1.0 + rs)), 1)
-
-def calculate_ema(prices: list, span: int) -> float:
-    if not prices:
-        return 0.0
-    alpha = 2 / (span + 1)
-    ema = prices[0]
-    for p in prices[1:]:
-        ema = p * alpha + ema * (1 - alpha)
-    return round(ema, 4)
-
-async def get_klines_data(symbol: str, period: str = "24h") -> dict:
-    base_sym = normalize_symbol(symbol)
-    pair_binance = f"{base_sym}USDT"
-    chart_data, closes = [], []
-    source_exchange = "Binance"
-
-    headers = {"User-Agent": "Mozilla/5.0"}
-    async with httpx.AsyncClient(headers=headers, timeout=6) as client:
-        try:
-            b_interval, b_limit = TIMEFRAME_MAP_BINANCE.get(period, ("15m", 96))
-            res = await client.get(BINANCE_KLINES_URL, params={"symbol": pair_binance, "interval": b_interval, "limit": b_limit})
-            if res.status_code == 200:
-                for k in res.json():
-                    t = int(k[0])
-                    c = float(k[4])
-                    closes.append(c)
-                    chart_data.append({
-                        "time": datetime.utcfromtimestamp(t / 1000).strftime("%d.%m %H:%M"),
-                        "price": c,
-                        "volume": float(k[5])
-                    })
-        except Exception:
-            pass
-
-        if not closes:
+async def fetch_candles(symbol,b_interval,o_interval,count,seconds):
+    errors=[]
+    async with httpx.AsyncClient(timeout=15,trust_env=False) as client:
+        for exchange in (["OKX"] if symbol in STOCKS else ["Binance","OKX"]):
+            records=[]
+            cursor=None
             try:
-                okx_bar, okx_limit = TIMEFRAME_MAP_OKX.get(period, ("15m", 96))
-                res = await client.get(OKX_CANDLES_URL, params={"instId": f"{base_sym}-USDT", "bar": okx_bar, "limit": okx_limit})
-                if res.status_code == 200:
-                    raw_okx = res.json().get("data", [])
-                    if raw_okx:
-                        source_exchange = "OKX"
-                        for k in reversed(raw_okx):
-                            t = int(k[0])
-                            c = float(k[4])
-                            closes.append(c)
-                            chart_data.append({
-                                "time": datetime.utcfromtimestamp(t / 1000).strftime("%d.%m %H:%M"),
-                                "price": c,
-                                "volume": float(k[5])
-                            })
-            except Exception:
-                pass
+                for _ in range(math.ceil((count+1)/(1000 if exchange=="Binance" else 300))+1):
+                    limit=min(1000 if exchange=="Binance" else 300,count+1-len(records))
+                    if limit<=0: break
+                    if exchange=="Binance":
+                        params={"symbol":symbol+"USDT","interval":b_interval,"limit":limit}
+                        if cursor is not None: params["endTime"]=cursor
+                        res=await client.get("https://api.binance.com/api/v3/klines",params=params)
+                        res.raise_for_status()
+                        raw=res.json()
+                        if not isinstance(raw,list): raise MarketUnavailable("Некоректна відповідь Binance")
+                        batch=[{"timestamp":int(k[0]),"open":k[1],"high":k[2],"low":k[3],"close":k[4],"volume":k[5]} for k in raw]
+                    else:
+                        params={"instId":symbol+"-USDT","bar":o_interval,"limit":limit}
+                        if cursor is not None: params["after"]=cursor
+                        res=await client.get("https://www.okx.com/api/v5/market/history-candles",params=params)
+                        res.raise_for_status()
+                        payload=res.json()
+                        if payload.get("code")!="0": raise MarketUnavailable("OKX: "+str(payload.get("msg","дані недоступні")))
+                        raw=payload.get("data",[])
+                        batch=[{"timestamp":int(k[0]),"open":k[1],"high":k[2],"low":k[3],"close":k[4],"volume":k[5]}
+                               for k in raw if str(k[8])=="1"]
+                    if not batch: break
+                    oldest=min(x["timestamp"] for x in batch)
+                    if cursor is not None and oldest>=cursor: break
+                    records.extend(batch)
+                    cursor=oldest-1
+                    if len(raw)<limit: break
+                candles=validate_candles(records,seconds)[-count:]
+                return exchange,candles
+            except (httpx.HTTPError,MarketUnavailable,ValueError,KeyError,IndexError,TypeError) as e:
+                errors.append(exchange+": "+type(e).__name__)
+    raise MarketUnavailable("Котирування недоступні: "+"; ".join(errors))
 
-    if not closes:
-        return {"error": f"Пару {base_sym}/USDT не знайдено на Binance та OKX"}
+async def get_klines_data(symbol,period="24h"):
+    symbol=normalize_symbol(symbol)
+    if period not in PERIODS: raise ValueError("Невідомий період графіка")
+    bi,oi,count,seconds=PERIODS[period]
+    exchange,chart=await fetch_candles(symbol,bi,oi,count,seconds)
+    current=chart[-1]["close"]
+    age=time.time()-(chart[-1]["timestamp"]/1000+seconds)
+    gaps=sum(1 for a,b in zip(chart,chart[1:]) if b["timestamp"]-a["timestamp"]>seconds*1000*1.01)
+    return {"symbol":symbol+"/USDT","exchange":exchange,"period":period,
+            "instrument_type":"tokenized_equity" if symbol in STOCKS else "crypto_spot",
+            "current_price":current,"price_change_pct":(current/chart[0]["close"]-1)*100,
+            "chart":chart,"as_of":datetime.fromtimestamp(chart[-1]["timestamp"]/1000+seconds,timezone.utc).isoformat(),
+            "coverage":{"requested_candles":count,"received_candles":len(chart),"complete":len(chart)==count,
+                        "missing_intervals":gaps,"stale":age>seconds*2,
+                        "note":"Історія обмежена лістингом і доступністю біржі; відсутні дані не домальовуються."}}
 
-    curr_p = closes[-1]
-    first_p = closes[0]
-    chg = ((curr_p - first_p) / first_p) * 100 if first_p > 0 else 0
+def quantile(values,p):
+    ordered=sorted(values)
+    place=(len(ordered)-1)*p
+    lower=int(place); upper=min(lower+1,len(ordered)-1)
+    return ordered[lower]+(ordered[upper]-ordered[lower])*(place-lower)
 
-    rsi = calculate_rsi(closes, 14)
-    ema20 = calculate_ema(closes, 20)
-    ema50 = calculate_ema(closes, 50)
-    sup = min(closes[-30:]) if len(closes) >= 30 else min(closes)
-    res_p = max(closes[-30:]) if len(closes) >= 30 else max(closes)
+def historical_scenario(candles,hours):
+    if hours not in HORIZONS.values(): raise ValueError("Невідомий горизонт")
+    # Non-overlapping forward returns; chronological train/holdout split.
+    if any(b["timestamp"]-a["timestamp"]!=3_600_000 for a,b in zip(candles,candles[1:])):
+        raise MarketUnavailable("Історія має пропуски; прогноз не розраховано")
+    returns=[math.log(candles[i+hours]["close"]/candles[i]["close"])
+             for i in range(0,len(candles)-hours,hours)]
+    if len(returns)<20:
+        raise MarketUnavailable(f"Недостатньо історії для перевірки: {len(returns)} незалежних періодів, потрібно щонайменше 20")
+    split=max(15,int(len(returns)*.75))
+    train,test=returns[:split],returns[split:]
+    if len(test)<5: raise MarketUnavailable("Недостатня контрольна вибірка")
+    low,median,high=(quantile(train,p) for p in (.1,.5,.9))
+    mae=statistics.mean(abs(r-median) for r in test)
+    baseline=statistics.mean(abs(r) for r in test)
+    result={"lower":low,"median":median,"upper":high,
+            "evaluation":{"train_samples":len(train),"test_samples":len(test),
+                          "mae_log_return":mae,"no_change_mae_log_return":baseline,
+                          "beats_no_change":mae<baseline,
+                          "holdout_band_coverage":sum(low<=r<=high for r in test)/len(test),
+                          "method":"chronological holdout, non-overlapping returns",
+                          "scope":"Один часовий поділ; це ще не walk-forward валідація торгової стратегії."}}
+    return result
 
-    return {
-        "symbol": f"{base_sym}/USDT",
-        "exchange": source_exchange,
-        "period": period,
-        "current_price": curr_p,
-        "price_change_pct": round(chg, 2),
-        "chart": chart_data,
-        "metrics": {
-            "rsi": rsi,
-            "ema20": ema20,
-            "ema50": ema50,
-            "trend_ema": "BULLISH" if ema20 >= ema50 else "BEARISH",
-            "support": round(sup, 4),
-            "resistance": round(res_p, 4)
-        }
-    }
+async def latest_quote(exchange,symbol):
+    async with httpx.AsyncClient(timeout=10,trust_env=False) as client:
+        if exchange=="Binance":
+            r=await client.get("https://api.binance.com/api/v3/ticker/price",params={"symbol":symbol+"USDT"})
+            r.raise_for_status(); price=float(r.json()["price"])
+        else:
+            r=await client.get("https://www.okx.com/api/v5/market/ticker",params={"instId":symbol+"-USDT"})
+            r.raise_for_status(); body=r.json()
+            if body.get("code")!="0" or not body.get("data"): raise MarketUnavailable("Котирування OKX недоступне")
+            row=body["data"][0]
+            if abs(time.time()-int(row["ts"])/1000)>180: raise MarketUnavailable("Котирування OKX застаріле")
+            price=float(row["last"])
+        if not math.isfinite(price) or price<=0: raise MarketUnavailable("Некоректна поточна ціна")
+        return price
 
-async def generate_ai_token_forecast(symbol: str, horizon: str = "24h") -> dict:
-    base_data = await get_klines_data(symbol, period="24h" if horizon in ["1h", "24h"] else "1m")
-    if "error" in base_data:
-        return base_data
-
-    curr_p = base_data["current_price"]
-    m = base_data["metrics"]
-
-    is_bull = m["trend_ema"] == "BULLISH"
-    bull_mult = 1.035 if horizon == "1h" else (1.065 if horizon == "24h" else 1.15)
-    bear_mult = 0.98 if horizon == "1h" else (0.95 if horizon == "24h" else 0.88)
-
-    calc_bull_target = round(curr_p * (bull_mult if is_bull else 1.02), 4)
-    calc_base_target = round(curr_p * (1.015 if is_bull else 0.99), 4)
-    calc_bear_target = round(curr_p * (0.98 if is_bull else bear_mult), 4)
-
-    prompt = f"Аналіз {base_data['symbol']}. Ціна: ${curr_p}, RSI: {m['rsi']}, Тренд: {m['trend_ema']}. Горизонт: {horizon}. Зроби короткий висновок до 20 слів."
-
-    summary = f"Тренд {m['trend_ema']} на базі EMA20/50. RSI {m['rsi']} свідчить про баланс сил у робочому коридорі."
-    try:
-        # Таймаут 3 секунди на відповідь Ollama
-        ai_resp = await asyncio.wait_for(
-            llm_gateway.complete(prompt=prompt, system_prompt="Ти криптоаналітик."),
-            timeout=3.0
-        )
-        if ai_resp and len(ai_resp.strip()) > 5:
-            summary = ai_resp.strip().replace('"', '')
-    except Exception:
-        pass
-
-    # Майбутня проекція
-    step_minutes = 10 if horizon == "1h" else (120 if horizon == "24h" else 1440)
-    future_labels, bull_curve, base_curve, bear_curve = [], [], [], []
-    now = datetime.utcnow()
-
-    for i in range(1, 7):
-        future_time = now + timedelta(minutes=step_minutes * i)
-        future_labels.append(future_time.strftime("%d.%m %H:%M"))
-        p = i / 6
-        bull_curve.append(round(curr_p + (calc_bull_target - curr_p) * p, 4))
-        base_curve.append(round(curr_p + (calc_base_target - curr_p) * p, 4))
-        bear_curve.append(round(curr_p + (calc_bear_target - curr_p) * p, 4))
-
-    return {
-        "symbol": base_data["symbol"],
-        "exchange": base_data["exchange"],
-        "horizon": horizon,
-        "current_price": curr_p,
-        "metrics": m,
-        "forecast": {
-            "dominant_trend": m["trend_ema"],
-            "probabilities": {"bull": 55 if is_bull else 30, "base": 30, "bear": 15 if is_bull else 40},
-            "levels": {
-                "take_profit_1": round(curr_p * 1.025, 4),
-                "take_profit_2": round(curr_p * 1.055, 4),
-                "stop_loss": round(curr_p * 0.965, 4),
-                "risk_reward_ratio": "1:2.4"
-            },
-            "summary": summary
-        },
-        "projection_timeline": {
-            "labels": future_labels,
-            "bull_curve": bull_curve,
-            "base_curve": base_curve,
-            "bear_curve": bear_curve
-        }
-    }
+async def generate_ai_token_forecast(symbol,horizon="24h"):
+    symbol=normalize_symbol(symbol)
+    if horizon not in HORIZONS: raise ValueError("Невідомий горизонт")
+    hours=HORIZONS[horizon]
+    count=max(1441,hours*30+1)
+    exchange,chart=await fetch_candles(symbol,"1h","1H",count,3600)
+    asof=datetime.fromtimestamp(chart[-1]["timestamp"]/1000+3600,timezone.utc)
+    if (datetime.now(timezone.utc)-asof).total_seconds()>7200:
+        raise MarketUnavailable("Дані застарілі; прогноз не розраховано")
+    stats=historical_scenario(chart,hours)
+    current=await latest_quote(exchange,symbol)
+    issued=datetime.now(timezone.utc)
+    prices={k:current*math.exp(stats[k]) for k in ("lower","median","upper")}
+    return {"symbol":symbol+"/USDT","exchange":exchange,"horizon":horizon,"current_price":current,
+            "instrument_type":"tokenized_equity" if symbol in STOCKS else "crypto_spot",
+            "issued_at":issued.isoformat(),"as_of":asof.isoformat(),
+            "target_at":(issued+timedelta(hours=hours)).isoformat(),
+            "method":"historical-quantiles-v1","status":"experimental_baseline",
+            "scenarios":prices,"evaluation":stats["evaluation"],
+            "summary":"Історичний діапазон, не обіцянка руху. Модель ще не пройшла перспективне оцінювання. "
+                      "LLM не визначає ціни або ймовірності.",
+            "history_points":len(chart)}

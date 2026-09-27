@@ -1,19 +1,18 @@
-﻿# Віртуальне оточення та системний кеш
+# Local environments and user data
+.venv/
 venv/
 __pycache__/
 *.pyc
-
-# Чутливі дані, ключі та конфіги
+.pytest_cache/
 .env
 *.pem
 *.key
-
-# Профілі браузера та сесії Playwright
+data/
 discovery/.browser_profile/
 .browser_profile/
-
-# Тимчасові файли та логи
 logs/
 *.log
+*.db-wal
+*.db-shm
 .DS_Store
 Thumbs.db
