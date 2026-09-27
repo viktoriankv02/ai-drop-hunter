@@ -248,7 +248,7 @@ class Workspace:
     def detail(self,pid):
         p=self.project(pid)
         p["legacy_warning"]=bool(p.pop("legacy_json",None))
-        p["tasks"]=self.rows("SELECT id,title,target_url,status,evidence_json FROM tasks WHERE project_id=? ORDER BY id",(pid,))
+        p["tasks"]=self.rows("SELECT id,title,target_url,status,evidence_json FROM tasks WHERE project_id=? AND status!='reference_only' ORDER BY id",(pid,))
         p["events"]=self.rows("SELECT * FROM events WHERE project_id=? ORDER BY id DESC LIMIT 30",(pid,))
         p["snapshots"]=self.rows("SELECT id,url,fetched_at,via,content_hash FROM snapshots WHERE project_id=? ORDER BY id DESC LIMIT 20",(pid,))
         reports=self.rows("SELECT * FROM reports WHERE project_id=? ORDER BY id DESC LIMIT 1",(pid,))

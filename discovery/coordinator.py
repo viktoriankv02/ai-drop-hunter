@@ -77,6 +77,7 @@ class Coordinator:
                     url=canonical_url(source["url"])
                     html,resolved=await read_html(url,{urlsplit(url).hostname})
                     doc=material(html,resolved)
+                    doc["purpose"]=source.get("purpose","unclassified")
                     documents.append(doc)
                 except Exception as error:
                     errors.append(str(error)[:200])
@@ -98,6 +99,12 @@ class Coordinator:
             for item in result.get("facts",[])+result.get("tasks",[]):
                 matches=[d["url"] for d in body.get("documents",[]) if item.get("quote") and item["quote"] in d["text"]]
                 if len(matches)==1: item["source_url"]=matches[0]
+            reward_sources={d["url"] for d in body.get("documents",[]) if d.get("purpose")=="reward_rules"}
+            tasks=result.get("tasks",[])
+            result["reference_actions"]=[t for t in tasks if t.get("source_url") not in reward_sources]
+            result["tasks"]=[t for t in tasks if t.get("source_url") in reward_sources]
+            if result["reference_actions"]:
+                result.setdefault("unknowns",[]).append("Інструкції платформи не підтверджують завдання кампанії; їх винесено в довідку.")
 
     async def research(self,pid):
         p=self.store.project(pid)

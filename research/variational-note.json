@@ -9,17 +9,20 @@
     {
       "url": "https://cryptorank.io/ru/drophunting/variational-activity496",
       "title": "CryptoRank: Variational",
-      "access": "indexed_partial"
+      "access": "indexed_partial",
+      "purpose": "reward_rules"
     },
     {
       "url": "https://docs.variational.io/omni/rewards/points",
       "title": "Офіційні правила поінтів",
-      "access": "official_document"
+      "access": "official_document",
+      "purpose": "reward_rules"
     },
     {
       "url": "https://docs.variational.io/omni/getting-started-with-omni",
       "title": "Офіційний початок роботи",
-      "access": "official_document"
+      "access": "official_document",
+      "purpose": "platform_manual"
     }
   ],
   "facts": [

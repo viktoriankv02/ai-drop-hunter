@@ -82,3 +82,24 @@ def test_unreviewed_import_cannot_authorize_fallback(tmp_path,monkeypatch):
     with pytest.raises(SourceUnavailable):
         asyncio.run(Coordinator(store).read_project(store.project(pid)))
     assert len(visited)==1
+
+def test_manual_actions_do_not_become_reward_tasks():
+    body={"provenance":"partial","documents":[
+        {"url":"https://docs.example/manual","text":"Close part or all of the position.","purpose":"platform_manual"},
+        {"url":"https://docs.example/points","text":"Check your reward eligibility here.","purpose":"reward_rules"}]}
+    result={"facts":[],"tasks":[
+        {"title":"Close position","quote":"Close part or all of the position."},
+        {"title":"Check eligibility","quote":"Check your reward eligibility here."}]}
+    Coordinator.attach_provenance(result,body)
+    assert [t["title"] for t in result["tasks"]]==["Check eligibility"]
+    assert [t["title"] for t in result["reference_actions"]]==["Close position"]
+
+def test_chunks_preserve_text_and_do_not_split_words():
+    from ai_analyzer.grounded import evidence_chunks,validate_analysis
+    text=("Paragraph about eligibility and participation. "*200)
+    chunks=evidence_chunks(text)
+    assert "".join(chunks)==text
+    assert all(len(c)<=2500 for c in chunks)
+    assert all(not(c[-1].isalnum() and chunks[i+1][0].isalnum()) for i,c in enumerate(chunks[:-1]))
+    result=validate_analysis({"facts":[{"title":"Bad fragment","quote":"lable margin required to open the position."}]},"Available margin required to open the position.","https://example.com",[])
+    assert not result["facts"]
