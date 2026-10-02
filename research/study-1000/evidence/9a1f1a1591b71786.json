@@ -1,0 +1,24 @@
+{
+  "text": "All major decisions of the ENS DAO governance rely on the ENS Governance Token, which was distributted to ENS owners in 2021. The token can be found at token.ensdao.eth on Ethereum Mainnet and is the only official governance token for ENS DAO.\n\nThe $ENS token allocation can be seen in the pie chart below.\n\nCan I recover tokens accidentally sent to the wrong address?\n\nThe answer depends on the address the token was sent to.\n\nIf you accidentally sent the token to token.ensdao.eth or wallet.ensdao.eth , then it might be recoverable. Contact the Meta-governance working group and explain the situation.\n\nIf the tokens were sent to the null address (0x000...0000) or an address with a typo, then the tokens are unrecoverable and there's nothing that anyone can do.\n\nIf the tokens were sent to an exchange or a third party, then contact that third party for help.",
+  "links": [
+    {
+      "url": "https://etherscan.io/address/token.ensdao.eth",
+      "label": "token.ensdao.eth"
+    },
+    {
+      "url": "https://docs.ens.domains/dao/token",
+      "label": ""
+    },
+    {
+      "url": "https://etherscan.io/address/wallet.ensdao.eth",
+      "label": "wallet.ensdao.eth"
+    },
+    {
+      "url": "https://docs.ens.domains/dao/stewards",
+      "label": "Meta-governance working group"
+    }
+  ],
+  "truncated": false,
+  "characters_available": 863,
+  "url": "https://docs.ens.domains/dao/token/"
+}

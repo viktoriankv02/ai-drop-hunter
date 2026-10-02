@@ -1,0 +1,32 @@
+{
+  "url": "https://stellar.org/blog/foundation-news/keybase-stellar-lumens-spacedrop",
+  "resolved_url": "https://stellar.org/blog/foundation-news/keybase-stellar-lumens-spacedrop",
+  "text": "Blog Article\nThe 2b lumen keybase space drop\nAuthor\nStellar Development Foundation\nPublishing date\nToday we’re excited to announce we’ve partnered with Keybase for our largest airdrop ever.\nThey’re giving away up to 2B XLM over the next 20 months (100M XLM each month) to Keybase users. All you have to do is have an authenticated\nKeybase account\n, and your XLM will appear in your wallet — automatically, every month, for as long as the airdrop continues¹.\nIn the months since they\nfirst integrated Stellar\ninto their chat, Keybase has developed by far the cleverest set of tools for our users. Just for example:\ninline, super convenient sends between friends, denominated in either XLM or USD\nand sending lumens (and chats) to\nany\nphone number, even ones without a Keybase account\nKeybase also has a bot-making framework that, combined with the speed and efficiency of Stellar, makes for a lot of awesome possibilities. Recently, a Keybase user made an XLM-based bot called\n@smsbot\n. If you send just a tiny bit of XLM to\n@smsbot\n, it will reply with a throwaway phone number you can use to receive SMS messages for a short period of time. It’s a really cool example of micropayments in action, and it’s exactly the kind of thing we hope to inspire and enable with this airdrop.\nWe first started working with Keybase because they have a great team, and they support our values of privacy, security, and independence from corporate behemoths. They’ve evolved into one of our strongest ecosystem participants. They’ve gone above and beyond integrating Stellar into their wallet, and their userbase would represent a big step up in usage and adoption for the network.\nKeybase has over 300,000 users right now. As people continue to realize that other group chat alternatives aren’t safe — Slack’s breach from 2015 is still\npwning people today\n— Keybase will continue to grow. Stellar makes Keybase more powerful, and they do the same for us. We’re very excited to see what the future holds.\n[1] The airdrop will run for at least 3 months, with subsequent months subject to basic success metrics for the program. To qualify, you must have a Keybase account registered before this announcement OR if you’re new to Keybase, you must connect your Keybase account to a GitHub or HackerNews account that was registered before this announcement. See\nKeybase’s announcement\nfor more details.",
+  "links": [
+    {
+      "text": "Keybase account",
+      "url": "https://keybase.io/download"
+    },
+    {
+      "text": "first integrated Stellar",
+      "url": "https://keybase.io/blog/keybase-stellar-launch"
+    },
+    {
+      "text": "@smsbot",
+      "url": "https://keybase.io/smsbot"
+    },
+    {
+      "text": "@smsbot",
+      "url": "https://keybase.io/smsbot"
+    },
+    {
+      "text": "pwning people today",
+      "url": "https://slackhq.com/new-information-2015-incident"
+    },
+    {
+      "text": "Keybase’s announcement",
+      "url": "https://keybase.io/a/i/r/d/r/o/p/spacedrop2019"
+    }
+  ],
+  "retrieved_at": "2026-09-29T15:02:33.097761+00:00"
+}

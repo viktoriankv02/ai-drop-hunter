@@ -1,0 +1,68 @@
+{
+  "text": "This document is currently in public preview and may change significantly as feedback is captured from readers like you. Click the Request an update button at the top of this document or join the Arbitrum Discord to share your feedback.\n\nThe only official website for the $ARB airdrop is https://arbitrum.foundation . There is no presale. Don't ever share your seed phrase. When in doubt, join the Discord to ask for clarification.\n\nToken allocation & airdrop distribution ​\n\nThe passing of AIPs 1.1 and 1.2 codified the role of the Arbitrum Foundation and established a grant to the Foundation's Administrative Budget Vesting Wallet. The distribution as of the passing of these two AIPs was as follows:\n\nDistribution Post AIPs 1.1 and 1.2 ​\n\nUser airdrop eligibility details ​\n\nA points system was used to determine the number of tokens that airdrop recipients can claim. Points criteria was focused primarily on Arbitrum One; however, there was a small subset of criteria applied to activity on Arbitrum Nova. Points earned on Arbitrum Nova could either bring a user up to 4 points total, or give them one additional point if they had already scored 4 points or more on Arbitrum One. You earn maximum one point per qualifying action performed before the snapshot date. Point scores were capped at 15.\n\nAdditionally, as the criteria and design of the airdrop as a whole was intentioned to reward early adopters, points scored (minimum of three) before Arbitrum Nitro was launched on Arbitrum One mainnet are worth twice as much as points scored after. Arbitrum Nitro launched on Arbitrum One mainnet at block #22207817 (Aug-31-2022 02:32:22 PM +UTC).\n\nQualifying actions:\n\nPoints earned on Arbitrum One\n\nBridged funds into Arbitrum One\n\nConducted transactions during two distinct months\n\nConducted transactions during six distinct months\n\nConducted transactions during nine months\n\nConducted more than four transactions or interacted with more than four different smart contracts\n\nConducted more than ten transactions or interacted with more than ten different smart contracts\n\nConducted more than 25 transactions or interacted with more than 25 different smart contracts\n\nConducted more than 100 transactions or interacted with more than 100 different smart contracts\n\nConducted transactions exceeding in the aggregate $10,000 in value\n\nConducted transactions exceeding in the aggregate $50,000 in value\n\nConducted transactions exceeding in the aggregate $250,000 in value\n\nBridged more than $10,000 of assets into Arbitrum One\n\nBridged more than $50,000 of assets into Arbitrum One\n\nBridged more than $250,000 of assets into Arbitrum One\n\nPoints earned on Arbitrum Nova\n\nBridged funds into Arbitrum Nova\n\nConducted more than three transactions\n\nConducted more than five transactions\n\nConducted more than ten transactions\n\nConverting Points to tokens:\n\nAs described earlier, points scored before and after Arbitrum Nitro was deployed on Arbitrum One mainnet were weighted differently. Points scored before Arbitrum Nitro were worth twice as much as points scored after -- as a result any points scored after Nitro resulted in half as much of an allocation per point shown in the table above. If an address only became fully eligible (minimum of three points) post-nitro, all points scored counted as post-nitro points. Thus, the minimum airdrop entitlement is 625 tokens, half of the minimum entitlement in the table above; the maximum airdrop entitlement is 10250 tokens.\n\nUser protections:\n\nTo prevent bots from taking advantage of the airdrop, a number of anti-Sybil rules were established:\n\nIf an airdrop recipient's wallet transactions have all occurred within a 48-hour period, one point is subtracted .\n\nIf an airdrop recipient's wallet balance is less than .005 ETH, and if the wallet hasn't interacted with more than one smart contract, one point is subtracted .\n\nIf an airdrop recipient's wallet address has been identified as a Sybil address during the Hop protocol bounty program the recipient is disqualified .\n\nRefer to Arbitrum Sybil Hunting to learn more about the Sybil mitigation methodology. Refer to our Sybil accounts concept document for a conceptual introduction to Sybil accounts.\n\nDAO airdrop criteria and distribution ​\n\nA separate distribution was allocated for DAOs that are building applications in the Arbitrum ecosystem, as well as the Protocol Guild, a collective of Ethereum contributors. In putting together this criteria we worked with Nansen and analyzed on-chain data to determine how many tokens each DAO community was granted. In doing so we took into account a variety of qualitative and quantitative metrics including when the protocol launched, whether it was native or multichain, how much TVL, activity, transaction volume, value of transactions it had, as well as the consistency of maintaining those metrics. The goal of using a broad variety of criteria was recognizing that Arbitrum is home to a diversity of projects that have different KPIs and user interactions.\n\nYou can view the full list of DAOs and their allocations here .\n\nVesting and lockup details ​\n\nWhile the user and DAO airdrops were available at the start of token distribution ( 3/23/2023 ), all investor and team tokens are subject to 4 year lockups, with the first unlocks happening one year after the token generation event (3/16/2023) and then monthly unlocks for the remaining three years. The Arbitrum Foundation's allocation is subject to a lockup that began on 4/17/2023 and linearly unlocks over the course of four years; this is enforced by the Arbitrum Foundation Vesting Budget Smart Contract Wallet .\n\nToken allocation & airdrop distribution\n\nDistribution Post AIPs 1.1 and 1.2\n\nUser airdrop eligibility details\n\nDAO airdrop criteria and distribution\n\nVesting and lockup details",
+  "links": [
+    {
+      "url": "https://docs.arbitrum.foundation/concepts/public-preview-content",
+      "label": "public preview"
+    },
+    {
+      "url": "https://discord.gg/arbitrum",
+      "label": "join the Arbitrum Discord"
+    },
+    {
+      "url": "https://arbitrum.foundation/",
+      "label": "https://arbitrum.foundation"
+    },
+    {
+      "url": "https://arbiscan.io/block/58642080",
+      "label": "Block 58642080"
+    },
+    {
+      "url": "https://etherscan.io/block/countdown/16890400",
+      "label": "Block 16890400"
+    },
+    {
+      "url": "https://etherscan.io/block/countdown/18208000",
+      "label": "Block 18208000"
+    },
+    {
+      "url": "https://docs.arbitrum.foundation/airdrop-eligibility-distribution",
+      "label": "​"
+    },
+    {
+      "url": "https://alt.gov.arbitrum.foundation/proposal/70545629960586317780628692755032548222173912190231545322320044688071893662480?govId=eip155:42161:0x789fc99093b09ad01c34dc7251d0c89ce743e5a4",
+      "label": "AIPs 1.1"
+    },
+    {
+      "url": "https://alt.gov.arbitrum.foundation/proposal/77049969659962393408182308518930939247285848107346513112985531885924337078488?govId=eip155:42161:0xf07ded9dc292157749b6fd268e37df6ea38395b9",
+      "label": "1.2"
+    },
+    {
+      "url": "https://github.com/ArbitrumFoundation/sybil-detection",
+      "label": "Arbitrum Sybil Hunting"
+    },
+    {
+      "url": "https://docs.arbitrum.foundation/concepts/sybil-account",
+      "label": "Sybil accounts"
+    },
+    {
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSSAzkIIJqw4WGKCF9gXFUkQojTt6weQTExZYmp3YRIR2TUjir9N8nh8xg7gQ2wuPA8mJKL2neL--to/pubhtml",
+      "label": "here"
+    },
+    {
+      "url": "https://etherscan.io/block/16890400",
+      "label": "3/23/2023"
+    },
+    {
+      "url": "https://arbiscan.io/tx/0x9cdbb4672b549c26d97cac29f9cd73c1951656e0622ba4b9ed0abff2ee58698d",
+      "label": "token generation event (3/16/2023)"
+    },
+    {
+      "url": "https://arbiscan.io/address/0x15533b77981cDa0F85c4F9a485237DF4285D6844",
+      "label": "Arbitrum Foundation Vesting Budget Smart Contract Wallet"
+    }
+  ],
+  "truncated": false,
+  "characters_available": 5808,
+  "url": "https://docs.arbitrum.foundation/airdrop-eligibility-distribution"
+}

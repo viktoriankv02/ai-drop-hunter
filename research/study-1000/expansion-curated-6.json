@@ -1,0 +1,259 @@
+[
+  {
+    "project": "Sanctum",
+    "reward_year": 2024,
+    "event_date": "2024-07-18",
+    "ecosystems": [
+      "Solana"
+    ],
+    "rules_summary": "Capital: реєстрація Wonderland та понад 266 тисяч EXP; Earnestness — окремий перегляд внесків. 108 185 eligible profiles не означають стільки ж людей. Бонус за очікування: до 14 днів для Capital і 180 для Earnestness; ранній claim втрачає решту бонусу.",
+    "payout_summary": "Звіт 24.06.2025 окремо фіксує 88 042 001 CLOUD початкового airdrop. Продаж LFG, комісія LFG і No Cloud Left Behind мають окремі рядки; їх не додано до airdrop.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": 88042001,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://sanctum.so/blog/cloud-airdrop-details-capital-earnestness-and-claim-guide",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://sanctum.so/blog/cloud-audit",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Класифікувати кожен рух токенів: винагорода, продаж, позика, оплата послуг; не змішувати профілі з адресами.",
+    "unknowns": [
+      "Незалежний перерахунок переказів і фінальних одержувачів не виконано.",
+      "Витрати учасників і поточну працездатність продукту окремо не перевірено."
+    ],
+    "tags": [
+      "points",
+      "community_contribution",
+      "conditional_unlock",
+      "multi_cohort"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "Flare",
+    "reward_year": 2026,
+    "event_date": "2026-01-30",
+    "ecosystems": [
+      "Flare"
+    ],
+    "rules_summary": "Щомісячні FlareDrops за WFLR і придатним стейкінгом: середній баланс за трьома випадковими блоками періоду утримання. Claim протягом 67 днів; невитребувана частина спалюється.",
+    "payout_summary": "Офіційна сторінка підтверджує завершення 36-місячної програми 30.01.2026. 24,2 млрд FLR — округлений обсяг програми, а не незалежно перевірена сума фактичних claims. Рік досьє означає останню подію програми 2023–2026.",
+    "payout_evidence_level": "completed_program_reported",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://flare.network/flaredrops",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://flare.network/news/flaredrop-guide",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "36 щомісячних випусків — один емітент. Відокремлювати завершені FlareDrops від стейкінгових винагород, що тривають.",
+    "unknowns": [
+      "Незалежний перерахунок переказів і фінальних одержувачів не виконано.",
+      "Витрати учасників і поточну працездатність продукту окремо не перевірено."
+    ],
+    "tags": [
+      "staking",
+      "snapshot",
+      "claim_window",
+      "burn"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29",
+    "additional_reward_years": [
+      2023,
+      2024,
+      2025
+    ]
+  },
+  {
+    "project": "Grass",
+    "reward_year": 2024,
+    "event_date": "2024-10-28",
+    "ecosystems": [
+      "Solana"
+    ],
+    "rules_summary": "Розподіл за points і дев’ятьма рівнями, окремо GigaBuds та Desktop/Saga. Прив’язка гаманця до 14.10.2024 20:00 UTC. Документ містить неоднозначність >500 проти 500+ points; точний оператор потребує додаткового доказу.",
+    "payout_summary": "Документація позначає продовжене вікно claim завершеним на блоці 329341917, приблизно 27.03.2025. Початкові 100 млн GRASS — алокація; фінальні claims не перераховано.",
+    "payout_evidence_level": "completed_program_reported",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://grass-foundation.gitbook.io/grass-docs/introduction/grass-airdrop-one",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Не нормалізувати суперечливі оператори порога мовчки. Фіксувати час прив’язки гаманця та завершення claim окремо.",
+    "unknowns": [
+      "Незалежний перерахунок переказів і фінальних одержувачів не виконано.",
+      "Витрати учасників і поточну працездатність продукту окремо не перевірено."
+    ],
+    "tags": [
+      "points",
+      "referral",
+      "nft",
+      "deadline"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "Pangolin",
+    "reward_year": 2021,
+    "event_date": null,
+    "ecosystems": [
+      "Avalanche"
+    ],
+    "rules_summary": "Історичні UNI/SUSHI-власники отримували право на claim в Avalanche з відповідною Ethereum-адресою. Нелінійні ваги UNI і SUSHI; обмежене початкове вікно. Точне трактування дати holdings потребує перевірки.",
+    "payout_summary": "Офіційна tokenomics-документація позначає claimed airdrop як 3,3% у новій структурі. Початкові 5% належать старій моделі supply; множити округлену частку на supply для точного payout некоректно.",
+    "payout_evidence_level": "issuer_reported_claims",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://docs.pangolin.exchange/pangolin-overview/tokens-and-governance/png-tokenomics-and-metrics",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Зберігати версію tokenomics і знаменник кожного відсотка.",
+    "unknowns": [
+      "Незалежний перерахунок переказів і фінальних одержувачів не виконано.",
+      "Витрати учасників і поточну працездатність продукту окремо не перевірено."
+    ],
+    "tags": [
+      "snapshot",
+      "cross_chain",
+      "nonlinear_allocation"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "Ribbon Finance",
+    "reward_year": 2021,
+    "event_date": "2021-05-25",
+    "ecosystems": [
+      "Ethereum"
+    ],
+    "rules_summary": "Theta vault: депозит щонайменше $100 до 22.05.2021 00:00 UTC. Окремі групи користувачів опціонів та Discord; базова частина й бонус за депозит мають різні правила.",
+    "payout_summary": "Документація підтверджує ретроактивну роздачу 25.05.2021. 30 млн RBN — опублікована алокація; фінальну суму отримання не перераховано. Повернення токенів після зловживання є окремою подією.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://www.research.ribbon.finance/blog/rbn-airdrop-distribution",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://docs.ribbon.finance/ribbonomics/overview-and-rbn-tokenomics",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Ребрендинг і перехід до Aevo потребують об’єднання історії емітента, а не автоматичного другого підрахунку.",
+    "unknowns": [
+      "Незалежний перерахунок переказів і фінальних одержувачів не виконано.",
+      "Витрати учасників і поточну працездатність продукту окремо не перевірено."
+    ],
+    "tags": [
+      "deposit",
+      "community_contribution",
+      "multi_cohort"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29",
+    "issuer_aliases": [
+      "Ribbon",
+      "Aevo (successor; identity review required)"
+    ]
+  },
+  {
+    "project": "Sonic Labs",
+    "reward_year": 2025,
+    "event_date": null,
+    "ecosystems": [
+      "Sonic"
+    ],
+    "rules_summary": "Користувацькі Points та dApp Gems — різні категорії. Сезони завершили накопичення; винагороди мають окремі вікна claim і умовне розблокування.",
+    "payout_summary": "Звіт 02.04.2026 вказував близько 32,69 млн S невитребуваних токенів на ту дату. Фінальний дедлайн 15.10.2026 ще майбутній відносно зрізу 29.09.2026; майбутнє спалення не зараховано як виконане.",
+    "payout_evidence_level": "live_claim_program",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://docs.soniclabs.com/funding/sonic-airdrop",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://www.soniclabs.com/blog/sonic-airdrop-burn-and-final-claim-deadline/",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Відокремлювати кінець накопичення, vesting, фінальний claim і фактичний burn. Не змішувати Sonic Labs із Sonic SVM.",
+    "unknowns": [
+      "Незалежний перерахунок переказів і фінальних одержувачів не виконано.",
+      "Витрати учасників і поточну працездатність продукту окремо не перевірено."
+    ],
+    "tags": [
+      "points",
+      "conditional_unlock",
+      "deadline",
+      "burn"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  }
+]

@@ -1,9 +1,9 @@
 {
   "window": {
-    "from": "2018-09-27",
-    "to": "2026-09-27"
+    "from": "2018-09-29",
+    "to": "2026-09-29"
   },
-  "methodology": "Official-source pilot. No extrapolation of success rates. Unique projects, not seasons. Include negative and non-airdrop outcomes.",
+  "methodology": "Historical executed rewards in the eight-year window; launch can precede the window. Unique issuers, not seasons. Incomplete evidence and non-airdrop comparisons are not completed projects.",
   "cases": [
     {
       "project": "Uniswap",
@@ -19,12 +19,16 @@
         {
           "title": "Dragonfly: Airdrop Claim Data, таблиця 2, стор. 35 PDF",
           "url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf"
+        },
+        {
+          "title": "Uniswap — official launch evidence",
+          "url": "https://blog.uniswap.org/uniswap-history"
         }
       ],
       "remaining": "Перевірка фактичних claims, витрат учасників і того, які відомості були доступні до snapshot.",
       "status": "partial",
       "checked_at": "2026-09-26",
-      "mainnet_verified": false,
+      "mainnet_verified": true,
       "outcome_verified": false,
       "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження",
       "reward": {
@@ -62,6 +66,18 @@
         "source_url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf",
         "evidence_level": "published_onchain_analysis_not_reproduced",
         "note": "Dragonfly, таблиця 2: оцінка за ціною під час claim. Це сума до витрат, не прибуток. Запит Dune нами ще не відтворено; документ розміщено на сайті SEC, автор — Dragonfly."
+      },
+      "mainnet": {
+        "date": "2018-11-02",
+        "source_url": "https://blog.uniswap.org/uniswap-history"
+      },
+      "launch_window_status": "within_window",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "reward_event": {
+        "year": 2020,
+        "source_url": "https://blog.uniswap.org/uni",
+        "precision": "year"
       }
     },
     {
@@ -78,12 +94,16 @@
         {
           "title": "Dragonfly: Airdrop Claim Data, таблиця 2, стор. 35 PDF",
           "url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf"
+        },
+        {
+          "title": "Arbitrum — official launch evidence",
+          "url": "https://blog.arbitrum.io/arbitrum-stylus-mainnet/"
         }
       ],
       "remaining": "Незалежна перевірка виплат і витрат, версії умов до оголошення, відбір контрольної групи.",
       "status": "partial",
       "checked_at": "2026-09-26",
-      "mainnet_verified": false,
+      "mainnet_verified": true,
       "outcome_verified": false,
       "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження",
       "reported_outcome": {
@@ -94,6 +114,18 @@
         "source_url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf",
         "evidence_level": "published_onchain_analysis_not_reproduced",
         "note": "Dragonfly, таблиця 2: оцінка за ціною під час claim. Це сума до витрат, не прибуток. Запит Dune нами ще не відтворено; документ розміщено на сайті SEC, автор — Dragonfly."
+      },
+      "mainnet": {
+        "date": "2021-08-31",
+        "source_url": "https://blog.arbitrum.io/arbitrum-stylus-mainnet/"
+      },
+      "launch_window_status": "within_window",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "reward_event": {
+        "year": 2023,
+        "source_url": "https://docs.arbitrum.foundation/airdrop-eligibility-distribution",
+        "precision": "year"
       }
     },
     {
@@ -106,14 +138,30 @@
         {
           "title": "Celestia Foundation — Initiating Genesis Drop",
           "url": "https://blog.celestia.org/genesis-drop/"
+        },
+        {
+          "title": "Celestia — official launch evidence",
+          "url": "https://blog.celestia.org/celestia-mainnet-is-live/"
         }
       ],
       "remaining": "Зіставлення правил з genesis-розподілом, фактичні витрати, оцінка можливості передбачити відбір.",
       "status": "partial",
       "checked_at": "2026-09-26",
-      "mainnet_verified": false,
+      "mainnet_verified": true,
       "outcome_verified": false,
-      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження",
+      "mainnet": {
+        "date": "2023-10-31",
+        "source_url": "https://blog.celestia.org/celestia-mainnet-is-live/"
+      },
+      "launch_window_status": "within_window",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "reward_event": {
+        "year": 2023,
+        "source_url": "https://blog.celestia.org/genesis-drop/",
+        "precision": "year"
+      }
     },
     {
       "project": "Starknet",
@@ -132,7 +180,20 @@
       "checked_at": "2026-09-26",
       "mainnet_verified": false,
       "outcome_verified": false,
-      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "launch_evidence": {
+        "date": "2021-11",
+        "precision": "month",
+        "source_url": "https://www.starknet.io/blog/starknets-new-sequencer/",
+        "status": "month_verified_exact_day_unknown"
+      },
+      "reward_event": {
+        "year": 2024,
+        "source_url": "https://www.starknet.io/blog/starknet-provisions-program/",
+        "precision": "year"
+      }
     },
     {
       "project": "ZKsync",
@@ -151,11 +212,18 @@
       "checked_at": "2026-09-26",
       "mainnet_verified": false,
       "outcome_verified": false,
-      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "reward_event": {
+        "year": 2024,
+        "source_url": "https://www.zknation.io/blog/zk-token",
+        "precision": "year"
+      }
     },
     {
       "project": "Sui",
-      "year": 2022,
+      "year": 2023,
       "category": "purchase_access_not_free_airdrop",
       "finding": "Оголошення Community Access Program від 06.12.2022 описувало можливість придбати токени на ранньому етапі. Саме це оголошення не доводить безкоштовну роздачу за тестнет.",
       "product_lesson": "Розрізняти винагороду, доступ до продажу, грант і непідтверджене очікування. Не записувати всі кампанії як «airdrop підтверджено».",
@@ -163,25 +231,46 @@
         {
           "title": "Sui — Token Community Access Program",
           "url": "https://www.sui.io/blog/sui-token-community-access-program"
+        },
+        {
+          "url": "https://www.sui.io/token-schedule",
+          "title": "Sui official launch date"
         }
       ],
       "remaining": "Остаточні умови програми й результати учасників; цей кейс не є твердженням про відсутність будь-яких винагород Sui.",
       "status": "partial",
       "checked_at": "2026-09-26",
-      "mainnet_verified": false,
+      "mainnet_verified": true,
       "outcome_verified": false,
-      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "mainnet": {
+        "date": "2023-05-03",
+        "source_url": "https://www.sui.io/token-schedule"
+      },
+      "launch_window_status": "within_window",
+      "case_role": "comparison_non_airdrop",
+      "reward_event": {
+        "year": 2023,
+        "source_url": "https://www.sui.io/blog/sui-token-community-access-program",
+        "precision": "year"
+      }
     },
     {
       "project": "Aptos",
       "year": 2022,
       "category": "tokenomics_not_eligibility",
-      "finding": "Tokenomics Overview підтверджує запуск mainnet 12.10.2022 і передбачає community-алокацію для грантів, стимулів та розвитку. Частка community не є списком умов роздачі користувачам.",
+      "finding": "Офіційний підсумок 2022 підтверджує отримання APT учасниками Testnet NFT через Launch Community Airdrop. Токеноміка community pool не є формулою цього airdrop.",
       "product_lesson": "Не перетворювати відсоток community у whitepaper на обіцянку винагороди. Потрібен окремий документ конкретної кампанії.",
       "sources": [
         {
           "title": "Aptos — Tokenomics Overview",
           "url": "https://aptosnetwork.com/currents/aptos-tokenomics-overview"
+        },
+        {
+          "title": "Aptos 2022 End-of-Year Community Update",
+          "url": "https://aptosnetwork.com/currents/aptos-eoy-community-update-2022"
         }
       ],
       "remaining": "Першоджерело умов airdrop, критерії, фактичні виплати, витрати та часові обмеження.",
@@ -189,7 +278,34 @@
       "checked_at": "2026-09-26",
       "mainnet_verified": true,
       "outcome_verified": false,
-      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження"
+      "criteria_scope": "Окремі умови за офіційним джерелом; не повне дослідження",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "access_incomplete",
+      "mainnet": {
+        "date": "2022-10-12",
+        "source_url": "https://aptosnetwork.com/currents/aptos-tokenomics-overview"
+      },
+      "launch_window_status": "within_window",
+      "reward_event": {
+        "year": 2022,
+        "source_url": "https://aptosnetwork.com/currents/aptos-tokenomics-overview",
+        "precision": "year"
+      },
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "issuer_reported_distribution",
+        "statement": "Aptos офіційно підтверджує, що одержувачі Testnet NFT отримали APT; точна кількість і сума тут не перевірені.",
+        "as_of": "2023-01-05",
+        "source_url": "https://aptosnetwork.com/currents/aptos-eoy-community-update-2022"
+      },
+      "criteria": [
+        {
+          "cohort": "Testnet NFT",
+          "requirement": "Участь у категорії Testnet NFT за історичним підсумком; повна формула допуску потребує окремого джерела.",
+          "source_url": "https://aptosnetwork.com/currents/aptos-eoy-community-update-2022"
+        }
+      ]
     },
     {
       "project": "Jito",
@@ -254,6 +370,13 @@
       "mainnet": {
         "date": null,
         "source_url": null
+      },
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "reward_event": {
+        "year": 2023,
+        "source_url": "https://www.jito.network/blog/jto-airdrop-eligibility-and-allocation-specifications/",
+        "precision": "year"
       }
     },
     {
@@ -312,6 +435,13 @@
       "mainnet": {
         "date": null,
         "source_url": null
+      },
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "reward_event": {
+        "year": 2023,
+        "source_url": "https://www.pyth.network/blog/pyth-network-retrospective-airdrop-eligibility-and-distribution-specifications",
+        "precision": "year"
       }
     },
     {
@@ -358,6 +488,13 @@
       "mainnet": {
         "date": null,
         "source_url": null
+      },
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "reward_event": {
+        "year": 2024,
+        "source_url": "https://wormhole.com/blog/from-eligibility-to-sybil-detection-a-deep-dive-into-wormholes-multichain",
+        "precision": "year"
       }
     },
     {
@@ -423,16 +560,23 @@
         "source_url": "https://www.sec.gov/files/dragonflys-state-airdrops-report-2025.pdf",
         "evidence_level": "published_onchain_analysis_not_reproduced",
         "note": "Dragonfly, таблиця 2: оцінка за ціною під час claim. Це сума до витрат, не прибуток. Запит Dune нами ще не відтворено; документ розміщено на сайті SEC, автор — Dragonfly."
+      },
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "reward_event": {
+        "year": 2024,
+        "source_url": "https://blog.eigenfoundation.org/claims-s1-p1/",
+        "precision": "year"
       }
     },
     {
       "status": "partial",
       "checked_at": "2026-09-27",
-      "mainnet_verified": false,
+      "mainnet_verified": true,
       "outcome_verified": false,
       "mainnet": {
-        "date": null,
-        "source_url": null
+        "date": "2017-05-04",
+        "source_url": "https://docs.ens.domains/ensip/2/"
       },
       "criteria_scope": "Історичні правила; не поточне завдання й не обіцянка нової винагороди",
       "project": "ENS",
@@ -448,6 +592,10 @@
         {
           "title": "ENS Docs: офіційний токен",
           "url": "https://docs.ens.domains/dao/token/"
+        },
+        {
+          "title": "ENS — official launch evidence",
+          "url": "https://docs.ens.domains/ensip/2/"
         }
       ],
       "criteria": [
@@ -471,7 +619,15 @@
         "source_url": "https://basics.ensdao.org/ens-token"
       },
       "remaining": "Точні claims і витрати; дата першого mainnet протоколу може бути поза 8-річним вікном. Запуск токена у 2021 не є датою запуску ENS.",
-      "current_status_note": "Документація ENS прямо повідомляє, що планів нового airdrop немає."
+      "current_status_note": "Документація ENS прямо повідомляє, що планів нового airdrop немає.",
+      "launch_window_status": "outside_window_reference_only",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "reward_event": {
+        "date": "2021-11-08",
+        "source_url": "https://basics.ensdao.org/ens-token",
+        "precision": "day"
+      }
     },
     {
       "status": "partial",
@@ -533,7 +689,20 @@
         "is_claims_verification": false,
         "note": "47 659 рядків мають дрібну різницю суми компонентів і total. Найбільша різниця — 0,000000000001507328 OP за 18 decimals; причина не підтверджена."
       },
-      "remaining": "Відтворити контрактні події claims та прямих доставок, підтвердити дату mainnet і оцінити витрати. Не підсумовувати перетинні групи як різних людей."
+      "remaining": "Відтворити контрактні події claims та прямих доставок, підтвердити дату mainnet і оцінити витрати. Не підсумовувати перетинні групи як різних людей.",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "access_incomplete",
+      "launch_evidence": {
+        "date": "2021-01",
+        "precision": "month",
+        "source_url": "https://optimism.io/blog/what-is-op-mainnet",
+        "status": "month_verified_exact_day_unknown"
+      },
+      "reward_event": {
+        "year": 2022,
+        "source_url": "https://raw.githubusercontent.com/ethereum-optimism/community-hub/main/pages/op-token/airdrops/airdrop-1.mdx",
+        "precision": "year"
+      }
     },
     {
       "status": "partial",
@@ -586,7 +755,14 @@
         "as_of": "2021-09-03",
         "source_url": "https://www.dydx.foundation/blog/epoch-0"
       },
-      "remaining": "Точні 5 рівнів і milestones; фактичні claims; витрати та розмежування запусків протоколу, L2 і dYdX Chain."
+      "remaining": "Точні 5 рівнів і milestones; фактичні claims; витрати та розмежування запусків протоколу, L2 і dYdX Chain.",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "access_incomplete",
+      "reward_event": {
+        "year": 2021,
+        "source_url": "https://www.dydx.foundation/blog/introducing-dydx-token",
+        "precision": "year"
+      }
     },
     {
       "project": "1inch",
@@ -635,7 +811,592 @@
         "as_of": "2021-02-12",
         "source_url": "https://1inch.com/blog/post/1inch-foundation-distributes-more-1inch-tokens"
       },
-      "remaining": "Фактичні claims, витрати, дедлайни та дата запуску протоколу. Наявність умов не підтверджує право будь-якої нової адреси."
+      "remaining": "Фактичні claims, витрати, дедлайни та дата запуску протоколу. Наявність умов не підтверджує право будь-якої нової адреси.",
+      "source_audit_date": "2026-09-28",
+      "source_audit_status": "readable_primary_material",
+      "reward_event": {
+        "year": 2021,
+        "source_url": "https://1inch.com/blog/post/1inch-foundation-distributes-more-1inch-tokens",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Monad",
+      "year": 2025,
+      "category": "historical_reward",
+      "finding": "П’ять напрямів: внесок у спільноту; активні onchain-користувачі; криптоспільноти; розробники Monad; публічні блага й освіта. Враховано довготривалий внесок, ручний перегляд і рекомендації спільноти. Вікно claim: 14.10–03.11.2025. Фонд повідомив про 3,33 млрд MON claims. CSV містить 76 021 унікальну адресу і точно 3 330 583 396 MON; медіана 12 000 MON. Звіт описує escrow 09.11 і видачу при mainnet 24.11; Dune опублікував підсумок після запуску.",
+      "product_lesson": "Тестнет-транзакції не дорівнюють гарантованій алокації. Вчити класифікацію внесків, об’єднання субкатегорій і різницю між escrow та доступними коштами.",
+      "sources": [
+        {
+          "title": "Monad — historical reward evidence",
+          "url": "https://monad.xyz/blog/the-mon-airdrop-results"
+        },
+        {
+          "title": "Monad — historical reward evidence",
+          "url": "https://docs.monad.xyz/"
+        },
+        {
+          "title": "Monad — historical reward evidence",
+          "url": "https://dune.com/blog/dune-digest-037"
+        },
+        {
+          "title": "Monad — historical reward evidence",
+          "url": "https://raw.githubusercontent.com/monad-crypto/airdrop-addresses/main/monad_airdrop_results.csv"
+        }
+      ],
+      "remaining": "Не відтворено всі перекази escrow → одержувач.; Не пораховано витрати або прибуток кожного учасника.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": true,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "П’ять напрямів: внесок у спільноту; активні onchain-користувачі; криптоспільноти; розробники Monad; публічні блага й освіта. Враховано довготривалий внесок, ручний перегляд і рекомендації спільноти. Вікно claim: 14.10–03.11.2025.",
+          "source_url": "https://monad.xyz/blog/the-mon-airdrop-results"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "issuer_reported_claims",
+        "statement": "Фонд повідомив про 3,33 млрд MON claims. CSV містить 76 021 унікальну адресу і точно 3 330 583 396 MON; медіана 12 000 MON. Звіт описує escrow 09.11 і видачу при mainnet 24.11; Dune опублікував підсумок після запуску.",
+        "source_url": "https://monad.xyz/blog/the-mon-airdrop-results"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "mainnet": {
+        "date": "2025-11-24",
+        "source_url": "https://docs.monad.xyz/"
+      },
+      "reward_event": {
+        "year": 2025,
+        "source_url": "https://monad.xyz/blog/the-mon-airdrop-results",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Arkham",
+      "year": 2023,
+      "category": "historical_reward",
+      "finding": "Початкова роздача 2023: ранні користувачі конвертували points через Invite Dashboard; початкове вікно закривалося 16.07 о 19:00 UTC. Біржова програма 2024–2025 — окремий сезон з іншими умовами. Офіційний канал підтвердив відкриття видачі ARKM. Окремо 18.04.2025 Arkham повідомив про понад $20 млн винагород у біржовому Season 1. Це не сума початкової роздачі 2023.",
+      "product_lesson": "Не переносити умови або результати біржового сезону на початковий реферальний airdrop. Один проєкт може мати кілька різних механік.",
+      "sources": [
+        {
+          "title": "Arkham — historical reward evidence",
+          "url": "https://t.me/s/arkhamintelligence?before=89"
+        },
+        {
+          "title": "Arkham — historical reward evidence",
+          "url": "https://info.arkm.com/announcements/arkham-exchange-updates-2"
+        }
+      ],
+      "remaining": "Точна формула початкових points і сума claims 2023 ще не відтворені.; Методика доларової оцінки Season 1 не наведена.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Початкова роздача 2023: ранні користувачі конвертували points через Invite Dashboard; початкове вікно закривалося 16.07 о 19:00 UTC. Біржова програма 2024–2025 — окремий сезон з іншими умовами.",
+          "source_url": "https://t.me/s/arkhamintelligence?before=89"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "issuer_reported_distribution",
+        "statement": "Офіційний канал підтвердив відкриття видачі ARKM. Окремо 18.04.2025 Arkham повідомив про понад $20 млн винагород у біржовому Season 1. Це не сума початкової роздачі 2023.",
+        "source_url": "https://t.me/s/arkhamintelligence?before=89"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "reward_event": {
+        "year": 2023,
+        "source_url": "https://t.me/s/arkhamintelligence?before=89",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Plasma",
+      "year": 2025,
+      "category": "historical_reward",
+      "finding": "Офіційно анонсовано бонус 25 млн XPL для малих депозитаріїв, які пройшли Sonar-перевірку та взяли участь у продажу. Окремо продано 10% supply; 2,5 млн XPL зарезервовано для Stablecoin Collective. Анонс визначає дату 25.09.2025. Yield Network повідомляє про виконані розподіли після запуску, але повний набір підтвердних транзакцій у статті не надано. Тому його цифри не прийнято за незалежно перевірені.",
+      "product_lesson": "Зберігати продаж, бонус і резерв спільноти окремо. Депозит, KYC, блокування та нові кошти для купівлі — різні вимоги.",
+      "sources": [
+        {
+          "title": "Plasma — historical reward evidence",
+          "url": "https://www.plasma.org/company/blog/plasma-mainnet-beta-and-xpl"
+        },
+        {
+          "title": "Plasma — historical reward evidence",
+          "url": "https://www.yieldnetwork.io/blog/plasma-predeposit"
+        }
+      ],
+      "remaining": "Первинне підтвердження всіх бонусних переказів.; Повна формула добору менших депозитаріїв.; Незалежна перевірка чисел вторинного аналізу.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Офіційно анонсовано бонус 25 млн XPL для малих депозитаріїв, які пройшли Sonar-перевірку та взяли участь у продажу. Окремо продано 10% supply; 2,5 млн XPL зарезервовано для Stablecoin Collective.",
+          "source_url": "https://www.plasma.org/company/blog/plasma-mainnet-beta-and-xpl"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "published_distribution_analysis",
+        "statement": "Анонс визначає дату 25.09.2025. Yield Network повідомляє про виконані розподіли після запуску, але повний набір підтвердних транзакцій у статті не надано. Тому його цифри не прийнято за незалежно перевірені.",
+        "source_url": "https://www.plasma.org/company/blog/plasma-mainnet-beta-and-xpl"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "reward_event": {
+        "year": 2025,
+        "source_url": "https://www.plasma.org/company/blog/plasma-mainnet-beta-and-xpl",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Somnia",
+      "year": 2025,
+      "category": "historical_reward",
+      "finding": "Квести й тестнет, контент і внески спільноти; окремі категорії SomniYaps, Quills і Discord. Для основної групи: 20% одразу, 80% через вісім щотижневих частин по 10%; приблизно 90 днів на виконання. В Odyssey обов’язкові місії потребували gas, платні bonus-місії були добровільні. Підтверджено mainnet 02.09.2025 та офіційну післязапускову інструкцію розблокування. Фінальний обсяг отриманих SOMI і кількість одержувачів ще не перевірені; початкові 5% supply — алокація.",
+      "product_lesson": "Агент має вести післязапусковий календар. Не трактувати 60 днів як автоматичне отримання 100% без виконання умов.",
+      "sources": [
+        {
+          "title": "Somnia — historical reward evidence",
+          "url": "https://blog.somnia.network/p/say-hi-to-somi"
+        },
+        {
+          "title": "Somnia — historical reward evidence",
+          "url": "https://blog.somnia.network/p/the-somnia-odyssey-a-60-day-adventure"
+        },
+        {
+          "title": "Somnia — historical reward evidence",
+          "url": "https://www.improbable.io/news/improbable-developed-somnia-launches-mainnet-after-record-breaking-testnet-performance"
+        }
+      ],
+      "remaining": "Підсумок claims і повернених невитребуваних токенів.; Реальні витрати учасників.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": true,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Квести й тестнет, контент і внески спільноти; окремі категорії SomniYaps, Quills і Discord. Для основної групи: 20% одразу, 80% через вісім щотижневих частин по 10%; приблизно 90 днів на виконання. В Odyssey обов’язкові місії потребували gas, платні bonus-місії були добровільні.",
+          "source_url": "https://blog.somnia.network/p/say-hi-to-somi"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "live_claim_program",
+        "statement": "Підтверджено mainnet 02.09.2025 та офіційну післязапускову інструкцію розблокування. Фінальний обсяг отриманих SOMI і кількість одержувачів ще не перевірені; початкові 5% supply — алокація.",
+        "source_url": "https://blog.somnia.network/p/say-hi-to-somi"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "mainnet": {
+        "date": "2025-09-02",
+        "source_url": "https://www.improbable.io/news/improbable-developed-somnia-launches-mainnet-after-record-breaking-testnet-performance"
+      },
+      "reward_event": {
+        "year": 2025,
+        "source_url": "https://blog.somnia.network/p/say-hi-to-somi",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Osmosis",
+      "year": 2021,
+      "category": "historical_reward",
+      "finding": "Snapshot ATOM 18.02.2021; алокація пропорційна квадратному кореню балансу, зі спеціальним множником 2,5 для стейкінгу. 20% у genesis; по 20% за swap, LP, staking і governance. Початкове повне вікно — два місяці, далі чотири місяці спадання. Документація фіксує початковий випуск 100 млн OSMO, половина — fairdrop. Повний список отриманих після виконання завдань сум у цій перевірці ще не відтворено.",
+      "product_lesson": "Баланс, stake-множник, завдання після запуску та зменшення claimable — окремі змінні.",
+      "sources": [
+        {
+          "title": "Osmosis — historical reward evidence",
+          "url": "https://osmosis.gitbook.io/o/osmo/genesis-supply"
+        },
+        {
+          "title": "Osmosis — historical reward evidence",
+          "url": "https://osmosis.gitbook.io/o/osmo/airdrop-claim"
+        },
+        {
+          "title": "Osmosis — historical reward evidence",
+          "url": "https://osmosis.gitbook.io/o/osmo/token-distribution"
+        }
+      ],
+      "remaining": "Точний остаточний claim і сума clawback.; Витрати на LP та транзакції.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Snapshot ATOM 18.02.2021; алокація пропорційна квадратному кореню балансу, зі спеціальним множником 2,5 для стейкінгу. 20% у genesis; по 20% за swap, LP, staking і governance. Початкове повне вікно — два місяці, далі чотири місяці спадання.",
+          "source_url": "https://osmosis.gitbook.io/o/osmo/genesis-supply"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "genesis_distribution_documented",
+        "statement": "Документація фіксує початковий випуск 100 млн OSMO, половина — fairdrop. Повний список отриманих після виконання завдань сум у цій перевірці ще не відтворено.",
+        "source_url": "https://osmosis.gitbook.io/o/osmo/genesis-supply"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "reward_event": {
+        "year": 2021,
+        "source_url": "https://osmosis.gitbook.io/o/osmo/genesis-supply",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Juno",
+      "year": 2021,
+      "category": "historical_reward",
+      "finding": "Stakedrop ATOM-стейкерам; офіційний вступ описує 47% genesis supply і співвідношення 1:1. Детальні caps та exclusions ще потребують окремої перевірки. Офіційна документація підтверджує запуск 01.10.2021 і входження всіх початкових JUNO в обіг через genesis. Незалежний перерахунок відповідних балансів не виконано.",
+      "product_lesson": "Не трактувати короткий опис 1:1 як повну формулу без caps, винятків і правил агрегування адрес.",
+      "sources": [
+        {
+          "title": "Juno — historical reward evidence",
+          "url": "https://docs.junonetwork.io/"
+        }
+      ],
+      "remaining": "Повні snapshot, caps та exclusions.; Незалежна перевірка початкових одержувачів.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": true,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Stakedrop ATOM-стейкерам; офіційний вступ описує 47% genesis supply і співвідношення 1:1. Детальні caps та exclusions ще потребують окремої перевірки.",
+          "source_url": "https://docs.junonetwork.io/"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "genesis_distribution_documented",
+        "statement": "Офіційна документація підтверджує запуск 01.10.2021 і входження всіх початкових JUNO в обіг через genesis. Незалежний перерахунок відповідних балансів не виконано.",
+        "source_url": "https://docs.junonetwork.io/"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "mainnet": {
+        "date": "2021-10-01",
+        "source_url": "https://docs.junonetwork.io/"
+      },
+      "reward_event": {
+        "year": 2021,
+        "source_url": "https://docs.junonetwork.io/",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Stride",
+      "year": 2022,
+      "category": "historical_reward",
+      "finding": "Для host-chain роздач — стейкінг на snapshot; нижня межа $100 і cap $50 000 за ціною snapshot. Зазвичай виключені біржові валідатори. Початкове вікно claim три місяці; невитребувана частина перерозподілялася початковим одержувачам. Офіційний оновлений звіт станом на 07.09.2023 повідомляє про мільйони STRD, отримані десятками тисяч адрес. Точних значень у цьому тексті немає.",
+      "product_lesson": "Невитребувані токени можуть перерозподілятися, а не повертатися казначейству. Правила stTIA 2024 з відкладеним claim не змішувати з genesis-програмою.",
+      "sources": [
+        {
+          "title": "Stride — historical reward evidence",
+          "url": "https://stride.zone/blog/stride-airdrop-details"
+        },
+        {
+          "title": "Stride — historical reward evidence",
+          "url": "https://stride.zone/blog/airdrop-to-sttia-holders"
+        }
+      ],
+      "remaining": "Точні суми за кожною мережею й snapshot.; Чисті результати після витрат.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Для host-chain роздач — стейкінг на snapshot; нижня межа $100 і cap $50 000 за ціною snapshot. Зазвичай виключені біржові валідатори. Початкове вікно claim три місяці; невитребувана частина перерозподілялася початковим одержувачам.",
+          "source_url": "https://stride.zone/blog/stride-airdrop-details"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "issuer_reported_claims",
+        "statement": "Офіційний оновлений звіт станом на 07.09.2023 повідомляє про мільйони STRD, отримані десятками тисяч адрес. Точних значень у цьому тексті немає.",
+        "source_url": "https://stride.zone/blog/stride-airdrop-details"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "reward_event": {
+        "year": 2022,
+        "source_url": "https://stride.zone/blog/stride-airdrop-details",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Neutron",
+      "year": 2023,
+      "category": "historical_reward",
+      "finding": "Початкові правила: понад 1 ATOM на блоці 12 900 000 (19.11.2022), окремий пул учасникам голосування за proposal 72; виключення CEX/custodians. Поточні офіційні tokenomics описують 7% supply як роздані ATOM-стейкерам та іншим учасникам. 70 млн — опублікована категорія; точний user-claim не прирівняний до неї, бо частина залишилась невитребуваною.",
+      "product_lesson": "Умови стейкінгу й голосування мають власні пули. Загальна airdrop-категорія tokenomics не дорівнює user-claim.",
+      "sources": [
+        {
+          "title": "Neutron — historical reward evidence",
+          "url": "https://docs.neutron.org/concepts/tokenomics"
+        },
+        {
+          "title": "Neutron — historical reward evidence",
+          "url": "https://forum.cosmos.network/t/proposal-792-accepted-launch-neutron-on-replicated-security/10230/90"
+        }
+      ],
+      "remaining": "Відтворення claims та переказу залишку спільноті.; Повна формула кожного пулу.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Початкові правила: понад 1 ATOM на блоці 12 900 000 (19.11.2022), окремий пул учасникам голосування за proposal 72; виключення CEX/custodians.",
+          "source_url": "https://docs.neutron.org/concepts/tokenomics"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "issuer_reported_distribution",
+        "statement": "Поточні офіційні tokenomics описують 7% supply як роздані ATOM-стейкерам та іншим учасникам. 70 млн — опублікована категорія; точний user-claim не прирівняний до неї, бо частина залишилась невитребуваною.",
+        "source_url": "https://docs.neutron.org/concepts/tokenomics"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "reward_event": {
+        "year": 2023,
+        "source_url": "https://docs.neutron.org/concepts/tokenomics",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Stargaze",
+      "year": 2022,
+      "category": "historical_reward",
+      "finding": "Snapshot 11.10.2021; ATOM-stake від 5, OSMO-stake від 50, LP та окремі validator-категорії. Опубліковано 2 453 STARS за кожну відповідну роль; ролі могли підсумовуватися. CEX-делегації виключені. Для claim потрібні дії у продукті. Пропозиція запуску airdrop пройшла у січні 2022; це доказ активації програми, але не перерахунок усіх виплат.",
+      "product_lesson": "Рольові винагороди можуть сумуватися. Перевіряти версії строків decay: governance могла змінити первинний план.",
+      "sources": [
+        {
+          "title": "Stargaze — historical reward evidence",
+          "url": "https://paragraph.com/@stargazezone/stars-token-distribution-and-airdrop"
+        },
+        {
+          "title": "Stargaze — historical reward evidence",
+          "url": "https://stargaze.valopers.com/proposals/4"
+        }
+      ],
+      "remaining": "Остаточні правила після governance-змін.; Фактична сума й адреси claims.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Snapshot 11.10.2021; ATOM-stake від 5, OSMO-stake від 50, LP та окремі validator-категорії. Опубліковано 2 453 STARS за кожну відповідну роль; ролі могли підсумовуватися. CEX-делегації виключені. Для claim потрібні дії у продукті.",
+          "source_url": "https://paragraph.com/@stargazezone/stars-token-distribution-and-airdrop"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "live_claim_program",
+        "statement": "Пропозиція запуску airdrop пройшла у січні 2022; це доказ активації програми, але не перерахунок усіх виплат.",
+        "source_url": "https://paragraph.com/@stargazezone/stars-token-distribution-and-airdrop"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "reward_event": {
+        "year": 2022,
+        "source_url": "https://paragraph.com/@stargazezone/stars-token-distribution-and-airdrop",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Avail",
+      "year": 2024,
+      "category": "historical_reward",
+      "finding": "Unification Drop: developers, тестнет Clash of Nodes, rollup users, Polygon PoS stakers, внески спільноти. Snapshot для стейкерів/rollup users — 31.03.2024. Phase 1 до 04.05; Phase 2 продовжена до 15.05.2024 16:00 UTC. Звіт за 2024 підтверджує mainnet, запуск токена й Unification Drop; Polygon позначає кампанію завершеною. 600 млн AVAIL і 354 605 eligible-адрес — початковий план, не перевірений фінальний payout.",
+      "product_lesson": "Перевірка права до mainnet і отримання токенів під час mainnet — різні події. Зберігати продовження дедлайнів.",
+      "sources": [
+        {
+          "title": "Avail — historical reward evidence",
+          "url": "https://blog.availproject.org/avails-unification-drop/"
+        },
+        {
+          "title": "Avail — historical reward evidence",
+          "url": "https://blog.availproject.org/avail-2024-wrapped/"
+        },
+        {
+          "title": "Avail — historical reward evidence",
+          "url": "https://staking.polygon.technology/community-drops"
+        },
+        {
+          "title": "Avail — launch",
+          "url": "https://blog.availproject.org/the-avail-token-is-now-live/"
+        }
+      ],
+      "remaining": "Точний фактичний розподіл і exclusions за кожною фазою.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": true,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Unification Drop: developers, тестнет Clash of Nodes, rollup users, Polygon PoS stakers, внески спільноти. Snapshot для стейкерів/rollup users — 31.03.2024. Phase 1 до 04.05; Phase 2 продовжена до 15.05.2024 16:00 UTC.",
+          "source_url": "https://blog.availproject.org/avails-unification-drop/"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "completed_program_reported",
+        "statement": "Звіт за 2024 підтверджує mainnet, запуск токена й Unification Drop; Polygon позначає кампанію завершеною. 600 млн AVAIL і 354 605 eligible-адрес — початковий план, не перевірений фінальний payout.",
+        "source_url": "https://blog.availproject.org/avails-unification-drop/"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "mainnet": {
+        "date": "2024-07-23",
+        "source_url": "https://blog.availproject.org/the-avail-token-is-now-live/"
+      },
+      "reward_event": {
+        "year": 2024,
+        "source_url": "https://blog.availproject.org/avails-unification-drop/",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Saga",
+      "year": 2024,
+      "category": "historical_reward",
+      "finding": "ATOM: збільшення stake 20.04–20.10.2023 ТА понад 25 ATOM 20.10. TIA: понад 23 станом на 01.12.2023. Polygon: понад 300 MATIC на 20.10.2023 АБО міст zkEVM понад 0,4 ETH. Окремі loyalty-бонуси та developer/game-когорти. Polygon Staking позначає Genesis-кампанію завершеною. Фінальний onchain-підрахунок поки відсутній.",
+      "product_lesson": "Критична різниця AND/OR і строгих > порогів. Один проєкт, кілька екосистем; не рахувати чотири проєкти.",
+      "sources": [
+        {
+          "title": "Saga — historical reward evidence",
+          "url": "https://medium.com/sagaxyz/saga-community-genesis-airdrop-e0f94c1f2220"
+        },
+        {
+          "title": "Saga — historical reward evidence",
+          "url": "https://staking.polygon.technology/community-drops"
+        }
+      ],
+      "remaining": "Фінальні claims.; Поточний статус мережі після організаційних змін 2026 потребує окремої перевірки.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "ATOM: збільшення stake 20.04–20.10.2023 ТА понад 25 ATOM 20.10. TIA: понад 23 станом на 01.12.2023. Polygon: понад 300 MATIC на 20.10.2023 АБО міст zkEVM понад 0,4 ETH. Окремі loyalty-бонуси та developer/game-когорти.",
+          "source_url": "https://medium.com/sagaxyz/saga-community-genesis-airdrop-e0f94c1f2220"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "completed_program_reported",
+        "statement": "Polygon Staking позначає Genesis-кампанію завершеною. Фінальний onchain-підрахунок поки відсутній.",
+        "source_url": "https://medium.com/sagaxyz/saga-community-genesis-airdrop-e0f94c1f2220"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "reward_event": {
+        "year": 2024,
+        "source_url": "https://medium.com/sagaxyz/saga-community-genesis-airdrop-e0f94c1f2220",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Dymension",
+      "year": 2024,
+      "category": "historical_reward",
+      "finding": "Genesis Rolldrop: опублікована алокація 70 млн DYM, реєстрація до 21.01.2024 12:00 UTC, невитребувану частину мали перерозподілити. Публічний репозиторій містить механізм genesis allocations. Збережено офіційний репозиторій; фактичне застосування всіх алокацій у фінальному genesis ще не перераховано.",
+      "product_lesson": "Публічний генератор genesis і фактичний genesis мережі — різні докази.",
+      "sources": [
+        {
+          "title": "Dymension — historical reward evidence",
+          "url": "https://medium.com/@dymension/genesis-rolldrop-the-first-rolldrop-season-219c8b5ea16e"
+        },
+        {
+          "title": "Dymension — historical reward evidence",
+          "url": "https://github.com/dymensionxyz/rolldrop-genesis"
+        }
+      ],
+      "remaining": "Перевірка повної eligibility-формули.; Підсумковий genesis та отримані баланси.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Genesis Rolldrop: опублікована алокація 70 млн DYM, реєстрація до 21.01.2024 12:00 UTC, невитребувану частину мали перерозподілити. Публічний репозиторій містить механізм genesis allocations.",
+          "source_url": "https://medium.com/@dymension/genesis-rolldrop-the-first-rolldrop-season-219c8b5ea16e"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "allocation_or_rules_only",
+        "statement": "Збережено офіційний репозиторій; фактичне застосування всіх алокацій у фінальному genesis ще не перераховано.",
+        "source_url": "https://medium.com/@dymension/genesis-rolldrop-the-first-rolldrop-season-219c8b5ea16e"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "reward_event": {
+        "year": 2024,
+        "source_url": "https://medium.com/@dymension/genesis-rolldrop-the-first-rolldrop-season-219c8b5ea16e",
+        "precision": "year"
+      }
+    },
+    {
+      "project": "Stellar",
+      "year": 2019,
+      "category": "historical_reward",
+      "finding": "Keybase Space Drop: автентифіковані акаунти; планувалося до 2 млрд XLM протягом 20 місяців. Збережено анонс SDF. Повний план не прирівняно до виконаних виплат; підсумок і дострокове завершення ще потребують первинного підтвердження.",
+      "product_lesson": "Навіть план з місячними виплатами може завершитися раніше; навчальний label має спиратися на виконаний результат.",
+      "sources": [
+        {
+          "title": "Stellar — historical reward evidence",
+          "url": "https://stellar.org/blog/foundation-news/keybase-stellar-lumens-spacedrop"
+        }
+      ],
+      "remaining": "Фінальна сума виплат і дата завершення програми.",
+      "checked_at": "2026-09-29",
+      "mainnet_verified": false,
+      "outcome_verified": false,
+      "criteria_scope": "Source-checked summary; full thresholds and outcomes may be incomplete",
+      "criteria": [
+        {
+          "cohort": "Historical programme",
+          "requirement": "Keybase Space Drop: автентифіковані акаунти; планувалося до 2 млрд XLM протягом 20 місяців.",
+          "source_url": "https://stellar.org/blog/foundation-news/keybase-stellar-lumens-spacedrop"
+        }
+      ],
+      "outcome": {
+        "claimed": null,
+        "paid_wallets": null,
+        "evidence_level": "allocation_or_rules_only",
+        "statement": "Збережено анонс SDF. Повний план не прирівняно до виконаних виплат; підсумок і дострокове завершення ще потребують первинного підтвердження.",
+        "source_url": "https://stellar.org/blog/foundation-news/keybase-stellar-lumens-spacedrop"
+      },
+      "source_audit_status": "source_checked_partial_dossier",
+      "reward_event": {
+        "year": 2019,
+        "source_url": "https://stellar.org/blog/foundation-news/keybase-stellar-lumens-spacedrop",
+        "precision": "year"
+      }
     }
   ],
   "target_projects": 1000

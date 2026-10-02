@@ -1,0 +1,20 @@
+{
+  "url": "https://osmosis.gitbook.io/o/osmo/airdrop-claim",
+  "resolved_url": "https://osmosis.gitbook.io/o/osmo/airdrop-claim",
+  "text": "For the complete documentation index, see\nllms.txt\n. This page is also available as\nMarkdown\n.\nWhile the fairdrop gives OSMO to all ATOM holders, we want to make sure we especially incentivize recipients to become active users of the Osmosis platform. For this reason, the majority of the fairdrop must be claimed by recipients by performing a few simple tasks.\n20% of an account’s airdrop allocation will be immediately available in their genesis account. To claim the full OSMO allocation, users will need to perform four on-chain activities:\nMaking a swap\nAdd a liquidity to a Pool\nStake OSMO\nVote on a Governance Proposal\nPerforming each of these activities will unlock an additional 20% of the airdrop amount. This process will ensure that airdrop recipients are active users of the protocol.\nWe also want to make sure that the fairdrop goes towards rewarding early adopters of the platform. For this reason, there is an incentive to perform these tasks early. A fairdrop recipient can claim the full total of their OSMO allocation by performing these tasks within the first two months after the launch of Osmosis. After the second month, the claimable OSMO per account will decrease linearly over the next four months. Six months after the launch of Osmosis, all unclaimed fairdrop tokens will be transferred to the on-chain community pool.\nRecipients can view their fairdrop allocation\nhere\n.\nPrevious\nCommunity Pool\nNext\nFAQ\nLast updated\n5 years ago",
+  "links": [
+    {
+      "text": "llms.txt",
+      "url": "https://osmosis.gitbook.io/o/llms.txt"
+    },
+    {
+      "text": "Markdown",
+      "url": "https://osmosis.gitbook.io/o/osmo/airdrop-claim.md"
+    },
+    {
+      "text": "here",
+      "url": "https://airdrop.osmosis.zone/"
+    }
+  ],
+  "retrieved_at": "2026-09-29T15:02:30.626500+00:00"
+}

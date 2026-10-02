@@ -3,9 +3,10 @@ import os, json, sqlite3, hashlib
 from pathlib import Path
 from contextlib import contextmanager
 from datetime import datetime, timezone, timedelta
-from core.source_policy import DEFAULT_SOURCES, ADAPTERS, canonical_url, telegram_url
+from core.source_policy import DEFAULT_SOURCES, ADAPTERS, canonical_url, telegram_url, source_allows_url
 from core.revisions import compare_materials
 from core.activity_policy import screen_in_connection
+from core.participation import participation_plan
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,6 +38,21 @@ class Workspace:
             c.executescript("""
             PRAGMA journal_mode=WAL;
             CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY, value TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS project_research_scope(project_id INTEGER PRIMARY KEY REFERENCES projects(id),enabled INTEGER NOT NULL DEFAULT 1);
+
+            CREATE TABLE IF NOT EXISTS project_guides(project_id INTEGER PRIMARY KEY REFERENCES projects(id),snapshot_id INTEGER,body_json TEXT NOT NULL,updated_at TEXT NOT NULL);
+
+            CREATE TABLE IF NOT EXISTS project_findings(project_id INTEGER PRIMARY KEY REFERENCES projects(id),body_json TEXT NOT NULL,updated_at TEXT NOT NULL);
+
+            CREATE TABLE IF NOT EXISTS project_resources(
+                project_id INTEGER REFERENCES projects(id),url TEXT,label TEXT,purpose TEXT,
+                discovered_via TEXT,last_checked TEXT,last_status TEXT,last_error TEXT,
+                PRIMARY KEY(project_id,url));
+
+            CREATE TABLE IF NOT EXISTS project_overviews(
+                project_id INTEGER PRIMARY KEY REFERENCES projects(id),
+                body_json TEXT NOT NULL, updated_at TEXT NOT NULL);
+
             CREATE TABLE IF NOT EXISTS sources(
                 id INTEGER PRIMARY KEY, name TEXT NOT NULL, url TEXT UNIQUE NOT NULL,
                 kind TEXT NOT NULL, purpose TEXT NOT NULL, priority INTEGER NOT NULL,
@@ -82,6 +98,7 @@ class Workspace:
                 issued_at TEXT NOT NULL, target_at TEXT NOT NULL, body_json TEXT NOT NULL,
                 outcome_json TEXT);
             """)
+            c.execute("INSERT OR IGNORE INTO meta VALUES ('automatic_card_preparation','1')")
             if not c.execute("SELECT 1 FROM meta WHERE key='source_policy_v1'").fetchone():
                 for name,url,priority,purpose,adapter in DEFAULT_SOURCES:
                     c.execute("""INSERT OR IGNORE INTO sources
@@ -153,17 +170,86 @@ class Workspace:
             fresh=bool(cur.rowcount)
             pid=cur.lastrowid if fresh else c.execute("SELECT id FROM projects WHERE source_url=?",(url,)).fetchone()[0]
             screen_in_connection(c,pid)
-            return pid,fresh
+        if fresh:self.prepare_project(pid)
+        return pid,fresh
+    def prepare_project(self,pid):
+        """Reading is automatic; joining the work list always requires a user decision."""
+        p=self.project(pid)
+        if p['status'] not in ('new','tracking'):return None
+        if urlsplit(p['source_url']).hostname=='t.me':return None
+        if not self.rows("SELECT 1 FROM meta WHERE key='automatic_card_preparation' AND value='1'"):return None
+        matching=[source for source in self.sources() if source_allows_url({**source,'enabled':1},p['source_url'])]
+        if matching and not any(source['enabled'] for source in matching):return None
+        if not matching:
+            with self.db() as c:
+                c.execute("INSERT OR IGNORE INTO project_research_scope VALUES (?,1)",(pid,))
+        return self.enqueue('research',pid)
+
+    def preparation(self,pid):
+        jobs=self.rows("SELECT state,error,phase FROM jobs WHERE kind='research' AND target_id=? ORDER BY id DESC LIMIT 1",(pid,))
+        report=self.rows("SELECT body_json,created_at FROM reports WHERE project_id=? ORDER BY id DESC LIMIT 1",(pid,))
+        overview=bool(self.rows("SELECT 1 FROM project_overviews WHERE project_id=?",(pid,)))
+        steps=self.rows("SELECT COUNT(*) n FROM tasks WHERE project_id=? AND status!='reference_only'",(pid,))[0]['n']
+        missing=[]
+        if not overview:missing.append('Опис продукту')
+        if not steps:missing.append('Підтверджені інструкції участі')
+        if not report:missing.append('Аналіз умов і невідомих вимог')
+        state='draft' if report and not missing else 'partial' if report else 'waiting'
+        if jobs and jobs[0]['state'] in ('queued','running','failed'):state=jobs[0]['state']
+        return {'state':state,'missing':missing,'steps':steps,'error':jobs[0]['error'] if jobs else None,
+                'phase':jobs[0]['phase'] if jobs else None,'updated_at':report[0]['created_at'] if report else None,
+                'requires_review':True}
+
+    def pending_preparation(self,limit=20):
+        # Backfill old incoming cards in bounded batches; retry failures only after daily backoff.
+        cutoff=(datetime.now(timezone.utc)-timedelta(days=1)).isoformat()
+        return self.rows("""SELECT * FROM projects p WHERE status='new'
+            AND NOT EXISTS(SELECT 1 FROM jobs j WHERE j.kind='research' AND j.target_id=p.id
+                AND (j.state IN ('queued','running') OR j.created_at>?))
+            AND (p.last_checked IS NULL OR p.last_checked<?)
+            ORDER BY p.last_checked,id DESC LIMIT ?""",(cutoff,cutoff,max(1,min(100,limit))))
+
     def project(self, pid):
         rows = self.rows("SELECT * FROM projects WHERE id=?", (pid,))
         if not rows: raise ValueError("Проєкт не знайдено")
         return rows[0]
+    def save_overview(self,pid,sid,overview):
+        rows=self.rows("SELECT body_json,url FROM snapshots WHERE id=? AND project_id=?",(sid,pid))
+        if not rows: raise ValueError("Матеріал опису відсутній")
+        body=json.loads(rows[0]["body_json"])
+        quote=overview.get("quote","");source=overview.get("source_url",rows[0]["url"])
+        documents=body.get("documents",[])+[{"url":body.get("url",rows[0]["url"]),"text":body.get("text","")}]
+        if not isinstance(quote,str) or len(quote)<15 or not any(d.get("url")==source and quote in d.get("text","") for d in documents):
+            raise ValueError("Опис не має цитати в збереженому джерелі")
+        brief=overview.get("brief","")
+        if not isinstance(brief,str) or not brief.strip(): raise ValueError("Порожній опис")
+        value={"brief":brief[:700],"quote":quote[:1200],"source_url":source,"snapshot_id":sid,
+               "status":"source_backed_draft","updated_at":utcnow()}
+        with self.db() as c:
+            c.execute("INSERT INTO project_overviews VALUES (?,?,?) ON CONFLICT(project_id) DO UPDATE SET body_json=excluded.body_json,updated_at=excluded.updated_at",(pid,json.dumps(value,ensure_ascii=False),utcnow()))
+            self._event(c,pid,"overview_ready",str(sid))
+        return value
+
+    def add_resource(self,pid,url,label,purpose="secondary",discovered_via="reviewed_research"):
+        self.project(pid);url=canonical_url(url)
+        if purpose not in ("reward_rules","product_manual","secondary"):raise ValueError("Невідомий тип джерела")
+        with self.db() as c:
+            c.execute("INSERT OR IGNORE INTO project_resources(project_id,url,label,purpose,discovered_via) VALUES (?,?,?,?,?)",(pid,url,label[:200],purpose,discovered_via))
+    def resource_checked(self,pid,url,error=None):
+        with self.db() as c:
+            c.execute("UPDATE project_resources SET last_checked=?,last_status=?,last_error=? WHERE project_id=? AND url=?",(utcnow(),"failed" if error else "read",str(error)[:500] if error else None,pid,url))
+
     def set_status(self, pid, status):
         if status not in ("new","tracking","ignored","archived"): raise ValueError("Невідомий статус")
         self.project(pid)
         with self.db() as c:
             c.execute("UPDATE projects SET status=? WHERE id=?",(status,pid))
             self._event(c,pid,"status",status)
+            if status in ('ignored','archived'):
+                c.execute("UPDATE jobs SET state='cancelled',phase='user_decision',finished_at=? WHERE kind='research' AND target_id=? AND state='queued'",(utcnow(),pid))
+            if status=='tracking' and c.execute("SELECT 1 FROM meta WHERE key='expanded_project_research' AND value='1'").fetchone():
+                c.execute("INSERT OR REPLACE INTO project_research_scope VALUES (?,1)",(pid,))
+        if status=='new':self.prepare_project(pid)
         # Deliberately does not touch task completion or execution permissions.
     def _event(self,c,pid,kind,details):
         c.execute("INSERT INTO events(project_id,kind,details,created_at) VALUES (?,?,?,?)",
@@ -182,7 +268,8 @@ class Workspace:
     def claim_job(self):
         with self.db() as c:
             c.execute("BEGIN IMMEDIATE")
-            row=c.execute("SELECT * FROM jobs WHERE state='queued' ORDER BY CASE kind WHEN 'discover' THEN 0 WHEN 'analyze' THEN 1 ELSE 2 END,id LIMIT 1").fetchone()
+            row=c.execute("""SELECT * FROM jobs WHERE state='queued' ORDER BY CASE kind WHEN 'discover' THEN 0 WHEN 'analyze' THEN 1 ELSE 2 END,
+                CASE WHEN kind='research' AND EXISTS(SELECT 1 FROM projects p WHERE p.id=jobs.target_id AND p.status='tracking') THEN 0 ELSE 1 END,id LIMIT 1""").fetchone()
             if not row: return None
             c.execute("UPDATE jobs SET state='running',phase='reading' WHERE id=?",(row["id"],))
             return dict(row)
@@ -218,14 +305,40 @@ class Workspace:
                 self._event(c,pid,"source_changed" if prev else "source_loaded",
                             json.dumps({"snapshot_id":sid,"previous_id":prev["id"] if prev else None},ensure_ascii=False))
             else: sid=prev["id"]
-            c.execute("UPDATE projects SET last_checked=?,last_success=?,check_status=? WHERE id=?",
-                      (utcnow(),utcnow(),"changed" if changed else "unchanged",pid))
-            screen_in_connection(c,pid)
+            if via!="product_description":
+                c.execute("UPDATE projects SET last_checked=?,last_success=?,check_status=? WHERE id=?",
+                          (utcnow(),utcnow(),"changed" if changed else "unchanged",pid))
+                screen_in_connection(c,pid)
             return sid,changed
     def save_report(self,pid,sid,body,model):
+        body=dict(body)
+        if body.get("conflicts"):
+            with self.db() as c:
+                c.execute("INSERT INTO project_findings VALUES (?,?,?) ON CONFLICT(project_id) DO UPDATE SET body_json=excluded.body_json,updated_at=excluded.updated_at",(pid,json.dumps(body['conflicts'],ensure_ascii=False),utcnow()))
+        if body.get("overview"):
+            self.save_overview(pid,sid,body["overview"])
         with self.db() as c:
             if not c.execute("SELECT 1 FROM snapshots WHERE id=? AND project_id=?",(sid,pid)).fetchone():
                 raise ValueError("Матеріал належить іншому проєкту")
+            previous=c.execute("SELECT body_json FROM reports WHERE project_id=? ORDER BY id DESC LIMIT 1",(pid,)).fetchone()
+            saved=c.execute("SELECT body_json FROM project_guides WHERE project_id=?",(pid,)).fetchone()
+            if not saved:
+                saved=c.execute("SELECT body_json FROM reports WHERE project_id=? AND json_array_length(json_extract(body_json,'$.campaigns'))>0 ORDER BY id DESC LIMIT 1",(pid,)).fetchone()
+            old_guide=json.loads(saved['body_json']) if saved else {}
+            if not body.get('campaigns') and old_guide.get('campaigns'):
+                import copy
+                body['campaigns']=copy.deepcopy(old_guide['campaigns'])
+                body['guide_reconciliation_status']='needs_review'
+                for campaign in body['campaigns']:
+                    campaign['notice']='Попередній план збережено. Новий аналіз не відтворив кампанію; актуальність кроків потребує повторної перевірки.'
+                    campaign['retained_from_previous_review']=True
+            if body.get('campaigns'):
+                guide_data={key:body.get(key,old_guide.get(key,[])) for key in ('campaigns','conflicts','recommendations','guide_unknowns')}
+                c.execute("INSERT INTO project_guides VALUES (?,?,?,?) ON CONFLICT(project_id) DO UPDATE SET snapshot_id=excluded.snapshot_id,body_json=excluded.body_json,updated_at=excluded.updated_at",(pid,sid,json.dumps(guide_data,ensure_ascii=False),utcnow()))
+            if previous and body.get("campaigns"):
+                old=json.loads(previous['body_json']).get('campaigns',[])
+                if old!=body['campaigns']:
+                    self._event(c,pid,"guide_changed",json.dumps({'previous_campaigns':[x['title'] for x in old],'current_campaigns':[x['title'] for x in body['campaigns']],'review_required':True},ensure_ascii=False))
             rid=c.execute("INSERT INTO reports(project_id,snapshot_id,body_json,model,created_at) VALUES (?,?,?,?,?)",
                           (pid,sid,json.dumps(body,ensure_ascii=False),model,utcnow())).lastrowid
             for task in body.get("tasks",[]):
@@ -252,12 +365,15 @@ class Workspace:
             self._event(c,task["project_id"],"task_user_report",json.dumps({"id":tid,"status":state}))
     def detail(self,pid):
         p=self.project(pid)
+        p['preparation']=self.preparation(pid)
+        overview=self.rows("SELECT body_json FROM project_overviews WHERE project_id=?",(pid,))
+        p["overview"]=json.loads(overview[0]["body_json"]) if overview else None
         screening=self.rows("SELECT * FROM activity_screening WHERE project_id=?",(pid,))
         p["activity_screening"]=screening[0] if screening else None
         p["legacy_warning"]=bool(p.pop("legacy_json",None))
         p["tasks"]=self.rows("SELECT id,title,target_url,status,evidence_json FROM tasks WHERE project_id=? AND status!='reference_only' ORDER BY id",(pid,))
         p["events"]=self.rows("SELECT * FROM events WHERE project_id=? ORDER BY id DESC LIMIT 30",(pid,))
-        p["snapshots"]=self.rows("SELECT id,url,fetched_at,via,content_hash FROM snapshots WHERE project_id=? ORDER BY id DESC LIMIT 20",(pid,))
+        p["snapshots"]=self.rows("SELECT id,url,fetched_at,via,content_hash FROM snapshots WHERE project_id=? AND via!='product_description' ORDER BY id DESC LIMIT 20",(pid,))
         reports=self.rows("SELECT * FROM reports WHERE project_id=? ORDER BY id DESC LIMIT 1",(pid,))
         notes=self.rows("SELECT body_json FROM snapshots WHERE project_id=? AND via='reviewed_research_note' ORDER BY id DESC LIMIT 1",(pid,))
         p["reviewed_note"]=json.loads(notes[0]["body_json"]).get("research_note") if notes else None
@@ -275,6 +391,13 @@ class Workspace:
                               (evidence.get("snapshot_id"), pid))
             task["evidence_state"] = ("current" if latest_by_url.get(cited[0]["url"]) == cited[0]["id"]
                                       else "source_changed") if cited else "unverified"
+        from core.campaign_guide import guide_for_project
+        guide_report=dict(p["report"]["body"]) if p["report"] else {}
+        findings=self.rows("SELECT body_json FROM project_findings WHERE project_id=?",(pid,))
+        if findings and not guide_report.get('conflicts'):guide_report['conflicts']=json.loads(findings[0]['body_json'])
+        p["guide"]=guide_for_project(guide_report,p["tasks"],p["source_url"])
+        p["resources"]=self.rows("SELECT * FROM project_resources WHERE project_id=? ORDER BY CASE purpose WHEN 'reward_rules' THEN 0 ELSE 1 END,url",(pid,))
+        p["participation"]=participation_plan(p["report"]["body"] if p["report"] else None,p["source_url"])
         p["source_changes"] = None
         if p["snapshots"]:
             latest = p["snapshots"][0]

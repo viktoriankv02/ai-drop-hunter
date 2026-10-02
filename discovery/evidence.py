@@ -14,7 +14,9 @@ async def read_html(url, allowed_hosts):
                                  headers={"User-Agent":"AI-Drop-Hunter/0.6 (public research reader)"}) as client:
         for _ in range(4):
             host=urlsplit(url).hostname
-            if host not in allowed_hosts: raise SourceUnavailable("Перенаправлення поза дозволеним джерелом")
+            if allowed_hosts is not None and host not in allowed_hosts: raise SourceUnavailable("Перенаправлення поза дозволеним джерелом")
+            if allowed_hosts is None and host in {"t.me","x.com","twitter.com","discord.com","discord.gg"}:
+                raise SourceUnavailable("Соціальний канал потребує окремого дозволу користувача")
             records=await asyncio.get_running_loop().getaddrinfo(host,443,type=socket.SOCK_STREAM)
             if not records or any(not ipaddress.ip_address(r[4][0]).is_global for r in records):
                 raise SourceUnavailable("Джерело має непублічну мережеву адресу")
@@ -40,7 +42,7 @@ async def read_html(url, allowed_hosts):
 
 def material(html,url):
     soup=BeautifulSoup(html,"lxml")
-    node=soup.select_one("article .entry-content, .entry-content, article, main") or soup
+    node=next((found for selector in ("article .entry-content", ".entry-content", "article", "main") if (found:=soup.select_one(selector)) is not None),soup)
     for tag in node.select("script,style,nav,footer,header,aside,form"): tag.decompose()
     paragraphs=[]
     for tag in node.select("h1,h2,h3,h4,p,li"):

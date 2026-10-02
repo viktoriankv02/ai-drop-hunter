@@ -1,0 +1,195 @@
+[
+  {
+    "project": "Jupiter",
+    "reward_year": 2024,
+    "event_date": null,
+    "ecosystems": [
+      "Solana"
+    ],
+    "rules_summary": "Початковий відбір: користування Jupiter до 02.11.2023; підтримувалися інтеграції з підписаними користувачем транзакціями. У 2025 додано окремі когорти користувачів, стейкерів і Carrots та суворіші фільтри.",
+    "payout_summary": "Офіційний аудит лютого 2025 фіксує повернення 215 461 850,21 невитребуваних JUP з першої роздачі. Початковий пул 1 млрд не дорівнює остаточно отриманій сумі.",
+    "payout_evidence_level": "issuer_reported_claims",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://discuss.jup.ag/t/archived-grow-the-pie-update-1/21720",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://discuss.jup.ag/t/jup-community-audit-feb-2025/34764",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://discuss.jup.ag/t/jupuary-2025-overview-checker/32013",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Віднімати повернення лише після узгодження пулів; сезонні правила зберігати окремо.",
+    "unknowns": [
+      "Незалежний підрахунок усіх переказів і фактичних витрат не виконано."
+    ],
+    "tags": [],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "Scroll",
+    "reward_year": 2024,
+    "event_date": "2024-10-22",
+    "ecosystems": [
+      "Ethereum"
+    ],
+    "rules_summary": "Snapshot 19.10.2024 00:00 UTC; основний поріг >=200 Marks. Окремо пропорційний пул, рівний Flat Boost і bonus за додаткову активність; Canvas додавав Marks. Claim відкрито 22.10.2024.",
+    "payout_summary": "Офіційний портал повідомляє про закриття 90-денного claim 20.01.2025. Фінальні суми не наведено.",
+    "payout_evidence_level": "completed_program_reported",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://chain.scroll.io/blog/introducing-scrolls-first-airdrop-a-celebration-of-the-global-community",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://claim.scroll.io/?lang=en-US",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Не переносити bonus-умови на основну eligibility; відстежувати завершення claim.",
+    "unknowns": [
+      "Незалежний підрахунок усіх переказів і фактичних витрат не виконано."
+    ],
+    "tags": [],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "Taiko",
+    "reward_year": 2024,
+    "event_date": "2024-06-05",
+    "ecosystems": [
+      "Ethereum"
+    ],
+    "rules_summary": "Proposers, provers, bridge/testnet/Galxe users, developers, GitHub contributors та Loopring community; потрібний мінімальний зважений score. ETH для gas на Taiko. Вікно 05.06–05.07.2024.",
+    "payout_summary": "Офіційно відкрито claim приблизно 50 млн TAIKO; це доступний пул, не підтверджена сума всіх виплат.",
+    "payout_evidence_level": "live_claim_program",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://paragraph.com/%40taiko-labs/taiko-airdrop-claim-is-open",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Когорта або тестнет-дія сама по собі не доводить проходження score.",
+    "unknowns": [
+      "Незалежний підрахунок усіх переказів і фактичних витрат не виконано.",
+      "Точна формула score та фінальні claims."
+    ],
+    "tags": [],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "Drift",
+    "reward_year": 2024,
+    "event_date": null,
+    "ecosystems": [
+      "Solana"
+    ],
+    "rules_summary": "OG v2 активність, Trader Points 22.01–18.04.2024, ранні v1 та keepers із matched volume >=$1000. Бонус розкривався протягом шести годин; великі алокації мали cliff і vesting; Sybil/wash trading штрафувалися.",
+    "payout_summary": "Звіт 18.11.2025 називає 100 млн DRIFT launch-пулу повністю розподіленими у 2024. Правила травня 2024 описують до 120 млн з бонусом — ці обсяги потребують узгодження.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://www.drift.trade/governance/eligibility-criteria",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://www.drift.trade/updates/update-to-drift-tokenomics-november-2025",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://www.drift.trade/governance/claims-for-the-drift-governance-token-are-now-live",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Зберігати конфлікт 100/120 млн, базовий пул і bonus окремо; ранній claim міг зменшити винагороду.",
+    "unknowns": [
+      "Незалежний підрахунок усіх переказів і фактичних витрат не виконано.",
+      "Узгодження обсягу bonus та категорій у двох офіційних публікаціях."
+    ],
+    "tags": [],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "Kamino",
+    "reward_year": 2024,
+    "event_date": null,
+    "ecosystems": [
+      "Solana"
+    ],
+    "rules_summary": "Сезонні points за використання протоколу; у Season 2 стейкінг KMNO давав додаткові points і boost. Snapshot Season 2 — 31.07.2024 опівночі UTC; заявлена лінійна конвертація points.",
+    "payout_summary": "Офіційний форум у серпні 2024 повідомив про 750 млн KMNO для понад 250 тис. гаманців у Season 1. Окремі 350 млн Season 2 у тому тексті ще майбутній розподіл.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://gov.kamino.finance/t/kamino-season-2-distribution/23",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Результат попереднього сезону й план наступного мають різні статуси.",
+    "unknowns": [
+      "Незалежний підрахунок усіх переказів і фактичних витрат не виконано.",
+      "Повна первинна формула Season 1."
+    ],
+    "tags": [],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  }
+]

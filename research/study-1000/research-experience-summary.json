@@ -1,0 +1,28 @@
+{
+  "as_of": "2026-10-02T18:56:40.488738+00:00",
+  "total_records": 609,
+  "added_records": 0,
+  "kinds": {
+    "source_acquisition": 522,
+    "date_type_confusion": 1,
+    "source_conflict": 1,
+    "threshold_conflict": 1,
+    "quantity_semantics": 1,
+    "time_cutoff": 1,
+    "unit_of_count": 1,
+    "model_error": 1,
+    "model_schema_error": 1,
+    "tool_failure": 2,
+    "coverage_error": 1,
+    "validation": 6,
+    "model_evaluation": 64,
+    "dataset_acquisition": 3,
+    "metadata_copy_error": 1,
+    "operating_status": 1,
+    "source_version_conflict": 1
+  },
+  "all_ids_unique": true,
+  "fine_tuning_performed": false,
+  "history_complete": false,
+  "limitation": "Historical records reconstructed only from saved artifacts; unrecorded searches, intermediate thoughts and actions were not invented."
+}

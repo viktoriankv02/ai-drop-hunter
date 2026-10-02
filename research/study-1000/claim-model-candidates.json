@@ -1,0 +1,442 @@
+[
+  {
+    "project_key": "arbitrum",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/arbitrum/projects/arbitrum_arbitrum_airdrop_claims.sql",
+    "local_model": "dune-models\\arbitrum_arbitrum_airdrop_claims.sql",
+    "token": "ARB",
+    "sha256": "b16b12d1fbbc4846571b27f1e14493e132fce600b64479ef940bf990fa95dc5b",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "pangolin",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/avalanche_c/projects/pangolin_avalanche_c_airdrop_claims.sql",
+    "local_model": "dune-models\\pangolin_avalanche_c_airdrop_claims.sql",
+    "token": "PNG",
+    "sha256": "2e371b179f2d5f4893d51556f04c9574ab6027b1e73e24ca878e938773cb27a5",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "ellipsis_finance",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/bnb/projects/ellipsis_finance_bnb_airdrop_claims.sql",
+    "local_model": "dune-models\\ellipsis_finance_bnb_airdrop_claims.sql",
+    "token": "EPS",
+    "sha256": "2b56891dd5e7c777baaad6c139e044a1e3b48ccdcb5227bf3c67944f2eebf25d",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "alchemydao",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/alchemydao_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\alchemydao_ethereum_airdrop_claims.sql",
+    "token": "ALCH",
+    "sha256": "ab11b8522bf424ec7bef02179ac9028963f40c0b0d246c63277e93933e457d64",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "ampleforth",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/ampleforth_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\ampleforth_ethereum_airdrop_claims.sql",
+    "token": "FORTH",
+    "sha256": "2ef473c44ed66bf3cc7fd60121e71d630adfc5d5fa803853d0b3d88da40bc546",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "apecoin",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/apecoin_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\apecoin_ethereum_airdrop_claims.sql",
+    "token": "APE",
+    "sha256": "fdd7d0adb50a7cdbbd973c4c694b110b3f4ebfc9e63853a5be7cb20a532c8ecf",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "arkham",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/arkham_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\arkham_ethereum_airdrop_claims.sql",
+    "token": "ARKM",
+    "sha256": "18e2ffed4769957d58d71d34856d40589782ae59a4b3f6814bf9a62d72a3b145",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "benddao",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/bend_dao_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\bend_dao_ethereum_airdrop_claims.sql",
+    "token": "BEND",
+    "sha256": "541dfe7c39f931f99e23634b6bcf13ea2da7562a5b5d00493e7182cf73e204e6",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "blur",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/blur_ethereum_airdrop_1_claims.sql",
+    "local_model": "dune-models\\blur_ethereum_airdrop_1_claims.sql",
+    "token": "BLUR",
+    "sha256": "b61bcd32f41874bb240588f32bd5bc1e62032c5c4aca9c9dcec69918e1b84e53",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "botto",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/botto_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\botto_ethereum_airdrop_claims.sql",
+    "token": "BOTTO",
+    "sha256": "56d67cc93bcec70cfb4bf80338143910aef35a9e611b705bb46f96a0c7959af7",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "component",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/component_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\component_ethereum_airdrop_claims.sql",
+    "token": "CMP",
+    "sha256": "e2ffc0af1493cf9ddcb20694fcfbfa0650f06362cf820e6be42e6d9a5c84609e",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "cow_protocol",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/cow_protocol_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\cow_protocol_ethereum_airdrop_claims.sql",
+    "token": "COW",
+    "sha256": "6f42c3b771f8d8ffb6d8e848252984bbf303d34455e5c3a0a59ee6f0c8aac065",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "dappradar",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/dappradar_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\dappradar_ethereum_airdrop_claims.sql",
+    "token": "RADAR",
+    "sha256": "78fcbe32f1c9a3015f8cc3ef8897c4e247dc19312b490db2a98cf13527ae2d69",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "dydx",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/dydx_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\dydx_ethereum_airdrop_claims.sql",
+    "token": "DYDX",
+    "sha256": "4d06b0935c483afcbc6894bfa3f39ef7290e5102069751a892f1b905f993581c",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "ethereum_name_service",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/ens_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\ens_ethereum_airdrop_claims.sql",
+    "token": "ENS",
+    "sha256": "567fef684c498ba7897163e4252da59bd26b93c3c907b924f4bba69781f596c7",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "etherfi",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/etherfi_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\etherfi_ethereum_airdrop_claims.sql",
+    "token": "ETHFI",
+    "sha256": "9101f7de97b2ee06fcb81a189b919e4964e24b30b576129575f50ca95b0d4c71",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "forefront",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/forefront_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\forefront_ethereum_airdrop_claims.sql",
+    "token": "FF",
+    "sha256": "0842aafa686b2075aa4f63304fcd1ba5745c8f67fc43fcae32432aa7d93b0dfa",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "forta_network",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/forta_network_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\forta_network_ethereum_airdrop_claims.sql",
+    "token": "FORT",
+    "sha256": "9d63458426d83509e1b4db4cde4e5c85492251c4ec5d83dadec294bc7555d07b",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "galxe",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/galxe_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\galxe_ethereum_airdrop_claims.sql",
+    "token": "GAL",
+    "sha256": "22369ba5e42798d632e212ff4b180d5bb0dc3b57a5a8fccd3604404a7209a786",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "gas_dao",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/gas_dao_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\gas_dao_ethereum_airdrop_claims.sql",
+    "token": "GAS",
+    "sha256": "00383a74b2434c8aa33eb1eabbc75b46023e209e4e90aeb963e4f4d079943b16",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "gearbox",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/gearbox_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\gearbox_ethereum_airdrop_claims.sql",
+    "token": "GEAR",
+    "sha256": "1df05c3c711e7c3f45b8e374d66c9c64c7b85cfd3c2253542ecbbc0a7b454299",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "genie",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/genie_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\genie_ethereum_airdrop_claims.sql",
+    "token": "USDC",
+    "sha256": "2d053a5d3a47d17e95ef26cd2ded95b85ee6a8f3fd524a2846384b9535b99431",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "gitcoin",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/gitcoin_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\gitcoin_ethereum_airdrop_claims.sql",
+    "token": "GTC",
+    "sha256": "6843f2b94d114c011b948859626c89fc653a2d260d5c0ff3432aedb8428c4238",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "hop_protocol",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/hop_protocol_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\hop_protocol_ethereum_airdrop_claims.sql",
+    "token": "HOP",
+    "sha256": "8777fa4b4b07950b934dfd44e2d05396767e6810973a893c9420b06255ae9de1",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "looksrare",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/looksrare_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\looksrare_ethereum_airdrop_claims.sql",
+    "token": "LOOKS",
+    "sha256": "b77c0b4a03d95572635897b722ab11f2ede9719573a6b198b414c9ccb203556e",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "notional_finance",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/notional_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\notional_ethereum_airdrop_claims.sql",
+    "token": "NOTE",
+    "sha256": "b012bfce794bdc2810454f012a2c0d18b179553289e9b5c9b645af9b98e3f7da",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "oneinch",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/oneinch_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\oneinch_ethereum_airdrop_claims.sql",
+    "token": "1INCH",
+    "sha256": "1811a7468ef5b02985ef8509b9864560acc084e8466018753999a813922f6796",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "paladin",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/paladin_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\paladin_ethereum_airdrop_claims.sql",
+    "token": "PAL",
+    "sha256": "59ca9c1c1f7dd6e2dbdb1fa9bd3e0f49fafe5b22ef4c3965ce99c8c1b61f2015",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "paraswap",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/paraswap_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\paraswap_ethereum_airdrop_claims.sql",
+    "token": "PSP",
+    "sha256": "9a505556ec877d65fdcf48c4777e1195986b6e7144e94b0e0089b8adc27f1cf2",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "pooltogether",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/pooltogether_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\pooltogether_ethereum_airdrop_claims.sql",
+    "token": "POOL",
+    "sha256": "433d1928e58ca85531b49114c305930b1682bac2f8d948bc637ae5ffff3884c7",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "ribbon",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/ribbon_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\ribbon_ethereum_airdrop_claims.sql",
+    "token": "RBN",
+    "sha256": "5690eb9748cefff2eed9e6d31bec9279331135346fd424799552cd352bd9059a",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "safe",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/safe_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\safe_ethereum_airdrop_claims.sql",
+    "token": "SAFE",
+    "sha256": "9569aadfdb919ba572cb9a3419dab2648cc7eb47fbb0c17bccc8ce5a79d5c03a",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "shapeshift",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/shapeshift_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\shapeshift_ethereum_airdrop_claims.sql",
+    "token": "FOX",
+    "sha256": "4045bbc1749c25c1bcdd930a35148705d69869cf1c44b8090aa27fb51ccc4067",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "snowswap",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/snowswap_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\snowswap_ethereum_airdrop_claims.sql",
+    "token": "SNOW",
+    "sha256": "037986335b3ba1a716a0948dd494c6502e9393c1ff039e5325ff6de99e192f18",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "sudoswap",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/sudoswap_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\sudoswap_ethereum_airdrop_claims.sql",
+    "token": "SUDO",
+    "sha256": "d593e438332c4520940e1fc288d8f0669377084d9576e00a865ae190ff1d8518",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "thales",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/thales_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\thales_ethereum_airdrop_claims.sql",
+    "token": "THALES",
+    "sha256": "4c4ba7ef28f072ce05836857cf22d354abd508c40edf46561abcec20a95416a6",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "tokenfy",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/tokenfy_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\tokenfy_ethereum_airdrop_claims.sql",
+    "token": "TKNFY",
+    "sha256": "ddc358349edd3e9e6d95f20ebe858d763b8bad363bb54fe7194e98d1e1ab5eb1",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "tornado_cash",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/tornado_cash_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\tornado_cash_ethereum_airdrop_claims.sql",
+    "token": "TORN",
+    "sha256": "c27579f35ff8adc89642e0959ec9345782b29941d27aa54daeddcdb55a2b05a8",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "uniswap",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/uniswap_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\uniswap_ethereum_airdrop_claims.sql",
+    "token": "UNI",
+    "sha256": "a5c6b3b165ac65cd2e29ca7c2cbc9ccf4ef98c08a96325b817e32bf3c015ef0c",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "value_defi",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/value_defi_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\value_defi_ethereum_airdrop_claims.sql",
+    "token": "vUSD",
+    "sha256": "466c0ce91005c59457be4ef0f1fb8133129bf3b1d3a18dc244eec5ab56dcc0e6",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "x2y2",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/x2y2_ethereum_airdrop_claims.sql",
+    "local_model": "dune-models\\x2y2_ethereum_airdrop_claims.sql",
+    "token": "X2Y2",
+    "sha256": "66fbae3b718ec9fc8725c889b187a2f017e7f10929534eaac5f962505f9de213",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "giveth",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/gnosis/projects/giveth_gnosis_airdrop_claims.sql",
+    "local_model": "dune-models\\giveth_gnosis_airdrop_claims.sql",
+    "token": "GIV",
+    "sha256": "69e696d5476af533f75606c83609946b6a63016a20b2e15093f09635528b6775",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "velodrome",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/optimism/projects/velodrome_optimism_airdrop_claims.sql",
+    "local_model": "dune-models\\velodrome_optimism_airdrop_claims.sql",
+    "token": "VELO",
+    "sha256": "fca3632be5b2dd7af6f4c2573be26b6066c46cd1303d15301810575d2525f874",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  },
+  {
+    "project_key": "zksync",
+    "model_url": "https://github.com/duneanalytics/spellbook/blob/main/dbt_subprojects/daily_spellbook/models/_sector/airdrops/zksync/projects/zksync_zksync_airdrop_claims.sql",
+    "local_model": "dune-models\\zksync_zksync_airdrop_claims.sql",
+    "token": "ZK",
+    "sha256": "f0d2c0922851c50ee9a877d5a25d42ac72253adda66a225f681b876371fa851d",
+    "query_executed": false,
+    "payout_verified": false,
+    "review_status": "onchain_model_available_not_results"
+  }
+]

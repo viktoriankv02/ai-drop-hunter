@@ -1,0 +1,48 @@
+{
+  "model": "qwen3:4b-instruct",
+  "scope": "three short source excerpts; no generalization or payout prediction claim",
+  "fine_tuning_performed": false,
+  "results": [
+    {
+      "project": "Sui",
+      "expected": {
+        "purchase_access": true,
+        "free_airdrop_proven": false
+      },
+      "actual": {
+        "purchase_access": true,
+        "free_airdrop_proven": null
+      },
+      "passed": false,
+      "seconds": 8.39
+    },
+    {
+      "project": "ENS",
+      "expected": {
+        "claimed_tokens_approx": 19600000,
+        "claiming_addresses_approx": 103000
+      },
+      "actual": {
+        "claimed_tokens_approx": 19600000,
+        "claiming_addresses_approx": 103000
+      },
+      "passed": true,
+      "seconds": 3.77
+    },
+    {
+      "project": "Note Systems",
+      "expected": {
+        "testnet_points_convertible": false,
+        "testnet_points_claimable": false
+      },
+      "actual": {
+        "testnet_points_convertible": false,
+        "testnet_points_claimable": false
+      },
+      "passed": true,
+      "seconds": 2.93
+    }
+  ],
+  "passed": 2,
+  "total": 3
+}

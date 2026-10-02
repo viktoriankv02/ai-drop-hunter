@@ -1,0 +1,156 @@
+{
+  "url": "https://blog.availproject.org/avail-2024-wrapped/",
+  "resolved_url": "https://blog.availproject.org/avail-2024-wrapped/",
+  "text": "Read summarised version with\nChatGPT\nClaude\nPerplexity\nGoogle AI\nThis year will go down in history as the year Avail’s game changing DA network went live on mainnet, launched with the entire\nfeature set\nof Full Danksharding. Avail forged strategic partnerships with the\n5 major Ethereum Rollups\nincluding Arbitrum, Optimism, Polygon, Starknet, and ZKsync and welcomed over 100 ecosystem partners.\nLet’s take a moment to celebrate the milestones we conquered together in 2024!\nDevelopment\nAvail mainnet went live!\nEntire\nfeature set\nof full Danksharding.\nFastest DA layer\n, 15x faster than the next fastest\nFirst-ever validity proof based DA with Data Availability Sampling (DAS)\nLight Client network deployed, enabling anyone to verify from their phone.\nThe\nAVAIL token launched\nalong with Avail’s\nUnification Drop\n.\nValidator network deployed\nwhich has since expanded to 77 with more coming.\nShared\nAvail’s Unification Vision\nalong with\nNexus\nto solve rollup interoperability &\nFusion\nfor added crypto-economic security.\nData Usage and adoption - since launching Avail DA has processed\n2 GB of data\n.\nFundraising\nRaised\n$27m Seed Round\n.\nClosed a\n$43m Series A\n, bringing total funding (including pre-seed) to $75m.\nPartnerships\nWe launched integrations with the 5 major Ethereum Rollup Stacks -\nArbitrum\n,\nOptimism\n,\nPolygon\n,\nStarkWare\n,\nZKSync\nand many more.\nLens\nannounced\nthey will be deploying on Avail to build scalable and resilient decentralized social networks.\nAvail & Symbiotic\nannounced\na strategic partnership to integrate multi-asset re-staking into Fusion.\nSophon\n, first validium to use external DA layer\nMainnet went live\nwith more than 2GB posted to Avail DA. Avail LST token holders are\nearning rewards\nin Sophon’s Farming program, and Aerodrome Finance is providing\nAERO rewards to AVAIL LPs\non Base.\nAlong with many, many more!\nDeFi\nstAVAIL token holders have been collecting rewards from\nSophon & Avail’s Unified Token Initiative\n.\nAVAIL-USDC pool LP providers on\nAerodrome finance\n(on Base chain) have earned ~166k USD worth of AERO within 2 months\nCommunity\nEstablished the Avail Foundation\nto build digital, trust-minimized systems that help increase trust in our connected society.\nGrew a robust social media presence across multiple platforms, reaching over 665k+ community members globally, with 300k+ followers on X, 195k+ members on Discord and a Telegram audience of 140k+\nHosted Hot Takes side events at Token 2049, ETHDenver and ETHCC Brussels\nHosted the Unification Cup, a Football oriented side-event bringing together builders from across the ecosystem at ETHCC Brussels and DevCon Bangkok.\nThe AVAIL token was listed on multiple exchanges including: Bybit, Whitebit, Kucoin, HTX, BingX, Bitget, Bithumb, Gate.io, HiBT, BVOX, Bitrue, Ourbit, Tapbit, CoinEx, Phemex, MEXC Global, Bilaxy, Mudrex, NovaDAX.\nAnd that’s a wrap! But before we go, here are some network updates on what went down in December.\nDecember 2024\nTechnical Update\nA new version of the\nlight client\nis being tested. This version improves the client stability regarding its memory use.\nWork has been ongoing the past few months to improve the client libraries for interacting with the Avail network, especially Avail Rust. As well as the associated documentation and examples. If you’re using our libraries, or plan on using them to interact with Avail, please provide feedback as this helps us improve them further!\nNetwork Update\nTransparency Report 10:\nSuccessfully expanded the mainnet validator active set to 77 validators, continuing our steady growth in network decentralization.\nTuring network is soon to see a lowering of the active set to 80, to ensure network performance is maintained.\nThe Validator Dashboard is now active at\nvalidator.availproject.org\n, designed for precise network monitoring\nDuring India Blockchain Week we hosted a breakfast and dinner with Avail frens and heard from senior R&D developer QEDK on blockchain scalability and interoperability at FILBangalore. We’ll be starting off 2025 with an Avail Shenzhen Meetup, Consensus Hong Kong, and of course, ETH Denver!\nNews\nEcosystem\nShare with friends\nLink copied\nPosted by\nAnurag Arjun",
+  "links": [
+    {
+      "text": "ChatGPT",
+      "url": "https://chatgpt.com/?prompt=Visit+this+URL+and+summarize+this+post+for+me%3A+https%3A%2F%2Fblog.availproject.org%2Favail-2024-wrapped%2F"
+    },
+    {
+      "text": "Claude",
+      "url": "https://claude.ai/new?q=Analyze+and+summarize+this+article%3A+https%3A%2F%2Fblog.availproject.org%2Favail-2024-wrapped%2F"
+    },
+    {
+      "text": "Perplexity",
+      "url": "https://www.perplexity.ai/search/new?q=Summarize+this+article%3A+https%3A%2F%2Fblog.availproject.org%2Favail-2024-wrapped%2F"
+    },
+    {
+      "text": "Google AI",
+      "url": "https://www.google.com/search?udm=50&q=Summarize+this+article%3A+https%3A%2F%2Fblog.availproject.org%2Favail-2024-wrapped%2F"
+    },
+    {
+      "text": "feature set",
+      "url": "https://blog.availproject.org/avails-core-features-explained/"
+    },
+    {
+      "text": "5 major Ethereum Rollups",
+      "url": "https://x.com/AvailProject/status/1783489851360264347?ref=blog.availproject.org"
+    },
+    {
+      "text": "Avail mainnet went live!",
+      "url": "https://blog.availproject.org/avail-da-mainnet-is-live/"
+    },
+    {
+      "text": "feature set",
+      "url": "https://blog.availproject.org/avails-core-features-explained/"
+    },
+    {
+      "text": "Fastest DA layer",
+      "url": "https://blog.availproject.org/a-guide-to-selecting-the-right-data-availability-layer/#12-block-time-time-to-da-finality"
+    },
+    {
+      "text": "AVAIL token launched",
+      "url": "https://blog.availproject.org/the-avail-token-is-now-live/"
+    },
+    {
+      "text": "Unification Drop",
+      "url": "https://blog.availproject.org/avails-unification-drop/"
+    },
+    {
+      "text": "Validator network deployed",
+      "url": "https://blog.availproject.org/community-rollout-for-decentralized-mainnet-validators/"
+    },
+    {
+      "text": "Avail’s Unification Vision",
+      "url": "https://blog.availproject.org/the-avail-vision-accelerating-the-unification-of-web3/"
+    },
+    {
+      "text": "Nexus",
+      "url": "https://blog.availproject.org/the-avail-vision-accelerating-the-unification-of-web3/#avail-nexus"
+    },
+    {
+      "text": "Fusion",
+      "url": "https://blog.availproject.org/the-avail-vision-accelerating-the-unification-of-web3/#avail-fusion"
+    },
+    {
+      "text": "2 GB of data",
+      "url": "https://avail.subscan.io/data_submission_list?ref=blog.availproject.org"
+    },
+    {
+      "text": "$27m Seed Round",
+      "url": "https://blog.availproject.org/avail-raises-27m-to-accelerate-the-unification-of-web3/"
+    },
+    {
+      "text": "$43m Series A",
+      "url": "https://blog.availproject.org/avail-raises-a-total-of-75m-to-build-unification-layer-for-web3/"
+    },
+    {
+      "text": "Arbitrum",
+      "url": "https://docs.availproject.org/docs/build-with-avail/deploy-rollup-on-avail/Optimium/arbitrum-nitro/overview?ref=blog.availproject.org"
+    },
+    {
+      "text": "Optimism",
+      "url": "https://docs.availproject.org/docs/build-with-avail/deploy-rollup-on-avail/Optimium/op-stack?ref=blog.availproject.org"
+    },
+    {
+      "text": "Polygon",
+      "url": "https://docs.availproject.org/docs/build-with-avail/deploy-rollup-on-avail/Validium/zkevm/overview?ref=blog.availproject.org"
+    },
+    {
+      "text": "StarkWare",
+      "url": "https://docs.availproject.org/docs/build-with-avail/deploy-rollup-on-avail/Validium/madara/overview?ref=blog.availproject.org"
+    },
+    {
+      "text": "ZKSync",
+      "url": "https://docs.availproject.org/docs/build-with-avail/deploy-rollup-on-avail/Validium/zksync/zksync?ref=blog.availproject.org"
+    },
+    {
+      "text": "announced",
+      "url": "https://blog.availproject.org/unlocking-social-networks-with-lens-on-avail-da/"
+    },
+    {
+      "text": "announced",
+      "url": "https://blog.availproject.org/avail-symbiotic-partner-to-create-a-unified-framework-for-innovation/"
+    },
+    {
+      "text": "Sophon",
+      "url": "https://blog.availproject.org/avail-powers-onchain-entertainment-with-sophon-launch/"
+    },
+    {
+      "text": "Mainnet went live",
+      "url": "https://blog.availproject.org/avail-powers-onchain-entertainment-with-sophon-launch/"
+    },
+    {
+      "text": "earning rewards",
+      "url": "https://blog.availproject.org/announcing-sophon-avails-unified-token-initiative/"
+    },
+    {
+      "text": "AERO rewards to AVAIL LPs",
+      "url": "https://blog.availproject.org/aerodrome-finance-welcomes-the-avail-token-on-base/"
+    },
+    {
+      "text": "Sophon & Avail’s Unified Token Initiative",
+      "url": "https://blog.availproject.org/announcing-sophon-avails-unified-token-initiative/"
+    },
+    {
+      "text": "Aerodrome finance",
+      "url": "https://blog.availproject.org/aerodrome-finance-welcomes-the-avail-token-on-base/"
+    },
+    {
+      "text": "Established the Avail Foundation",
+      "url": "https://blog.availproject.org/announcing-the-avail-foundation/"
+    },
+    {
+      "text": "light client",
+      "url": "https://github.com/availproject/avail-light/releases?ref=blog.availproject.org"
+    },
+    {
+      "text": "Transparency Report 10:",
+      "url": "https://forum.availproject.org/t/transparency-report-10-expand-validator-set/1606?ref=blog.availproject.org"
+    },
+    {
+      "text": "",
+      "url": "https://www.facebook.com/sharer.php?u=https://blog.availproject.org/avail-2024-wrapped/"
+    },
+    {
+      "text": "",
+      "url": "https://twitter.com/intent/tweet?url=https://blog.availproject.org/avail-2024-wrapped/&text=Avail%202024%20Wrapped"
+    },
+    {
+      "text": "",
+      "url": "https://www.linkedin.com/shareArticle?mini=true&url=https://blog.availproject.org/avail-2024-wrapped/&title=Avail%202024%20Wrapped"
+    }
+  ],
+  "retrieved_at": "2026-09-29T15:02:32.725892+00:00"
+}

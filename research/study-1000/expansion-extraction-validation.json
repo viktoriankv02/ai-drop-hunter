@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "quote_substrings_checked": 6,
+  "source_text_hashes_checked": 6,
+  "model_evaluation_run": false,
+  "fine_tuning_performed": false
+}

@@ -1,7 +1,7 @@
 """Conservative screening for the user's test-token-only preference."""
 import json,re
 from datetime import datetime,timezone
-VERSION="test-tokens-only-v1"
+VERSION="test-tokens-only-v2"
 
 def classify(title,url,summary,text="",has_evidence=False):
     metadata=" ".join([title,url,summary]).lower()
@@ -10,10 +10,18 @@ def classify(title,url,summary,text="",has_evidence=False):
     if re.search(prediction,metadata+" "+body):
         return "excluded","Прогнози або ринки передбачень — поза твоїми критеріями."
     real=r"real (?:money|tokens|funds)|реальн\w* (?:токен|кош|средств)|deposit usdc|usdc on arbitrum|mainnet trading|торг\w* (?:в |на )?(?:mainnet|мейннет|майннет)"
-    sentences=re.split(r"(?<=[.!?])\s+|\n+",body)
-    real_statements=" ".join(x for x in sentences if not x.rstrip().endswith("?") and not re.search(r"\b(?:no|not|without|rather than)\b.{0,45}real (?:money|tokens|funds)",x))
+    # Remove only the negated phrase, never a whole sentence with another paid step.
+    negated_real=(r"\b(?:no|not|without)\s+(?:using\s+|use\s+of\s+)?real (?:money|tokens|funds)"
+                  r"|без\s+реальн\w*\s+(?:токен\w*|кош\w*|средств\w*)"
+                  r"|не\s+(?:потребує|вимагає|використовує|требует)\s+реальн\w*\s+(?:токен\w*|кош\w*|средств\w*)"
+                  r"|не є дозволом на торгівлю реальними токенами")
+    real_statements=re.sub(negated_real,"",body)
+    real_statements=" ".join(x for x in re.split(r"(?<=[.!?])\s+|\n+",real_statements)
+                             if not x.rstrip().endswith("?"))
     if has_evidence and re.search(real,real_statements):
         return "excluded","У матеріалі є ознаки використання реальних коштів або mainnet-торгівлі."
+    if has_evidence and re.search(r"(?:testnet|campaign|activity|тестнет|кампані\w*|активност\w*)\s+(?:(?:has|is|was|вже|уже)\s+)*(?:ended|closed|completed|завершен\w*|закрит\w*|завершил\w*)",body):
+        return "needs_review","Є ознаки завершеної активності — актуальність участі потрібно підтвердити."
     test_tokens=r"test(?:net)? tokens|test eth|test usdc|тестов\w* (?:токен|монет|eth|usdc)|тестов[ыі]\w* средств|faucet"
     test_network=r"testnet|тестнет|тестов\w* мереж|тестов\w* сет"
     if has_evidence and re.search(test_tokens,body) and re.search(test_network,body):
@@ -24,7 +32,7 @@ def classify(title,url,summary,text="",has_evidence=False):
 
 def screen_in_connection(c,pid):
     p=c.execute("SELECT * FROM projects WHERE id=?",(pid,)).fetchone()
-    sn=c.execute("SELECT body_json FROM snapshots WHERE project_id=? ORDER BY id DESC LIMIT 1",(pid,)).fetchone()
+    sn=c.execute("SELECT body_json FROM snapshots WHERE project_id=? AND via!='product_description' ORDER BY id DESC LIMIT 1",(pid,)).fetchone()
     body=json.loads(sn["body_json"]) if sn else {}
     text=body.get("text","")
     decision,reason=classify(p["title"],p["source_url"],p["summary"],text,bool(sn))

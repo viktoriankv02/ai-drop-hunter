@@ -1,0 +1,96 @@
+[
+  {
+    "project": "ParaSwap",
+    "reward_year": 2021,
+    "event_date": null,
+    "ecosystems": [
+      "Ethereum",
+      "Polygon",
+      "BNB Chain",
+      "Avalanche"
+    ],
+    "rules_summary": "Snapshot 08.10.2021. Враховано тривалість і регулярність використання, а не лише обсяг; відкинуто wrap/unwrap та підозрілі операції. Перевірка історії гаманця використовувала OR між транзакційністю та балансом; окремо вимагалося щонайменше шість використань за шість місяців. Адреси інтеграцій визначали спеціально: relayer або txOrigin не завжди є користувачем.",
+    "payout_summary": "Емітент описує початковий пул 150 млн PSP та близько 19–20 тисяч придатних адрес. У статті є твердження про отримання токенів користувачами, але точну фінальну суму claims тут не перераховано.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://medium.com/paraswap/whats-an-active-user-clarifying-psp-token-distribution-filtering-logic-81df6096d410",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Зберігати послідовність фільтрів і походження адрес; досягнення одного порога не означає проходження всього відбору. Опублікований allocation list не доводить виконання claims; сирі суми залишати у base units до перевірки decimals.",
+    "unknowns": [
+      "Потрібно відтворити опублікований список адрес і фактичні claims.",
+      "ParaSwap/Velora — історія одного продукту; ребрендинг не рахувати автоматично другим проєктом."
+    ],
+    "tags": [
+      "historical_usage",
+      "sybil_filter",
+      "integration_attribution",
+      "multi_chain"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29",
+    "allocation_dataset_audit": {
+      "project": "ParaSwap",
+      "source_file": "allocation-datasets\\paraswap-users.json",
+      "sha256": "2440ca548cfeb4b76d8b027a6574e0a772d6b3680230fb371205309d6af2952d",
+      "rows": 19999,
+      "unique_addresses": 19999,
+      "duplicate_address_rows": 0,
+      "amount_column": "earnings",
+      "total_base_units": "149843200000000000000000000",
+      "token_decimals_verified": false,
+      "token_total": null,
+      "payout_verified": false,
+      "meaning": "published allocation list, not executed claims"
+    }
+  },
+  {
+    "project": "AltLayer",
+    "reward_year": 2024,
+    "event_date": null,
+    "ecosystems": [
+      "Ethereum",
+      "Celestia",
+      "EigenLayer"
+    ],
+    "rules_summary": "Season 1 охоплює NFT-власників, Altitude, EigenLayer і Celestia. Для Altitude потрібна додаткова mainnet Ethereum-транзакція у визначеному історичному діапазоні та проходження anti-Sybil. Treasury NFT виключені. TIA-стейкерам обіцяно окреме пізніше вікно claim; загальний строк не можна механічно переносити на них.",
+    "payout_summary": "Стаття 23.01.2024 резервує 300 млн ALT; загальне вікно анонсовано 25.01–25.02.2024 із поверненням невитребуваного до treasury. Це опис алокації та правил, а не доказ фінальних виплат.",
+    "payout_evidence_level": "allocation_or_rules_only",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://blog.altlayer.io/altlayer-airdrop-season-one-9148f6114c0b",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Розділяти правила за когортою. Частина таблиць представлена зображеннями; текстове читання не доводить повного вилучення умов.",
+    "unknowns": [
+      "Фактичні виплати та фінальні залишки ще не перевірені.",
+      "Потрібно прочитати таблиці-зображення, уточнити TIA-вікно та окремо підтвердити історичну роботу продукту."
+    ],
+    "tags": [
+      "nft",
+      "testnet",
+      "restaking",
+      "multi_cohort",
+      "claim_window"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  }
+]

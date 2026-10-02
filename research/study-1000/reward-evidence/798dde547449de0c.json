@@ -1,0 +1,48 @@
+{
+  "url": "https://docs.monad.xyz/",
+  "resolved_url": "https://docs.monad.xyz/",
+  "text": "Quick hits\nNetwork Information\nDeployment Summary for Developers\nGuide for Node Operators\nMonad is a Layer-1 blockchain delivering high performance, true decentralization, and EVM\ncompatibility.\nMonad’s north star is making decentralization more powerful, and eliminating the perceived\ntradeoff between decentralization and performance.\nMonad supports a large globally distributed network\n(see the\nvalidator map\n), with intentionally minimal\nhardware requirements\nso that anyone may run a node.\nPerformance comes from software architecture improvements rather than reliance on heavy hardware\nor node colocation.\nMonad’s codebase is fully open source (\nconsensus\n,\nexecution\n) and is built for extreme performance in\nC++ and rust.\nMonad introduces novel architectures in five major areas:\nMonadBFT\n, a frontier BFT consensus mechanism solving the\ntail-forking\nproblem\nRaptorCast\nfor efficient block transmission\nAsynchronous Execution\nfor pipelining\nconsensus and execution to raise the time budget for execution\nParallel Execution\nand\nJIT Compilation\nfor efficient transaction\nexecution\nMonadDb\nfor efficient storage of Ethereum state\nMonad’s improvements address existing bottlenecks while preserving seamless compatibility for\napplication developers (full EVM bytecode compatibility) and users (Ethereum\nRPC API\ncompatibility).\nThe result is an Ethereum-compatible Layer-1 blockchain with 10,000 tps of throughput,\n300ms block frequency, and 600ms finality.\nSelect a level of detail by visiting either\nMonad for Users\nor\nMonad for Developers\n.\n​\nDeploying on Monad\nSee\nDeployment Summary for Developers\nfor everything you need to\nknow as a developer deploying on Monad.\nMonad features first-class support for many leading Ethereum developer tools and infra providers.\nSee\nTooling and Infrastructure\nfor a summary.\n​\nArchitecture\nMonad is designed with a focus on performance and scalability with commodity hardware.\nThe subsequent pages survey the major\narchitectural changes\nin Monad as well as the\ninterface for users.\nThe first Monad client is built by\nCategory Labs\nand is written from scratch in C++ and Rust.\nmonad-bft\n, Category Labs’s implementation of\na Monad consensus client, and\nmonad\n, Category Labs’s implementation of a Monad\nexecution client, are both open-source under\nGPL-3.0\n.\n​\nMainnet\nPublic mainnet launched on Nov 24, 2025.\nSee\nNetwork Information\nfor access, or check out the\nMonadVision\nblock explorer, the\ngmonads.com\nnetwork visualization, or\napp.monad.xyz\n.\n⌘\nI",
+  "links": [
+    {
+      "text": "validator map",
+      "url": "https://www.gmonads.com/"
+    },
+    {
+      "text": "consensus",
+      "url": "https://github.com/category-labs/monad-bft"
+    },
+    {
+      "text": "execution",
+      "url": "https://github.com/category-labs/monad"
+    },
+    {
+      "text": "tail-forking",
+      "url": "https://www.category.xyz/blogs/monadbft-fast-responsive-fork-resistant-streamlined-consensus"
+    },
+    {
+      "text": "Category Labs",
+      "url": "https://www.category.xyz"
+    },
+    {
+      "text": "monad-bft",
+      "url": "https://github.com/category-labs/monad-bft"
+    },
+    {
+      "text": "monad",
+      "url": "https://github.com/category-labs/monad"
+    },
+    {
+      "text": "MonadVision",
+      "url": "https://monadvision.com/"
+    },
+    {
+      "text": "gmonads.com",
+      "url": "https://gmonads.com"
+    },
+    {
+      "text": "app.monad.xyz",
+      "url": "https://app.monad.xyz"
+    }
+  ],
+  "retrieved_at": "2026-09-29T15:02:29.198590+00:00"
+}

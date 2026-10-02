@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "source_checked_examples": 12,
+  "launch_records": 4,
+  "checks": [
+    "exact_quote_presence",
+    "retained_content_hashes",
+    "no_project_split_overlap",
+    "quote_word_limits",
+    "launch_evidence_presence"
+  ],
+  "case_completion_not_asserted": true
+}

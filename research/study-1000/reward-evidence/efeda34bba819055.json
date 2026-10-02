@@ -1,0 +1,16 @@
+{
+  "url": "https://osmosis.gitbook.io/o/osmo/token-distribution",
+  "resolved_url": "https://osmosis.gitbook.io/o/osmo/token-distribution",
+  "text": "For the complete documentation index, see\nllms.txt\n. This page is also available as\nMarkdown\n.\nOSMO will have a total supply of 1 billion. The initial released supply of OSMO is 100 million, split evenly between fairdrop recipients and the strategic reserve. After launch, newly released tokens will be distributed on the following basis:\nRecipient\nReward\nLiquidity Mining Incentives\n45%\nStaking Rewards\n25%\nDeveloper Vesting\n25%\nCommunity Pool\n5%\nOSMO will be highly inflationary in the beginning. Over time, the initial released supply of OSMO will only account for a small percentage of the total supply.\nPrevious\nPurpose\nNext\nGenesis Supply\nLast updated\n5 years ago",
+  "links": [
+    {
+      "text": "llms.txt",
+      "url": "https://osmosis.gitbook.io/o/llms.txt"
+    },
+    {
+      "text": "Markdown",
+      "url": "https://osmosis.gitbook.io/o/osmo/token-distribution.md"
+    }
+  ],
+  "retrieved_at": "2026-09-29T15:02:30.891458+00:00"
+}

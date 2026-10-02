@@ -120,12 +120,16 @@ def create_app(store=None,background=True,legacy=None):
                            (SELECT decision FROM activity_screening a WHERE a.project_id=projects.id) AS activity_decision,
                            (SELECT reason FROM activity_screening a WHERE a.project_id=projects.id) AS activity_reason FROM projects
                            WHERE (?='all' OR status=?) AND (title LIKE ? OR source_platform LIKE ?)
-                           AND (?=0 OR projects.status!='new' OR source_url LIKE 'https://cryptorank.io/%' OR source_url LIKE 'https://incrypted.com/%')
+                           AND (?=0 OR projects.status!='new' OR source_url LIKE 'https://cryptorank.io/%' OR source_url LIKE 'https://incrypted.com/%' OR source_platform='Власне джерело')
                            AND (?='all' OR COALESCE((SELECT decision FROM activity_screening a WHERE a.project_id=projects.id),'needs_review')=?)
                            ORDER BY EXISTS(SELECT 1 FROM reports r WHERE r.project_id=projects.id) DESC,
                            CASE WHEN source_platform LIKE '%CryptoRank%' THEN 0
                                          WHEN source_platform LIKE '%Incrypted%' THEN 1 ELSE 2 END,id DESC LIMIT ? OFFSET ?""",
                         (status,status,"%"+q[:120]+"%","%"+q[:120]+"%",int(restricted),screen,screen,limit,offset))
+        profiles={x["project_id"]:json.loads(x["body_json"]) for x in store.rows("SELECT project_id,body_json FROM project_overviews")}
+        for row in rows:
+            row["overview"]=profiles.get(row["id"])
+            row["preparation"]=store.preparation(row['id'])
         return rows
     @app.get("/api/projects/{pid}")
     def project(pid:int): return store.detail(pid)
@@ -189,6 +193,7 @@ def create_app(store=None,background=True,legacy=None):
                        LEFT JOIN projects p ON (j.kind='research' AND j.target_id=p.id)
                                             OR (j.kind='analyze' AND sn.project_id=p.id)
                        ORDER BY CASE j.state WHEN 'running' THEN 0 WHEN 'queued' THEN 1 ELSE 2 END,
+                                CASE WHEN j.state='queued' THEN CASE j.kind WHEN 'discover' THEN 0 WHEN 'analyze' THEN 1 ELSE 2 END ELSE 0 END,
                                 CASE WHEN j.state='queued' THEN j.id ELSE -j.id END LIMIT 100""")
     @app.post("/api/jobs/{jid}/retry")
     def retry_job(jid:int):

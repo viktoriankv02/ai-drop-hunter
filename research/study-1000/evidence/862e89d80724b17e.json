@@ -1,0 +1,68 @@
+{
+  "text": "JTO Airdrop Eligibility And Allocation Specifications\n\n5 minute reading time\n\nLast week the Jito Foundation announced the upcoming launch of JTO , the Jito governance token. Part of the initial allocation includes a retrospective airdrop for 10% of total supply (100,000,000 JTO) to Jito community members as a recognition of their contribution in bootstrapping the network and to facilitate robust governance participation.\n\nThis blog post aims to provide a high-level overview, followed by a detailed breakdown, of the eligibility criteria for receiving an allocation, and an explanation of the claim process.\n\nNote : The eligibility checker is live but claiming is not yet available. Jito Foundation will announce via official channels once airdrops can be redeemed. Please do not click links from any unofficial sources.\n\nAirdrop Summary\n\nToken Mint\n\nThe JTO token mint address is jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL .\n\nEligibility\n\nThe following users are eligible for the JTO airdrop:\n\nYou can verify eligibility of your Solana wallet address at jito.network/airdrop .\n\nIneligible Addresses\n\nAll previous and current core contributors are not included in the JTO airdrop. This includes any core contributor wallets holding JitoSOL, any validators operated by core contributors, and any canary searchers operated by core contributors (core contributors do not participate in MEV).\n\nAirdrop Claim Process\n\nWhen the airdrop is live, recipients can initiate the JTO token claim process at https://jito.network/airdrop . The claim page will be on the Jito Foundation website for the foreseeable future.\n\nFor airdrop recipients that would like to claim on the command line (eligible Jito-Solana validators and Jito MEV Searchers), you can leverage the CLI located at https://github.com/jito-foundation/distributor . This will be open-sourced before tokens are released for claiming and referenced in subsequent announcements.\n\nAll claimable JTO tokens will be available for 18 months, starting on the Token Generation Date. Eighteen months after Token Generation Date, unclaimed tokens will permissionlessly be transferred to the DAO treasury’s Realms wallet.\n\nJitoSOL Users – 80,000,000 JTO\n\nThe Jito Foundation is pleased to allocate 80% of the JTO airdrop for JitoSOL points holders with equal to or more than one hundred points, acknowledging their essential role in the early stages of the Jito Network's development.\n\nThe Jito Points program rankings determine eligibility for these users. The snapshot started on January 1, 2023 and ended on November 25, 2023. This enabled early participants to earn points by holding JitoSOL, engaging in DeFi activities, and referring others. To ensure a more equitable distribution, the Jito Foundation has implemented a tiered allocation system for these JTO tokens. This approach, in contrast to a linear model, is designed so that smaller holders receive a proportionally larger reward relative to their stake, thereby enabling broader participation in the Jito ecosystem governance.\n\nWallets with at least 100 Jito Points prior to Nov 25, 2023 qualified for the JTO airdrop, benefiting 9,852 unique addresses.\n\nFollowing the application of anti-sybil measures and the exclusion of all previous and current core contributors, the distribution was finalized across ten tiers, as detailed in the table below:\n\nJito-Solana Validators – 15,000,000 JTO\n\nThe token allocation for validators acknowledges their crucial role in kick-starting the network effect of the Jito-Solana client, which now operates 41% of the network-stake weight. Their willingness to embrace early operational risks (inherent with new product adoption) has been instrumental in improving the client’s technology and in strengthening the Jito Network. By holding JTO tokens, these validators will be empowered to engage in the governance of Jito's liquid staking protocol and the MEV-related ecosystem, playing a vital role in its continued improvement and future development.\n\nA total of 15,000,000 JTO has been allocated to validators that (a) operated the Jito-Solana client between epochs 366 and 536, and (b) operated the client for at least one epoch from 527 through epoch 536. The allocation is based on each validator's share of Jito-Solana total stake, calculated by equally weighting each epoch since epoch 366.\n\nThis approach gives more tokens to early and active validators who were instrumental in bootstrapping the launch of the Jito-Solana client. Validators are thus categorized into four tiers, as summarized in the table below:\n\n50% of the token allocation is available to claim at genesis, while the remaining 50% will unlock linearly over 12 months, with vesting starting on the Token Genesis Date.\n\nNote: Validators operated by core contributors were excluded from the airdrop.\n\nIn order to preserve key management best practices, Jito-Solana validators can use an open source CLI to claim tokens located at https://github.com/jito-foundation/distributor . Validators will need to sign the transaction with their identity keypair. When claiming, the JTO token will be deposited into an Associated Token Account owned by each validator’s identity. Validators can then use the spl-token program to transfer tokens to another wallet to use in governance.\n\nJito MEV Searchers – 5,000,000 JTO\n\nThe final group of users eligible for the JTO airdrop comprises searchers who have used the Jito Network’s suite of MEV programs. They were allocated a total of 5,000,000 JTO tokens in recognition of their time and invaluable feedback, which have been key in refining the MEV system. With searchers using these systems, it creates a virtuous cycle that helps Solana run more efficiently and strengthens the entire Jito Network. With a say in Jito governance, their continued contributions will further shape a more cohesive and robust Jito ecosystem.\n\nTo be eligible for the airdrop, searchers must have tipped at least 1 SOL cumulatively between epochs 366 and 536.\n\nSimilar to the approach taken with the Jito-Solana validator allocation breakdown, qualifying searcher addresses were grouped into five distinct tiers, whereby more active searchers received a larger share of this segment of the allocation.\n\n50% of the token allocation is available to claim at genesis, while the remaining 50% will unlock linearly over 12 months, with vesting starting on the Token Genesis Date.\n\nNote: MEV searcher canaries operated by core contributors were excluded from the airdrop.\n\nJito MEV searchers can leverage the CLI located at https://github.com/jito-foundation/distributor to claim their unlocked and locked tokens.\n\nDisclaimer\n\nWe strongly advise our community members to exercise caution and be wary of potential scams. Please verify the mint address matches: jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL . Always ensure any webpages related to the Jito Network that you visit have the jito.network domain. Jito Network community moderators will never message you first or ask you for personal information.\n\nKeep up with the latest from Jito Network! For more insights and conversations, join our Discord and Telegram , follow us on X , and check out the blog for ongoing updates and product information.\n\nRelated Articles\n\nAnnouncing Jito Foundation Delegates\n\n2 minute reading time\n\nCommunity call for Jito DAO Delegates\n\n4 minute reading time\n\nAirdrop Claiming Details\n\n2 minute reading time",
+  "links": [
+    {
+      "url": "https://www.jito.network/blog/jto-airdrop-eligibility-and-allocation-specifications/",
+      "label": "Skip to content"
+    },
+    {
+      "url": "https://www.jito.network/blog/",
+      "label": "Back to Blog"
+    },
+    {
+      "url": "https://www.jito.network/blog/announcing-jto-the-jito-governance-token/",
+      "label": "launch of JTO"
+    },
+    {
+      "url": "https://solscan.io/token/jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL",
+      "label": "jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL"
+    },
+    {
+      "url": "https://www.jito.network/airdrop/",
+      "label": "jito.network/airdrop"
+    },
+    {
+      "url": "https://jito.network/airdrop",
+      "label": "https://jito.network/airdrop"
+    },
+    {
+      "url": "https://github.com/jito-foundation/distributor",
+      "label": "https://github.com/jito-foundation/distributor"
+    },
+    {
+      "url": "https://www.jito.network/blog/introducing-jito-points-powering-the-jito-ecosystem/",
+      "label": "Jito Points program"
+    },
+    {
+      "url": "https://spl.solana.com/associated-token-account",
+      "label": "Associated Token Account"
+    },
+    {
+      "url": "https://discord.gg/jito",
+      "label": "Discord"
+    },
+    {
+      "url": "https://t.me/+csIgnEQMCHhiYjVh",
+      "label": "Telegram"
+    },
+    {
+      "url": "https://twitter.com/jito_sol",
+      "label": "X"
+    },
+    {
+      "url": "https://www.jito.network/blog/announcing-jito-foundation-delegates/",
+      "label": "Announcing Jito Foundation Delegates February 12, 2024 2 minute reading time"
+    },
+    {
+      "url": "https://www.jito.network/blog/community-call-for-jito-dao-delegates/",
+      "label": "Community call for Jito DAO Delegates January 24, 2024 4 minute reading time"
+    },
+    {
+      "url": "https://www.jito.network/blog/airdrop-claiming-details/",
+      "label": "Airdrop Claiming Details December 6, 2023 2 minute reading time"
+    }
+  ],
+  "truncated": false,
+  "characters_available": 7428,
+  "url": "https://www.jito.network/blog/jto-airdrop-eligibility-and-allocation-specifications/"
+}

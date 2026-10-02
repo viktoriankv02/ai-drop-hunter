@@ -1,0 +1,56 @@
+{
+  "text": "The second phase of the Season 1 EIGEN stakedrop is officially live! The addition of Phase 2 brings the total Season 1 distribution to about 113 million EIGEN . This represents 6.7% of the 15% of the total EIGEN supply set aside for stakedrops.\n\nDuring Phase 1, the EigenLayer community demonstrated a strong commitment to the project's mission by staking and delegating over 88% of their claimed EIGEN tokens. Your enthusiastic participation showcases the community's commitment to EIGEN's vision and potential. Thank you to everyone who staked!\n\nStay tuned: We will announce Season 2 distribution details in the coming weeks\n\nWhat Makes the EIGEN Token Unique?\n\nEIGEN staking complements ETH restaking on EigenLayer, enhancing the security and functionality of established and emerging protocols. ETH restaking allows ETH to secure services with objectively attributable faults, provable onchain through an optimistic dispute resolution mechanism.\n\nHowever, many digital tasks have faults that are not provable onchain but are observable by any honest observer. These are intersubjectively attributable faults. EIGEN staking aims to secure AVSs against these faults, providing a mechanism for a consensus of honest observers to penalize delegated EIGEN stake.\n\nWe call this mechanism “intersubjective forking.” Through EIGEN’s unique intersubjective forking mechanism, new types of services can be secured with cryptoeconomic guarantees, making EIGEN a powerful tool for building both more secure and more versatile digital ecosystems. EIGEN staking allows Actively Validated Services (AVS) across diverse applications, such as data availability, AI inference, and decentralized storage, to accelerate their development and better ensure the reliability of their services.\n\nTo learn more about EIGEN’s innovative design, read the full EIGEN whitepaper here .\n\nPhase 2 EIGEN Claiming\n\nYou can claim your EIGEN now!\n\nWho's Eligible: DeFi adventurers who engaged with Kelp, Pendle, Equilibrium, and other protocols before March 15, 2024. Claims remain open for Phase 1 of the EIGEN stakedrop.\n\nDeFi adventurers who engaged with Kelp, Pendle, Equilibrium, and other protocols before March 15, 2024.\n\nClaims remain open for Phase 1 of the EIGEN stakedrop.\n\nHow were the Phase 2 address allocations determined?\n\nThere was three-step process for determining individual Phase 2 address allocations:\n\nThe Eigen Foundation reserved an allocation for each LRT protocol based on its interactions with the EigenLayer protocol. For these LRT protocol allocations, we followed the same criteria as Phase 1. No penalty was applied.\n\nThe specific allocation provided for your address was determined by the relevant LRT protocol. Each LRT protocol produced its own allocation list with respect to its end users.\n\nThe Eigen Foundation conducted a sybil analysis and risk analysis to finalize the eligible addresses and their corresponding claims.\n\nClaim Window: Open now through September 7, 2024.\n\nBonus: All Season 1 users will receive the 100 EIGEN bonus, including the Phase 2 users. However, no user will receive the bonus twice.\n\nHow to Claim:\n\nVisit: claims.eigenfoundation.org\n\nFollow the instructions to claim, stake and delegate your EIGEN.\n\nImportant Details:\n\nPhase 2 Allocation: Each participating Liquid Restaking Token (LRT) project determines the distribution based on your specific interactions with their protocol. Additionally, the Eigen Foundation conducted compliance checks and Sybil detection on the LRT-provided distributions.\n\nContact: For questions regarding your eligibility or allocation, contact the LRT project(s) you interacted with.\n\nStaking & Delegating: Stake and Delegate your EIGEN to secure EigenDA and support other AVSs. EigenLayer incorporates a 24-day delay for unstaking as a security measure, due to the novel forking mechanism of EIGEN. Similar to Ethereum and other staking protocols, this delay helps enhance network security.\n\nNon-Transferable: EIGEN tokens are currently non-transferable. For more details, refer to this tweet.\n\nSeason 2\n\nWith the completion of Phase 2, Season 1 will have officially concluded! However, Season 2 is already underway, and distribution details will be shared in the coming weeks as part of ongoing additional distribution. Stay tuned!\n\nBuilding the Future Together\n\nThe Eigen Foundation remains committed to fostering a thriving ecosystem of open innovation. Our focus is on empowering the community to drive both growth and advancements within the EigenLayer ecosystem.\n\nFor more detailed information, please refer to our comprehensive FAQ or follow us on X @eigenfoundation for the latest updates.\n\nThank you for being an integral part of the EigenLayer ecosystem!\n\nLet's build the future of decentralized services together.\n\nEigen Foundation\n\nOfficial Links:\n\nEIGEN Summary Blog Post: blog.eigenlayer.xyz/eigen\n\nEIGEN Whitepaper: eigen.eigenlayer.xyz\n\nFAQ: docs.eigenfoundation.org\n\nBlog: blog.eigenfoundation.org\n\nX: @eigenfoundation\n\nWebsite: eigenfoundation.org\n\nLegal\n\nTHIS IS NOT AN OFFER TO SELL OR THE SOLICITATION OF AN OFFER TO PURCHASE ANY EIGEN, AND IS NOT AN OFFERING, ADVERTISEMENT, SOLICITATION, CONFIRMATION, STATEMENT OR ANY FINANCIAL PROMOTION THAT CAN BE CONSTRUED AS AN INVITATION OR INDUCEMENT TO ENGAGE IN ANY INVESTMENT ACTIVITY OR SIMILAR. YOU SHOULD NOT RELY ON THE CONTENT HEREIN FOR ADVICE OF ANY KIND, INCLUDING LEGAL, INVESTMENT, FINANCIAL, TAX, OR OTHER PROFESSIONAL ADVICE, AND SUCH CONTENT IS NOT A SUBSTITUTE FOR ADVICE FROM A QUALIFIED PROFESSIONAL.\n\nTHIS DOCUMENT CONTAINS HYPOTHETICAL, FORWARD-LOOKING, AND/OR PROJECTED FIGURES, WHICH ARE NOT GUARANTEED AND ARE SUBJECT TO CHANGE; ACTUAL NUMBERS MAY VARY. EIGEN FOUNDATION AND ITS SUBSIDIARIES MAKE NO REPRESENTATION OR WARRANTY, EXPRESS OR IMPLIED, AS TO THE COMPLETENESS, RELIABILITY, VALIDITY, OR ACCURACY OF THIS INFORMATION. THE CONTENT HEREIN IS NOT ERROR-FREE AND MAY CONTAIN INCORRECT INFORMATION. YOU AGREE AND ACKNOWLEDGE THAT ANY INFORMATION CONTAINED HEREIN IS SUBJECT TO CHANGE WITHOUT NOTICE. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED FROM EIGEN FOUNDATION, WILL BE CONSTRUED TO CREATE ANY WARRANTY OR REPRESENTATION NOT EXPRESSLY MADE HEREIN.\n\nFOR ADDITIONAL INFORMATION, PLEASE REFER TO EIGEN FOUNDATION’S TERMS OF SERVICE , PRIVACY POLICY , AND AIRDROP TERMS OF SERVICE .",
+  "links": [
+    {
+      "url": "https://github.com/Layr-Labs/whitepaper/blob/master/EIGEN_Token_Whitepaper.pdf?ref=blog.eigenfoundation.org",
+      "label": "full EIGEN whitepaper here"
+    },
+    {
+      "url": "https://app.eigenlayer.xyz/restake/EIGEN?ref=blog.eigenfoundation.org",
+      "label": "Stake and Delegate your EIGEN"
+    },
+    {
+      "url": "https://x.com/eigenfoundation/status/1786152862688690589?ref=blog.eigenfoundation.org",
+      "label": "this tweet."
+    },
+    {
+      "url": "https://docs.eigenfoundation.org/faq/phase-2?ref=blog.eigenfoundation.org",
+      "label": "FAQ"
+    },
+    {
+      "url": "https://x.com/eigenfoundation?ref=blog.eigenfoundation.org",
+      "label": "@eigenfoundation"
+    },
+    {
+      "url": "https://eigen.eigenlayer.xyz/?ref=blog.eigenfoundation.org",
+      "label": "eigen.eigenlayer.xyz"
+    },
+    {
+      "url": "https://blog.eigenfoundation.org/",
+      "label": "blog.eigenfoundation.org"
+    },
+    {
+      "url": "https://twitter.com/eigenfoundation?ref=blog.eigenfoundation.org",
+      "label": "@eigenfoundation"
+    },
+    {
+      "url": "https://eigenfoundation.org/?ref=blog.eigenfoundation.org",
+      "label": "eigenfoundation.org"
+    },
+    {
+      "url": "https://docs.eigenfoundation.org/legal/terms-of-service?ref=blog.eigenfoundation.org",
+      "label": "EIGEN FOUNDATION’S TERMS OF SERVICE"
+    },
+    {
+      "url": "https://docs.eigenfoundation.org/legal/privacy-policy?ref=blog.eigenfoundation.org",
+      "label": "PRIVACY POLICY"
+    },
+    {
+      "url": "https://docs.eigenfoundation.org/legal/airdrop-terms-and-conditions?ref=blog.eigenfoundation.org",
+      "label": "AIRDROP TERMS OF SERVICE"
+    }
+  ],
+  "truncated": false,
+  "characters_available": 6357,
+  "url": "https://blog.eigenfoundation.org/claims-s1-p2/"
+}

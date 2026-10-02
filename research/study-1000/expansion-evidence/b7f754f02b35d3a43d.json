@@ -1,0 +1,12 @@
+{
+  "url": "https://claim.scroll.io/?lang=en-US",
+  "retrieved_at": "2026-09-30T16:11:15.255288+00:00",
+  "content_file": "expansion-evidence\\b7f754f02b35d3a43d.json",
+  "status": "insufficient_text",
+  "http_status": 200,
+  "final_url": "https://claim.scroll.io/?lang=en-US",
+  "content_type": "text/html; charset=utf-8",
+  "text": "Scroll Airdrop Claim\nYou need to enable JavaScript to run this app.\nScroll Airdrop Claim\nThe Scroll airdrop claim is now closed\nThank you for participating in the Scroll Ecosystem. Scroll Airdrop #1 was open for 90 days and closed on Jan 20, 2025.",
+  "characters": 247,
+  "content_sha256": "2c4900a54caf8b47cf68c923f42fb0c2f33a0ff798433782119a5c3784d1e518"
+}

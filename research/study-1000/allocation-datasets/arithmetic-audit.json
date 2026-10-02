@@ -1,0 +1,34 @@
+[
+  {
+    "project": "ParaSwap",
+    "source_file": "allocation-datasets\\paraswap-users.json",
+    "sha256": "2440ca548cfeb4b76d8b027a6574e0a772d6b3680230fb371205309d6af2952d",
+    "rows": 19999,
+    "unique_addresses": 19999,
+    "duplicate_address_rows": 0,
+    "positive_allocations": 19999,
+    "zero_allocations": 0,
+    "amount_column": "earnings",
+    "total_base_units": "149843200000000000000000000",
+    "token_decimals_verified": false,
+    "token_total": null,
+    "payout_verified": false,
+    "meaning": "published allocation list, not executed claims"
+  },
+  {
+    "project": "Hop Protocol",
+    "source_file": "allocation-datasets\\hop-finalDistribution.csv",
+    "sha256": "186189d8ac873eb686b64fc91f630fa453c90341a22c32b45f32da7e30d6d028",
+    "rows": 145329,
+    "unique_addresses": 145329,
+    "duplicate_address_rows": 0,
+    "positive_allocations": 145329,
+    "zero_allocations": 0,
+    "amount_column": "totalTokens",
+    "total_base_units": "52630280986686704802030999",
+    "token_decimals_verified": false,
+    "token_total": null,
+    "payout_verified": false,
+    "meaning": "published allocation list, not executed claims"
+  }
+]

@@ -1,0 +1,184 @@
+{
+  "text": "Announcements\n\n·\n\nNov 1, 2023\n\nPyth Retrospective Airdrop: Eligibility Requirements\n\nPyth Network’s Retrospective Airdrop rewards over 90,000 wallets for activity across 27 blockchains & 200 dApps, fostering oracle growth.\n\nThe Pyth Network Retrospective Airdrop was announced on November 1, 2023. This airdrop program will deliver PYTH Tokens to a number of stakeholders throughout the Pyth Network ecosystem.\n\nThis airdrop program is, to our knowledge, the largest of its kind. More than 90,000 wallets will be eligible to receive PYTH Tokens based on their on-chain activity on 27 blockchains and more than 200 decentralized applications. We remain committed to fostering a vibrant oracle ecosystem.\n\nThe categories of eligible recipients for an airdrop allocation:\n\nActive DeFi participants who have interacted with decentralized applications that use Pyth data\n\nActive community members who participated in the network’s social media channels\n\nDecentralized applications that use the Pyth Network\n\nThe allocation amounts for DeFi participants are calculated according to their on-chain activity with dApps using Pyth data.\n\nThe allocation amounts for community members are based on specific social criteria: holding special roles in the official Discord server, holding Pyth NFTs, and becoming an outperforming member of one of the official Pyth Network Ambassador Programs.\n\nAirdrop allocations for decentralized applications that use Pyth Network’s data are based on the number of oracle calls made to the Pyth Network.\n\nThis technical blog post will delve into the criteria for DeFi participants and community members. Details about allocations for the decentralized applications will be discussed in due course.\n\nUpdate: November 1, 2023: A small patch for the UI for EVM wallets was added. Please feel free to re-connect your EVM wallets again to check eligibility.\n\nOn-Chain Activity Specifications\n\nDeFi Participants —The snapshot for individuals’ on-chain activity with decentralized applications that use Pyth Network’s data was on Sep 1, 2023. At the time of snapshot, Pyth Price Feeds were active on 27 blockchains. Frequent users of decentralized apps on these blockchains became eligible for an airdrop allocation based on their amount of on-chain activity. On-chain interactions with dApps were analyzed and assigned allocation amounts as follows:\n\nOn-chain interactions with the Pyth contracts and consumer contracts on each chain were analyzed. This set of wallets was then significantly reduced by applying anti-Sybil analysis techniques. The exact techniques used are not described.\n\nRemoving wallets based on existing blacklists resulted in a set of 73,815 unique address-chain combinations. Within each blockchain ecosystem, wallets were ranked by the number of interactions with the Pyth Network and were divided into three buckets, each consisting of approximately 33% of the total. Similarly indexed buckets were combined across chains to yield three overall buckets of users.\n\nThe total allocation of 200 million tokens to DeFi users was split across these buckets as follows: 55% to the top third, 30% to the middle third, and 15% to the final third.\n\nThe splitting process resulted in buckets of wallet addresses with [27163, 27581, 20333] addresses across the three buckets. Based on the allocation split across the buckets of eligible addresses, a per-address allocation of [4049, 2175, 1475] PYTH tokens was arrived at for the three buckets.\n\nTo become eligible for one of the buckets, an individual would have to have surpassed a specific number of transactions depending on the blockchain. Each blockchain has a different threshold for transaction count, with less active chains generally having a lower threshold count of transactions needed. For example, the cutoff for the top and middle buckets for Solana is 26 and 8 respectively, compared to 5 and 2 for BNB Chain.\n\nCommunity Activity Specifications\n\nCommunity Members —Community activity criteria are defined as one of the following: holding a special role in the official Pyth Network Discord server, holding a Pyth Network NFT, or becoming an outperforming member of one of the official Ambassador Programs. The snapshot for holding a special Discord role or qualifying NFT was on October 25, 2023.\n\nCommunity activity was captured via a global snapshot of SPL wallets. Transferring NFTs before or after the snapshot therefore cannot make new wallet addresses eligible for the airdrop program.\n\nSafety Notice\n\nReaders are strongly advised to exercise caution and be wary of potential scams. Always ensure that any webpages related to the Pyth Network that you visit have the pyth.network domain. Similarly, please verify that any Pyth Network social media channels you visit are listed in the official community hub . Official Pyth Network community moderators will never message you first or ask you for personal information. You can learn more about the airdrop program from the Pyth Network Retrospective Airdrop page .\n\nWe can’t wait to hear what you think! Feel free to join the Pyth Discord and Telegram , and follow Pyth on X . You can also learn more about Pyth here . You can find bug bounty details for Pyth here .\n\nThe Pyth Network Retrospective Airdrop was announced on November 1, 2023. This airdrop program will deliver PYTH Tokens to a number of stakeholders throughout the Pyth Network ecosystem.\n\nThis airdrop program is, to our knowledge, the largest of its kind. More than 90,000 wallets will be eligible to receive PYTH Tokens based on their on-chain activity on 27 blockchains and more than 200 decentralized applications. We remain committed to fostering a vibrant oracle ecosystem.\n\nThe categories of el\n\nRead next\n\nView all\n\nInstitutions on Pyth: Building the Price of Everything, Everywhere\n\nBeyond the Trading Session\n\nComing Soon: Corporate-Action Data for US Equities on Pyth\n\nInstitutions on Pyth: Building the Price of Everything, Everywhere\n\nBeyond the Trading Session\n\nThe Price of Everything\n\nSubscribe for weekly updates on the markets, data, and infrastructure shaping internet-native finance.\n\nPrice Feeds\n\nPyth Pro\n\nPyth Indices\n\nData Marketplace\n\nPricing\n\nPublishers\n\nUsers\n\nSuccess Stories\n\nFinancial Institutions\n\nPrediction Markets\n\nCrypto\n\nAI\n\nPyth Terminal\n\nStaking\n\nNetwork KPIs\n\nDAO Forum\n\nDocumentation\n\nAPI Reference\n\nTutorials\n\nBlog\n\nNewsroom\n\nPodcasts\n\nEvents\n\nAbout\n\nLegal\n\nPrivacy Policy\n\nTerms of Use\n\n© 2026 Pyth Data Association\n\nWhere indicated, certain buttons or links on this website may direct you to third-party services. Any such services are provided by the relevant third party, not by Pyth Data Association, and are not intended for consumers. Separate terms and conditions apply.\n\nThe Price of Everything\n\nSubscribe for weekly updates on the markets, data, and infrastructure shaping internet-native finance.\n\nPrice Feeds\n\nPyth Pro\n\nPyth Indices\n\nData Marketplace\n\nPricing\n\nPublishers\n\nUsers\n\nSuccess Stories\n\nFinancial Institutions\n\nPrediction Markets\n\nCrypto\n\nAI\n\nPyth Terminal\n\nStaking\n\nNetwork KPIs\n\nDAO Forum\n\nDocumentation\n\nAPI Reference\n\nTutorials\n\nBlog\n\nNewsroom\n\nPodcasts\n\nEvents\n\nAbout\n\nLegal\n\nPrivacy Policy\n\nTerms of Use\n\n© 2026 Pyth Data Association\n\nWhere indicated, certain buttons or links on this website may direct you to third-party services. Any such services are provided by the relevant third party, not by Pyth Data Association, and are not intended for consumers. Separate terms and conditions apply.\n\nThe Price of Everything\n\nSubscribe for weekly updates on the markets, data, and infrastructure shaping internet-native finance.\n\nPrice Feeds\n\nPyth Pro\n\nPyth Indices\n\nData Marketplace\n\nPricing\n\nPublishers\n\nUsers\n\nSuccess Stories\n\nFinancial Institutions\n\nPrediction Markets\n\nCrypto\n\nAI\n\nPyth Terminal\n\nStaking\n\nNetwork KPIs\n\nDAO Forum\n\nDocumentation\n\nAPI Reference\n\nTutorials\n\nBlog\n\nNewsroom\n\nPodcasts\n\nEvents\n\nAbout\n\nLegal\n\nPrivacy Policy\n\nTerms of Use\n\n© 2026 Pyth Data Association\n\nWhere indicated, certain buttons or links on this website may direct you to third-party services. Any such services are provided by the relevant third party, not by Pyth Data Association, and are not intended for consumers. Separate terms and conditions apply.",
+  "links": [
+    {
+      "url": "https://pyth.network/blog/pyth-network-retrospective-airdrop?ref=pyth-network.ghost.io",
+      "label": "Pyth Network Retrospective Airdrop"
+    },
+    {
+      "url": "https://pyth.network/?ref=pyth-network.ghost.io",
+      "label": "pyth.network"
+    },
+    {
+      "url": "https://pyth.network/community?ref=pyth-network.ghost.io",
+      "label": "community hub"
+    },
+    {
+      "url": "https://pyth.network/airdrop?ref=pyth-network.ghost.io",
+      "label": "Pyth Network Retrospective Airdrop page"
+    },
+    {
+      "url": "https://discord.gg/PythNetwork?ref=pyth-network.ghost.io",
+      "label": "Discord"
+    },
+    {
+      "url": "https://t.me/Pyth_Network?ref=pyth-network.ghost.io",
+      "label": "Telegram"
+    },
+    {
+      "url": "https://twitter.com/PythNetwork?ref=pyth-network.ghost.io",
+      "label": "X"
+    },
+    {
+      "url": "https://linktr.ee/PythNetwork?ref=pyth-network.ghost.io",
+      "label": "here"
+    },
+    {
+      "url": "https://pyth.network/bounty?ref=pyth-network.ghost.io",
+      "label": "here"
+    },
+    {
+      "url": "https://www.pyth.network/blog",
+      "label": "View all"
+    },
+    {
+      "url": "https://www.pyth.network/blog/institutions-on-pyth-building-the-price-of-everything-everywhere",
+      "label": "Institutions on Pyth: Building the Price of Everything, Everywhere Institutions on Pyth: Building the Price of Everything, Everywhere"
+    },
+    {
+      "url": "https://www.pyth.network/blog/beyond-the-trading-session",
+      "label": "Beyond the Trading Session Beyond the Trading Session"
+    },
+    {
+      "url": "https://www.pyth.network/blog/coming-soon-corporate-action-data-for-us-equities-on-pyth",
+      "label": "Coming Soon: Corporate-Action Data for US Equities on Pyth Coming Soon: Corporate-Action Data for US Equities on Pyth"
+    },
+    {
+      "url": "https://www.discord.com/invite/PythNetwork",
+      "label": ""
+    },
+    {
+      "url": "https://www.instagram.com/pyth_network/",
+      "label": ""
+    },
+    {
+      "url": "https://www.linkedin.com/company/pyth-network/home/?viewAsMember=true",
+      "label": ""
+    },
+    {
+      "url": "https://www.x.com/PythNetwork",
+      "label": ""
+    },
+    {
+      "url": "https://www.pyth.network/price-feeds",
+      "label": "Price Feeds"
+    },
+    {
+      "url": "https://app.pyth.com/?utm_source=pyth_website&utm_medium=website&utm_campaign=pythpro",
+      "label": "Pyth Pro"
+    },
+    {
+      "url": "https://www.pyth.network/indices",
+      "label": "Pyth Indices"
+    },
+    {
+      "url": "https://www.pyth.network/marketplace",
+      "label": "Data Marketplace"
+    },
+    {
+      "url": "https://app.pyth.com/plans",
+      "label": "Pricing"
+    },
+    {
+      "url": "https://www.pyth.network/publishers",
+      "label": "Publishers"
+    },
+    {
+      "url": "https://www.pyth.network/users",
+      "label": "Users"
+    },
+    {
+      "url": "https://www.pyth.network/success-stories",
+      "label": "Success Stories"
+    },
+    {
+      "url": "https://www.pyth.network/institutions",
+      "label": "Financial Institutions"
+    },
+    {
+      "url": "https://www.pyth.network/prediction-markets",
+      "label": "Prediction Markets"
+    },
+    {
+      "url": "https://www.pyth.network/crypto",
+      "label": "Crypto"
+    },
+    {
+      "url": "https://www.pyth.network/ai",
+      "label": "AI"
+    },
+    {
+      "url": "https://app.pyth.com/",
+      "label": "Pyth Terminal"
+    },
+    {
+      "url": "https://staking.pyth.network/",
+      "label": "Staking"
+    },
+    {
+      "url": "https://kpi.pyth.network/",
+      "label": "Network KPIs"
+    },
+    {
+      "url": "https://forum.pyth.network/",
+      "label": "DAO Forum"
+    },
+    {
+      "url": "https://docs.pyth.network/",
+      "label": "Documentation"
+    },
+    {
+      "url": "https://api-reference.pyth.network/price-feeds/evm/getPriceNoOlderThan",
+      "label": "API Reference"
+    },
+    {
+      "url": "https://docs.pyth.network/price-feeds/create-your-first-pyth-app",
+      "label": "Tutorials"
+    },
+    {
+      "url": "https://www.pyth.network/newsroom",
+      "label": "Newsroom"
+    },
+    {
+      "url": "https://www.pyth.network/podcasts",
+      "label": "Podcasts"
+    },
+    {
+      "url": "https://www.pyth.network/events",
+      "label": "Events"
+    },
+    {
+      "url": "https://www.pyth.network/about",
+      "label": "About"
+    },
+    {
+      "url": "https://www.pyth.network/legal",
+      "label": "Legal"
+    },
+    {
+      "url": "https://www.pyth.network/legal/privacy-policy",
+      "label": "Privacy Policy"
+    },
+    {
+      "url": "https://www.pyth.network/legal/terms-conditions",
+      "label": "Terms of Use"
+    },
+    {
+      "url": "https://www.pyth.network/",
+      "label": ""
+    }
+  ],
+  "truncated": false,
+  "characters_available": 8229,
+  "url": "https://www.pyth.network/blog/pyth-network-retrospective-airdrop-eligibility-and-distribution-specifications"
+}

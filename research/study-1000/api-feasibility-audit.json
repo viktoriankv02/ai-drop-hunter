@@ -1,0 +1,11 @@
+{
+  "as_of": "2026-09-28",
+  "map_records": 39435,
+  "traded_sample_records": 1000,
+  "sample_is_requested_study": false,
+  "reason": "Traded asset != unique project launched within the research window. Available API sample lacks launch date and campaign requirements. createdAt is not used as a launch date.",
+  "control_project": "Uniswap",
+  "control_metadata_has_launch_date": false,
+  "control_metadata_has_reward_requirements": false,
+  "completion_status": "incomplete"
+}

@@ -1,0 +1,252 @@
+{
+  "url": "https://blog.availproject.org/avails-unification-drop/",
+  "resolved_url": "https://blog.availproject.org/avails-unification-drop/",
+  "text": "Read summarised version with\nChatGPT\nClaude\nPerplexity\nGoogle AI\nUpdated 15th May 2024\n,\n16:00 UTC:\nPhase 2 has now ended.\nUpdated 7th May 2024:\nPhase 2 of the Unification Drop is now live.\nClick here to learn more\n.\nUpdated 11:59pm GMT, 4th May 2024:\nPhase 1 of the Unification Drop claim has now ended. Addresses that were eligible in Phase 1 can no longer claim. More details on Phase 2 will be released very soon.\nToday rollups are sowing the seeds for the next evolution of blockchain technology, bringing with them a new wave of challenges that need to be resolved. Due to the efforts of pioneers from all corners of the ecosystem and Avail’s highly vetted team, a comprehensive solution to rollup security, scalability and interoperability is possible, unlocking a new phase for blockchain technology.\nTo express gratitude to those who have laid a solid foundation for the entire ecosystem, as well as those who have helped Avail get to where it is today,\nAvail is announcing the Unification Drop with a 600 Million AVAIL allocation!\nThe Unification Drop is a unifying force bringing different communities together, rewarding developers, governance contributors, technical educators, rollup users, stakers and other valuable contributors from across multiple blockchain communities.\nPlease note:\nclaim.availproject.org\nis the only way to access the Avail Claims Portal. Please make sure this is the\nonly URL\nyou are using to access the claims portal. Be aware of phishing attempts and unofficial links. Only follow links that are hosted on the\navailproject.org\ndomain.\nWhat is Avail?\nTechnical constraints have made it hard for different ecosystems to cross-pollinate and leverage each other’s core strengths. Advancements in one ecosystem don’t always translate to advancements in the other, however with Avail’s unification layer this becomes possible.\nSince 2020, Avail has been developing an unprecedented solution to\nthe data availability problem\n, resolving inescapable challenges facing rollup scalability.\nAvail DA\nscales rollups exponentially using\nKZG commitments\nand\nData Availability Sampling\n, implementing the same solutions earmarked for Ethereum’s Danksharding roadmap. However, addressing rollup scalability necessitates the question of how rollups will interoperate.\nLeveraging the unique characteristics of Avail DA,\nAvail Nexus\nprovides a permissionless coordination hub where cross-chain complexity gets abstracted away from end users, giving developers the ability to offer bridgeless cross-chain experiences to their users. With Nexus, comprehensive multi-step transactions can be achieved with a smooth user experience.\nImportantly, the unification layer must be extremely secure.\nAvail Fusion\nextends re-staking to incorporate multiple assets such as ETH, BTC and others, to provide strong, unified security.\nThe Avail utility token, '\nAVAIL\n' is the native utility token of the Avail Network, powering Avail DA, Nexus and Fusion and the\nunification of web3\n. It’s used to obtain Avail DA services, secure the unification layer via staking and take part in governance.\nEligibility Overview - Avail’s Unification Drop\nAvail is providing innovative core rollup infrastructure for the whole community to utilize. Avail began inside Polygon Labs and later became a fully-fledged, independent entity, led by former Polygon co-founder\nAnurag Arjun\nand research lead\nPrabal Banerjee\n. When deciding on the eligibility criteria for the Unification Drop, we wanted to reward those who are making valuable contributions to the ecosystem, and take building core blockchain infrastructure as seriously as we do. In doing so, a lot of effort has gone into making sure the airdrop reflected these core values:\nHigh Impact\n- How much of an impact have these contributions made to the blockchain community?\nHigh Quality\n- How have these efforts contributed positively towards the ecosystem’s development?\nHigh Engagement\n- How much time has gone into developing these ecosystems and communities?\nAdditionally, Sybil detection methodologies have been implemented to identify and prevent exploitation, where one actor operates multiple wallets with help from\nOpenBlock Labs\n.\nA total of 354,605 wallet addresses are eligible to receive AVAIL when Avail DA launches on Mainnet soon; this does not include the 10,000 wallets eligible for an\nAvail OG NFT\n.\nEligible Categories for the Unification Drop\nBlockchain Ecosystem Developers\nIncentivised Testnet Contributors\nRollup Users\nPolygon PoS Stakers\nSignificant Community Contributors\nYou can verify your claim from today until the cut-off date, 11:59pm GMT 4th May 2024. Please note, you need to verify your AVAIL claim by going to\nclaim.availproject.org\nand following the claims process. AVAIL will be allocated when Avail DA launches on mainnet. You can verify for each category you are eligible.\nPlease see below for more details on how these categories were selected and the eligibility criteria for each.\nBlockchain Ecosystem Developers\nDevelopers across the entire blockchain ecosystem have been working for years to build and scale public blockchains to improve the decentralized coordination of people all around the world. If it weren’t for the contributions made by developers who have helped push the technology forward, the pioneering work from the Avail Team that pushes things even further, wouldn’t have been possible.\nUnification of web3 requires unification to happen at the most fundamental level. This includes\nBitcoin\n,\nEthereum\n,\nSolana\n,\nCosmos\n,\nAvalanche\n,\nNear\nand others who have each made unique contributions to the  blockchain ecosystem.\nAs a show of thanks to the thousands of Blockchain Ecosystem Developers who have contributed significant work, AVAIL has been made available to eligible addresses of Github accounts that contributed to the public repos of projects in the graphic below. See the\nfull list here\n.\nNote - Blockchain Ecosystem Developers will need to connect a Github and Avail account to the Claims Portal. Follow this tutorial to\nset up an Avail Account\n.\nIncentivised Testnet Contributors\nAvail has been strengthened through intensive testing and Clash of Nodes provided the perfect battleground for this. Over 87,000 accounts contributed to the Goldberg Testnet which processed more than 118 million transactions.\nDuring the testing phase alone, Avail DA facilitated enough data submissions to\nsatisfy the demands of almost all the L2s in 2023\n(140 GB)\n.\nWhen it comes to mainnet, performance and reliability are key to providing the best infra possible. To reward those running the most reliable infrastructure, building high performing rollups and submitting copious amounts of data to Avail DA, AVAIL has been allocated to eligible addresses. Clash of Nodes participants can verify their claims now based on their position on the\nleaderboard\n.\nLight Client Lift-off participants also put Avail’s\nLight Client Network\nto the test with almost 1 million total light clients during the challenge period. 50,000 of the top performing light client operators have been randomly selected for AVAIL rewards. Gold, Silver and Bronze\nAvail OG NFTs\nhave also been allocated to an additional 10,000 top performing Light Client operators, weighted by uptime, and will be foundational in establishing the NFT community on Avail.\nIndividuals operating rollups on the incentivized testnet in the Dymension and Madara ecosystems are eligible to claim rewards. Thousands of developers created rollups in these ecosystems, and earned points on the Clash of Nodes leaderboards. If you created a Dymension RollApp or Madara app chain, be sure to check eligibility.\nRollup Users\nRollups are an incredible scaling unlock for the entire ecosystem, however without active users, these rollups would not have been able to show the impact they can have to the world.\nAvail is pushing the boundaries in rollup infrastructure, with a focus on solving core technical challenges facing rollup scalability, interoperability and security. With the future of blockchain technology converging on rollups as a solution to blockchain scalability challenges, we wanted to express gratitude to the most pioneering rollup users shaping the future of blockchain technology.\nFor this category, we have focussed on leading rollups that have made unique contributions to the open source community. To show our gratitude to the users who helped make the rollup ecosystem what it is today, AVAIL has been made available to eligible wallets on\nArbitrum One\n,\nOP Mainnet\n,\nPolygon zkEVM\n,\nStarknet\nand\nzkSync era\n.\nExtensive efforts have gone into identifying and excluding Sybil and Sybil-connected wallets with the help of OpenBlock Labs. This included activities such as analyzing first funding transactions, asset transfer graphs, community detection algorithms, the identification of Sybil structures and statistical analysis of wallet groups within communities. The snapshot was taken on March 31, 2024.\nPolygon PoS Stakers\nPolygon played a very important role in the early days of Avail’s inception. Avail began inside Polygon Labs in 2020 and later became an independent entity, led by former Polygon co-founder\nAnurag Arjun\nand research lead\nPrabal Banerjee\n. Avail is thrilled to now be contributing back to the ecosystem that helped kick start Avail with the Unification Drop by rewarding Polygon PoS stakers. A snapshot was taken March 31, 2024.\nSignificant Community Contributors\nA lot of important contributors can sometimes go by unnoticed. If it weren’t for those participating in governance to help shape the future direction of key protocols, or the ones who monitor and educate others about key developments in core technologies, the ecosystem wouldn’t be where it is today. Those who help to resolve community queries and distill knowledge for others within the Avail community also play a vital role.\nTo reward those helping shape the future of decentralized governance, rewards have been allocated to various contributors including prominent academic institutions and individual contributors. The recognition of active governance contributors is a pivotal step towards fostering collaboration, innovation, and community growth within the blockchain ecosystem. By leveraging data-driven methodologies and inclusive selection criteria, we aim to empower and incentivize continued participation in governance processes, thereby driving positive impact and progress across decentralized networks.\nPhase 2\nPhase 2 of the Unification Drop is now under way, extending claims for the Unification Drop. You can verify your claim for Phase 2 from today until the cut-off date. The cut-off date\n12th May 2024\n,\n16:00 UTC\nhas been extended to\n15th May 2024\n,\n16:00 UTC.\nTo see if you’re eligible for Phase 2, head to\nclaim.availproject.org\nEligible Categories for Phase 2\nClash of Nodes Participants\nLiquid Staking Protocol Users for Polygon PoS\nBlockchain Ecosystem Developers\nClash of Nodes Participants\nClash of Nodes participants played a vital role in battle testing the Avail network and\nas promised\n, an increased number of Clash of Nodes participants are now eligible to verify their claim in Phase 2 of Avail’s Unification Drop!\nA massive 37k+ more Clash of Nodes participants are eligible to verify their claim for Phase 2, including the Circuit Breaker hackathon winners that received Clash of Nodes points and many of the participants that placed on the Clash of Nodes leaderboard. To verify your claim, go to the claims portal now.\nThe amount of AVAIL allocated to Clash of Nodes participants in Phase 1 has also been increased. No action is required for these accounts and AVAIL tokens claimed during Phase 1 will be distributed shortly. In total, 60 Million AVAIL has now been allocated to Clash of Nodes participants, and 89.5 Million AVAIL to the ​​Incentivised Testnet Contributors category overall.\nLiquid Staking Protocol Users for Polygon PoS\nPolygon has played an important role in Avail’s inception. Using the same qualifying criteria as Phase 1, we’re now also rewarding some LST holders for Phase 2.\n6.9 Million AVAIL has been allocated to eligible addresses of 12k+ liquid staking protocol users from the following providers:\nLido\nStader\nTenderize\nClaystack\nTruFin\nBlockchain Ecosystem Developers\nAdditionally, 18 Github repos are now included in Phase 2. See the\nlist of eligible Github repos\nfor Phase 2.\nFuture Activities\nThis is just the beginning. The Unification Points Program will reward the community for their contribution, education, and participation with Avail and the broader rollup community. The program will incentivize apps or rollups that support the Avail ecosystem, and more.\nIf you weren’t eligible today - join us on\nX\n,\nDiscord\nand\nTelegram\nto stay informed for upcoming programs coming soon.\nVerify your AVAIL claim now!\nTo check your eligibility, review the\nMainnet Terms & Conditions\nand the\nSupplemental Airdrop Terms & Conditions\nand verify your claim for AVAIL Tokens by going to\nclaim.availproject.org\n. If you’re not sure how to claim, check the\nAvail Unification Drop Claims Tutorial\n. You’ll also need to\nset up an Avail account\nif you haven’t already.\nPlease note that not all addresses are eligible for the claim, see the eligibility criteria and exclusions above. However, if you believe you are eligible for the claim and you are having trouble with the claims portal, you can submit a query via the feedback form here (form is no longer active).\nAVAIL will be airdropped when Avail DA Mainnet launches to qualifying addresses that successfully complete their claim verification, before the cut-off date.\nWe’d like to thank\nthe team\nat\nOpenBlock\nLabs, a data intelligence platform, for their contribution to data analysis and extraction.\nSafety Notice and Important Warnings\nUsers and readers are advised to be cautious and remain vigilant against potential scams. Verifying that any webpage linked to Avail is hosted under the\navailproject.org\ndomain is crucial to staying safe from scams and phishing attempts. All official community and social channels are also listed on official web pages. Avail-affiliated moderators and team members will never reach out to you first or solicit any kind of personal information.\nTHIS IS NOT AN OFFER TO SELL OR THE SOLICITATION OF AN OFFER TO PURCHASE ANY AVAIL, AND IS NOT AN OFFERING, ADVERTISEMENT, SOLICITATION, CONFIRMATION, STATEMENT OR ANY FINANCIAL PROMOTION THAT CAN BE CONSTRUED AS AN INVITATION OR INDUCEMENT TO ENGAGE IN ANY INVESTMENT ACTIVITY OR SIMILAR. YOU SHOULD NOT RELY ON THE CONTENT HEREIN FOR ADVICE OF ANY KIND, INCLUDING LEGAL, INVESTMENT, FINANCIAL, TAX OR OTHER PROFESSIONAL ADVICE, AND SUCH CONTENT IS NOT A SUBSTITUTE FOR ADVICE FROM A QUALIFIED PROFESSIONAL.\nTHIS DOCUMENT MAY CONTAIN HYPOTHETICAL, FORWARD-LOOKING AND/OR PROJECTED FIGURES WHICH ARE NOT GUARANTEED AND ARE SUBJECT TO CHANGE; ACTUAL NUMBERS MAY VARY. THE EVENTUAL AMOUNTS AND WALLETS THAT THE TOKENS WILL BE DISTRIBUTED TO WILL BE IN ACCORDANCE WITH ELIGIBILITY CRITERIA AS SET BY AVAIL AND ITS PARTNERS. AVAIL MAKES NO REPRESENTATION OR WARRANTY, EXPRESS OR IMPLIED, AS TO THE COMPLETENESS, RELIABILITY, VALIDITY, OR ACCURACY OF THIS INFORMATION. THE CONTENT HEREIN IS NOT ERROR-FREE AND MAY CONTAIN INCORRECT INFORMATION. YOU AGREE AND ACKNOWLEDGE THAT ANY INFORMATION CONTAINED HEREIN IS SUBJECT TO CHANGE WITHOUT NOTICE. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED FROM AVAIL, WILL BE CONSTRUED TO CREATE ANY WARRANTY OR REPRESENTATION NOT EXPRESSLY MADE HEREIN. FOR ADDITIONAL INFORMATION, PLEASE REFER TO THE\nMAINNET TERMS & CONDITIONS\nAND THE SUPPLEMENTAL\nAIRDROP TERMS & CONDITIONS\n.\nNews\nAVAIL Token\nShare with friends\nLink copied\nPosted by\nAnurag Arjun",
+  "links": [
+    {
+      "text": "ChatGPT",
+      "url": "https://chatgpt.com/?prompt=Visit+this+URL+and+summarize+this+post+for+me%3A+https%3A%2F%2Fblog.availproject.org%2Favails-unification-drop%2F"
+    },
+    {
+      "text": "Claude",
+      "url": "https://claude.ai/new?q=Analyze+and+summarize+this+article%3A+https%3A%2F%2Fblog.availproject.org%2Favails-unification-drop%2F"
+    },
+    {
+      "text": "Perplexity",
+      "url": "https://www.perplexity.ai/search/new?q=Summarize+this+article%3A+https%3A%2F%2Fblog.availproject.org%2Favails-unification-drop%2F"
+    },
+    {
+      "text": "Google AI",
+      "url": "https://www.google.com/search?udm=50&q=Summarize+this+article%3A+https%3A%2F%2Fblog.availproject.org%2Favails-unification-drop%2F"
+    },
+    {
+      "text": "Click here to learn more",
+      "url": "https://blog.availproject.org/avails-unification-drop/#phase-2"
+    },
+    {
+      "text": "the data availability problem",
+      "url": "https://blog.availproject.org/data-availability-what-is-it/"
+    },
+    {
+      "text": "Avail DA",
+      "url": "https://blog.availproject.org/the-avail-vision-accelerating-the-unification-of-web3/#avail-da"
+    },
+    {
+      "text": "KZG commitments",
+      "url": "https://docs.availproject.org/docs/faqs?ref=blog.availproject.org#what-are-kzg-commitments"
+    },
+    {
+      "text": "Data Availability Sampling",
+      "url": "https://blog.availproject.org/avails-core-features-explained/#data-availability-sampling-das"
+    },
+    {
+      "text": "Avail Nexus",
+      "url": "https://blog.availproject.org/the-avail-vision-accelerating-the-unification-of-web3/#avail-nexus"
+    },
+    {
+      "text": "Avail Fusion",
+      "url": "https://blog.availproject.org/the-avail-vision-accelerating-the-unification-of-web3/#avail-fusion"
+    },
+    {
+      "text": "AVAIL",
+      "url": "https://blog.availproject.org/avail-the-token-powering-blockchain-unification/"
+    },
+    {
+      "text": "unification of web3",
+      "url": "https://blog.availproject.org/the-avail-vision-accelerating-the-unification-of-web3/"
+    },
+    {
+      "text": "Anurag Arjun",
+      "url": "https://twitter.com/anuragarjun?ref=blog.availproject.org"
+    },
+    {
+      "text": "Prabal Banerjee",
+      "url": "https://twitter.com/prabalbanerjee?ref=blog.availproject.org"
+    },
+    {
+      "text": "OpenBlock Labs",
+      "url": "https://www.openblocklabs.com/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Blockchain Ecosystem Developers",
+      "url": "https://blog.availproject.org/avails-unification-drop/#blockchain-ecosystem-developers"
+    },
+    {
+      "text": "Incentivised Testnet Contributors",
+      "url": "https://blog.availproject.org/avails-unification-drop/#incentivised-testnet-contributors"
+    },
+    {
+      "text": "Rollup Users",
+      "url": "https://blog.availproject.org/avails-unification-drop/#rollup-users"
+    },
+    {
+      "text": "Polygon PoS Stakers",
+      "url": "https://blog.availproject.org/avails-unification-drop/#polygon-pos-stakers"
+    },
+    {
+      "text": "Significant Community Contributors",
+      "url": "https://blog.availproject.org/avails-unification-drop/#significant-community-contributors"
+    },
+    {
+      "text": "Bitcoin",
+      "url": "https://bitcoin.org/en/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Ethereum",
+      "url": "https://ethereum.org/en/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Solana",
+      "url": "https://solana.com/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Cosmos",
+      "url": "https://cosmos.network/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Avalanche",
+      "url": "https://www.avax.network/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Near",
+      "url": "https://near.org/?ref=blog.availproject.org"
+    },
+    {
+      "text": "full list here",
+      "url": "https://docs.google.com/spreadsheets/d/1ju4svzoWbadKZnLiDgQiqgBRVCjqCrSzkpHRtoHEwSs/edit?usp=sharing&ref=blog.availproject.org"
+    },
+    {
+      "text": "set up an Avail Account",
+      "url": "https://docs.availproject.org/docs/end-user-guide/accounts?ref=blog.availproject.org"
+    },
+    {
+      "text": "satisfy the demands of almost all the L2s in 2023",
+      "url": "https://dune.com/jakeschaeffer/blockspace?ref=blog.availproject.org"
+    },
+    {
+      "text": "leaderboard",
+      "url": "https://twitter.com/AvailProject/status/1760888704015708267?ref=blog.availproject.org"
+    },
+    {
+      "text": "Light Client Network",
+      "url": "https://blog.availproject.org/avails-core-features-explained/#light-clients"
+    },
+    {
+      "text": "Arbitrum One",
+      "url": "https://arbitrum.io/?ref=blog.availproject.org"
+    },
+    {
+      "text": "OP Mainnet",
+      "url": "https://www.optimism.io/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Polygon zkEVM",
+      "url": "https://polygon.technology/polygon-zkevm?ref=blog.availproject.org"
+    },
+    {
+      "text": "Starknet",
+      "url": "https://www.starknet.io/en?ref=blog.availproject.org"
+    },
+    {
+      "text": "zkSync era",
+      "url": "https://zksync.io/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Anurag Arjun",
+      "url": "https://twitter.com/anuragarjun?ref=blog.availproject.org"
+    },
+    {
+      "text": "Prabal Banerjee",
+      "url": "https://twitter.com/prabalbanerjee?ref=blog.availproject.org"
+    },
+    {
+      "text": "claim.availproject.org",
+      "url": "https://claim.availproject.org/?ref=blog.availproject.org"
+    },
+    {
+      "text": "as promised",
+      "url": "https://twitter.com/prabalbanerjee/status/1782856309924049355?ref=blog.availproject.org"
+    },
+    {
+      "text": "Lido",
+      "url": "https://lido.fi/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Stader",
+      "url": "https://www.staderlabs.com/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Tenderize",
+      "url": "https://www.tenderize.me/?ref=blog.availproject.org"
+    },
+    {
+      "text": "Claystack",
+      "url": "https://claystack.com/?ref=blog.availproject.org"
+    },
+    {
+      "text": "TruFin",
+      "url": "https://trufin.io/?ref=blog.availproject.org"
+    },
+    {
+      "text": "list of eligible Github repos",
+      "url": "https://docs.google.com/spreadsheets/d/1ju4svzoWbadKZnLiDgQiqgBRVCjqCrSzkpHRtoHEwSs/edit?usp=sharing&ref=blog.availproject.org"
+    },
+    {
+      "text": "X",
+      "url": "https://twitter.com/AvailProject?ref=blog.availproject.org"
+    },
+    {
+      "text": "Discord",
+      "url": "https://discord.gg/y6fHnxZQX8?ref=blog.availproject.org"
+    },
+    {
+      "text": "Telegram",
+      "url": "https://t.me/AvailCommunity?ref=blog.availproject.org"
+    },
+    {
+      "text": "Mainnet Terms & Conditions",
+      "url": "https://avail-project.notion.site/Avail-Mainnet-Ts-Cs-adab514839a74022a61bbfb3e3a6f548?ref=blog.availproject.org"
+    },
+    {
+      "text": "Supplemental Airdrop Terms & Conditions",
+      "url": "https://avail-project.notion.site/Avail-Mainnet-Airdrop-T-Cs-a3c5b27bbc62444ebcff55d6aaa20359?ref=blog.availproject.org"
+    },
+    {
+      "text": "Avail Unification Drop Claims Tutorial",
+      "url": "https://docs.availproject.org/docs/the-avail-token/avail-unification-drop?ref=blog.availproject.org"
+    },
+    {
+      "text": "set up an Avail account",
+      "url": "https://docs.availproject.org/docs/end-user-guide/accounts?ref=blog.availproject.org"
+    },
+    {
+      "text": "the team",
+      "url": "https://twitter.com/openblocklabs?ref=blog.availproject.org"
+    },
+    {
+      "text": "OpenBlock",
+      "url": "https://www.openblocklabs.com/?ref=blog.availproject.org"
+    },
+    {
+      "text": "MAINNET TERMS & CONDITIONS",
+      "url": "https://avail-project.notion.site/Avail-Mainnet-Ts-Cs-adab514839a74022a61bbfb3e3a6f548?ref=blog.availproject.org"
+    },
+    {
+      "text": "AIRDROP TERMS & CONDITIONS",
+      "url": "https://avail-project.notion.site/Avail-Mainnet-Airdrop-T-Cs-a3c5b27bbc62444ebcff55d6aaa20359?ref=blog.availproject.org"
+    },
+    {
+      "text": "",
+      "url": "https://www.facebook.com/sharer.php?u=https://blog.availproject.org/avails-unification-drop/"
+    },
+    {
+      "text": "",
+      "url": "https://twitter.com/intent/tweet?url=https://blog.availproject.org/avails-unification-drop/&text=Avail's%20Unification%20Drop"
+    },
+    {
+      "text": "",
+      "url": "https://www.linkedin.com/shareArticle?mini=true&url=https://blog.availproject.org/avails-unification-drop/&title=Avail's%20Unification%20Drop"
+    }
+  ],
+  "retrieved_at": "2026-09-29T15:02:32.687947+00:00"
+}

@@ -1,0 +1,151 @@
+[
+  {
+    "project": "BitSong",
+    "reward_year": 2022,
+    "event_date": "2022-01-01",
+    "ecosystems": [
+      "Cosmos"
+    ],
+    "rules_summary": "Прямий IBC-розподіл стейкерам: ATOM block 8730500, min 5/max 5000; OSMO block 2424500, min 20/max 12500; JUNO block 1082300, min 10/max 6250. Для Cosmos є списки виключених валідаторів і делегаторів; для двох інших мереж у статті виключень немає.",
+    "payout_summary": "Офіційний підсумок 12.01.2022: роздачу завершено 01.01.2022, 10 млн BTSG на 120864 адреси. Це сума мережевих адрес (96824+17381+6659), не доведена кількість унікальних людей. Оголошення 29.12.2021 не є датою завершення.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://bitsongofficial.medium.com/btsg-airdrop-is-here-f321e32966d6",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://bitsongofficial.medium.com/btsg-airdrop-a-few-tips-to-get-the-most-from-your-tokens-1731a9d12587",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Розрізняти мережеві адреси й осіб; IBC denom залежить від маршруту. Не трактувати міжмережеву появу токенів як новий reward.",
+    "unknowns": [
+      "Фактичні перекази та витрати незалежно не відтворено.",
+      "Поточна робота продукту й повнота всіх версій правил потребують перевірки."
+    ],
+    "tags": [
+      "staking",
+      "snapshot",
+      "direct_distribution",
+      "ibc_denom"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  },
+  {
+    "project": "Desmos",
+    "reward_year": 2022,
+    "event_date": null,
+    "ecosystems": [
+      "Cosmos"
+    ],
+    "rules_summary": "11 мереж; потрібні відповідні історичні стейкінг-позиції, профіль Desmos і прив’язка eligible accounts. Розмір залежав від валідаторів, комісій та snapshot; CEX/0%-commission делегації могли дати нуль. FAQ встановлює кінець claim 25.02.2022.",
+    "payout_summary": "Офіційний огляд 2022 року: роздача почалася в листопаді 2021 та завершилась у лютому 2022; понад 43000 recipients, понад 29000 profiles, понад 6,3 млн DSM claimed. Три показники мають різні одиниці; початкова алокація 21 млн не є виплаченою сумою.",
+    "payout_evidence_level": "issuer_reported_claims",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://medium.com/desmosnetwork/announcing-dsm-airdrop-to-the-interchain-community-39d9837dcc5c",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://medium.com/desmosnetwork/desmos-airdrop-faqs-d5107dd34f17",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://medium.com/desmosnetwork/2022-desmos-yearly-review-57131ebcd1dc",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Не прирівнювати recipients, profiles та wallets. Зберігати оператор понад; історичний опис імпорту ключів не переносити в автоматичні дії агента.",
+    "unknowns": [
+      "Фактичні перекази та витрати незалежно не відтворено.",
+      "Поточна робота продукту й повнота всіх версій правил потребують перевірки."
+    ],
+    "tags": [
+      "staking",
+      "identity",
+      "snapshot",
+      "claimed_totals"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30",
+    "additional_reward_years": [
+      2021
+    ]
+  },
+  {
+    "project": "cheqd",
+    "reward_year": 2022,
+    "event_date": null,
+    "ecosystems": [
+      "Cosmos"
+    ],
+    "rules_summary": "Mission Two: snapshot 10.03.2022; окремі нагороди за >=10 ATOM, >=20 OSMO, >=20 JUNO, сума stake по всіх валідаторах. Другий етап: >=100 CHEQ stake; окремі винагороди за >=250 CHEQ плюс еквівалент OSMO у pool 602 та >=250 CHEQ плюс ATOM у pool 617. Максимум потребував усіх трьох дій.",
+    "payout_summary": "Офіційна сторінка позначає кампанію успішно завершеною; ретроспектива описує виправлення staking/LP snapshots та дубльованих адрес. Зростання accounts приблизно до 74000 не означає стільки ж одержувачів reward. Сума фактичних виплат не встановлена.",
+    "payout_evidence_level": "completed_program_reported",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://cheqd.io/blog/cosmos-community-mission-2/",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://cheqd.io/blog/what-we-learned-from-the-cheq-community/",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://github.com/cheqd/airdrop-ui",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Відокремлювати незалежні бонусні гілки від обов’язкових умов. Ретроспективи технічних помилок потрібні нарівні з початковими правилами.",
+    "unknowns": [
+      "Фактичні перекази та витрати незалежно не відтворено.",
+      "Поточна робота продукту й повнота всіх версій правил потребують перевірки."
+    ],
+    "tags": [
+      "staking",
+      "liquidity",
+      "sybil",
+      "snapshot_correction"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  }
+]

@@ -1,0 +1,152 @@
+{
+  "text": "$ENS Token\n\nGetting started\n\nVoting\n\nProposals\n\nWorking Groups\n\nUseful Information\n\n$ENS Token\n\nOverview\n\nThe ENS DAO was created on November 8, 2021 with the launch of the $ENS token .\n\n$ENS is an ERC-20 token on the Ethereum blockchain.\n\nHolders of $ENS can delegate $ENS tokens to Delegates. Delegates use delegated $ENS tokens to submit and vote on proposals related to changes to the ENS protocol and spending from the DAO’s treasury.\n\nA total of 100m $ENS tokens were minted, with each token representing a single vote in the DAO.\n\n$ENS tokens can be purchased on centralized and decentralized exchanges.\n\nThe contract address for the $ENS Token is 0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72 .\n\nThe ENS DAO is represented in the real world by the ENS Foundation , a foundation based in the Cayman Islands.\n\n$ENS Distribution\n\nThe initial distribution of the $ENS token is detailed in this post from November 2, 2021.\n\n25% (25m $ENS) was allocated to core contributors, ecosystem partners, and community members. Tokens for core contributors at the time of the DAO’s launch and launch advisors have a four year lock-up and vesting schedule.\n\n25% (25m $ENS) was available to be claimed as an airdrop by addresses that had been the registrant of a .eth second-level domain at any point in time before the snapshot was taken on midnight October 31, 2021.\n\n50% (50m $ENS) was distributed to the DAO’s treasury. 10% of this distribution was available at launch. The remaining $ENS tokens distributed to the DAO treasury are unlocked linearly over 4 years, from November 8, 2021.\n\n$ENS Token Launch & Airdrop\n\nEligible addresses were able to claim an airdrop of $ENS tokens during a defined airdrop window, based on various eligibility criteria including:\n\nThe total time of an address’s past .eth registration\n\nThe total time of an address’s future .eth registration, capped at 8 years\n\nA 2x multiplier for addresses that set their Primary ENS Name\n\nOver 137k addresses were eligible to claim an airdrop during the airdrop window. The airdrop window was open from 8 November 2021 until 4 May 2022.\n\n19.6 million $ENS tokens were claimed during the airdrop window by 103k eligible addresses.\n\nThe remaining 5.4m $ENS tokens were transferred to the DAO treasury following the closure of the airdrop window.\n\n$ENS in the ENS DAO Treasury\n\nA total of 50m $ENS, or 50% of the total supply of $ENS, was allocated to the ENS DAO treasury when the $ENS token was launched on November 8, 2021.\n\n10% of the 50m $ENS allocated was available on launch. A total of 5m $ENS was claimed from the ENS Timelock contract by the DAO wallet ( wallet.ensdao.eth ) in this transaction .\n\nThe remaining 45m $ENS allocated to the DAO will unlock linearly over 4 years. This amount can be claimed by the DAO at any time by passing an executable proposal to initiate the claim.\n\nThere have been two major transfers of $ENS tokens into the ENS DAO wallet:\n\nNovember 1, 2021: Claiming 5m $ENS available from the ENS DAO treasury allocation\n\nMay 5, 2022: Sweeping 5.3m $ENS unclaimed in the airdrop\n\nMinting $ENS\n\nAs the owner of the $ENS token contract, the ENS DAO has the right to mint up to 2% of the current total supply, once a year. After such an action is initiated, the DAO must wait a year before it can initiate the action again. If the DAO mints any amount up to 2% of the current total supply for any reason, that will be the only amount minted for 365 days, whether it is 0.1% or any number up to 2%.\n\n← Previous\n\nAbout ENS\n\nNext →\n\nContracts",
+  "links": [
+    {
+      "url": "https://basics.ensdao.org/about-ens",
+      "label": "About ENS"
+    },
+    {
+      "url": "https://basics.ensdao.org/ens-token",
+      "label": "🗳️ $ENS Token"
+    },
+    {
+      "url": "https://basics.ensdao.org/ens-dao-contracts",
+      "label": "🎨 Contracts"
+    },
+    {
+      "url": "https://basics.ensdao.org/protocol-revenue",
+      "label": "💵 Protocol Revenue"
+    },
+    {
+      "url": "https://basics.ensdao.org/ens-foundation",
+      "label": "🐢 ENS Foundation"
+    },
+    {
+      "url": "https://basics.ensdao.org/ensdao-constitution",
+      "label": "📖 ENS DAO Constitution"
+    },
+    {
+      "url": "https://basics.ensdao.org/endowment",
+      "label": "📈 ENS Endowment"
+    },
+    {
+      "url": "https://basics.ensdao.org/security-council",
+      "label": "🛡️ ENS DAO Security Council"
+    },
+    {
+      "url": "https://basics.ensdao.org/voting",
+      "label": "✅ Voting"
+    },
+    {
+      "url": "https://basics.ensdao.org/delegating-ens",
+      "label": "🤝 Delegating $ENS"
+    },
+    {
+      "url": "https://basics.ensdao.org/governance-environments",
+      "label": "🍿 Governance Environments"
+    },
+    {
+      "url": "https://basics.ensdao.org/proposals",
+      "label": "💡 Proposals"
+    },
+    {
+      "url": "https://basics.ensdao.org/social-proposals",
+      "label": "💬 Social Proposals"
+    },
+    {
+      "url": "https://basics.ensdao.org/executable-proposals",
+      "label": "🤖 Executable Proposals"
+    },
+    {
+      "url": "https://basics.ensdao.org/funding-requests",
+      "label": "💰 Funding Requests"
+    },
+    {
+      "url": "https://basics.ensdao.org/working-groups",
+      "label": "💼 Working Groups"
+    },
+    {
+      "url": "https://basics.ensdao.org/metagovernance-wg",
+      "label": "🔨 Meta-Governance WG"
+    },
+    {
+      "url": "https://basics.ensdao.org/ens-ecosystem-wg",
+      "label": "🌱 ENS Ecosystem WG"
+    },
+    {
+      "url": "https://basics.ensdao.org/public-goods",
+      "label": "🔆 Public Goods WG"
+    },
+    {
+      "url": "https://basics.ensdao.org/links",
+      "label": "🌐 Links"
+    },
+    {
+      "url": "https://basics.ensdao.org/ens-labs",
+      "label": "🧪 ENS Labs"
+    },
+    {
+      "url": "https://basics.ensdao.org/siwe",
+      "label": "👋 SIWE"
+    },
+    {
+      "url": "https://basics.ensdao.org/ccip-read",
+      "label": "🧑‍🚀 CCIP-Read"
+    },
+    {
+      "url": "https://basics.ensdao.org/sitemap",
+      "label": "🧭 Sitemap"
+    },
+    {
+      "url": "https://basics.ensdao.org/",
+      "label": "Getting Started"
+    },
+    {
+      "url": "https://ens.mirror.xyz/5cGl-Y37aTxtokdWk21qlULmE1aSM_NuX9fstbOPoWU",
+      "label": "launch of the $ENS token"
+    },
+    {
+      "url": "https://twitter.com/ensdomains/status/1455283001248698376",
+      "label": "Tweet announcing the token and DAO"
+    },
+    {
+      "url": "https://twitter.com/ensdomains/status/1455754470894317570",
+      "label": "Tweet with more information about the DAO"
+    },
+    {
+      "url": "https://twitter.com/ensdomains/status/1457862602239926274",
+      "label": "Tweet about $ENS launch + airdrop claim site"
+    },
+    {
+      "url": "https://etherscan.io/token/0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72",
+      "label": "0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72"
+    },
+    {
+      "url": "https://ens.mirror.xyz/-eaqMv7XPikvXhvjbjzzPNLS4wzcQ8vdOgi9eNXeUuY",
+      "label": "this post"
+    },
+    {
+      "url": "https://dune.com/hildobby/ENS-Airdrop",
+      "label": "here"
+    },
+    {
+      "url": "https://etherscan.io/tx/0xf5b4b70e21080a8c737a8107163e27197d312dd5f9382a0aa9cc5cbda6567dc6",
+      "label": "transferred to the DAO treasury"
+    },
+    {
+      "url": "https://etherscan.io/address/0xd7a029db2585553978190db5e85ec724aa4df23f",
+      "label": "ENS Timelock contract"
+    },
+    {
+      "url": "https://etherscan.io/address/wallet.ensdao.eth",
+      "label": "wallet.ensdao.eth"
+    },
+    {
+      "url": "https://etherscan.io/tx/0x06bb6d2a3353120b054020539504049ad735963561cfcab92061922ec2f4739f",
+      "label": "this transaction"
+    }
+  ],
+  "truncated": false,
+  "characters_available": 3527,
+  "url": "https://basics.ensdao.org/ens-token"
+}

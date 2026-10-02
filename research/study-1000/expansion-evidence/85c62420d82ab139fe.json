@@ -1,0 +1,12 @@
+{
+  "url": "https://crescentnetwork.medium.com/cre-dexdrop-breakdown-472ba6f22f2b",
+  "retrieved_at": "2026-09-30T16:08:20.606494+00:00",
+  "content_file": "expansion-evidence\\85c62420d82ab139fe.json",
+  "status": "fetched",
+  "http_status": 200,
+  "final_url": "https://crescentnetwork.medium.com/cre-dexdrop-breakdown-472ba6f22f2b",
+  "content_type": "text/html; charset=utf-8",
+  "text": "Medium\nCRE DEXdrop Breakdown. Crescent is a decentralized, mutually… | by Crescent Network | Medium\nSitemap\nOpen in app\nSign up\nSign in\nMedium Logo\nGet app\nWrite\nSearch\nSign up\nSign in\nCryptocurrency\nBitcoin\nMoney\nCosmos\nDefi\nCRE DEXdrop Breakdown\nCrescent Network\n2 min read\n·\nMar 10, 2022\n--\n6\nListen\nShare\nPress enter or click to view image in full size\nCrescent is a decentralized, mutually governed DeFi Hub that will be owned by CRE holders.\nUpon the grand launch of Crescent, 100 million CRE will be allocated through an airdrop to ATOM delegators, excluding delegated amount to centralized exchange validators. The airdrop process is categorized into two rounds: DEXdrop (50 million CRE) and Boostdrop (50 million CRE). In this post, we will take you through the claiming process for DEXdrop, available to claim from genesis. Details on Boostdrop will also be announced soon.\nAt launch of Crescent DEX, users can claim their CRE by completing the following on-chain tasks in the following order:\nPress enter or click to view image in full size\nFull allocation can be claimed when the user completes the tasks above within 6 months from launch. Unclaimed CRE from the airdrop quantity within the claim period will be allocated to the Community Fund.\nThe number of CRE a user receives is proportional to the square root of delegated ATOM at the time of the snapshot, with three 2x multipliers for supporters of Gravity DEX under the following conditions:\nIf participated in governance proposal #38 or #58\nIf provided liquidity to Gravity DEX\nIf used Gravity DEX\nAll ATOM delegators can check their eligibility and predicted airdrop quantity at Crescent’s Airdrop Calculator\nhere\n.\nCryptocurrency\nBitcoin\nMoney\nCosmos\nDefi\n--\n--\n6\nWritten by\nCrescent Network\n1.94K followers\n·\n2 following\nHelp\nStatus\nAbout\nCareers\nPress\nBlog\nStore\nPrivacy\nRules\nTerms\nText to speech",
+  "characters": 1871,
+  "content_sha256": "f3381785f80d7762b3ff8ca6b42a2047d0b3c008ff2e06fcbb5fb133d8e1a226"
+}

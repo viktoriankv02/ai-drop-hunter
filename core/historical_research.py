@@ -6,13 +6,23 @@ from pathlib import Path
 def missing_evidence(case, window):
     missing=[]
     known={s.get("url") for s in case.get("sources",[]) if s.get("url","").startswith("https://")}
+    # The eight-year window applies to the reward event, not first product launch.
     mainnet=case.get("mainnet",{})
+    event=case.get("reward_event",{})
     try:
-        launch=date.fromisoformat(mainnet.get("date",""))
-        in_window=date.fromisoformat(window["from"])<=launch<=date.fromisoformat(window["to"])
+        if event.get("date"):
+            first=last=date.fromisoformat(event["date"])
+        else:
+            year=event.get("year")
+            if not isinstance(year,int) or isinstance(year,bool): raise ValueError("invalid year")
+            first,last=date(year,1,1),date(year,12,31)
+        in_window=date.fromisoformat(window["from"])<=first<=last<=date.fromisoformat(window["to"])
     except (ValueError,TypeError): in_window=False
-    if not (case.get("mainnet_verified") and in_window and mainnet.get("source_url") in known):
-        missing.append("Дата mainnet у межах 8 років і первинний доказ")
+    if not (case.get("mainnet_verified") and mainnet.get("source_url") in known
+            and in_window and event.get("source_url") in known):
+        missing.append("Запуск продукту та подія роздачі у межах 8 років з джерелами")
+    if case.get("case_role")=="comparison_non_airdrop":
+        missing.append("Порівняльний кейс продажу токенів не входить у вибірку виконаних винагород")
     criteria=case.get("criteria",[])
     if not criteria or any(x.get("source_url") not in known for x in criteria):
         missing.append("Умови та категорії участі з джерелами")

@@ -1,0 +1,227 @@
+[
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/airdrop_info.sql",
+    "bytes": 6366,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/arbitrum/projects/arbitrum_arbitrum_airdrop_claims.sql",
+    "bytes": 1686,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/avalanche_c/projects/pangolin_avalanche_c_airdrop_claims.sql",
+    "bytes": 1553,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/bnb/projects/ellipsis_finance_bnb_airdrop_claims.sql",
+    "bytes": 1530,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/alchemydao_ethereum_airdrop_claims.sql",
+    "bytes": 1960,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/ampleforth_ethereum_airdrop_claims.sql",
+    "bytes": 1592,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/apecoin_ethereum_airdrop_claims.sql",
+    "bytes": 1552,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/arkham_ethereum_airdrop_claims.sql",
+    "bytes": 1477,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/bend_dao_ethereum_airdrop_claims.sql",
+    "bytes": 1557,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/blur_ethereum_airdrop_1_claims.sql",
+    "bytes": 1684,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/botto_ethereum_airdrop_claims.sql",
+    "bytes": 1535,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/component_ethereum_airdrop_claims.sql",
+    "bytes": 1539,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/cow_protocol_ethereum_airdrop_claims.sql",
+    "bytes": 1594,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/dappradar_ethereum_airdrop_claims.sql",
+    "bytes": 1534,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/dydx_ethereum_airdrop_claims.sql",
+    "bytes": 1815,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/ens_ethereum_airdrop_claims.sql",
+    "bytes": 1545,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/etherfi_ethereum_airdrop_claims.sql",
+    "bytes": 1617,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/forefront_ethereum_airdrop_claims.sql",
+    "bytes": 1530,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/forta_network_ethereum_airdrop_claims.sql",
+    "bytes": 1546,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/galxe_ethereum_airdrop_claims.sql",
+    "bytes": 1536,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/gas_dao_ethereum_airdrop_claims.sql",
+    "bytes": 1682,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/gearbox_ethereum_airdrop_claims.sql",
+    "bytes": 1951,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/genie_ethereum_airdrop_claims.sql",
+    "bytes": 1375,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/gitcoin_ethereum_airdrop_claims.sql",
+    "bytes": 1532,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/hop_protocol_ethereum_airdrop_claims.sql",
+    "bytes": 1697,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/looksrare_ethereum_airdrop_claims.sql",
+    "bytes": 1557,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/notional_ethereum_airdrop_claims.sql",
+    "bytes": 1708,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/oneinch_ethereum_airdrop_claims.sql",
+    "bytes": 1756,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/paladin_ethereum_airdrop_claims.sql",
+    "bytes": 1533,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/paraswap_ethereum_airdrop_claims.sql",
+    "bytes": 2276,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/pooltogether_ethereum_airdrop_claims.sql",
+    "bytes": 1712,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/ribbon_ethereum_airdrop_claims.sql",
+    "bytes": 1689,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/safe_ethereum_airdrop_claims.sql",
+    "bytes": 2272,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/shapeshift_ethereum_airdrop_claims.sql",
+    "bytes": 1540,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/snowswap_ethereum_airdrop_claims.sql",
+    "bytes": 1541,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/sudoswap_ethereum_airdrop_claims.sql",
+    "bytes": 1692,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/thales_ethereum_airdrop_claims.sql",
+    "bytes": 1946,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/tokenfy_ethereum_airdrop_claims.sql",
+    "bytes": 1663,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/tornado_cash_ethereum_airdrop_claims.sql",
+    "bytes": 1589,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/uniswap_ethereum_airdrop_claims.sql",
+    "bytes": 1695,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/value_defi_ethereum_airdrop_claims.sql",
+    "bytes": 1960,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/ethereum/projects/x2y2_ethereum_airdrop_claims.sql",
+    "bytes": 1522,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/gnosis/projects/giveth_gnosis_airdrop_claims.sql",
+    "bytes": 1515,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/optimism/projects/velodrome_optimism_airdrop_claims.sql",
+    "bytes": 2154,
+    "status": "fetched"
+  },
+  {
+    "path": "dbt_subprojects/daily_spellbook/models/_sector/airdrops/zksync/projects/zksync_zksync_airdrop_claims.sql",
+    "bytes": 1652,
+    "status": "fetched"
+  }
+]
