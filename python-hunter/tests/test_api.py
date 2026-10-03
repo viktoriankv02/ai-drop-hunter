@@ -1,0 +1,117 @@
+import pytest
+from fastapi.testclient import TestClient
+from web_tma.backend.server import create_app
+from core.workspace import Workspace
+
+@pytest.fixture
+def client(tmp_path):
+    store=Workspace(tmp_path/"api.sqlite")
+    app=create_app(store,background=False)
+    with TestClient(app) as c:
+        token=c.get("/api/session").json()["token"]
+        c.headers.update({"Origin":"http://testserver","X-Hunter-Session":token})
+        yield c
+
+def test_mutation_requires_session_and_origin(client):
+    token=client.headers.pop("X-Hunter-Session")
+    assert client.post("/api/discovery/run",json={}).status_code==403
+    client.headers["X-Hunter-Session"]=token
+    assert client.post("/api/discovery/run",json={},headers={"Origin":"https://evil.example"}).status_code==403
+    assert client.post("/api/discovery/run",json={}).status_code==200
+
+def test_source_controls_and_no_ghost_channels(client):
+    sources=client.get("/api/sources").json()
+    assert len(sources)==6 and sources[0]["name"]=="CryptoRank"
+    res=client.post("/api/sources",json={"name":"My channel","url":"@mychannel","type":"telegram"})
+    assert res.status_code==200
+    sid=res.json()["id"]
+    assert client.post(f"/api/sources/{sid}/toggle",json={}).status_code==200
+    assert client.delete(f"/api/sources/{sid}").status_code==200
+    assert len(client.get("/api/sources").json())==6
+
+def test_interest_enqueues_once_and_does_not_execute(client):
+    p=client.post("/api/projects/manual",json={"title":"Example","source_url":"https://cryptorank.io/ru/drophunting/example-activity1"}).json()
+    pid=p["project_id"]
+    for _ in range(2):
+        assert client.post(f"/api/projects/{pid}/status",json={"status":"tracking"}).status_code==200
+    jobs=client.get("/api/jobs").json()
+    assert len(jobs)==1 and jobs[0]["state"]=="queued"
+    assert client.get(f"/api/projects/{pid}").json()["tasks"]==[]
+    assert not client.get("/api/session").json()["autonomous_execution"]
+
+def test_crypto_browser_material_and_secret_panel_rejection(client):
+    text="Official instructions for this campaign are described here. "*5
+    assert client.post("/api/materials/import",json={"name":"Panel","source":"https://cryptorank.io/ru/public-api/dashboard","text":text}).status_code==400
+    res=client.post("/api/materials/import",json={"name":"Example","source":"https://cryptorank.io/ru/drophunting/example-activity1","text":text})
+    assert res.status_code==200
+    assert client.get("/api/jobs").json()[0]["kind"]=="analyze"
+
+def test_history_count_is_not_1000(client):
+    h=client.get("/api/research/history").json()
+    assert h["target_projects"]==1000 and h["fully_reviewed"]==0
+    assert h["partial_cases"]>=11
+
+def test_job_retry_is_idempotent_and_keeps_target_names(client):
+    pid=client.post("/api/projects/manual",json={"title":"Named project","source_url":"https://airdrops.io/named/"}).json()["project_id"]
+    jid=client.post(f"/api/projects/{pid}/research",json={}).json()["job_id"]
+    store=client.app.state.store
+    store.finish_job(jid,error="Temporarily unavailable")
+    first=client.post(f"/api/jobs/{jid}/retry",json={}).json()["job_id"]
+    second=client.post(f"/api/jobs/{jid}/retry",json={}).json()["job_id"]
+    assert first==second and first!=jid
+    jobs=client.get("/api/jobs").json()
+    assert jobs[0]["state"]=="queued"
+    assert jobs[0]["target_name"]=="Named project"
+    assert jobs[0]["project_id"]==pid
+
+
+def test_retry_does_not_reenable_paused_source(client):
+    store=client.app.state.store
+    jid=store.enqueue("discover",1)
+    store.finish_job(jid,error="HTTP 403")
+    client.post("/api/sources/1/toggle",json={})
+    assert client.post(f"/api/jobs/{jid}/retry",json={}).status_code==400
+    assert not client.get("/api/sources").json()[0]["enabled"]
+
+def test_catalog_pagination_search_and_url_alias(client):
+    store=client.app.state.store
+    for i in range(125):
+        store.add_project(f"Catalog {i:03d}",f"https://cryptorank.io/ru/drophunting/item-activity{i}","CryptoRank")
+    first=client.get("/api/projects?limit=60").json()
+    second=client.get("/api/projects?limit=60&offset=60").json()
+    assert len(first)==60 and len(second)==60
+    assert not {p["id"] for p in first} & {p["id"] for p in second}
+    found=client.get("/api/projects?q=Catalog%20000").json()
+    assert len(found)==1 and found[0]["title"]=="Catalog 000"
+    pid,added=store.add_project("Alias","https://cryptorank.io/drophunting/item-activity0/?ref=example","CryptoRank")
+    assert not added and pid==found[0]["id"]
+    text="Public campaign evidence with sufficiently detailed instructions. "*5
+    res=client.post("/api/materials/import",json={"name":"Alias","source":"https://cryptorank.io/drophunting/item-activity0/","text":text})
+    assert res.status_code==200
+    assert store.detail(pid)["snapshots"]
+
+def test_ukrainian_challenge_is_not_research(client):
+    text="Трохи зачекайте. "*30
+    res=client.post("/api/materials/import",json={"name":"Test","source":"https://cryptorank.io/ru/drophunting/test-activity1","text":text})
+    assert res.status_code==400
+
+def test_activity_filter_covers_entire_folder_and_updates(client):
+    store=client.app.state.store
+    good,_=store.add_project("Test activity","https://airdrops.io/test-only/","Airdrops.io")
+    bad,_=store.add_project("Prediction market","https://airdrops.io/prediction/","Airdrops.io")
+    unknown,_=store.add_project("Unknown","https://airdrops.io/unknown/","Airdrops.io")
+    store.save_snapshot(good,"https://airdrops.io/test-only/",{"text":"Testnet faucet provides test tokens.","truncated":False})
+    assert [p["id"] for p in client.get("/api/projects?screen=test_only").json()]==[good]
+    assert [p["id"] for p in client.get("/api/projects?screen=excluded").json()]==[bad]
+    assert [p["id"] for p in client.get("/api/projects?screen=needs_review").json()]==[unknown]
+    assert client.get("/api/activity-screening").json()=={"test_only":1,"excluded":1,"needs_review":1}
+    store.save_snapshot(good,"https://airdrops.io/test-only/",{"text":"Deposit USDC on Arbitrum to trade.","truncated":False})
+    assert client.get("/api/projects?screen=test_only").json()==[]
+
+def test_user_source_scope_hides_other_catalogues(client):
+    s=client.app.state.store
+    s.add_project("Crypto candidate","https://cryptorank.io/ru/drophunting/candidate-activity1","CryptoRank")
+    s.add_project("Other candidate","https://airdrops.io/candidate/","Airdrops.io")
+    with s.db() as c:c.execute("INSERT INTO meta VALUES ('active_source_scope','cryptorank,incrypted')")
+    assert len(client.get("/api/projects?screen=all").json())==1
+    assert client.get("/api/activity-screening").json()["needs_review"]==1

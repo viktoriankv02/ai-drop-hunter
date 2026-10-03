@@ -1,0 +1,86 @@
+[
+  {
+    "project": "Uniswap",
+    "launch_date": "2018-11-02",
+    "launch_type": "production_protocol",
+    "source_url": "https://blog.uniswap.org/uniswap-history",
+    "quote": "On November 2, 2018, Uniswap was publicly announced and deployed to the Ethereum mainnet.",
+    "evidence_file": "evidence/bc0cb96a578f0a54.json",
+    "in_eight_year_window": true,
+    "review_status": "official_source_checked"
+  },
+  {
+    "project": "Celestia",
+    "launch_date": "2023-10-31",
+    "launch_type": "mainnet",
+    "source_url": "https://blog.celestia.org/celestia-mainnet-is-live/",
+    "quote": "At 14:00 UTC today, Celestia was successfully deployed to Mainnet Beta",
+    "evidence_file": "evidence/063d666fd8839180.json",
+    "in_eight_year_window": true,
+    "review_status": "official_source_checked"
+  },
+  {
+    "project": "Arbitrum",
+    "launch_date": "2021-08-31",
+    "launch_type": "mainnet",
+    "source_url": "https://blog.arbitrum.io/arbitrum-stylus-mainnet/",
+    "quote": "Since the public launch of Arbitrum One on August",
+    "evidence_file": "evidence/1f25ffcf40bb0619.json",
+    "in_eight_year_window": true,
+    "review_status": "official_source_checked"
+  },
+  {
+    "project": "ENS",
+    "launch_date": "2017-05-04",
+    "launch_type": "production_protocol",
+    "source_url": "https://docs.ens.domains/ensip/2/",
+    "quote": "2017-05-04",
+    "evidence_file": "evidence/b692702304c449a4.json",
+    "in_eight_year_window": false,
+    "review_status": "official_source_checked"
+  },
+  {
+    "project": "Aptos",
+    "launch_date": "2022-10-12",
+    "date_precision": "day",
+    "launch_type": "mainnet",
+    "source_url": "https://aptosnetwork.com/currents/aptos-tokenomics-overview",
+    "quote": "Mainnet was launched on October 12, 2022.",
+    "evidence_file": "evidence/launch-03d205fa1d2f9798.json",
+    "in_eight_year_window": true,
+    "review_status": "official_indexed_source_checked"
+  },
+  {
+    "project": "Sui",
+    "launch_date": "2023-05-03",
+    "date_precision": "day",
+    "launch_type": "mainnet",
+    "source_url": "https://www.sui.io/token-schedule",
+    "quote": "Sui Mainnet launched publicly on May 3, 2023.",
+    "evidence_file": "evidence/launch-f15647f44b9eaeb4.json",
+    "in_eight_year_window": true,
+    "review_status": "official_indexed_source_checked"
+  },
+  {
+    "project": "Optimism",
+    "launch_date": "2021-01",
+    "date_precision": "month",
+    "launch_type": "mainnet",
+    "source_url": "https://optimism.io/blog/what-is-op-mainnet",
+    "quote": "Optimism deployed OP Mainnet in January 2021",
+    "evidence_file": "evidence/launch-bf51053446dc465d.json",
+    "in_eight_year_window": true,
+    "review_status": "official_indexed_source_checked"
+  },
+  {
+    "project": "Starknet",
+    "launch_date": "2021-11",
+    "date_precision": "month",
+    "launch_type": "mainnet",
+    "source_url": "https://www.starknet.io/blog/starknets-new-sequencer/",
+    "quote": "StarkNet Alpha launched on Mainnet in November 2021.",
+    "evidence_file": "evidence/launch-5b6949e15878a00e.json",
+    "in_eight_year_window": true,
+    "review_status": "official_indexed_source_checked"
+  }
+]

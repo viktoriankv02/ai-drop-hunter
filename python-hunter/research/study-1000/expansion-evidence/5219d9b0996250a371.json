@@ -1,0 +1,12 @@
+{
+  "url": "https://app.nomic.io/rewards",
+  "retrieved_at": "2026-09-30T16:08:19.715713+00:00",
+  "content_file": "expansion-evidence\\5219d9b0996250a371.json",
+  "status": "fetched",
+  "http_status": 200,
+  "final_url": "https://app.nomic.io/rewards",
+  "content_type": "text/html; charset=utf-8",
+  "text": "Nomic Bitcoin Bridge\nConnect Wallet\nStaking\nBitcoin\nIBC\nRewards\nGovernance\nBETA\nAirdrop I\nHold ATOM before Nomic Stakenet I\nConnect Wallet to Determine Eligibility\nAirdrop II\nHold ATOM, OSMO, JUNO, EVMOS, or KUJI before September 27, 2022 (Only validators outside the top 20 are counted, maximum of 10k tokens per network, per account)\nConnect Wallet to Determine Eligibility",
+  "characters": 375,
+  "content_sha256": "275dc39a1f2a7f97fb8244921726673de0bcc7f0f6095ef56cd2af7934faf1c6"
+}

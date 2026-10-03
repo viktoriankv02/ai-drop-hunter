@@ -1,0 +1,92 @@
+[
+  {
+    "project": "Aethir",
+    "reward_year": 2024,
+    "event_date": null,
+    "ecosystems": [
+      "Ethereum",
+      "DePIN"
+    ],
+    "rules_summary": "Cloud Drop: квести та badges; окремі категорії Checker Node holders і Aethir OGs. Власність на node, виконання соціальних завдань та робота інфраструктури є різними підставами винагород.",
+    "payout_summary": "Підсумок 2024 року повідомляє про 630 млн ATH, розподілених у Season 1, та mainnet 12.06.2024. План трьох сезонів не є доказом виплати всіх сезонів.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": 630000000,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://ecosystem.aethir.com/blog-posts/aethir-cloud-drop-is-here-dont-miss-out",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://tc-site-ecosystem.aethir.com/blog-posts/aethirs-decentralized-gpu-cloud-milestones-our-2024-wrap-up",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Зберігати airdrop, винагороди операторів і продаж node окремо. Підтвердження першого сезону не поширюється на наступні.",
+    "unknowns": [
+      "Незалежний перерахунок переказів і фінальних одержувачів не виконано.",
+      "Витрати учасників і поточну працездатність продукту окремо не перевірено."
+    ],
+    "tags": [
+      "quests",
+      "community_contribution",
+      "node_operator",
+      "multi_season"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "Shardeum",
+    "reward_year": 2025,
+    "event_date": null,
+    "ecosystems": [
+      "Shardeum"
+    ],
+    "rules_summary": "EVM Quest проходив 23–28.10.2025. Відібрано 1300 учасників за критеріями квесту та anti-Sybil screening. Перевірка Biomapper: 02–14.12.2025; далі окремі backend checks. Початок виплат анонсовано на 17.12.2025. Gas близько $0,50 на дату оголошення обіцяли відшкодувати придатним гаманцям при виплаті.",
+    "payout_summary": "У звіті за грудень 2025 проєкт повідомляє про розподіл до 100 млн SHM через обидві програми. Це верхня межа у формулюванні емітента, а не точна сума claims і не сума початкового TGE-airdrop.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://shardeum.org/blog/evm-testnet-shm-airdrop-verification/",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://shardeum.org/blog/shardeum-monthly-marketing-report-decemeber-2025/",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Зберігати «до» як верхню межу, розрізняти дату звіту 2026 та кампанії 2025; перевірку після активності робити окремим етапом.",
+    "unknowns": [
+      "Незалежний перерахунок переказів і фінальних одержувачів не виконано.",
+      "Витрати учасників і поточну працездатність продукту окремо не перевірено.",
+      "Фактичне відшкодування gas та індивідуальні платежі не перераховано; 1300 — shortlist, не число отримувачів."
+    ],
+    "tags": [
+      "testnet",
+      "verification",
+      "multi_season",
+      "deadline"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  }
+]

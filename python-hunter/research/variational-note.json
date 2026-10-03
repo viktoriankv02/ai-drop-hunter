@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "checked_at": "2026-09-27",
+  "title": "Variational",
+  "project_url": "https://cryptorank.io/ru/drophunting/variational-activity496",
+  "summary": "Omni: програма поінтів і торгова платформа. Перевірено документацію та доступну копію CryptoRank; строки окремого турніру вже минули. Виплату токенів і прибутковість не підтверджено.",
+  "provenance": "Дослідницька нотатка Codex від 27.09.2026: переказ із короткими цитатами. CryptoRank — індексована копія; офіційна документація прочитана окремо. Це не повний автоматичний аналіз.",
+  "sources": [
+    {
+      "url": "https://cryptorank.io/ru/drophunting/variational-activity496",
+      "title": "CryptoRank: Variational",
+      "access": "indexed_partial",
+      "purpose": "reward_rules"
+    },
+    {
+      "url": "https://docs.variational.io/omni/rewards/points",
+      "title": "Офіційні правила поінтів",
+      "access": "official_document",
+      "purpose": "reward_rules"
+    },
+    {
+      "url": "https://docs.variational.io/omni/getting-started-with-omni",
+      "title": "Офіційний початок роботи",
+      "access": "official_document",
+      "purpose": "platform_manual"
+    }
+  ],
+  "facts": [
+    {
+      "title": "Описаний на CryptoRank турнір тривав 10–24 вересня 2026. Станом на перевірку він завершився; його не додано до активного плану.",
+      "quote": "Турнир проходит с 10 до 24 сентября",
+      "source_url": "https://cryptorank.io/ru/drophunting/variational-activity496"
+    },
+    {
+      "title": "Чинна відкрита документація вказує завершення щотижневих нарахувань не пізніше кінця Q4 2026. У старій пошуковій копії було Q3; перевагу надано відкритій офіційній сторінці.",
+      "quote": "Weekly point distributions will conclude no later than the end of Q4 2026",
+      "source_url": "https://docs.variational.io/omni/rewards/points"
+    },
+    {
+      "title": "Платформа працює на Arbitrum; для депозиту використовується USDC. У документації вказано 0,1 USDC за переказ. Це не повна вартість торгівлі: спред, funding і збитки враховуються окремо.",
+      "quote": "Omni is deployed on Arbitrum.",
+      "source_url": "https://docs.variational.io/omni/getting-started-with-omni"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Перевірити власні нараховані поінти на сторінці Omni",
+      "quote": "Point totals can be tracked by visiting the Omni points page.",
+      "url": "https://omni.variational.io/points",
+      "source_url": "https://docs.variational.io/omni/rewards/points"
+    },
+    {
+      "title": "Перед участю перевірити умови доступу та обмеження для користувачів",
+      "quote": "Review and accept the Terms of Use.",
+      "url": "https://docs.variational.io/omni/getting-started-with-omni",
+      "source_url": "https://docs.variational.io/omni/getting-started-with-omni"
+    }
+  ],
+  "unknowns": [
+    "Поінти не підтверджують суму майбутньої виплати. Право конкретного гаманця на винагороду не перевірене.",
+    "Відповідність користувача умовам доступу, повні торгові витрати та фактична виплата невідомі.",
+    "Депозитів, угод і підписів не виконано. План містить перевірки, а не рекомендацію нарощувати обсяг торгівлі."
+  ]
+}

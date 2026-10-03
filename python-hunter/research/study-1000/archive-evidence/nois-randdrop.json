@@ -1,0 +1,23 @@
+{
+  "slug": "nois-randdrop",
+  "source_url": "https://airdroparchive.com/projects/nois-randdrop/",
+  "final_url": "https://airdroparchive.com/projects/nois-randdrop/",
+  "http_status": 200,
+  "retrieved_at": "2026-09-29T18:26:20.009523+00:00",
+  "source_kind": "secondary_directory",
+  "verification_status": "discovery_only",
+  "fine_tuning_eligible": false,
+  "text": "Nois Randdrop | Crypto Airdrop Archive\nDesktop Experience Required\nThis website is optimized for desktop screens (1400x900 or larger). Please access it from a computer for the best experience.\nCrypto Airdrop Archive\nHome\nLearn\nTimeline\nHall of Fame\nAbout\nContribute\nNois Randdrop - Crypto Airdrop Archive\nSkip to main content\nSorry, there was an error loading this content. Please try refreshing the page.\nNois Randdrop\nDec 21, 2023\ninfrastructure, defi, utilities\nDead\nosmosis\nstaking, randomness\nWebsite\nA decentralized protocol providing reliable randomness for blockchain applications.\nContents\nLoading content...\nAirdrop Details\nInformation\nDetails\nAirdrop Type\nStaker\nTotal Airdrop Amount\n2% of Nois total supply (10% of the circulating supply)\nNumber of Eligible Users\nNot Known\nNumber of Claimants\nNot Known\nTimeline\nEvent\nDate\nBlockchain Snapshot\nNot Known\nClaiming Started\nDecember 21, 2023\nClaiming Ends\nNot Known\nToken Distribution\nDistribution\nAmount\nMaximum\nNot Known\nMedian/Average\nNot Known\nMinimum\nNot Known\nEligibility Criteria\nStaking Requirement\n: Users must have staked at least 6 $OSMO tokens at the time of the snapshot.\nSnapshot Block Height\n: Eligibility is determined based on staking at Osmosis block height 12,542,000.\nAllocation Details\n: The base amount of NOIS tokens grows linearly with the amount of $OSMO staked, with a cap at 60,000 $OSMO.\nWinning Probability\n: Only one-third of eligible participants will win the airdrop, utilizing randomness from Nois.\nImportant Links\nPrice Tracking:\nCoinMarketCap\nPrice Tracking:\nCoinGecko\nEligibility Criteria:\nGitHub Snapshot Data\nOfficial Announcement:\nNois Twitter Announcement\nClaim Portal:\nRanddrop Claim Page\nAdditional Information\nAirdrop Mechanics\n: The Randdrop leverages IBC, CosmWasm, and Nois’s randomness protocol to ensure a fair distribution process. Participants have a one-third chance to win, and winners receive three times their base allocation.\nClaim Process\n: Eligible users can claim their tokens by visiting the Randdrop claim page and initiating the process, which involves a randomness-based selection to determine winners.\nDisclaimer\nWhile we strive to provide accurate and up-to-date information about cryptocurrency airdrops, we cannot guarantee 100% accuracy. The information provided is based on our research and available data at the time of publication. Always verify information from official sources before making any decisions.\nAdditional Information\nThis information is for educational and research purposes only\nNot financial advice - always do your own research\nData may be incomplete or outdated\nProject status and details may change over time\nHelp Improve This Archive\nFound an error or have additional information?\nContribute to this archive\nto help make it more accurate and comprehensive.\nLast updated: December 21, 2023\nCrypto Airdrop Archives Data\n© 2026 by\nShivam Soni\nis licensed under\nCC BY 4.0\nSupport Crypto Airdrop Archive\nThis archive is built and maintained by a small team passionate about making airdrop data accessible to everyone. We track 500+ projects, write educational content, and keep it all free.\nYour donation helps cover hosting, data infrastructure, and development costs so we can keep this resource alive and growing.\nEVM Network (ETH, BSC, Polygon, Arbitrum, etc.)\n0xde8E44802D45AbAAd283A1A274c994B3A069b62a\nEvery contribution, no matter the size, makes a difference.\nMore Ways to Help\nMaybe Later",
+  "text_sha256": "ad7ad73db72b0924f401578c75f7a505d63646af3f4605fc96b36eefd76070e9",
+  "external_links": [
+    "https://coinmarketcap.com/currencies/nois",
+    "https://creativecommons.org/licenses/by/4.0/",
+    "https://github.com/i-shivamsoni",
+    "https://github.com/i-shivamsoni/airdroparchivedata",
+    "https://github.com/noislabs/randdrop-snapshots/blob/v0.1.0/osmosis-randdrop-1.json",
+    "https://nois.network",
+    "https://randdrop.nois.network",
+    "https://www.coingecko.com/en/coins/nois",
+    "https://x.com/NoisRNG/status/1737074149242065008"
+  ]
+}

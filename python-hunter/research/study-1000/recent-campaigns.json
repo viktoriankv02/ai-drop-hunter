@@ -1,0 +1,236 @@
+[
+  {
+    "project": "Integra",
+    "source_url": "https://incrypted.com/en/integra-testnet/",
+    "screening": {
+      "project_id": 1428,
+      "decision": "needs_review",
+      "reason": "Немає достатніх доказів, що потрібні лише тестові токени.",
+      "policy_version": "test-tokens-only-v2",
+      "checked_at": "2026-09-28T18:31:19.464995+00:00"
+    },
+    "note": {
+      "checked_at": "2026-09-28",
+      "facts": [
+        {
+          "source_url": "https://incrypted.com/en/integra-testnet/",
+          "title": "За гайдом від 01.05.2026: тестові IRL із крана, Missions і щоденний Check-In. Описані дії не потребують фінансових вкладень."
+        },
+        {
+          "source_url": "https://incrypted.com/en/integra-testnet/",
+          "title": "Послідовність для перевірки: відкрити dashboard, перевірити тестову мережу, доступність крана IRL і актуальні Missions. Виконання дій не перевірено."
+        },
+        {
+          "source_url": "https://incrypted.com/en/integra-testnet/",
+          "title": "Поточна працездатність тестнету, дедлайн і гарантована винагорода станом на 28.09.2026 не підтверджені. Статус: потребує перевірки."
+        }
+      ],
+      "project_url": "https://incrypted.com/en/integra-testnet/",
+      "provenance": "Перевірка Codex 28.09.2026: переказ доступної індексованої копії агрегатора. Це не перевірка роботи тестнету наживо.",
+      "sources": [
+        {
+          "access": "indexed_partial",
+          "title": "Incrypted: Integra",
+          "url": "https://incrypted.com/en/integra-testnet/"
+        }
+      ],
+      "summary": "За гайдом від 01.05.2026: тестові IRL із крана, Missions і щоденний Check-In. Описані дії не потребують фінансових вкладень.",
+      "tasks": [],
+      "title": "Integra",
+      "unknowns": [
+        "Поточна працездатність тестнету, дедлайн і гарантована винагорода станом на 28.09.2026 не підтверджені. Статус: потребує перевірки.",
+        "28.09.2026: web-читання testnet.integralayer.com та portal.integralayer.com повернуло 502. Це помилка спроби доступу, не підтвердження закриття."
+      ],
+      "version": 1
+    },
+    "training_eligible": false,
+    "current_operation_verified": false
+  },
+  {
+    "project": "HertzFlow",
+    "source_url": "https://incrypted.com/en/hertzflow-testnet/",
+    "screening": {
+      "project_id": 1429,
+      "decision": "needs_review",
+      "reason": "Матеріал неповний: відсутність платних кроків ще не підтверджена.",
+      "policy_version": "test-tokens-only-v2",
+      "checked_at": "2026-09-28T18:31:19.465062+00:00"
+    },
+    "note": {
+      "checked_at": "2026-09-28",
+      "facts": [
+        {
+          "source_url": "https://incrypted.com/en/hertzflow-testnet/",
+          "title": "Гайд від 09.05.2026 описує закриту beta: код доступу через Discord, потім faucet і торгівля тестовими токенами."
+        },
+        {
+          "source_url": "https://incrypted.com/en/hertzflow-testnet/",
+          "title": "Спочатку перевірити доступність запрошення та тестової мережі. У гайді заявлено відсутність витрат; фактичний доступ і кран сьогодні не перевірені."
+        },
+        {
+          "source_url": "https://incrypted.com/en/hertzflow-testnet/",
+          "title": "Дедлайн і виплата не підтверджені. Розглядається виключно тестова beta з faucet. Статус: потребує перевірки."
+        }
+      ],
+      "project_url": "https://incrypted.com/en/hertzflow-testnet/",
+      "provenance": "Перевірка Codex 28.09.2026: переказ доступної індексованої копії агрегатора. Це не перевірка роботи тестнету наживо.",
+      "sources": [
+        {
+          "access": "indexed_partial",
+          "title": "Incrypted: HertzFlow",
+          "url": "https://incrypted.com/en/hertzflow-testnet/"
+        }
+      ],
+      "summary": "Гайд від 09.05.2026 описує закриту beta: код доступу через Discord, потім faucet і торгівля тестовими токенами.",
+      "tasks": [],
+      "title": "HertzFlow",
+      "unknowns": [
+        "Дедлайн і виплата не підтверджені. Розглядається виключно тестова beta з faucet. Статус: потребує перевірки.",
+        "28.09.2026: testnet.hertzflow.xyz недоступний через web-інструмент. Доступ за запрошенням і faucet не перевірено."
+      ],
+      "version": 1
+    },
+    "training_eligible": false,
+    "current_operation_verified": false
+  },
+  {
+    "project": "Drosera",
+    "source_url": "https://cryptorank.io/ru/drophunting/drosera-activity883",
+    "screening": {
+      "project_id": 1007,
+      "decision": "needs_review",
+      "reason": "Немає достатніх доказів, що потрібні лише тестові токени.",
+      "policy_version": "test-tokens-only-v2",
+      "checked_at": "2026-09-28T18:38:36.680329+00:00"
+    },
+    "note": {
+      "checked_at": "2026-09-28",
+      "facts": [
+        {
+          "source_url": "https://cryptorank.io/drophunting/drosera-activity883",
+          "title": "Тестовий стейкінг: ETH Hoodi, тестові DRO із крана та вкладка Stake. Окремо картка містить запуск ноди; загальна оцінка витрат становить 20 USD."
+        },
+        {
+          "source_url": "https://cryptorank.io/drophunting/drosera-activity883",
+          "title": "Тестовий стейкінг потрібно перевірити окремо від ноди. Поточна доступність DRO та мережа застосунку не перевірені."
+        },
+        {
+          "source_url": "https://cryptorank.io/drophunting/drosera-activity883",
+          "title": "У копії присутні Open та Completed: поточний статус не встановлено. Винагорода потенційна, дата невідома."
+        }
+      ],
+      "project_url": "https://cryptorank.io/ru/drophunting/drosera-activity883",
+      "provenance": "Codex 28.09.2026: переказ індексованої копії CryptoRank. Працездатність тестнету наживо не підтверджена.",
+      "sources": [
+        {
+          "access": "indexed_partial",
+          "title": "CryptoRank: Drosera",
+          "url": "https://cryptorank.io/drophunting/drosera-activity883"
+        }
+      ],
+      "summary": "Тестовий стейкінг: ETH Hoodi, тестові DRO із крана та вкладка Stake. Окремо картка містить запуск ноди; загальна оцінка витрат становить 20 USD.",
+      "tasks": [],
+      "title": "Drosera",
+      "unknowns": [
+        "У копії присутні Open та Completed: поточний статус не встановлено. Винагорода потенційна, дата невідома.",
+        "28.09.2026: web-читання faucet.drosera.io повернуло 404. Доступність тестових DRO не підтверджена."
+      ],
+      "version": 1
+    },
+    "training_eligible": false,
+    "current_operation_verified": false
+  },
+  {
+    "project": "Overlayer",
+    "source_url": "https://incrypted.com/en/overlayer-testnet/",
+    "screening": {
+      "project_id": 1463,
+      "decision": "needs_review",
+      "reason": "Немає достатніх доказів, що потрібні лише тестові токени.",
+      "policy_version": "test-tokens-only-v2",
+      "checked_at": "2026-09-28T18:31:19.465715+00:00"
+    },
+    "note": {
+      "checked_at": "2026-09-28",
+      "facts": [
+        {
+          "source_url": "https://incrypted.com/en/overlayer-testnet/",
+          "title": "Гайд Incrypted від 24.05.2026 описує тестові токени з Faucet, завдання Early User, Galxe та Zealy. За статтею, вкладення не потрібні."
+        },
+        {
+          "source_url": "https://incrypted.com/en/overlayer-testnet/",
+          "title": "Згадка про майбутній токен і винагороди походить із переказу документації в Incrypted; офіційні умови тут не перевірені."
+        }
+      ],
+      "project_url": "https://incrypted.com/en/overlayer-testnet/",
+      "provenance": "Codex: переказ індексованої копії агрегатора, не перевірка тестнету наживо.",
+      "sources": [
+        {
+          "access": "indexed_partial",
+          "title": "Incrypted",
+          "url": "https://incrypted.com/en/overlayer-testnet/"
+        }
+      ],
+      "tasks": [],
+      "title": "Overlayer",
+      "unknowns": [
+        "Жива доступність крана, чинні завдання, дедлайн та умови винагороди не підтверджені."
+      ],
+      "version": 1
+    },
+    "training_eligible": false,
+    "current_operation_verified": false
+  },
+  {
+    "project": "Note Systems",
+    "source_url": "https://cryptorank.io/ru/drophunting/note-systems-activity1309",
+    "screening": {
+      "project_id": 1413,
+      "decision": "needs_review",
+      "reason": "Матеріал неповний: відсутність платних кроків ще не підтверджена.",
+      "policy_version": "test-tokens-only-v2",
+      "checked_at": "2026-09-28T18:53:38.831466+00:00"
+    },
+    "note": {
+      "checked_at": "2026-09-28",
+      "facts": [
+        {
+          "source_url": "https://cryptorank.io/drophunting/note-systems-activity1309",
+          "title": "CryptoRank описує тестнет із тестовими токенами та діями Coupon, Shield, Desk, Bonds, Buyback, Governance і Stake. Вказано початок 11.09.2026 та оновлення 25.09.2026."
+        },
+        {
+          "source_url": "https://cryptorank.io/drophunting/note-systems-activity1309",
+          "title": "Окремий конкурс публікацій не включено до плану тестових транзакцій. Позначка Confirmed у каталозі не підтверджує право конкретного гаманця на виплату."
+        },
+        {
+          "quote": "Testnet-season points do not convert to $NOTE and nothing is claimable.",
+          "source_url": "https://note.systems/community/",
+          "title": "Офіційна сторінка в доступній копії: тестнет-поінти лише відображають активність, не конвертуються у NOTE; claim за ними недоступний. Це суперечить опису винагороди в агрегаторі."
+        }
+      ],
+      "project_url": "https://cryptorank.io/ru/drophunting/note-systems-activity1309",
+      "provenance": "Codex 28.09.2026: офіційна сторінка Note Systems прочитана через web-інструмент (індексована копія); прямий HTTP повернув 403. Виявлено суперечність із CryptoRank.",
+      "sources": [
+        {
+          "access": "indexed_partial",
+          "title": "CryptoRank",
+          "url": "https://cryptorank.io/drophunting/note-systems-activity1309"
+        },
+        {
+          "access": "indexed_official_excerpt",
+          "purpose": "reward_rules",
+          "title": "Note Systems: official points rules",
+          "url": "https://note.systems/community/"
+        }
+      ],
+      "tasks": [],
+      "title": "Note Systems",
+      "unknowns": [
+        "Іншої винагороди за тестнет не підтверджено. Правила можливого mainnet-сезону не можна переносити на testnet. Пряме читання сайту обмежене HTTP 403."
+      ],
+      "version": 1
+    },
+    "training_eligible": false,
+    "current_operation_verified": false
+  }
+]

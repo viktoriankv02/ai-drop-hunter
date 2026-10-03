@@ -1,0 +1,75 @@
+{
+  "as_of": "2026-10-01T17:14:10.859100+00:00",
+  "schema_version": 2,
+  "window": {
+    "from": "2018-09-29",
+    "to": "2026-09-29",
+    "date_applies_to": "reward_distribution_event"
+  },
+  "target_unique_reward_projects": 1000,
+  "historical_project_dossiers": 79,
+  "comparison_sale_cases": 1,
+  "dossiers_with_narrative_payout_or_claim_reports": 41,
+  "fully_audited_cases": 0,
+  "onchain_claim_models_not_executed": 44,
+  "new_source_checked_extraction_examples": 7,
+  "total_source_checked_extraction_examples": 31,
+  "new_direct_source_bodies": 25,
+  "new_indexed_source_excerpts": 6,
+  "new_unusable_or_unavailable_sources": 2,
+  "model_smoke_passed": 5,
+  "model_smoke_total": 7,
+  "fine_tuning_performed": false,
+  "study_1000_completed": false,
+  "evidence_levels": {
+    "published_claim_analysis": 3,
+    "allocation_or_rules_only": 13,
+    "sale_not_reward": 1,
+    "issuer_reported_distribution": 25,
+    "issuer_reported_claims": 9,
+    "earned_not_claimed": 1,
+    "published_distribution_analysis": 2,
+    "live_claim_program": 14,
+    "genesis_distribution_documented": 2,
+    "completed_program_reported": 9
+  },
+  "reward_years": {
+    "2019": 1,
+    "2020": 1,
+    "2021": 15,
+    "2022": 15,
+    "2023": 11,
+    "2024": 25,
+    "2025": 10,
+    "2026": 1
+  },
+  "excluded_comparison_cases": 2,
+  "current_operation_independently_verified_cases": 0,
+  "agent_learning_scores": {
+    "baseline": {
+      "passed": 11,
+      "total": 13
+    },
+    "lessons_typed": {
+      "passed": 12,
+      "total": 13
+    }
+  },
+  "agent_transfer_scores": {
+    "baseline": {
+      "passed": 5,
+      "total": 6
+    },
+    "lessons_typed": {
+      "passed": 5,
+      "total": 6
+    }
+  },
+  "research_lessons_in_model_prompt": true,
+  "historical_analogies_in_model_prompt": true,
+  "expansion_quotes_evaluated_with_subset_targets": 6,
+  "discovery_pages": 389,
+  "discovery_pages_fetched": 387,
+  "expansion_source_urls": 97,
+  "expansion_direct_texts": 77
+}

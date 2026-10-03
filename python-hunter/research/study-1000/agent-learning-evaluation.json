@@ -1,0 +1,451 @@
+{
+  "as_of": "2026-09-30T15:46:02.700259+00:00",
+  "model": "qwen3:4b-instruct",
+  "lesson_version": "1b841c05310a7600",
+  "method": "paired same-excerpt comparison; lessons and typed schema jointly changed; alternating order; no reference values in prompt",
+  "scope": "13 curated regression excerpts, not held-out generalization",
+  "evaluation_version": "v2-quantity-scale-and-airdrop-number-field",
+  "fine_tuning_performed": false,
+  "completed": true,
+  "results": [
+    {
+      "project": "Monad",
+      "mode": "baseline",
+      "expected": {
+        "unique_claiming_wallets": 76021
+      },
+      "actual": {
+        "unique_claiming_wallets": 76021
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 4.39
+    },
+    {
+      "project": "Monad",
+      "mode": "lessons_typed",
+      "expected": {
+        "unique_claiming_wallets": 76021
+      },
+      "actual": {
+        "unique_claiming_wallets": 76021
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 16.53
+    },
+    {
+      "project": "Somnia",
+      "mode": "lessons_typed",
+      "expected": {
+        "gas_cost_mentioned": true,
+        "exact_gas_amount": null
+      },
+      "actual": {
+        "gas_cost_mentioned": true,
+        "exact_gas_amount": null
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 6.68
+    },
+    {
+      "project": "Somnia",
+      "mode": "baseline",
+      "expected": {
+        "gas_cost_mentioned": true,
+        "exact_gas_amount": null
+      },
+      "actual": {
+        "gas_cost_mentioned": true,
+        "exact_gas_amount": null
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 4.4
+    },
+    {
+      "project": "Stride",
+      "mode": "baseline",
+      "expected": {
+        "min_usd": 100,
+        "max_usd": 50000,
+        "valuation_at_snapshot": true
+      },
+      "actual": {
+        "min_usd": 100,
+        "max_usd": 50000,
+        "valuation_at_snapshot": true
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 8.8
+    },
+    {
+      "project": "Stride",
+      "mode": "lessons_typed",
+      "expected": {
+        "min_usd": 100,
+        "max_usd": 50000,
+        "valuation_at_snapshot": true
+      },
+      "actual": {
+        "min_usd": 100,
+        "max_usd": 50000,
+        "valuation_at_snapshot": true
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 9.96
+    },
+    {
+      "project": "Osmosis",
+      "mode": "lessons_typed",
+      "expected": {
+        "genesis_unlock_percent": 20,
+        "full_delivery_proven": false
+      },
+      "actual": {
+        "genesis_unlock_percent": 20,
+        "full_delivery_proven": false
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 6.06
+    },
+    {
+      "project": "Osmosis",
+      "mode": "baseline",
+      "expected": {
+        "genesis_unlock_percent": 20,
+        "full_delivery_proven": false
+      },
+      "actual": {
+        "genesis_unlock_percent": 20,
+        "full_delivery_proven": false
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 5.3
+    },
+    {
+      "project": "Arkham",
+      "mode": "baseline",
+      "expected": {
+        "reported_rewards_usd_lower_bound": 20000000,
+        "bound_is_strict": true,
+        "season": 1
+      },
+      "actual": {
+        "reported_rewards_usd_lower_bound": 20000000,
+        "bound_is_strict": true,
+        "season": "1"
+      },
+      "passed": false,
+      "failed_fields": [
+        "season"
+      ],
+      "seconds": 8.59
+    },
+    {
+      "project": "Arkham",
+      "mode": "lessons_typed",
+      "expected": {
+        "reported_rewards_usd_lower_bound": 20000000,
+        "bound_is_strict": true,
+        "season": 1
+      },
+      "actual": {
+        "reported_rewards_usd_lower_bound": 20000000,
+        "bound_is_strict": true,
+        "season": 1
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 8.76
+    },
+    {
+      "project": "Plasma",
+      "mode": "lessons_typed",
+      "expected": {
+        "announced_tokens": 25000000,
+        "completed_distribution_proven": false
+      },
+      "actual": {
+        "announced_tokens": 25000000,
+        "completed_distribution_proven": false
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 8.03
+    },
+    {
+      "project": "Plasma",
+      "mode": "baseline",
+      "expected": {
+        "announced_tokens": 25000000,
+        "completed_distribution_proven": false
+      },
+      "actual": {
+        "announced_tokens": 25000000,
+        "completed_distribution_proven": false
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 6.08
+    },
+    {
+      "project": "Saga",
+      "mode": "baseline",
+      "expected": {
+        "logic": "OR",
+        "matic_threshold": 300,
+        "matic_operator": ">",
+        "eth_threshold": 0.4,
+        "eth_operator": ">"
+      },
+      "actual": {
+        "logic": "OR",
+        "matic_threshold": null,
+        "matic_operator": null,
+        "eth_threshold": 0.4,
+        "eth_operator": ">"
+      },
+      "passed": false,
+      "failed_fields": [
+        "matic_threshold",
+        "matic_operator"
+      ],
+      "seconds": 9.81
+    },
+    {
+      "project": "Saga",
+      "mode": "lessons_typed",
+      "expected": {
+        "logic": "OR",
+        "matic_threshold": 300,
+        "matic_operator": ">",
+        "eth_threshold": 0.4,
+        "eth_operator": ">"
+      },
+      "actual": {
+        "logic": "OR",
+        "matic_threshold": 300,
+        "matic_operator": ">",
+        "eth_threshold": 0.4,
+        "eth_operator": ">"
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 11.22
+    },
+    {
+      "project": "Sanctum",
+      "mode": "lessons_typed",
+      "expected": {
+        "reported_distributed": 88042001,
+        "unit": "CLOUD"
+      },
+      "actual": {
+        "reported_distributed": 88042001,
+        "unit": "CLOUD"
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 5.93
+    },
+    {
+      "project": "Sanctum",
+      "mode": "baseline",
+      "expected": {
+        "reported_distributed": 88042001,
+        "unit": "CLOUD"
+      },
+      "actual": {
+        "reported_distributed": 88042001,
+        "unit": "CLOUD"
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 5.3
+    },
+    {
+      "project": "Flare",
+      "mode": "baseline",
+      "expected": {
+        "program_end": "2026-01-30",
+        "monthly_distributions": 36
+      },
+      "actual": {
+        "program_end": "2026-01-30",
+        "monthly_distributions": 36
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 6.38
+    },
+    {
+      "project": "Flare",
+      "mode": "lessons_typed",
+      "expected": {
+        "program_end": "2026-01-30",
+        "monthly_distributions": 36
+      },
+      "actual": {
+        "program_end": "2026-01-30",
+        "monthly_distributions": null
+      },
+      "passed": false,
+      "failed_fields": [
+        "monthly_distributions"
+      ],
+      "seconds": 7.42
+    },
+    {
+      "project": "Shardeum",
+      "mode": "lessons_typed",
+      "expected": {
+        "verification_start": "2025-12-02",
+        "verification_end": "2025-12-14"
+      },
+      "actual": {
+        "verification_start": "2025-12-02",
+        "verification_end": "2025-12-14"
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 6.38
+    },
+    {
+      "project": "Shardeum",
+      "mode": "baseline",
+      "expected": {
+        "verification_start": "2025-12-02",
+        "verification_end": "2025-12-14"
+      },
+      "actual": {
+        "verification_start": "2025-12-02",
+        "verification_end": "2025-12-14"
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 5.56
+    },
+    {
+      "project": "Sei",
+      "mode": "baseline",
+      "expected": {
+        "airdrop_number": 2,
+        "reported_distributed": 34435600,
+        "reported_addresses": 44445,
+        "unit": "SEI"
+      },
+      "actual": {
+        "airdrop_number": 2,
+        "reported_distributed": 34435600,
+        "reported_addresses": 44445,
+        "unit": "SEI"
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 8.84
+    },
+    {
+      "project": "Sei",
+      "mode": "lessons_typed",
+      "expected": {
+        "airdrop_number": 2,
+        "reported_distributed": 34435600,
+        "reported_addresses": 44445,
+        "unit": "SEI"
+      },
+      "actual": {
+        "airdrop_number": 2,
+        "reported_distributed": 34435600,
+        "reported_addresses": 44445,
+        "unit": "SEI"
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 10.76
+    },
+    {
+      "project": "Renzo",
+      "mode": "lessons_typed",
+      "expected": {
+        "metric": "ezPoints",
+        "operator": ">=",
+        "threshold": 360
+      },
+      "actual": {
+        "metric": "ezPoints",
+        "operator": ">=",
+        "threshold": 360
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 6.24
+    },
+    {
+      "project": "Renzo",
+      "mode": "baseline",
+      "expected": {
+        "metric": "ezPoints",
+        "operator": ">=",
+        "threshold": 360
+      },
+      "actual": {
+        "metric": "ezPoints",
+        "operator": ">=",
+        "threshold": 360
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 5.86
+    },
+    {
+      "project": "Aethir",
+      "mode": "baseline",
+      "expected": {
+        "season": 1,
+        "reported_distributed": 630000000,
+        "unit": "ATH"
+      },
+      "actual": {
+        "season": 1,
+        "reported_distributed": 630000000,
+        "unit": "ATH"
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 6.41
+    },
+    {
+      "project": "Aethir",
+      "mode": "lessons_typed",
+      "expected": {
+        "season": 1,
+        "reported_distributed": 630000000,
+        "unit": "ATH"
+      },
+      "actual": {
+        "season": 1,
+        "reported_distributed": 630000000,
+        "unit": "ATH"
+      },
+      "passed": true,
+      "failed_fields": [],
+      "seconds": 7.51
+    }
+  ],
+  "scores": {
+    "baseline": {
+      "passed": 11,
+      "total": 13
+    },
+    "lessons_typed": {
+      "passed": 12,
+      "total": 13
+    }
+  }
+}

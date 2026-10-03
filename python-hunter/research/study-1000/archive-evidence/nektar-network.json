@@ -1,0 +1,8 @@
+{
+  "slug": "nektar-network",
+  "source_url": "https://airdroparchive.com/projects/nektar-network/",
+  "http_status": null,
+  "error": "<urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>",
+  "verification_status": "unavailable",
+  "fine_tuning_eligible": false
+}

@@ -1,0 +1,223 @@
+{
+  "as_of": "2026-09-30T15:52:03.382554+00:00",
+  "model": "qwen3:4b-instruct",
+  "lesson_version": "1b841c05310a7600",
+  "scope": "six new source excerpts from four projects, selected after policy freeze; not a large held-out benchmark",
+  "reference_values_sent_to_model": false,
+  "fine_tuning_performed": false,
+  "completed": true,
+  "results": [
+    {
+      "id": "transfer-1",
+      "project": "Safe",
+      "mode": "baseline",
+      "passed": true,
+      "failed_fields": [],
+      "actual": {
+        "token_percent": 37.47,
+        "wallet_percent": 39.91,
+        "proposal_number": 5
+      },
+      "expected": {
+        "token_percent": 37.47,
+        "wallet_percent": 39.91,
+        "proposal_number": 5
+      }
+    },
+    {
+      "id": "transfer-1",
+      "project": "Safe",
+      "mode": "lessons_typed",
+      "passed": true,
+      "failed_fields": [],
+      "actual": {
+        "token_percent": 37.47,
+        "wallet_percent": 39.91,
+        "proposal_number": 5
+      },
+      "expected": {
+        "token_percent": 37.47,
+        "wallet_percent": 39.91,
+        "proposal_number": 5
+      }
+    },
+    {
+      "id": "transfer-2",
+      "project": "LooksRare",
+      "mode": "lessons_typed",
+      "passed": true,
+      "failed_fields": [],
+      "actual": {
+        "included_chain": "Ethereum",
+        "polygon_volume_included": false
+      },
+      "expected": {
+        "included_chain": "Ethereum",
+        "polygon_volume_included": false
+      }
+    },
+    {
+      "id": "transfer-2",
+      "project": "LooksRare",
+      "mode": "baseline",
+      "passed": true,
+      "failed_fields": [],
+      "actual": {
+        "included_chain": "Ethereum",
+        "polygon_volume_included": false
+      },
+      "expected": {
+        "included_chain": "Ethereum",
+        "polygon_volume_included": false
+      }
+    },
+    {
+      "id": "transfer-3",
+      "project": "Spark",
+      "mode": "baseline",
+      "passed": true,
+      "failed_fields": [],
+      "actual": {
+        "usd_threshold": 100,
+        "operator": ">",
+        "single_transaction_required": true
+      },
+      "expected": {
+        "usd_threshold": 100,
+        "operator": ">",
+        "single_transaction_required": true
+      }
+    },
+    {
+      "id": "transfer-3",
+      "project": "Spark",
+      "mode": "lessons_typed",
+      "passed": true,
+      "failed_fields": [],
+      "actual": {
+        "usd_threshold": 100,
+        "operator": ">",
+        "single_transaction_required": true
+      },
+      "expected": {
+        "usd_threshold": 100,
+        "operator": ">",
+        "single_transaction_required": true
+      }
+    },
+    {
+      "id": "transfer-4",
+      "project": "Spark",
+      "mode": "lessons_typed",
+      "passed": false,
+      "failed_fields": [
+        "returned_to_treasury",
+        "unit"
+      ],
+      "actual": {
+        "returned_to_treasury": false,
+        "exact_returned_tokens": null,
+        "unit": ""
+      },
+      "expected": {
+        "returned_to_treasury": true,
+        "exact_returned_tokens": null,
+        "unit": "SPK"
+      }
+    },
+    {
+      "id": "transfer-4",
+      "project": "Spark",
+      "mode": "baseline",
+      "passed": false,
+      "failed_fields": [
+        "returned_to_treasury",
+        "unit"
+      ],
+      "actual": {
+        "returned_to_treasury": null,
+        "exact_returned_tokens": null,
+        "unit": null
+      },
+      "expected": {
+        "returned_to_treasury": true,
+        "exact_returned_tokens": null,
+        "unit": "SPK"
+      }
+    },
+    {
+      "id": "transfer-5",
+      "project": "Ethena",
+      "mode": "baseline",
+      "passed": true,
+      "failed_fields": [],
+      "actual": {
+        "vesting_percent": 50,
+        "vesting_months": 6
+      },
+      "expected": {
+        "vesting_percent": 50,
+        "vesting_months": 6
+      }
+    },
+    {
+      "id": "transfer-5",
+      "project": "Ethena",
+      "mode": "lessons_typed",
+      "passed": true,
+      "failed_fields": [],
+      "actual": {
+        "vesting_percent": 50,
+        "vesting_months": 6
+      },
+      "expected": {
+        "vesting_percent": 50,
+        "vesting_months": 6
+      }
+    },
+    {
+      "id": "transfer-6",
+      "project": "Ethena",
+      "mode": "lessons_typed",
+      "passed": true,
+      "failed_fields": [],
+      "actual": {
+        "minimum_future_percent": 10,
+        "token": "ENA",
+        "completed_distribution_proven": false
+      },
+      "expected": {
+        "minimum_future_percent": 10,
+        "token": "ENA",
+        "completed_distribution_proven": false
+      }
+    },
+    {
+      "id": "transfer-6",
+      "project": "Ethena",
+      "mode": "baseline",
+      "passed": true,
+      "failed_fields": [],
+      "actual": {
+        "minimum_future_percent": 10,
+        "token": "ENA",
+        "completed_distribution_proven": false
+      },
+      "expected": {
+        "minimum_future_percent": 10,
+        "token": "ENA",
+        "completed_distribution_proven": false
+      }
+    }
+  ],
+  "scores": {
+    "baseline": {
+      "passed": 5,
+      "total": 6
+    },
+    "lessons_typed": {
+      "passed": 5,
+      "total": 6
+    }
+  }
+}

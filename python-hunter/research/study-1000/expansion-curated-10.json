@@ -1,0 +1,105 @@
+[
+  {
+    "project": "Ethena",
+    "reward_year": 2024,
+    "event_date": null,
+    "ecosystems": [
+      "Ethereum"
+    ],
+    "rules_summary": "Shards накопичували протягом шести тижнів; алокація пропорційна shards. Повний вихід до завершення позбавляв eligibility. Для top-2000 і Pendle YT: 50% ліквідні, 50% за шість місяців; зменшення USDe від snapshot 26.03 скорочувало невідвестовану частину пропорційно. Переміщення між дозволеними позиціями має окремі умови.",
+    "payout_summary": "Офіційне оновлення Season 2 повідомляє про розподіл 5% supply у квітні 2024. Початковий пул 750 млн ENA не прийнято за незалежно підтверджений final claimed-total. Майбутні 10–15% інших програм не додано до виплаченого.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://paragraph.com/@ethena-labs/season-2-updates",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://mirror.xyz/0xF99d0E4E3435cc9C9868D1C6274DfaB3e2721341/uCBp9VeuLWs-ul1b6AOUAoMg5HBB_iizMIi-11N6nT8",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Зберігати баланс snapshot, поточний баланс і forfeiture окремо; максимальні ілюстративні доходи не є типовим або гарантованим результатом.",
+    "unknowns": [
+      "Фінальні суми claims, залишки за фазами та витрати учасників не перераховано.",
+      "Поточний стан продукту потребує окремої перевірки."
+    ],
+    "tags": [
+      "points",
+      "deposit",
+      "conditional_unlock",
+      "real_capital",
+      "redistribution"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  },
+  {
+    "project": "Spark",
+    "reward_year": 2025,
+    "event_date": null,
+    "ecosystems": [
+      "Ethereum",
+      "Base",
+      "Arbitrum",
+      "Optimism",
+      "Polygon",
+      "Gnosis"
+    ],
+    "rules_summary": "Pre-farm: сума × тривалість qualifying lending/borrowing, 80/20 розподіл між категоріями; лише Ethereum, виключення looping. Ignition — окремі snapshots, активи й мережі: наприклад, >=$1000 певних stablecoin holdings або >$100 одним внеском у SparkLend. Overdrive був окремою фазою.",
+    "payout_summary": "Офіційна документація підтверджує роздачу та завершення всіх claim-вікон 17.12.2025. Невитребувані pre-farm токени повернено treasury; невитребувані Ignition спрямовували в Overdrive. Точні кінцеві суми не перераховано.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://docs.spark.finance/airdrop/",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://docs.spark.finance/airdrop/pre-farm",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://docs.spark.finance/airdrop/ignition",
+        "kind": "issuer",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "У одного емітента різні правила залишків і строки. Належність до мережі та конкретний актив перевіряються для кожної гілки, а не кампанії загалом.",
+    "unknowns": [
+      "Фінальні суми claims, залишки за фазами та витрати учасників не перераховано.",
+      "Поточний стан продукту потребує окремої перевірки."
+    ],
+    "tags": [
+      "lending",
+      "snapshot",
+      "threshold",
+      "chain_exclusion",
+      "multi_phase",
+      "redistribution"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  }
+]

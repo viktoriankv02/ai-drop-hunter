@@ -1,0 +1,100 @@
+{
+  "text": "ZK Nation Blog\n\nIt's Your Turn to Govern ZKsync's Future\n\nZK is the Endgame. Not only the endgame to verifiably scale Ethereum, but also the endgame to restore our right to personal sovereignty.\n\nAs a pioneering ZK rollup and Ethereum’s first ever zkEVM chain, ZKsync is architecting the future of verifiable, permissionless blockchains. The recent v24 upgrade sets the foundation for an ever-expanding network of interconnected ZK chains that can horizontally scale to billions.\n\nTo ensure ZKsync remains trustless and censorship-resistant, the protocol must be decentralized and governed by a diverse group of passionate, dedicated community members. Transferring a meaningful amount of authority to a real and engaged community is absolutely crucial to establish decentralized governance.\n\nThe ZK token is a protocol token that allows token holders to introduce and vote on protocol upgrades and pay for network fees using ZKsync’s native account abstraction . Through governance-driven protocol upgrades, the community can evolve ZK to introduce staking and other functions.\n\nAs more ZK chains launch, the token can become a vital tool for coordinating technical innovation. While ZKsync Era is the first ZK chain, Lens Network , Cronos zkEVM , GRVT , and a number of others will make their debut over the coming months.\n\nIt’s time to put the ZK token into the hands of the community. It’s your turn to govern ZKsync’s future.\n\nCommunity is Everything\n\nEarly users recognized ZKsync’s potential to expand personal freedom and dove in, whether that was on ZKsync Lite, trying native account abstraction, bridging in their assets, or using new dApps. That trust needs to be recognized. Putting ZK into the hands of people that share the same vision will ensure that the ZKsync protocol will continue to embody the ZK Credo .\n\nThat’s why two-thirds (~67%) of ZK will go to the community. 17.5% of the overall supply will be distributed through a one-time airdrop. The rest will be distributed over time, through ecosystem initiatives, managed by the ZKsync Foundation, and the ZK Nation governance process, to support a growing ecosystem as new users come onchain.\n\nThe remaining max token supply is allocated to investors and the Matter Labs team. These ZK tokens are locked for the first year and will then unlock over the course of 3 years, between June 2025 to June 2028.\n\nMOAD: The Mother of All Drops\n\nPower the community\n\nA 17.5% airdrop to 695,232 wallets is the largest distribution of tokens to users amongst major rollups. Airdropped tokens do not have any vesting or lock up periods, and are fully liquid on day one.\n\nWhen the ZKsync governance system launches in the coming weeks, the community will have the largest supply of liquid tokens to direct protocol governance upgrades.\n\nReward real people\n\nA well-designed airdrop rewards community members that actively participate in a network. With 6 million unique addresses on ZKsync Era, it’s tempting to eliminate bot swarms by applying strict sybil criteria. But sybil detection often cuts out real users with arbitrary filters. This was an incomplete approach for the ZK airdrop.\n\nThe ZK airdrop focuses on identifying real users using a human-first approach. A wallet’s onchain history reveals a lot about its owner habits. Real people tend to be risk-on, especially the ones that feel like a part of a community. They spend time onchain, ape in, transact, try new protocols, and hold speculative assets. Bots and opportunists are the opposite. Bots take fewer risks with minimal effort while trying to blend into the community and extract value from it.\n\nHigh risk, high reward\n\nReal humans have skin in the game. They bridge in assets that eventually trickle down into dApp and DeFi protocols to become the lifeblood for a highly liquid ecosystem. Users should be rewarded proportional to their impact on the success of ZKsync.\n\nBut there are limits. It would be easy for whales to run away with large allocations without any constraints. The ZK distribution airdrops a maximum of 100,000 tokens per address for the usage-based airdrop. Select addresses that are also eligible for the contribution-based airdrop could receive additional allocation. By capping whales, the ZK token airdrop aims to fairly rewards community members that contribute to ZKsync in different ways.\n\nAirdrop\n\nThere are two ways to qualify for the 17.5% airdrop:\n\nUsers (89%): ZKsync users who transacted on ZKsync and met a threshold of activity.\n\nContributors (11%): Individuals, developers, researchers, communities, and companies who contributed to the ZKsync ecosystem and protocol through development, advocacy or education—regardless of their activity on ZKsync.\n\nEligibility and allocations for the airdrop were based on a snapshot of activity on ZKsync Era and ZKsync Lite taken on March 24th, 2024 at 0:00 UTC, marking the one-year anniversary of ZKsync Era mainnet launch.\n\nUsage-based Allocation\n\nStep 1. Eligibility\n\nTo start, every address that has ever transacted on ZKsync Era and ZKsync Lite was checked against eligibility criteria that identifies people who thoughtfully spent time exploring ZKsync. Each address must have at least one point to be eligible for the airdrop.\n\nStep 2. Allocation\n\nAfter determining a wallet’s eligibility, its allocation was calculated based on crypto assets bridged into ZKsync Era. The formula adjusted an address’s allocation based on their assets in ZKsync Era — in wallets and in DeFi — together with how long those assets were in ZKsync Era. The value-scaled allocation for each address was then boosted by each additional point they earned. The more points received, the larger the final allocation, up to a capped amount of 100,000 ZK.\n\nStep 3. Multipliers\n\nEach address could receive multipliers based on activity that signaled a high likelihood of human behavior or contribution to ZKsync. These multipliers apply on top of eligibility and allocations from ZKsync Era and Lite usage.\n\nBeing a part of ZKsync’s flourishing culture by owning ZKsync-native NFTs\n\nSupporting the ZKsync ecosystem by holding ZKsync-native ERC20 tokens\n\nExperimenting with ZKsync Era’s native account abstraction by using smart contract wallets\n\nReceiving and holding previous airdrops from other ETH communities to stay committed to the long-term success of a network\n\nTransacting with popular ETH mainnet smart contracts and exploring new use cases and dapps\n\nAfter Step 3, each address was assigned a token allocation. Addresses had to meet a minimum requirement of 450 ZK and were capped at a maximum of 100,000 ZK. Addresses with fewer than 450 ZK had their tokens recycled back into the pool. Addresses with more than 100,000 ZK had their excess tokens recycled back into the pool as well. These tokens were then redistributed and brought the minimum allocation up to 917 ZK.\n\nStep 4. Thoughtful Sybil Detection\n\nAt this point, the vast majority of sybils have been naturally eliminated through the eligibility and allocation criteria. Industrial farmers play destructive games. They give very little to extract a lot, like parasites leeching off the community. The human-first approach inverted this asymmetry, to the advantage of real people. It recognizes and rewards users who gave a lot and added value to the community.\n\nAt the end of the allocation process, each wallet was run through an additional sybil detection step, which eliminated most obvious swarms. It intentionally used a very conservative heuristics framework, to avoid accidentally punishing real people. This approach accounts for some sophisticated bots getting through, but value-scaling makes sure that their token allocations remain small.\n\nFurther in-depth details on the ZKsync usage-based portion of the airdrop can be found in our documentation.\n\nContribution-Based Allocation\n\nA smaller percentage of the overall airdrop (11%) was allocated to individuals, developers, researchers, communities, and companies who contributed to the ZKsync ecosystem and protocol through development, advocacy or education, regardless of network usage.\n\nMore than half (5.8%) of this allocation includes the treasuries of ZKsync native projects building on ZKsync Era, including DeFi protocols, ZK chains, NFT collections, decentralized marketplaces, infrastructure, gaming, and more. These projects know their communities better than anyone else and know how to best use that allocation to grow even further.\n\nThe remaining amount was allocated to contributors, companies, and individuals that laid the groundwork on which ZKsync was built:\n\nContributors to organizations developing Ethereum including execution clients, consensus clients, developer tooling, RPCs, and other projects that have had a positive impact on ZKsync.\n\nContributors to Github repos that have advanced blockchain technology and directly or indirectly contributed to ZKsync's success, including important work related to blockchains, zero knowledge proofs, developer tooling, and developer education.\n\nEducators onboarding developers and security researchers, and contributed to the ZKsync Community Hub on GitHub\n\nContributors to Github repos working on zero knowledge proofs, Ethereum dev tooling, open-source software.\n\nSecurity researchers participating in audit contests hosted by Cantina, Code4rena, and CodeHawks\n\nZKsync community mods, ZK Credo translators, ZK Quest participants, and in-person event attendees.\n\nFinally, 0.4875% of the total supply was allocated to a small group of experimental onchain communities for exploring novel ways to organize using tokens and NFTs. These communities include $DEGEN and $BONSAI airdrop recipients, Crypto the Game players, and Pudgy and Milady holders.\n\nFurther in-depth details on the contribution-based allocation can be found in our documentation.\n\nMinting, Claiming and Delegation\n\nCommunity members can check their eligibility at claim.zknation.io , and will be able to claim their tokens starting next week until January 3rd, 2025. Eligible GitHub developers and ZKsync GitHub Discussion Helpers must associate their address to their account by June 25th, 00:00 CEST to claim. External Projects, Protocol Guild and ZKsync native project contributors will be able to claim starting June 24th, 2024.\n\nWith ZKsync’s native account abstraction, claiming your ZK is gas free. Once claimed, token holders can participate in the governance of the ZKsync protocol and either self-delegate, or delegate their token voting rights to a representative they believe will continue advancing personal freedom for all.\n\nTo stay up to date on the upcoming claim, follow the official channels:\n\nZK Nation X\n\nZK Nation Website\n\nZKsync X\n\nImportant Note: Any allocation of a ZK token is subject to the ZK Airdrop Terms and Conditions. The ZK token does not confer a claim, any rights to cash or tokenflows or comparable rights to holders against any person or the protocol. We neither control nor endorse any of the ZK chains referenced nor do we guarantee that they are or will continue to be operational. Update: This blog was updated on June 6 to reflect accurate airdrop percentages.\n\nRelated Posts\n\nIntroducing ZK Nation\n\nThe Community-Driven Future of ZKsync Welcome to ZK Nation, a community driven by a shared purpose to govern, defend, and grow the ZKsync protocol. ZK Nation brings the world closer to realizing the vision of the ZK Credo, uniting individuals, organizations, and technologies to advance freedom and accelerate intentional innovation. It’s been a long road, one that protocol users and platform advocates have been eagerly awaiting. Today marks a significant step forward in the journey to empower Z\n\nProgrammatic Token Flows: Benefits of Capped Minters & Token Mechanics\n\nThe ZKsync governance system demonstrates how token governance can be reimagined for decentralized ecosystems. Instead of token holders managing a treasury of minted tokens with unknown custody risks, the ZKsync Token Assembly (community of Delegates & delegators) manages minting rights - aiming to reduce custody uncertainty, increase recipient agency and enhance security. The components of this model were deliberately incorporated into the ZKsync token and governance design to proactively addr",
+  "links": [
+    {
+      "url": "https://www.zknation.io/",
+      "label": ""
+    },
+    {
+      "url": "https://www.zknation.io/blog",
+      "label": "Blog"
+    },
+    {
+      "url": "https://docs.zknation.io/",
+      "label": "Docs"
+    },
+    {
+      "url": "https://forum.zknation.io/",
+      "label": "Forum"
+    },
+    {
+      "url": "https://docs.zksync.io/",
+      "label": "Protocol"
+    },
+    {
+      "url": "https://vote.zknation.io/dao",
+      "label": "Vote"
+    },
+    {
+      "url": "https://github.com/zkSync-Community-Hub/zksync-developers/discussions/519?ref=zknation.ghost.io",
+      "label": "v24 upgrade"
+    },
+    {
+      "url": "https://docs.zksync.io/build/developer-reference/account-abstraction/?ref=zknation.ghost.io",
+      "label": "native account abstraction"
+    },
+    {
+      "url": "https://app.t2.world/article/clw6l2z0018727620mc1dq26xr2?ref=zknation.ghost.io",
+      "label": "Lens Network"
+    },
+    {
+      "url": "https://blog.cronos.org/p/cronos-labs-launches-public-zkevm?ref=zknation.ghost.io",
+      "label": "Cronos zkEVM"
+    },
+    {
+      "url": "https://zksync.mirror.xyz/8qNtXFBTN8iVqG3qyWXmjmT9f4VGvDNw2FOb4ikBB_0?ref=zknation.ghost.io",
+      "label": "GRVT"
+    },
+    {
+      "url": "https://github.com/zksync/credo/?ref=zknation.ghost.io",
+      "label": "ZK Credo"
+    },
+    {
+      "url": "https://docs.zknation.io/zk-token/zk-token?ref=zknation.ghost.io",
+      "label": "distributed"
+    },
+    {
+      "url": "https://zknation.ghost.io/introducing-zk-nation/",
+      "label": "ZK Nation"
+    },
+    {
+      "url": "https://docs.zknation.io/?ref=zknation.ghost.io",
+      "label": "Find additional details on the ZK token in the official documentation."
+    },
+    {
+      "url": "https://docs.zknation.io/zk-token/zk-airdrop?ref=zknation.ghost.io",
+      "label": "Airdrop"
+    },
+    {
+      "url": "https://claim.zknation.io/?ref=zknation.ghost.io",
+      "label": "claim.zknation.io"
+    },
+    {
+      "url": "https://www.tally.xyz/gov/zksync?ref=zknation.ghost.io",
+      "label": "self-delegate, or delegate"
+    },
+    {
+      "url": "https://x.com/thezknation?ref=zknation.ghost.io",
+      "label": "ZK Nation X"
+    },
+    {
+      "url": "https://zknation.io/?ref=zknation.ghost.io",
+      "label": "ZK Nation Website"
+    },
+    {
+      "url": "https://x.com/zksync?ref=zknation.ghost.io",
+      "label": "ZKsync X"
+    },
+    {
+      "url": "https://www.zknation.io/blog/introducing-zk-nation",
+      "label": "Introducing ZK Nation The Community-Driven Future of ZKsync\n\nWelcome to ZK Nation, a community driven by a shared purpose to govern, defend, and grow the ZKsync"
+    },
+    {
+      "url": "https://www.zknation.io/blog/programmatic-token-flows-benefits-of-capped-minters-token-mechanics",
+      "label": "Programmatic Token Flows: Benefits of Capped Minters & Token Mechanics The ZKsync governance system demonstrates how token governance can be reimagined for dece"
+    }
+  ],
+  "truncated": false,
+  "characters_available": 12262,
+  "url": "https://www.zknation.io/blog/zk-token"
+}

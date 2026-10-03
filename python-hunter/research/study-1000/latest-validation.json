@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "launch_quote_presence",
+    "date_precision_preserved",
+    "unique_launch_entities",
+    "API_sample_not_counted_as_research"
+  ],
+  "verified_launches_in_window": 7,
+  "requested_1000_study_complete": false
+}

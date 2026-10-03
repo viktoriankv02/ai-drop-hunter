@@ -1,0 +1,3 @@
+
+# Preserve archived source bytes used by SHA-256 provenance checks.
+research/study-1000/** -text

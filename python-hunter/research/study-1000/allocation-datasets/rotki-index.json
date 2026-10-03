@@ -1,0 +1,407 @@
+{
+    "airdrops": {
+        "uniswap": {
+            "csv_path": "airdrops/uniswap.csv",
+            "csv_hash": "87c81b0070d4a19ab87fd631b79247293031412706ec5414a859899572470ddf",
+            "asset_identifier": "eip155:1/erc20:0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+            "url": "https://app.uniswap.org/",
+            "name": "Uniswap",
+            "icon": "uniswap.svg"
+        },
+        "1inch": {
+            "csv_path": "airdrops/1inch.csv",
+            "csv_hash": "7f8a67b1fe7c2019bcac956777d306dd372ebe5bc2a9cd920129884170562108",
+            "asset_identifier": "eip155:1/erc20:0x111111111117dC0aa78b770fA6A738034120C302",
+            "url": "https://1inch.exchange/",
+            "name": "1inch",
+            "icon": "1inch.svg"
+        },
+        "tornado": {
+            "csv_path": "airdrops/tornado.csv",
+            "csv_hash": "3e56f65f22f324c61b4469ebef2d7013e05ffd4511a100ddbd2b589da4341db7",
+            "asset_identifier": "eip155:1/erc20:0x77777FeDdddFfC19Ff86DB637967013e6C6A116C",
+            "url": "https://tornado.cash/",
+            "name": "Tornado Cash",
+            "icon": "tornado.svg",
+            "has_decoder": false
+        },
+        "cornichon": {
+            "csv_path": "airdrops/cornichon_airdrop.csv",
+            "csv_hash": "873298cb2641ba6bfa3243ad0f75648241337b2596a8c6cd5ae89d7faab95f3a",
+            "asset_identifier": "eip155:1/erc20:0xa456b515303B2Ce344E9d2601f91270f8c2Fea5E",
+            "url": "https://cornichon.ape.tax/",
+            "name": "Cornichon",
+            "icon": "cornichon.svg"
+        },
+        "grain": {
+            "csv_path": "airdrops/grain_iou.csv",
+            "csv_hash": "dff6b525931ac7ad321efd8efc419370a9d7a222e92b1aad7a985b7e61248121",
+            "asset_identifier": "eip155:1/erc20:0x6589fe1271A0F29346796C6bAf0cdF619e25e58e",
+            "url": "https://claim.harvest.finance/",
+            "name": "Grain",
+            "icon": "grain.png"
+        },
+        "furucombo": {
+            "csv_path": "airdrops/furucombo_airdrop.csv",
+            "csv_hash": "b538026356cf1ad288a2cf61482651e610fa9f27d4d5d9bff36be09c066fea29",
+            "asset_identifier": "eip155:1/erc20:0xfFffFffF2ba8F66D4e51811C5190992176930278",
+            "url": "https://furucombo.app/",
+            "name": "Furucombo",
+            "icon": "furucombo.png",
+            "has_decoder": false
+        },
+        "lido": {
+            "csv_path": "airdrops/lido_airdrop.csv",
+            "csv_hash": "3af631eff18f10f7a7b6c26d56668b1a00a2c6a8f3ee25759c7dd33c2d9d4dd4",
+            "asset_identifier": "eip155:1/erc20:0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32",
+            "url": "https://lido.fi/",
+            "name": "Lido",
+            "icon": "lido.svg",
+            "has_decoder": false
+        },
+        "curve": {
+            "csv_path": "airdrops/curve_airdrop.csv",
+            "csv_hash": "9c1c7c38791d6af3275668cba609a9b8ee8a6f6fc270906094bd76affd59a376",
+            "asset_identifier": "eip155:1/erc20:0xD533a949740bb3306d119CC777fa900bA034cd52",
+            "url": "https://www.curve.fi/",
+            "name": "Curve Finance",
+            "icon": "curve.png",
+            "has_decoder": false
+        },
+        "convex": {
+            "csv_path": "airdrops/convex_airdrop.csv",
+            "csv_hash": "2da9d74c6905504bdfd2611d7402a8898281f61fed9619d1584f6e1fa2fd5a30",
+            "asset_identifier": "eip155:1/erc20:0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B",
+            "url": "https://www.convexfinance.com/",
+            "name": "Convex",
+            "icon": "convex.jpeg"
+        },
+        "shapeshift": {
+            "csv_path": "airdrops/shapeshift.csv",
+            "csv_hash": "97b599c62af4391a19c17b47bd020733801e28a443443ad7e1602c647c9ebfe2",
+            "asset_identifier": "eip155:1/erc20:0xc770EEfAd204B5180dF6a14Ee197D99d808ee52d",
+            "url": "https://shapeshift.com/shapeshift-decentralize-airdrop",
+            "name": "ShapeShift",
+            "icon": "shapeshift.svg",
+            "cutoff_time": 1634050800
+        },
+        "ens": {
+            "csv_path": "airdrops/ens.csv",
+            "csv_hash": "31a6d42dc72ae82b741ece5baa61d588cb77c1c377574cd647c2444ef921d90e",
+            "asset_identifier": "eip155:1/erc20:0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72",
+            "url": "https://claim.ens.domains/",
+            "name": "ENS",
+            "icon": "ens.svg"
+        },
+        "psp": {
+            "csv_path": "airdrops/psp.csv",
+            "csv_hash": "4eabb70ee8e1d7b81e936eaf8e6c9a081d46ea943550e570fcb2a710f540e651",
+            "asset_identifier": "eip155:1/erc20:0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5",
+            "url": "https://paraswap.io/",
+            "name": "ParaSwap",
+            "icon": "paraswap.svg",
+            "has_decoder": false
+        },
+        "sdl": {
+            "csv_path": "airdrops/saddle_finance.csv",
+            "csv_hash": "be80582ddc0756ccdf6875d18000f0338bde334a41d6ca9df3f87545183d3962",
+            "asset_identifier": "eip155:1/erc20:0xf1Dc500FdE233A4055e25e5BbF516372BC4F6871",
+            "url": "https://saddle.exchange/#/",
+            "name": "SaddleFinance",
+            "icon": "saddle-finance.svg",
+            "has_decoder": false
+        },
+        "cow_mainnet": {
+            "csv_path": "airdrops/cow_mainnet.csv",
+            "csv_hash": "f2470fa6d39aad0596500a6c29dcbfeb33c2b97c9c2db193ba372d43c7d731e8",
+            "asset_identifier": "eip155:1/erc20:0xD057B63f5E69CF1B929b356b579Cba08D7688048",
+            "url": "https://cowswap.exchange/#/claim",
+            "name": "COW (ethereum)",
+            "icon": "cow.svg"
+        },
+        "cow_gnosis": {
+            "csv_path": "airdrops/cow_gnosis.csv",
+            "csv_hash": "48bd4a1f5e8203a257e602573b849eb4f87f3f666545408955d118ef40325214",
+            "asset_identifier": "eip155:100/erc20:0xc20C9C13E853fc64d054b73fF21d3636B2d97eaB",
+            "url": "https://cowswap.exchange/#/claim",
+            "name": "COW (gnosis chain)",
+            "icon": "cow.svg"
+        },
+        "diva": {
+            "csv_path": "airdrops/diva.csv",
+            "csv_hash": "3ea6038570c92eba04563f91ed6d82c49192d86acd747fd9e0b900af2a91ab14",
+            "asset_identifier": "eip155:1/erc20:0xBFAbdE619ed5C4311811cF422562709710DB587d",
+            "url": "https://claim.diva.community/",
+            "name": "DIVA",
+            "icon": "diva.svg"
+        },
+        "shutter": {
+            "csv_path": "airdrops/shutter.csv",
+            "csv_hash": "a11e397462a18520f5b0e6fd7abc34de0881990d0d6580fec8a293c82f1e1444",
+            "asset_identifier": "eip155:1/erc20:0xe485E2f1bab389C08721B291f6b59780feC83Fd7",
+            "url": "https://claim.shutter.network/",
+            "name": "SHU",
+            "icon": "shutter.png",
+            "cutoff_time": 1721000000,
+            "new_asset_data": {
+                "asset_type": "EVM_TOKEN",
+                "address": "0xe485E2f1bab389C08721B291f6b59780feC83Fd7",
+                "name": "Shutter",
+                "symbol": "SHU",
+                "chain_id": 1,
+                "decimals": 18
+            }
+        },
+        "starknet": {
+            "csv_path": "airdrops/starknet.csv",
+            "csv_hash": "1c2701ff001c346f84799b4f9beada37cde82e71964eaa5ea0c1e5f24c7a8ad1",
+            "asset_identifier": "eip155:1/erc20:0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766",
+            "url": "https://provisions.starknet.io/",
+            "name": "STRK",
+            "icon": "starknet.svg",
+            "icon_path": "airdrops/icons/starknet.svg",
+            "cutoff_time": 1718841600,
+            "has_decoder": false,
+            "new_asset_data": {
+                "asset_type": "EVM_TOKEN",
+                "address": "0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766",
+                "name": "Starknet",
+                "symbol": "STRK",
+                "chain_id": 1,
+                "decimals": 18,
+                "coingecko": "starknet"
+            }
+        },
+        "optimism_4": {
+            "csv_path": "airdrops/optimism_4.csv",
+            "csv_hash": "01ca439a24973b1cf1c3335b2c4b4db3e9c8a68ad105ee11b9eec2450fdf7499",
+            "asset_identifier": "eip155:10/erc20:0x4200000000000000000000000000000000000042",
+            "url": "https://app.optimism.io/airdrops/4",
+            "name": "OP",
+            "icon": "optimism.svg",
+            "cutoff_time": 1739491200
+        },
+        "degen2_season1": {
+            "csv_path": "airdrops/degen2_season1.csv",
+            "csv_hash": "708ae1fcbe33a11a91fd05e1e7c4fa2d514b65cb1f8d3e4ce3556e7bdd8af2f5",
+            "asset_identifier": "eip155:8453/erc20:0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
+            "url": "https://www.degen.tips/airdrop2/season1",
+            "name": "DEGEN",
+            "icon": "degen.svg",
+            "icon_path": "airdrops/icons/degen.svg",
+            "cutoff_time": 1711843200,
+            "new_asset_data": {
+                "asset_type": "EVM_TOKEN",
+                "address": "0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
+                "name": "Degen",
+                "symbol": "DEGEN",
+                "chain_id": 8453,
+                "decimals": 18
+            }
+        },
+        "omni": {
+            "csv_path": "airdrops/omni.csv",
+            "csv_hash": "0e0d5520e9c18bdc4d688680deb0389e48e9a1cf7af0874696d078f6e608252d",
+            "asset_identifier": "eip155:1/erc20:0x36E66fbBce51e4cD5bd3C62B637Eb411b18949D4",
+            "url": "https://claims.omni.network/",
+            "name": "OMNI",
+            "icon": "omni.svg",
+            "icon_path": "airdrops/icons/omni.svg",
+            "new_asset_data": {
+                "asset_type": "EVM_TOKEN",
+                "address": "0x36E66fbBce51e4cD5bd3C62B637Eb411b18949D4",
+                "name": "Omni Network",
+                "symbol": "OMNI",
+                "chain_id": 1,
+                "decimals": 18
+            }
+        },
+        "degen2_season3": {
+            "csv_path": "airdrops/degen2_season3.csv",
+            "csv_hash": "c76e58a0212155ba1b022a351e9b85e63b45794721d930bde91c1e5ed50e82f5",
+            "asset_identifier": "eip155:8453/erc20:0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
+            "url": "https://www.degen.tips/airdrop2/season3",
+            "name": "DEGEN",
+            "icon": "degen.svg",
+            "icon_path": "airdrops/icons/degen.svg",
+            "cutoff_time": 1716940800,
+            "new_asset_data": {
+                "asset_type": "EVM_TOKEN",
+                "address": "0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
+                "name": "Degen",
+                "symbol": "DEGEN",
+                "chain_id": 8453,
+                "decimals": 18
+            }
+        },
+        "myso": {
+            "csv_path": "airdrops/myso.csv",
+            "csv_hash": "a9bb7bd17a9f9cae15162044852c072821dee921ef6b02f85539a9bf5eee351c",
+            "asset_identifier": "eip155:1/erc20:0x5fDe99e121F3aC02e7d6ACb081dB1f89c1e93C17",
+            "url": "https://app.myso.finance/airdrop",
+            "name": "MYT",
+            "icon": "myso.svg",
+            "icon_path": "airdrops/icons/myso.jpg",
+            "cutoff_time": 1717145230,
+            "has_decoder": false,
+            "new_asset_data": {
+                "asset_type": "EVM_TOKEN",
+                "address": "0x5fDe99e121F3aC02e7d6ACb081dB1f89c1e93C17",
+                "name": "MYSO Token",
+                "symbol": "MYT",
+                "chain_id": 1,
+                "decimals": 18
+            }
+        },
+        "zk": {
+            "csv_path": "airdrops/zk.csv",
+            "csv_hash": "ee22fada7eef5cfb1e308797e0d0fb5b92deec35a9c5ff992b24958acd9bab62",
+            "asset_identifier": "eip155:324/erc20:0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E",
+            "url": "https://claim.zknation.io/",
+            "name": "ZK",
+            "icon": "zksync.jpg",
+            "cutoff_time": 1735862400,
+            "has_decoder": false,
+            "new_asset_data": {
+                "asset_type": "EVM_TOKEN",
+                "address": "0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E",
+                "name": "ZKsync",
+                "symbol": "ZK",
+                "chain_id": 324,
+                "decimals": 18
+            }
+        },
+        "eigen_phase_1":{
+            "asset_identifier":"eip155:1/erc20:0xec53bF9167f50cDEB3Ae105f56099aaaB9061F83",
+            "url":"https://eigenfoundation.org",
+            "api_url":"https://claims.eigenfoundation.org/clique-eigenlayer-api/campaign/eigenlayer/credentials?walletAddress={address}",
+            "amount_path":"phase1/data/pipelines/tokenQualified",
+            "name":"EIGEN phase 1",
+            "icon": "eigenlayer.png",
+            "new_asset_data": {
+                "asset_type": "EVM_TOKEN",
+                "address": "0xec53bF9167f50cDEB3Ae105f56099aaaB9061F83",
+                "name": "Eigen",
+                "symbol": "EIGEN",
+                "chain_id": 1,
+                "decimals": 18
+            },
+            "cutoff_time": 1725667200
+        },
+        "eigen_phase_2":{
+            "asset_identifier":"eip155:1/erc20:0xec53bF9167f50cDEB3Ae105f56099aaaB9061F83",
+            "url":"https://eigenfoundation.org",
+            "api_url":"https://claims.eigenfoundation.org/clique-eigenlayer-api/campaign/eigenlayer/credentials?walletAddress={address}",
+            "amount_path":"phase2/data/pipelines/tokenQualified",
+            "name":"EIGEN phase 2",
+            "icon": "eigenlayer.png",
+            "new_asset_data": {
+                "asset_type": "EVM_TOKEN",
+                "address": "0xec53bF9167f50cDEB3Ae105f56099aaaB9061F83",
+                "name": "Eigen",
+                "symbol": "EIGEN",
+                "chain_id": 1,
+                "decimals": 18
+            },
+            "cutoff_time": 1725667200
+        }
+    },
+    "poap_airdrops": {
+        "aave_v2_pioneers": [
+            "airdrops/poap/poap_aave_v2_pioneers.json",
+            "https://poap.delivery/aave-v2-pioneers",
+            "AAVE V2 Pioneers",
+            "3c93a244714a8b00cf9543668d93dcd42ba7fef79ced360624045a0f0cbee422"
+        ],
+        "beacon_chain_first_1024": [
+            "airdrops/poap/poap_beacon_chain_first_1024.json",
+            "https://poap.delivery/beacon-chain-first-1024",
+            "Beacon Chain First 1024 Depositors and Proposers",
+            "5d9c3e0f2a0d66bd2c1464e11cab372630b663729f62a38412df8842e1fb98c1"
+        ],
+        "beacon_chain_first_32769": [
+            "airdrops/poap/poap_beacon_chain_first_32769.json",
+            "https://poap.delivery/beacon-chain-first-32769",
+            "Beacon Chain First 32,769 Block Validators",
+            "89384405cc89a441c8149fc85e33ed96735298304f60fefb21a2d7bdae21f0fb"
+        ],
+        "coingecko_yield_farming": [
+            "airdrops/poap/poap_coingecko_yield_farming.json",
+            "https://poap.delivery/coin-gecko",
+            "Coin Gecko Yield Farming",
+            "4eedd7ed7e18147d072cd579b6e7cc296236c6f308797a730e055d0dc28b4d89"
+        ],
+        "eth2_genesis": [
+            "airdrops/poap/poap_eth2_genesis.json",
+            "https://poap.delivery/eth2-genesis/",
+            "Beacon Chain Genesis Depositor",
+            "dace95be8447daf5e41c09bac2bd6c9ebeda2a25cd75b3b08e1c1b4335463571"
+        ],
+        "half_rekt": [
+            "airdrops/poap/poap_half_rekt.json",
+            "https://poap.delivery/half-rekt",
+            "Half Rekt",
+            "03cb853bb1461c6f0be85062a91e500569a15230df931d33d5f085e8209b4873"
+        ],
+        "keep_stakers": [
+            "airdrops/poap/poap_keep_stakers.json",
+            "https://poap.delivery/keep-stakers",
+            "KEEP Network Mainnet Stakers",
+            "5164bbf3697943913d5fc21170633fb1b989dd4c9542d8b33f1432f8f61d692e"
+        ],
+        "lumberjackers": [
+            "airdrops/poap/poap_lumberjackers.json",
+            "https://poap.delivery/lumberjackers",
+            "False Start Lumberjackers",
+            "1317292422bee793690f487a4c9353138a77346b2c6d1517adb193da798893b6"
+        ],
+        "medalla": [
+            "airdrops/poap/poap_medalla.json",
+            "https://poap.delivery/medalla",
+            "Medalla Validator",
+            "25833c3439db18226c190b745e84b42404ad80cac5ab18cd78d5fd1210b53401"
+        ],
+        "muir_glacier": [
+            "airdrops/poap/poap_muir_glacier.json",
+            "https://poap.delivery/muir-glacier",
+            "Muir Glacier",
+            "5870e1fb9daea0d72d6bec445eb9d9c1d4d9c2b0bae7c6803c4ebdb51a5bd21d"
+        ],
+        "proof_of_gucci": [
+            "airdrops/poap/poap_proof_of_gucci.json",
+            "https://poap.delivery/proof-of-gucci",
+            "YFI - Proof of Gucci",
+            "59f3f664659705f7d4979db212683878a1db00d6752e28e1182c7facbed7fd0c"
+        ],
+        "proof_of_gucci_design_competition": [
+            "airdrops/poap/poap_proof_of_gucci_design_competition.json",
+            "https://poap.delivery/proof-of-gucci-design",
+            "YFI - Proof of Gucci Design Competition",
+            "efc19106e9386b66d948f975224f18e0d78806f208c1e3795c3565ab1a75cd1c"
+        ],
+        "resuscitators": [
+            "airdrops/poap/poap_resucitators.json",
+            "https://poap.delivery/medalla-resuscitator",
+            "Medalla Resuscitators",
+            "f414f159e4e3101eefc0641764480b62700fac08e51ad754ecc60e40e0be0bb8"
+        ],
+        "yam": [
+            "airdrops/poap/poap_yam.json",
+            "https://poap.delivery/yam",
+            "Yam Heroes",
+            "c4a4e65fd36772a91c3ae4cc7315c81399f094a65d3b93d55317d0fc2459f271"
+        ],
+        "ycover": [
+            "airdrops/poap/poap_ycover.json",
+            "https://poap.delivery/ycover",
+            "A New Face For yCover",
+            "2459489f09a3e8493e65249a4198f60fd1c0e163846312b89c449ef428e3072d"
+        ],
+        "yfi_og": [
+            "airdrops/poap/poap_yfi_og.json",
+            "https://poap.delivery/yfi-og",
+            "I Played 4 YFI",
+            "d1aabcc0fb66fe04fd6a88e5e7225a8d88c21b512daa2ca0fda1fd0f929a3cb1"
+        ]
+    }
+}

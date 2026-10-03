@@ -1,0 +1,14 @@
+{
+  "targeted_historical_tests": "5 passed",
+  "maintained_tests": "61 passed, 1 deprecation warning",
+  "unscoped_root_collection": {
+    "status": "failed_legacy_collection",
+    "issues": [
+      "missing greenlet",
+      "missing Python playwright",
+      "obsolete ai_gateway import"
+    ]
+  },
+  "data_validation": "passed",
+  "html_browser_validation": "passed"
+}

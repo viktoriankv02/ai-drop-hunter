@@ -1,0 +1,368 @@
+[
+  {
+    "requested_url": "https://blog.uniswap.org/uni",
+    "projects": [
+      "Uniswap"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.696857+00:00",
+    "status": "fetched",
+    "resolved_url": "https://blog.uniswap.org/uni",
+    "sha256": "1c97d852207c3113e35cd8189b85bb2d9f1b545ffd6bf93c58ddb18732f4ea2b",
+    "characters": 9324,
+    "truncated": false,
+    "content_file": "evidence/453303854639523a.json",
+    "content_sha256": "d2253489694d6b457632db21d578d7609fc042f1704f55602680bc55a890b8c0"
+  },
+  {
+    "requested_url": "https://docs.arbitrum.foundation/airdrop-eligibility-distribution",
+    "projects": [
+      "Arbitrum"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.733117+00:00",
+    "status": "fetched",
+    "resolved_url": "https://docs.arbitrum.foundation/airdrop-eligibility-distribution",
+    "sha256": "6afe55cb31828b77e895a50e5f64ee0b547b8a253a075947c7de239d6fa2fd09",
+    "characters": 5808,
+    "truncated": false,
+    "content_file": "evidence/8c0bcade6d704a27.json",
+    "content_sha256": "73593caacb07dc60f8c2629c18eb74693d5e62dbf48a12cc76634f86272b2256"
+  },
+  {
+    "requested_url": "https://blog.celestia.org/genesis-drop/",
+    "projects": [
+      "Celestia"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.740062+00:00",
+    "status": "fetched",
+    "resolved_url": "https://blog.celestia.org/genesis-drop/",
+    "sha256": "fb36b7d8f5a12053a0a0785cafaaa94c2a6c6a58a23dd3d1da868e345e0ed5e1",
+    "characters": 18196,
+    "truncated": false,
+    "content_file": "evidence/db8f848aeaf5b2e5.json",
+    "content_sha256": "bfb95ae0899aa5f02abf95da77a568ecc51be51f749436de3e81566c9b609b0c"
+  },
+  {
+    "requested_url": "https://www.starknet.io/blog/starknet-provisions-program/",
+    "projects": [
+      "Starknet"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746612+00:00",
+    "status": "fetched",
+    "resolved_url": "https://www.starknet.io/blog/starknet-provisions-program/",
+    "sha256": "ff222ff106aab4e85b06c84f3f4f85fe9003816e4705f20e3fef5fa8997c05e5",
+    "characters": 23922,
+    "truncated": false,
+    "content_file": "evidence/5fcc870ec3dac59a.json",
+    "content_sha256": "1abd104c652c36e605954d33443b131a344c013c8d726a08d2d5b25b5a582e0f"
+  },
+  {
+    "requested_url": "https://www.zknation.io/blog/zk-token",
+    "projects": [
+      "ZKsync"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746636+00:00",
+    "status": "fetched",
+    "resolved_url": "https://www.zknation.io/blog/zk-token",
+    "sha256": "fbfc66c881e5549955ed64d073d87911497884489f903e9bc61e90e8b18443f1",
+    "characters": 12262,
+    "truncated": false,
+    "content_file": "evidence/d139345f2e044ac4.json",
+    "content_sha256": "dfc64208b55b198d6a836bbe0ac5d9a5ede4d37693a89a83a4c9b9c84883b6e7"
+  },
+  {
+    "requested_url": "https://www.sui.io/blog/sui-token-community-access-program",
+    "projects": [
+      "Sui"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746643+00:00",
+    "status": "fetched",
+    "resolved_url": "https://www.sui.io/blog/sui-token-community-access-program",
+    "sha256": "730244fadea6fb2e5373f7deecd586aff8b937da06911fb14732928285b44a4d",
+    "characters": 5536,
+    "truncated": false,
+    "content_file": "evidence/878f4bd3eb218326.json",
+    "content_sha256": "5c440cee8af1ea7d565f6a892d86bb1c02e13ea184db8654c843e34e1a29ab79"
+  },
+  {
+    "requested_url": "https://aptosnetwork.com/currents/aptos-tokenomics-overview",
+    "projects": [
+      "Aptos"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746647+00:00",
+    "status": "unavailable",
+    "error": "SourceUnavailable: HTTP 429: потрібен доступ/перевірка або пауза. Дані не прочитані."
+  },
+  {
+    "requested_url": "https://www.jito.network/blog/jto-airdrop-eligibility-and-allocation-specifications/",
+    "projects": [
+      "Jito"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746651+00:00",
+    "status": "fetched",
+    "resolved_url": "https://www.jito.network/blog/jto-airdrop-eligibility-and-allocation-specifications/",
+    "sha256": "f70f0051d5f817a2993920197a8d7d25c47c11bb6e32b6f6b120143d08c68d9f",
+    "characters": 7428,
+    "truncated": false,
+    "content_file": "evidence/862e89d80724b17e.json",
+    "content_sha256": "9d78e995131a066151f26bf9701c32ea219322f17e2a36724fe37618ae5986a0"
+  },
+  {
+    "requested_url": "https://www.pyth.network/blog/pyth-network-retrospective-airdrop-eligibility-and-distribution-specifications",
+    "projects": [
+      "Pyth"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746655+00:00",
+    "status": "fetched",
+    "resolved_url": "https://www.pyth.network/blog/pyth-network-retrospective-airdrop-eligibility-and-distribution-specifications",
+    "sha256": "4825d993854c08b14af083bf74b553618d40ce11b527c692bf098ae760c1c813",
+    "characters": 8229,
+    "truncated": false,
+    "content_file": "evidence/3ef3a8cb9826ba66.json",
+    "content_sha256": "0bc84c5067b1d21d6f9bdbfe61ae83874533e1ef4283e5c17f94d6025f3f5337"
+  },
+  {
+    "requested_url": "https://www.pyth.network/blog/expanding-the-pyth-community-strategic-capital-and-new-builders",
+    "projects": [
+      "Pyth"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746658+00:00",
+    "status": "fetched",
+    "resolved_url": "https://www.pyth.network/blog/expanding-the-pyth-community-strategic-capital-and-new-builders",
+    "sha256": "434e34cfa66c6c9c6ce03bf1f4c3754599270a18c7eaeec0269ae10aa82038c1",
+    "characters": 8895,
+    "truncated": false,
+    "content_file": "evidence/95ada9a32bd3e62c.json",
+    "content_sha256": "b39ec1910b8f082c6e6543699e821df2c0af0ad32f345728171d6956ffe6a606"
+  },
+  {
+    "requested_url": "https://wormhole.com/blog/from-eligibility-to-sybil-detection-a-deep-dive-into-wormholes-multichain",
+    "projects": [
+      "Wormhole"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746662+00:00",
+    "status": "fetched",
+    "resolved_url": "https://wormhole.com/blog/from-eligibility-to-sybil-detection-a-deep-dive-into-wormholes-multichain",
+    "sha256": "81a43541b23dfdb4f7253ebd190be2b989044e80542f720cc2b760048307de1f",
+    "characters": 24763,
+    "truncated": false,
+    "content_file": "evidence/b327be3e975b4c4e.json",
+    "content_sha256": "1e3b1ab348859b7c73e55071eea2f5dd08b733844d29812cdb0be27e444d8c09"
+  },
+  {
+    "requested_url": "https://blog.eigenfoundation.org/claims-s1-p1/",
+    "projects": [
+      "EigenLayer"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746666+00:00",
+    "status": "fetched",
+    "resolved_url": "https://blog.eigenfoundation.org/claims-s1-p1/",
+    "sha256": "c76dda537cf7bbeddf5967a5370dfed6bccf611873a36fb07ea72b2e46d4590a",
+    "characters": 4521,
+    "truncated": false,
+    "content_file": "evidence/30db76aaab12d09d.json",
+    "content_sha256": "1554f21190de180ac02ebfffc2d65231ab6fbbde4c277beb0d3d8ffaef772fdf"
+  },
+  {
+    "requested_url": "https://blog.eigenfoundation.org/claims-s1-p2/",
+    "projects": [
+      "EigenLayer"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746669+00:00",
+    "status": "fetched",
+    "resolved_url": "https://blog.eigenfoundation.org/claims-s1-p2/",
+    "sha256": "dfdaf7688fd03dd853cd4f493133dc3d2ab6ecb517d557c03707f2a648028ae7",
+    "characters": 6357,
+    "truncated": false,
+    "content_file": "evidence/750601b975f9ab9c.json",
+    "content_sha256": "dc98dbd939e456d85fc10889b230da98c0e1baef069c953e3884f2b235807fa9"
+  },
+  {
+    "requested_url": "https://basics.ensdao.org/ens-token",
+    "projects": [
+      "ENS"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746673+00:00",
+    "status": "fetched",
+    "resolved_url": "https://basics.ensdao.org/ens-token",
+    "sha256": "8b53317f57ffc2d3fc3987328472c9f43815d2a1acdff4d8f3a651342e91ae40",
+    "characters": 3527,
+    "truncated": false,
+    "content_file": "evidence/cc036c2c57a99d11.json",
+    "content_sha256": "6778c36c756eef6b98056bdb2b490c930250873bf8f952149d28bb8ab8c9c4ae"
+  },
+  {
+    "requested_url": "https://docs.ens.domains/dao/token/",
+    "projects": [
+      "ENS"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746678+00:00",
+    "status": "fetched",
+    "resolved_url": "https://docs.ens.domains/dao/token/",
+    "sha256": "8a8d2e73c429af7b1ae5d4974827d6a0d94a9309fd1b977ad547f06c622d1855",
+    "characters": 863,
+    "truncated": false,
+    "content_file": "evidence/9a1f1a1591b71786.json",
+    "content_sha256": "cb5e19ea66ed1141aee16ce5c9aad2189881f17e65a5d614e423df19d5a00985"
+  },
+  {
+    "requested_url": "https://www.dydx.foundation/blog/introducing-dydx-token",
+    "projects": [
+      "dYdX"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746682+00:00",
+    "status": "unavailable",
+    "error": "SourceUnavailable: Недостатньо тексту для аналізу; можлива JS-сторінка"
+  },
+  {
+    "requested_url": "https://www.dydx.foundation/blog/epoch-0",
+    "projects": [
+      "dYdX"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746685+00:00",
+    "status": "unavailable",
+    "error": "SourceUnavailable: Недостатньо тексту для аналізу; можлива JS-сторінка"
+  },
+  {
+    "requested_url": "https://1inch.com/blog/post/1inch-foundation-distributes-more-1inch-tokens",
+    "projects": [
+      "1inch"
+    ],
+    "retrieved_at": "2026-09-28T18:50:13.746689+00:00",
+    "status": "fetched",
+    "resolved_url": "https://1inch.com/blog/post/1inch-foundation-distributes-more-1inch-tokens",
+    "sha256": "ea51a1552a9642dce19abb2e301fbc23cbc28a6cd7d9e7614a48e8421aefce08",
+    "characters": 2171,
+    "truncated": false,
+    "content_file": "evidence/5192a8a505e8800b.json",
+    "content_sha256": "b80c71a7cfcb83e5206d3c1f0aa7150434d92d061d8d6f1ae777145d1423ff36"
+  },
+  {
+    "requested_url": "https://blog.uniswap.org/uniswap-history",
+    "projects": [
+      "Uniswap"
+    ],
+    "purpose": "launch_evidence",
+    "date_to_verify": "2018-11-02",
+    "retrieved_at": "2026-09-28T18:51:52.177373+00:00",
+    "status": "fetched",
+    "resolved_url": "https://blog.uniswap.org/uniswap-history",
+    "sha256": "fae73b7c04707b06b1b28efde0abeb8fc6a580a1c84e3ac95757cc8c10cd1d4f",
+    "content_file": "evidence/bc0cb96a578f0a54.json",
+    "content_sha256": "0a99c05c857e7e9ffe34ef317191ea2bf8a7aa2478a65f46df6ec9492dce4e78"
+  },
+  {
+    "requested_url": "https://blog.celestia.org/celestia-mainnet-is-live/",
+    "projects": [
+      "Celestia"
+    ],
+    "purpose": "launch_evidence",
+    "date_to_verify": "2023-10-31",
+    "retrieved_at": "2026-09-28T18:51:52.765432+00:00",
+    "status": "fetched",
+    "resolved_url": "https://blog.celestia.org/celestia-mainnet-is-live/",
+    "sha256": "df52c642363f93ed6266ea1df2da72e171a112e19afcc11397fdb0dac9151e5a",
+    "content_file": "evidence/063d666fd8839180.json",
+    "content_sha256": "1f9a21f9c216ecf7fef72330304d9beb0582efd961c12bca6e220d152ddb8824"
+  },
+  {
+    "requested_url": "https://blog.arbitrum.io/arbitrum-stylus-mainnet/",
+    "projects": [
+      "Arbitrum"
+    ],
+    "purpose": "launch_evidence",
+    "date_to_verify": "2021-08-31",
+    "retrieved_at": "2026-09-28T18:51:53.120906+00:00",
+    "status": "fetched",
+    "resolved_url": "https://blog.arbitrum.io/arbitrum-stylus-mainnet/",
+    "sha256": "7c3137f380a0491f962b841f37f8fe229d10b7380925801d1d85f3f491f0a841",
+    "content_file": "evidence/1f25ffcf40bb0619.json",
+    "content_sha256": "3a382c0397c86803685bce46ae5a725098d8fa32f9cfc8ba3d06016cfc20667f"
+  },
+  {
+    "requested_url": "https://docs.ens.domains/ensip/2/",
+    "projects": [
+      "ENS"
+    ],
+    "purpose": "launch_evidence",
+    "date_to_verify": "2017-05-04",
+    "retrieved_at": "2026-09-28T18:51:53.412357+00:00",
+    "status": "fetched",
+    "resolved_url": "https://docs.ens.domains/ensip/2/",
+    "sha256": "f3d4c9ad52ca6d6426f5dbdf823e95ed77864efa655d8f67f68d2c64dc4ad3b3",
+    "content_file": "evidence/b692702304c449a4.json",
+    "content_sha256": "29fefbcd70ee3d88fb88d16d3666f0782a1128738ac218678e1de6f1a145a425"
+  },
+  {
+    "requested_url": "https://www.starknet.io/blog/starknets-new-sequencer/",
+    "projects": [
+      "Starknet"
+    ],
+    "purpose": "launch_evidence",
+    "date_to_verify": "2021-11",
+    "retrieved_at": "2026-09-28T18:51:53.747142+00:00",
+    "status": "unavailable",
+    "error": ""
+  },
+  {
+    "requested_url": "https://note.systems/community/",
+    "projects": [
+      "Note Systems"
+    ],
+    "status": "indexed_excerpt",
+    "purpose": "current_reward_rules",
+    "retrieved_at": "2026-09-28T18:53:38.823979+00:00",
+    "sha256": "f170c7257b543abbc3d5870801f9d7e38abb5a9998c8eab6671dbdff5a8748f4",
+    "hash_scope": "retained_excerpt",
+    "content_file": "evidence/597b2bc1c6cd30fd.json",
+    "direct_http_error": "403",
+    "content_sha256": "b05469a623a688c584250e3b9b2d9bcc68a1582b52a8a9dc06860d17b1676e47"
+  },
+  {
+    "requested_url": "https://aptosnetwork.com/currents/aptos-tokenomics-overview",
+    "projects": [
+      "Aptos"
+    ],
+    "purpose": "launch_evidence",
+    "status": "indexed_excerpt",
+    "retrieved_at": "2026-09-28T19:05:55.363002+00:00",
+    "content_file": "evidence/launch-03d205fa1d2f9798.json",
+    "content_sha256": "4ffa77a5728b6c44617f8c7343a55c69605342d07f2e0d47e9d845288dcddeb4",
+    "hash_scope": "retained_excerpt"
+  },
+  {
+    "requested_url": "https://www.sui.io/token-schedule",
+    "projects": [
+      "Sui"
+    ],
+    "purpose": "launch_evidence",
+    "status": "indexed_excerpt",
+    "retrieved_at": "2026-09-28T19:05:55.363725+00:00",
+    "content_file": "evidence/launch-f15647f44b9eaeb4.json",
+    "content_sha256": "2ae72a44ee18243b30e4d66e71dba6e02bccdeb0f89be4ee372ab104d5b6c81e",
+    "hash_scope": "retained_excerpt"
+  },
+  {
+    "requested_url": "https://optimism.io/blog/what-is-op-mainnet",
+    "projects": [
+      "Optimism"
+    ],
+    "purpose": "launch_evidence",
+    "status": "indexed_excerpt",
+    "retrieved_at": "2026-09-28T19:05:55.364323+00:00",
+    "content_file": "evidence/launch-bf51053446dc465d.json",
+    "content_sha256": "a3f5b2437e36eaf2e8d1850fd9b5d19e0397dc53b28ad755ca017235eefdf354",
+    "hash_scope": "retained_excerpt"
+  },
+  {
+    "requested_url": "https://www.starknet.io/blog/starknets-new-sequencer/",
+    "projects": [
+      "Starknet"
+    ],
+    "purpose": "launch_evidence",
+    "status": "indexed_excerpt",
+    "retrieved_at": "2026-09-28T19:05:55.364819+00:00",
+    "content_file": "evidence/launch-5b6949e15878a00e.json",
+    "content_sha256": "110dab9e4f757fd36d12676af19c0c041dd41db37e641843ccc108ee81e9f5b7",
+    "hash_scope": "retained_excerpt"
+  }
+]

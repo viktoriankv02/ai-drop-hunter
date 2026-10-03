@@ -1,0 +1,9 @@
+{
+  "observed_at": "2026-09-30",
+  "operation": "local_inference_start",
+  "project": "Monad",
+  "mode": "baseline",
+  "error": "All connection attempts failed",
+  "recovery": "Started installed Ollama serve with hidden window, then reran paired evaluation",
+  "not_a_model_quality_result": true
+}

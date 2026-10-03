@@ -1,0 +1,20 @@
+{
+  "url": "https://osmosis.gitbook.io/o/osmo/genesis-supply",
+  "resolved_url": "https://osmosis.gitbook.io/o/osmo/genesis-supply",
+  "text": "For the complete documentation index, see\nllms.txt\n. This page is also available as\nMarkdown\n.\nThe genesis supply is split 50-50 between fairdrop recipients and the strategic reserve.\nFairdrop\nThe “quadratic fairdrop” allocates 50 million OSMO to ATOM holders based on a snapshot taken on February 18, 2021 during the Cosmos Hub Starship Upgrade. The amount that each OSMO address is eligible to receive is proportional to the square root of its ATOM balance at that time, with a special 2.5x multiplier for staked ATOMs.\nThe quadratic fairdrop ensures that all members of the Cosmos Hub are given an opportunity to participate in Osmosis, particularly those that helped the secure the network through staking. The fairdrop allocation can be viewed\nhere\n.\nStrategic Reserve\nThe other half of the genesis supply is set aside for the strategic reserve. Funds in the strategic reserve will be controlled by a multi-sig DAO, initially composed of the development team but later expanded in the future.\nThe reserve will be used for aligning long-term stakeholders of the project through grants and strategic fundraising. These funds will not be market sold, but rather used to support Osmosis on-going development. Funds may also be delegated to stakeholders who provide uniquely beneficial value to Osmosis, such as open source resources for the ecosystem like block explorers and relayers.\nStrategic fundraising rounds will be subject to vesting periods: specifically, a linear decrease over two years with a one-year cliff.\nPrevious\nToken Distribution\nNext\nToken Issuance\nLast updated\n5 years ago",
+  "links": [
+    {
+      "text": "llms.txt",
+      "url": "https://osmosis.gitbook.io/o/llms.txt"
+    },
+    {
+      "text": "Markdown",
+      "url": "https://osmosis.gitbook.io/o/osmo/genesis-supply.md"
+    },
+    {
+      "text": "here",
+      "url": "https://airdrop.osmosis.zone/"
+    }
+  ],
+  "retrieved_at": "2026-09-29T15:02:30.625934+00:00"
+}
