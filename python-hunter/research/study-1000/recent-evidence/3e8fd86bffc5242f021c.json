@@ -1,0 +1,17 @@
+{
+  "project": "Sui Name Service (SuiNS)",
+  "url": "http://claim.suins.io",
+  "retrieved_at": "2026-10-03T15:44:33.115306+00:00",
+  "status": "fetched_needs_manual_review",
+  "content_file": "recent-evidence\\3e8fd86bffc5242f021c.json",
+  "http_status": 200,
+  "final_url": "https://claim.suins.io/",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 15,
+  "project_name_match": false,
+  "reward_terms": [
+    "claim"
+  ],
+  "text_sha256": "d245cdb312c58cc9991372e13979d55d47b42796a10c585683046dc4e40f5c3d",
+  "text": "Claim NS Tokens"
+}

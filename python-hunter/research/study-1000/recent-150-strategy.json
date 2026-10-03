@@ -1,0 +1,330 @@
+{
+  "as_of": "2026-10-03",
+  "sample_size": 150,
+  "evidence_tier_counts": {
+    "primary_source_checked_partial": 16,
+    "secondary_directory_screened": 134,
+    "curated_mixed_sources": 0
+  },
+  "official_source_audit": {
+    "fetched_relevant": 48,
+    "fetched_needs_manual_review": 21,
+    "unavailable": 65
+  },
+  "factor_analysis": [
+    {
+      "factor": "points_quests",
+      "projects": 118,
+      "share_of_150": 0.7867,
+      "source_checked_projects": 6,
+      "secondary_screened_projects": 112,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Зберігати season, формулу points, mandatory/bonus дії та версію правил."
+    },
+    {
+      "factor": "claim_and_vesting",
+      "projects": 102,
+      "share_of_150": 0.68,
+      "source_checked_projects": 7,
+      "secondary_screened_projects": 95,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Стежити за початком/кінцем claim, vesting, unlock і поверненням невитребуваних токенів."
+    },
+    {
+      "factor": "capital_exposure",
+      "projects": 99,
+      "share_of_150": 0.66,
+      "source_checked_projects": 5,
+      "secondary_screened_projects": 94,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Встановити ліміт капіталу, строку та ризику; рахувати impermanent loss, slashing і зміну ціни."
+    },
+    {
+      "factor": "nft_or_asset_holding",
+      "projects": 98,
+      "share_of_150": 0.6533,
+      "source_checked_projects": 6,
+      "secondary_screened_projects": 92,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Фіксувати contract, collection, token ID, snapshot і мінімальний строк володіння."
+    },
+    {
+      "factor": "community_contribution",
+      "projects": 97,
+      "share_of_150": 0.6467,
+      "source_checked_projects": 7,
+      "secondary_screened_projects": 90,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Оцінювати якість і підтверджуваність внеску; масовий spam підвищує Sybil-ризик."
+    },
+    {
+      "factor": "snapshot_state",
+      "projects": 93,
+      "share_of_150": 0.62,
+      "source_checked_projects": 7,
+      "secondary_screened_projects": 86,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Вести часові ряди балансу й ролей; одна транзакція перед snapshot може не пройти фільтри."
+    },
+    {
+      "factor": "ranking_or_tier",
+      "projects": 89,
+      "share_of_150": 0.5933,
+      "source_checked_projects": 6,
+      "secondary_screened_projects": 83,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Зберігати формулу score, межі tier і capped/uncapped частини; не припускати лінійну конвертацію."
+    },
+    {
+      "factor": "activity_diversity",
+      "projects": 75,
+      "share_of_150": 0.5,
+      "source_checked_projects": 2,
+      "secondary_screened_projects": 73,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Покривати кілька справжніх функцій продукту, якщо правила прямо винагороджують ширину використання."
+    },
+    {
+      "factor": "duration_consistency",
+      "projects": 72,
+      "share_of_150": 0.48,
+      "source_checked_projects": 3,
+      "secondary_screened_projects": 69,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Розподіляти реальні дії по тижнях/епохах і не пропускати активні фази."
+    },
+    {
+      "factor": "real_product_usage",
+      "projects": 72,
+      "share_of_150": 0.48,
+      "source_checked_projects": 7,
+      "secondary_screened_projects": 65,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Використовувати основну функцію продукту природно та зберігати маршрут, актив, мережу й результат."
+    },
+    {
+      "factor": "early_participation",
+      "projects": 63,
+      "share_of_150": 0.42,
+      "source_checked_projects": 5,
+      "secondary_screened_projects": 58,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Заходити після перевірки офіційного домену; зберігати першу дату взаємодії та tx hash."
+    },
+    {
+      "factor": "anti_sybil_identity",
+      "projects": 48,
+      "share_of_150": 0.32,
+      "source_checked_projects": 2,
+      "secondary_screened_projects": 46,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Не автоматизувати дублікати особистостей; перевіряти правила адрес, кластерів, KYC і географії."
+    },
+    {
+      "factor": "activity_volume",
+      "projects": 47,
+      "share_of_150": 0.3133,
+      "source_checked_projects": 6,
+      "secondary_screened_projects": 41,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Оптимізувати чисту корисність після fees; не створювати wash-volume або штучні цикли."
+    },
+    {
+      "factor": "testnet_participation",
+      "projects": 31,
+      "share_of_150": 0.2067,
+      "source_checked_projects": 3,
+      "secondary_screened_projects": 28,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Вести журнал транзакцій, feedback і знайдених помилок; тестнет сам по собі не гарантує токени."
+    },
+    {
+      "factor": "referrals",
+      "projects": 30,
+      "share_of_150": 0.2,
+      "source_checked_projects": 2,
+      "secondary_screened_projects": 28,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Вважати referral додатковим множником, якщо правила не визначають його обов’язковим."
+    },
+    {
+      "factor": "developer_contribution",
+      "projects": 27,
+      "share_of_150": 0.18,
+      "source_checked_projects": 6,
+      "secondary_screened_projects": 21,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Зберігати PR, commit, deployment і прийнятий результат, а не лише факт активності."
+    },
+    {
+      "factor": "node_validator_work",
+      "projects": 25,
+      "share_of_150": 0.1667,
+      "source_checked_projects": 1,
+      "secondary_screened_projects": 24,
+      "interpretation": "Згадано в описі умов або критеріїв; частота не доводить причинний вплив на розмір виплати.",
+      "strategy": "Контролювати uptime, версію клієнта, епохи, ключі та фактичну вартість сервера."
+    }
+  ],
+  "relationship_analysis": [
+    {
+      "left": "node_validator_work",
+      "right": "testnet_participation",
+      "projects_together": 13,
+      "support": 0.0867,
+      "lift": 2.516,
+      "conditional_left_given_right": 0.4194,
+      "conditional_right_given_left": 0.52,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "developer_contribution",
+      "right": "testnet_participation",
+      "projects_together": 9,
+      "support": 0.06,
+      "lift": 1.613,
+      "conditional_left_given_right": 0.2903,
+      "conditional_right_given_left": 0.3333,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "early_participation",
+      "right": "node_validator_work",
+      "projects_together": 16,
+      "support": 0.1067,
+      "lift": 1.524,
+      "conditional_left_given_right": 0.64,
+      "conditional_right_given_left": 0.254,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "activity_volume",
+      "right": "referrals",
+      "projects_together": 14,
+      "support": 0.0933,
+      "lift": 1.489,
+      "conditional_left_given_right": 0.4667,
+      "conditional_right_given_left": 0.2979,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "community_contribution",
+      "right": "testnet_participation",
+      "projects_together": 28,
+      "support": 0.1867,
+      "lift": 1.397,
+      "conditional_left_given_right": 0.9032,
+      "conditional_right_given_left": 0.2887,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "nft_or_asset_holding",
+      "right": "snapshot_state",
+      "projects_together": 83,
+      "support": 0.5533,
+      "lift": 1.366,
+      "conditional_left_given_right": 0.8925,
+      "conditional_right_given_left": 0.8469,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "community_contribution",
+      "right": "node_validator_work",
+      "projects_together": 22,
+      "support": 0.1467,
+      "lift": 1.361,
+      "conditional_left_given_right": 0.88,
+      "conditional_right_given_left": 0.2268,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "ranking_or_tier",
+      "right": "referrals",
+      "projects_together": 24,
+      "support": 0.16,
+      "lift": 1.348,
+      "conditional_left_given_right": 0.8,
+      "conditional_right_given_left": 0.2697,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "real_product_usage",
+      "right": "referrals",
+      "projects_together": 19,
+      "support": 0.1267,
+      "lift": 1.319,
+      "conditional_left_given_right": 0.6333,
+      "conditional_right_given_left": 0.2639,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "anti_sybil_identity",
+      "right": "node_validator_work",
+      "projects_together": 10,
+      "support": 0.0667,
+      "lift": 1.25,
+      "conditional_left_given_right": 0.4,
+      "conditional_right_given_left": 0.2083,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "early_participation",
+      "right": "testnet_participation",
+      "projects_together": 16,
+      "support": 0.1067,
+      "lift": 1.229,
+      "conditional_left_given_right": 0.5161,
+      "conditional_right_given_left": 0.254,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "nft_or_asset_holding",
+      "right": "node_validator_work",
+      "projects_together": 20,
+      "support": 0.1333,
+      "lift": 1.224,
+      "conditional_left_given_right": 0.8,
+      "conditional_right_given_left": 0.2041,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "node_validator_work",
+      "right": "points_quests",
+      "projects_together": 24,
+      "support": 0.16,
+      "lift": 1.22,
+      "conditional_left_given_right": 0.2034,
+      "conditional_right_given_left": 0.96,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "duration_consistency",
+      "right": "ranking_or_tier",
+      "projects_together": 52,
+      "support": 0.3467,
+      "lift": 1.217,
+      "conditional_left_given_right": 0.5843,
+      "conditional_right_given_left": 0.7222,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    },
+    {
+      "left": "activity_diversity",
+      "right": "node_validator_work",
+      "projects_together": 15,
+      "support": 0.1,
+      "lift": 1.2,
+      "conditional_left_given_right": 0.6,
+      "conditional_right_given_left": 0.2,
+      "interpretation": "Спільна поява в умовах; це не причинний вплив на payout."
+    }
+  ],
+  "agent_rules": [
+    "Never promise or imply a guaranteed reward.",
+    "Keep launch, TGE, snapshot, claim start, claim end and payout as separate events.",
+    "Extract eligibility cohorts separately and preserve AND/OR logic, thresholds and units.",
+    "Separate allocation, eligible wallets, claimants and verified transfers.",
+    "Record fees, locked capital, infrastructure cost and asset-price exposure.",
+    "Use historical cases as questions to investigate, never as current-project evidence.",
+    "Do not train on secondary-only records until independent review is complete."
+  ]
+}

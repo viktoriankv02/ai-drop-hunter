@@ -1,0 +1,8 @@
+{
+  "project": "Derive",
+  "url": "https://derive.xyz/airdrop",
+  "retrieved_at": "2026-10-03T15:44:31.123788+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\a304fc3c4809925b45f7.json",
+  "error": "HTTPError: HTTP Error 404: Not Found"
+}

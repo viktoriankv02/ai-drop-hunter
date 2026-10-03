@@ -1,0 +1,17 @@
+{
+  "project": "AlienX",
+  "url": "https://alienxchain.io/claim-aix",
+  "retrieved_at": "2026-10-03T15:44:33.607334+00:00",
+  "status": "fetched_needs_manual_review",
+  "content_file": "recent-evidence\\1c3c52167374f99f0865.json",
+  "http_status": 200,
+  "final_url": "https://alienxchain.io/claim-aix",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 323,
+  "project_name_match": true,
+  "reward_terms": [
+    "airdrop"
+  ],
+  "text_sha256": "bd071e8309aa2ddf83315781f70943cd17dc6563c22e9d9aa6cb14cbfe0fdc21",
+  "text": "ALIENX is the only staking blockchain driven by AI Node, built for NFT and Game Mass Adoption. Operators can run AI Node to earn $AIX with one-click. Staking $BTC $ETH $ARB $SOL NFTs to earn $AIX on ALIENX chain now. Connect Wallet Introduce AlienXChain token $AIX, and let's join the AlienX Universe now! More airdrop news"
+}

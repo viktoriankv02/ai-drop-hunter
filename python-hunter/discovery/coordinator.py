@@ -46,15 +46,17 @@ class Coordinator:
                 candidates=catalog(html,url,s["adapter"])
                 data={"history_complete":False,"scope":"Посилання з однієї доступної сторінки; пагінація ще не реалізована."}
             if not candidates: raise SourceUnavailable("Не знайдено карток у доступному HTML. Це не означає відсутність проєктів.")
-            added=0
+            added=0;fresh_ids=[]
             limit=len(candidates) if data.get("route")=="official_api_map" else 200
             for item in candidates[:limit]:
                 # Do not invent rating, costs or participation tasks from a catalogue title.
-                _,fresh=self.store.add_project(item["title"],item["url"],s["name"],item.get("text",""))
+                pid,fresh=self.store.add_project(item["title"],item["url"],s["name"],item.get("text",""),prepare=False)
                 added+=fresh
+                if fresh:fresh_ids.append(pid)
                 if fresh and data.get("route")=="official_api_map":
                     with self.store.db() as c:
-                        c.execute("UPDATE projects SET check_status='catalog_only' WHERE id=?",(_,))
+                        c.execute("UPDATE projects SET check_status='catalog_only' WHERE id=?",(pid,))
+            for pid in fresh_ids[:20]:self.store.prepare_project(pid)
             outcome={"found":len(candidates),"added":added,"duplicates":min(len(candidates),limit)-added,
                      "limited":len(candidates)>limit,**{k:v for k,v in data.items() if k!="messages"}}
             with self.store.db() as c:

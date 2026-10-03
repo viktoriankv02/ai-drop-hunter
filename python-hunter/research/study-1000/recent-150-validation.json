@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "projects": 150,
+  "unique_projects": 150,
+  "window": [
+    "2024-10-03",
+    "2026-10-03"
+  ],
+  "evidence_tiers": {
+    "primary_source_checked_partial": 16,
+    "secondary_directory_screened": 134,
+    "curated_mixed_sources": 0
+  },
+  "official_source_audit": {
+    "fetched_relevant": 48,
+    "fetched_needs_manual_review": 21,
+    "unavailable": 65
+  },
+  "projects_with_sources": 150,
+  "projects_with_actions": 150,
+  "fine_tuning_eligible": 0,
+  "html_cards": 150,
+  "factors": 17,
+  "factor_relationships": 15
+}

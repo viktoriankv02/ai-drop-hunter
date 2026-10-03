@@ -1,0 +1,19 @@
+{
+  "project": "Mint Blockchain",
+  "url": "https://www.mintchain.io/airdrop/claim",
+  "retrieved_at": "2026-10-03T15:44:29.564076+00:00",
+  "status": "fetched_relevant",
+  "content_file": "recent-evidence\\a4b51120fb3226bc994d.json",
+  "http_status": 200,
+  "final_url": "https://www.mintchain.io/airdrop/claim",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 460,
+  "project_name_match": true,
+  "reward_terms": [
+    "airdrop",
+    "claim",
+    "eligible"
+  ],
+  "text_sha256": "8d865383e1b5a9f8300cb14c1cef0fb6e0788fccdcd0586a1bb9c85409e3b12e",
+  "text": "Mint Blockchain Connect Wallet HOME Developer Docs NIPs Platform Block Explorer Mint NFTScan ERC7765 $OP Delegate Mint Forest $MINT Token Staking & Restaking Applications Mint Eco Fund Withdraw $MINT Build Community Connect Wallet 120,000,000 10% 10% of total supply is claimable for eligible users. 2% 2% of total supply will be airdropped to Mint Forest V3 in 2026. $MINT Airdrop 12% 120,000,000 $MINT The 10% $MINT airdrop claim phase has ended. Claim ended"
+}

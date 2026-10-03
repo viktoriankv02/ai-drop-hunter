@@ -53,3 +53,31 @@ def load_history(path=None):
     return {**data,"cases":cases,"target_projects":1000,
             "fully_reviewed":sum(not c["missing_evidence"] for c in cases),
             "partial_cases":sum(bool(c["missing_evidence"]) for c in cases)}
+
+
+def load_recent_study(path=None):
+    """Load the current two-year 150-project study for the web application."""
+    root=Path(__file__).resolve().parents[1]/"research"/"study-1000"
+    path=Path(path) if path else root/"recent-150-projects.json"
+    data=json.loads(path.read_text(encoding="utf-8"))
+    strategy_path=root/"recent-150-strategy.json"
+    strategy=json.loads(strategy_path.read_text(encoding="utf-8")) if strategy_path.exists() else {}
+    projects=data.get("projects",[])
+    keys=[item.get("identity_key",item["project"].strip().casefold()) for item in projects]
+    if len(projects)!=data.get("target_unique_projects") or len(keys)!=len(set(keys)):
+        raise ValueError("Набір 150 містить неправильну кількість або дублікати")
+    evidence={}
+    for item in projects:
+        tier=item.get("evidence_tier","unknown")
+        evidence[tier]=evidence.get(tier,0)+1
+    return {
+        **data,
+        "target_projects":data["target_unique_projects"],
+        "analyzed_projects":len(projects),
+        "fully_reviewed":0,
+        "partial_cases":len(projects),
+        "evidence_tiers":evidence,
+        "factor_analysis":strategy.get("factor_analysis",[]),
+        "relationship_analysis":strategy.get("relationship_analysis",[]),
+        "report_url":"/research/recent-150",
+    }

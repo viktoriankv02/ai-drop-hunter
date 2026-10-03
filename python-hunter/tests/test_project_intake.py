@@ -43,3 +43,14 @@ def test_intake_does_not_authorize_telegram(tmp_path):
     pid,_=store.add_project('Channel post','https://t.me/unapproved/123','Manual')
     assert store.preparation(pid)['state']=='waiting'
     assert not Coordinator(store).project_research_allowed(store.project(pid))
+
+def test_bulk_discovery_queue_is_bounded_and_prefers_newest(tmp_path):
+    store=Workspace(tmp_path/'db.sqlite');store.initialize()
+    ids=[store.add_project('Project '+str(i),'https://example.com/'+str(i),'Catalog',prepare=False)[0] for i in range(25)]
+    for pid in ids:store.prepare_project(pid)
+    # Reopening applies the one-time migration used for existing installations.
+    with store.db() as c:c.execute("DELETE FROM meta WHERE key='bounded_research_queue_v1'")
+    store.initialize()
+    queued=store.rows("SELECT target_id FROM jobs WHERE kind='research' AND state='queued'")
+    assert len(queued)==20 and {x['target_id'] for x in queued}==set(ids[-20:])
+    assert store.claim_job()['target_id']==ids[-1]

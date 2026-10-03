@@ -1,0 +1,8 @@
+{
+  "project": "PumpBTC",
+  "url": "https://airdrop.pumpbtc.xyz",
+  "retrieved_at": "2026-10-03T15:44:26.789032+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\89517da0c29793b1a294.json",
+  "error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+}

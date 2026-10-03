@@ -1,0 +1,15 @@
+{
+  "project": "Wayfinder",
+  "url": "http://cache.wayfinder.ai/claim-prompt",
+  "retrieved_at": "2026-10-03T15:44:27.348854+00:00",
+  "status": "fetched_needs_manual_review",
+  "content_file": "recent-evidence\\5001ef95306b789ff402.json",
+  "http_status": 200,
+  "final_url": "https://cache.wayfinder.ai/claim-prompt",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 9,
+  "project_name_match": true,
+  "reward_terms": [],
+  "text_sha256": "c3fa3d698cb8ff6a10c765ce2413ae8615f18ee1ed14954271bad15da265486b",
+  "text": "Wayfinder"
+}

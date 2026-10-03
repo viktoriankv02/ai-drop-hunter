@@ -1,0 +1,8 @@
+{
+  "project": "Ooga Booga",
+  "url": "https://app.oogabooga.io/airdrop",
+  "retrieved_at": "2026-10-03T15:44:27.573739+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\dcaaeafe76c23378b4f0.json",
+  "error": "HTTPError: HTTP Error 404: Not Found"
+}

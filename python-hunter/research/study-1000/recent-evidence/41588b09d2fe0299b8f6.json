@@ -1,0 +1,15 @@
+{
+  "project": "Privasea AI",
+  "url": "https://airdrop.privasea.ai",
+  "retrieved_at": "2026-10-03T15:44:26.483003+00:00",
+  "status": "fetched_needs_manual_review",
+  "content_file": "recent-evidence\\41588b09d2fe0299b8f6.json",
+  "http_status": 200,
+  "final_url": "https://airdrop.privasea.ai",
+  "content_type": "text/html",
+  "characters": 7,
+  "project_name_match": false,
+  "reward_terms": [],
+  "text_sha256": "18850821f6bc72c1a2e394804f0b07f84b9960e2f4a8bf09cefa4fcb93b078db",
+  "text": "DeepSea"
+}

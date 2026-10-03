@@ -1,0 +1,19 @@
+{
+  "project": "GPUnet",
+  "url": "https://docs.gpu.net/usdgpu-token-launch",
+  "retrieved_at": "2026-10-03T15:44:25.894117+00:00",
+  "status": "fetched_needs_manual_review",
+  "content_file": "recent-evidence\\23801f238324deca3d5a.json",
+  "http_status": 200,
+  "final_url": "https://docs.gpu.net/usdgpu-token-launch",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 3138,
+  "project_name_match": false,
+  "reward_terms": [
+    "allocation",
+    "reward",
+    "token distribution"
+  ],
+  "text_sha256": "9d26597b57f0954b34ffdb93ecb7072c5527983b32bce414b93767c0cd1f0571",
+  "text": "$GPU Token Launch | GAN Chain Documentation GAN Chain Documentation ⌘ Ctrl k GAN Chain Documentation Introduction Dev Updates On Demand GPU's GAN CHAIN L1 Subnets Astra GVEX Barrels of Compute Guide $GPU Token Launch Tokenomics Quests Investor Docs EVM & SS58 Transfer SuperNova Upgrade RWA Powered by GitBook On this page For the complete documentation index, see llms.txt . This page is also available as Markdown . Copy On this page $GPU Token Launch The launch of the $GPU token marks a major milestone in the evolution of GPU.net, a decentralized compute platform designed for performance, fairness, and true community ownership. Built to empower developers, builders, and contributors, $GPU is more than just a utility token; it's the backbone of a decentralized ecosystem that prioritises long-term value creation and sustainable growth. With a total fixed supply of 200 million tokens , $GPU is engineered for long-term value creation, community driven growth , and sustainable tokenomics . Here's a closer look at how $GPU is redefining token distribution and network economics. Token Allocation: Community Allocation – 80% The majority of the supply is reserved for the GPU.net community, including developers, node operators, and Subnet creators. There are no allocations for team, foundation, advisors, or marketing, ensuring maximal decentralization and fair distribution. Investor Allocation – 10% A modest 10% is allocated to early investors to support platform development without centralizing power. Liquidity Reserve – 10% This portion ensures initial and ongoing liquidity across trading platforms and decentralized exchanges. Deflationary Model: $GPU follows a carefully designed deflationary issuance mechanism to preserve long-term value. The block rate is doubled till 50% of total liquidity and then infinitely halved. Also, all the gas fees earned is burnt to create a deflationary pressure. Subnet Ownership & Rewards: A cornerstone of GPU.net’s architecture is Subnets that serve as isolated, community hosted environments designed to run specialised services or workloads securely and independently. Every new Subnet begins with a block rate of 1,440 $GPU per day . The actual $GPU share earned by a Subnet is governed by community voting, which takes into account: Subnet visibility Product quality Revenue generation and traction This model ensures that those who build, maintain, and grow valuable infrastructure are proportionally rewarded in a trusted and transparent way. Token Utility: Own Compute. Own $GPU. Use your $GPU tokens to rent real-world GPU's directly on the dapp — our decentralised GPU rental platform. Staking: Stake $GPU to become a Queen — vote on subnet's governance, or a Validator — secure the network and earn rewards — both roles come with rewards and slashing risks. PoW voting: $GPU grants you voting power, allowing you to support real Proof-of-Work subnets. Your votes help these subnets qualify for rewards and earn further. Previous Barrel of Compute FAQ Next Tokenomics Last updated 1 year ago Token Allocation: Deflationary Model: Subnet Ownership & Rewards: Token Utility:"
+}

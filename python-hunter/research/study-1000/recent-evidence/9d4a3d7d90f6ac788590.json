@@ -1,0 +1,8 @@
+{
+  "project": "Superfluid",
+  "url": "https://claim.superfluid.org",
+  "retrieved_at": "2026-10-03T15:44:30.246185+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\9d4a3d7d90f6ac788590.json",
+  "error": "HTTPError: HTTP Error 403: Forbidden"
+}

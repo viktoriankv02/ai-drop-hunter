@@ -1,0 +1,8 @@
+{
+  "project": "Pudgy Penguins",
+  "url": "https://claim.pudgypenguins.com",
+  "retrieved_at": "2026-10-03T15:44:31.637704+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\1d6fe8dbf9f2f04bb88c.json",
+  "error": "HTTPError: HTTP Error 403: Forbidden"
+}

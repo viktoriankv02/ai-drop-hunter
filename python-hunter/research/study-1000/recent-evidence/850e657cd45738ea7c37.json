@@ -1,0 +1,8 @@
+{
+  "project": "Lisk",
+  "url": "https://lisk.com/blog/posts/lisk-lsk-airdrop/",
+  "retrieved_at": "2026-10-03T15:44:28.786689+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\850e657cd45738ea7c37.json",
+  "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1082)>"
+}

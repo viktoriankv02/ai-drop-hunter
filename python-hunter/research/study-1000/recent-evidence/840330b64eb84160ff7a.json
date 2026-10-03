@@ -1,0 +1,8 @@
+{
+  "project": "Elixir",
+  "url": "https://claim.elixir.xyz",
+  "retrieved_at": "2026-10-03T15:44:29.637418+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\840330b64eb84160ff7a.json",
+  "error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+}

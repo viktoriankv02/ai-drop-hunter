@@ -1,0 +1,17 @@
+{
+  "project": "Resolv",
+  "url": "https://claim.resolv.xyz",
+  "retrieved_at": "2026-10-03T15:44:25.923640+00:00",
+  "status": "fetched_needs_manual_review",
+  "content_file": "recent-evidence\\6dc65456d042113b6267.json",
+  "http_status": 200,
+  "final_url": "https://claim.resolv.xyz",
+  "content_type": "text/html",
+  "characters": 12,
+  "project_name_match": true,
+  "reward_terms": [
+    "claim"
+  ],
+  "text_sha256": "9666a02fe349ca03ffdf5f3be38461b7e9cc39cd3b8f9f2376e534d4f8c03a1a",
+  "text": "Resolv Claim"
+}

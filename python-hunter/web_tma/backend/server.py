@@ -10,7 +10,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from core.workspace import Workspace, ROOT, utcnow
 from core.source_policy import canonical_url
-from core.historical_research import load_history
+from core.historical_research import load_recent_study
 from discovery.coordinator import Coordinator
 from market_intelligence.forecaster import get_klines_data, generate_ai_token_forecast, MarketUnavailable
 
@@ -86,7 +86,16 @@ def create_app(store=None,background=True,legacy=None):
     @app.get("/api/migration/issues")
     def migration_issues(): return store.rows("SELECT id,entity,legacy_id,reason FROM migration_issues ORDER BY id")
     @app.get("/api/sources")
-    def sources(): return [{**s,"type":s["kind"]} for s in store.sources()]
+    def sources():
+        result=[]
+        for source in store.sources():
+            jobs=store.rows("SELECT state,result_json,error,created_at,finished_at FROM jobs WHERE kind='discover' AND target_id=? ORDER BY id DESC LIMIT 1",(source["id"],))
+            last=jobs[0] if jobs else None;parsed=None
+            if last and last.get("result_json"):
+                try: parsed=json.loads(last["result_json"])
+                except (TypeError,json.JSONDecodeError): pass
+            result.append({**source,"type":source["kind"],"last_job":{**last,"result":parsed} if last else None})
+        return result
     @app.post("/api/sources")
     def add_source(body:SourceInput): return {"id":store.add_source(body.name,body.url,body.type)}
     @app.delete("/api/sources/{sid}")
@@ -213,7 +222,10 @@ def create_app(store=None,background=True,legacy=None):
 
     @app.get("/api/research/history")
     def history():
-        return load_history()
+        return load_recent_study()
+    @app.get("/research/recent-150")
+    def recent_history_report():
+        return FileResponse(ROOT/"research"/"study-1000"/"REPORT.html")
     @app.get("/api/market/chart")
     async def chart(symbol:str="BTC",period:str="24h"): return await get_klines_data(symbol,period)
     @app.post("/api/market/forecast")

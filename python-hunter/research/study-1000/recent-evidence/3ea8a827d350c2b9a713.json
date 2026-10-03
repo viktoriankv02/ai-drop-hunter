@@ -1,0 +1,8 @@
+{
+  "project": "Kontos",
+  "url": "https://docs.kontos.io/explore-kontos/events/kontos-airdrop",
+  "retrieved_at": "2026-10-03T15:44:32.815778+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\3ea8a827d350c2b9a713.json",
+  "error": "URLError: <urlopen error [SSL: TLSV1_UNRECOGNIZED_NAME] tlsv1 unrecognized name (_ssl.c:1082)>"
+}

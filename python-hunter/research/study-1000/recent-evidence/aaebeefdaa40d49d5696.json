@@ -1,0 +1,19 @@
+{
+  "project": "GooDog",
+  "url": "https://docs.goodog.io/ignition",
+  "retrieved_at": "2026-10-03T15:44:28.658903+00:00",
+  "status": "fetched_relevant",
+  "content_file": "recent-evidence\\aaebeefdaa40d49d5696.json",
+  "http_status": 200,
+  "final_url": "https://docs.goodog.io/ignition",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 1454,
+  "project_name_match": true,
+  "reward_terms": [
+    "claim",
+    "reward",
+    "snapshot"
+  ],
+  "text_sha256": "8d41b8c5537019ff420af77e64ad18f091fd38c0775d4b5b28085af0ae1f3c87",
+  "text": "Ignition | GooDog Docs GooDog Docs ⌘ Ctrl k GooDog Docs GooDog Intro 💽 Tokenomics 🔥 Ignition 🎆 Crowdfund 🐾 Referral 💦 Nourish 🚅 Future Eco Vault 🐕 Protocol Vault 🥗 GooDEX 🏵️ GPad 🎯 GBet 🎰 GLucky1 💽 GScore 🔀 GDrop 🥂 GVote 🍻 GDAO Contracts Terms of Service 🎆 Disclaimer Powered by GitBook On this page For the complete documentation index, see llms.txt . This page is also available as Markdown . Copy On this page 🔥 Ignition 50% of GD total supply will be distributed as follows: Proportion Criteria Method ~22% DeBank Social Rank Top 50000 Snapshot at x. FCFS rank <= 100: 2,800,000 GD rank <= 200: 2,400,000 GD rank <= 500: 2,000,000 GD rank <= 1000: 1,600,000 GD rank <= 2000: 1,200,000 GD rank <= 5000: 800,000 GD rank <= 10000: 600,000 GD rank <= 20000: 300,000 GD rank <= 50000: 200,000 GD total = 26,200,000,000 GD ~13.5% DeBank Web3 ID minter 100,000 GD/address * expected 100,000 address total = 10,000,000,000 GD ~5% DBK Genesis NFT Top 50000 Minter(block number=1791219) Snapshot at x. FCFS 100,000 GD/address * total = 5,000,000,000 GD ~3.5% Rabby Desktop Genesis Minter(block number=21470446) Snapshot at x. FCFS 100,000 GD/address * total = 5,000,000,000 GD Crowdfund/LP Incentive FCFS Referral Reward FCFS during the stage 10000 GD/per claimed user Extra 50% bonus with web3id referral link. Top 1000 Followers & Reposters of GooDog / Official Account ​Comment Home/DEX Tester FCFS Previous Tokenomics Next Crowdfund Last updated 1 year ago"
+}

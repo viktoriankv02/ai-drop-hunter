@@ -1,0 +1,21 @@
+{
+  "project": "Unlock Protocol",
+  "url": "https://airdrops.unlock-protocol.com",
+  "retrieved_at": "2026-10-03T15:44:29.668708+00:00",
+  "status": "fetched_relevant",
+  "content_file": "recent-evidence\\dda758b867dd531ea247.json",
+  "http_status": 200,
+  "final_url": "https://airdrops.unlock-protocol.com",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 1052,
+  "project_name_match": true,
+  "reward_terms": [
+    "airdrop",
+    "claim",
+    "eligibility",
+    "eligible",
+    "reward"
+  ],
+  "text_sha256": "02fd3ce592526f1a019933b931e1df99d2614cc7a86f56b9fcb2477f7492567b",
+  "text": "Airdrops | Unlock Protocol Events Locks Keys Claim Your Governance Rights The Unlock Protocol belongs to its community of creators, developers, and users. Contribute code, docs, or just use the protocol and claim UP tokens. Connect your wallet to check your eligibility for various airdrops. Connect Wallet Ongoing Campaigns Claim your rewards from eligible campaigns. UP Token Swap The Unlock DAO migration to Base is complete, and the UP token swap reward airdrop, totaling 1.061 million UP tokens, is now live for all eligible participants. More info Blastoff Airdrop The Unlock Protocol Foundation is launching a next airdrop to Unlock Protocol community members, distributing over 7 million UP tokens on Base to over 10,000 members of the community! UP Token Trading Competition on Base Get ready to take your trading skills to new heights with the $UP Token Trading Competition on Base. Grab a share of a 10,000,000 $UP prize pool. Starts on April 1, 2025, and runs until May 31, 2025. More info © Unlock Labs, 2026 Privacy Policy Term of Service"
+}

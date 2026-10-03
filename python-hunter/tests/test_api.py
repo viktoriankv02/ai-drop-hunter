@@ -29,6 +29,14 @@ def test_source_controls_and_no_ghost_channels(client):
     assert client.delete(f"/api/sources/{sid}").status_code==200
     assert len(client.get("/api/sources").json())==6
 
+def test_source_status_explains_successful_zero_new_scan(client):
+    store=client.app.state.store
+    jid=store.enqueue("discover",1)
+    store.finish_job(jid,{"found":1176,"added":0,"duplicates":1176,"history_complete":False})
+    source=client.get("/api/sources").json()[0]
+    assert source["last_job"]["state"]=="succeeded"
+    assert source["last_job"]["result"]=={"found":1176,"added":0,"duplicates":1176,"history_complete":False}
+
 def test_interest_enqueues_once_and_does_not_execute(client):
     p=client.post("/api/projects/manual",json={"title":"Example","source_url":"https://cryptorank.io/ru/drophunting/example-activity1"}).json()
     pid=p["project_id"]
@@ -46,10 +54,15 @@ def test_crypto_browser_material_and_secret_panel_rejection(client):
     assert res.status_code==200
     assert client.get("/api/jobs").json()[0]["kind"]=="analyze"
 
-def test_history_count_is_not_1000(client):
+def test_recent_history_contains_150_unique_projects(client):
     h=client.get("/api/research/history").json()
-    assert h["target_projects"]==1000 and h["fully_reviewed"]==0
-    assert h["partial_cases"]>=11
+    assert h["target_projects"]==h["analyzed_projects"]==150
+    assert h["fully_reviewed"]==0 and h["partial_cases"]==150
+    assert len(h["projects"])==len({p["identity_key"] for p in h["projects"]})==150
+    assert h["factor_analysis"] and h["relationship_analysis"]
+    assert h["report_url"]=="/research/recent-150"
+    report=client.get(h["report_url"])
+    assert report.status_code==200 and report.text.count("<article ")==150
 
 def test_job_retry_is_idempotent_and_keeps_target_names(client):
     pid=client.post("/api/projects/manual",json={"title":"Named project","source_url":"https://airdrops.io/named/"}).json()["project_id"]

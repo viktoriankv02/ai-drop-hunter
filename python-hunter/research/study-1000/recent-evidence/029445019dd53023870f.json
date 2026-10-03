@@ -1,0 +1,15 @@
+{
+  "project": "Redacted (RDAC)",
+  "url": "https://claim.redactedgroup.io",
+  "retrieved_at": "2026-10-03T15:44:26.539376+00:00",
+  "status": "fetched_needs_manual_review",
+  "content_file": "recent-evidence\\029445019dd53023870f.json",
+  "http_status": 200,
+  "final_url": "https://claim.redactedgroup.io",
+  "content_type": "text/html",
+  "characters": 8,
+  "project_name_match": true,
+  "reward_terms": [],
+  "text_sha256": "25b296232b73a941b4ad43ee8e81d3027fe25b7a7d611bd5d0d0dcd4f4abb6cb",
+  "text": "Redacted"
+}

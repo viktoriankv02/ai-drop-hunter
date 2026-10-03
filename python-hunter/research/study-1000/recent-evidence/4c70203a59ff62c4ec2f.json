@@ -1,0 +1,15 @@
+{
+  "project": "DeLorean",
+  "url": "https://deloreanlabs.com",
+  "retrieved_at": "2026-10-03T15:44:24.839419+00:00",
+  "status": "fetched_needs_manual_review",
+  "content_file": "recent-evidence\\4c70203a59ff62c4ec2f.json",
+  "http_status": 200,
+  "final_url": "https://deloreanlabs.com",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 13,
+  "project_name_match": true,
+  "reward_terms": [],
+  "text_sha256": "54091d5d566e8030905941c57ca040cf4e00e062fb96a38fa565fb1be278c70e",
+  "text": "DeLorean Labs"
+}

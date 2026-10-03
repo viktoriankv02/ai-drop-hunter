@@ -99,6 +99,16 @@ class Workspace:
                 outcome_json TEXT);
             """)
             c.execute("INSERT OR IGNORE INTO meta VALUES ('automatic_card_preparation','1')")
+            if not c.execute("SELECT 1 FROM meta WHERE key='bounded_research_queue_v1'").fetchone():
+                # Keep the newest incoming cards ready without burying fresh discoveries
+                # behind the initial catalogue import. Deferred cards are reconsidered later.
+                queued=c.execute("""SELECT j.id FROM jobs j JOIN projects p ON p.id=j.target_id
+                    WHERE j.kind='research' AND j.state='queued' AND p.status='new'
+                    ORDER BY p.id DESC,j.id DESC""").fetchall()
+                for row in queued[20:]:
+                    c.execute("UPDATE jobs SET state='cancelled',phase='deferred_backlog',finished_at=? WHERE id=?",
+                              (utcnow(),row["id"]))
+                c.execute("INSERT INTO meta VALUES ('bounded_research_queue_v1','1')")
             if not c.execute("SELECT 1 FROM meta WHERE key='source_policy_v1'").fetchone():
                 for name,url,priority,purpose,adapter in DEFAULT_SOURCES:
                     c.execute("""INSERT OR IGNORE INTO sources
@@ -161,7 +171,7 @@ class Workspace:
             cur = c.execute("DELETE FROM sources WHERE id=?" if delete else
                             "UPDATE sources SET enabled=1-enabled WHERE id=?", (sid,))
             if not cur.rowcount: raise ValueError("Джерело не знайдено")
-    def add_project(self, title, url, source, summary=""):
+    def add_project(self, title, url, source, summary="", prepare=True):
         url = canonical_url(url)
         with self.db() as c:
             cur = c.execute("""INSERT OR IGNORE INTO projects
@@ -170,7 +180,7 @@ class Workspace:
             fresh=bool(cur.rowcount)
             pid=cur.lastrowid if fresh else c.execute("SELECT id FROM projects WHERE source_url=?",(url,)).fetchone()[0]
             screen_in_connection(c,pid)
-        if fresh:self.prepare_project(pid)
+        if fresh and prepare:self.prepare_project(pid)
         return pid,fresh
     def prepare_project(self,pid):
         """Reading is automatic; joining the work list always requires a user decision."""
@@ -202,6 +212,10 @@ class Workspace:
 
     def pending_preparation(self,limit=20):
         # Backfill old incoming cards in bounded batches; retry failures only after daily backoff.
+        active=self.rows("""SELECT COUNT(*) n FROM jobs j JOIN projects p ON p.id=j.target_id
+            WHERE j.kind='research' AND j.state IN ('queued','running') AND p.status='new'""")[0]["n"]
+        limit=min(max(1,min(100,limit)),max(0,20-active))
+        if not limit:return []
         cutoff=(datetime.now(timezone.utc)-timedelta(days=1)).isoformat()
         return self.rows("""SELECT * FROM projects p WHERE status='new'
             AND NOT EXISTS(SELECT 1 FROM jobs j WHERE j.kind='research' AND j.target_id=p.id
@@ -268,8 +282,11 @@ class Workspace:
     def claim_job(self):
         with self.db() as c:
             c.execute("BEGIN IMMEDIATE")
-            row=c.execute("""SELECT * FROM jobs WHERE state='queued' ORDER BY CASE kind WHEN 'discover' THEN 0 WHEN 'analyze' THEN 1 ELSE 2 END,
-                CASE WHEN kind='research' AND EXISTS(SELECT 1 FROM projects p WHERE p.id=jobs.target_id AND p.status='tracking') THEN 0 ELSE 1 END,id LIMIT 1""").fetchone()
+            row=c.execute("""SELECT * FROM jobs WHERE state='queued' ORDER BY
+                CASE kind WHEN 'discover' THEN 0 WHEN 'analyze' THEN 1 ELSE 2 END,
+                CASE WHEN kind='research' AND EXISTS(SELECT 1 FROM projects p WHERE p.id=jobs.target_id AND p.status='tracking') THEN 0 ELSE 1 END,
+                CASE WHEN kind='research' THEN (SELECT p.id FROM projects p WHERE p.id=jobs.target_id) END DESC,
+                id LIMIT 1""").fetchone()
             if not row: return None
             c.execute("UPDATE jobs SET state='running',phase='reading' WHERE id=?",(row["id"],))
             return dict(row)

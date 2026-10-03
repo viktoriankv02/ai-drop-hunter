@@ -1,0 +1,22 @@
+{
+  "project": "Suilend",
+  "url": "https://docs.suilend.fi/send/tokenomics-and-mdrops",
+  "retrieved_at": "2026-10-03T15:44:32.242605+00:00",
+  "status": "fetched_relevant",
+  "content_file": "recent-evidence\\8ecac7a578c87c448206.json",
+  "http_status": 200,
+  "final_url": "https://docs.suilend.fi/send/tokenomics-and-mdrops",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 3123,
+  "project_name_match": true,
+  "reward_terms": [
+    "airdrop",
+    "allocation",
+    "claim",
+    "reward",
+    "snapshot",
+    "token distribution"
+  ],
+  "text_sha256": "f0c171654d329983dd19d2a096d9639e87e10f7b8196f822d9b93455ff393da0",
+  "text": "Tokenomics & Mdrops | Suilend Suilend ⌘ Ctrl k Suilend Introduction to Sui's DeFi Suite SEND SEND DAO Addresses Tokenomics & Mdrops mSEND & SEND Cointypes How to Redeem mSEND and Claim SEND - Season 1 How to Redeem mSEND and Claim SEND - Season 2 SEND from SLND/SAVE Conversion mDrops Integration Security Suilend Audit Risks Liquidations Ecosystem Suilend Integration Links Suilend SDK Guide Media Kit SpringSui Intro to SpringSui Standard SpringSui Audit SpringSui Integration How to Create your own SpringSui LST Steamm What is STEAMM? How do I launch a token with STEAMM? STEAMM Whitepaper STEAMM Audit STEAMM Integration STEAMM Developer Integration Guide Campaigns DeSENDber SEND Campaign (Ended) DeSENDber USDC Strategy Campaign - Phase 1 (Ended) Suilend/STEAMM Backpack Wallet Deposit Campaign (Ended) BYBIT x SEND Campaign (Ended) Sui Wallet Deposit Campaign (Ended) Rootlets x DEEP Challenge (Ended) Rootlets The Rootlets Manifesto Rootlets Holder Snapshot FAQ How do I set up a Sui Wallet? How do I bridge to Sui? How do I wrap SOL to bridge to Sui? How do I use Account History and Earnings? What are Account NFTs? Why am I not receiving rewards? What are Isolated Assets? How can I claim Account Rewards? What is the difference between APR and APY? What is staking? What is Suilend Strategies? How do I use the SEND Dashboard? What are Isolated Markets? How does yield on Suilend work? Archive What are S2 Points and Capsules? What are Suilend Points and Capsules? STEAMM Beta Powered by GitBook On this page For the complete documentation index, see llms.txt . This page is also available as Markdown . Copy On this page SEND Tokenomics & Mdrops Information about the SEND token and Mdrop mechanism. SEND Tokenomics $SEND has a total supply of 100M. Here's the breakdown: Community: 65% Investors: 20% Team: 15% SEND tokenomics are designed to put the community first. What are Mdrops? Mdrops are a new token distribution model for SEND. Here’s how it works: When you redeem your SEND allocation, you’ll receive mSEND, which you’ll use to claim SEND. Claiming SEND early comes with a penalty fee, which is paid in SUI. This reduces volatility and increases demand for SUI. The mSEND penalty decreases linearly over time: • 3 months for Points & Ecosystem allocations. • 6 months for Team & Investor allocations. • 12 months for SAVE allocations. On the maturity date (e.g., after 3 months for Points & Ecosystem allocations) you can claim the full SEND tokens without any penalty. 40% of SEND be airdropped with the mdrop mechanism: 20% to points holders and early users. 5% to ecosystem communities ( @rootlets_nft , capsules, and more) 15% to SAVE holders (on Solana) Mdrops allow for a high initial float without overwhelming selling pressure, while aligning long term holders. Unlocks Unlocks are as follows: Mdrops are unlocked on day 1 Investors unlock over 2 years Team unlocks over 4 years The unlock schedule was designed to promote long term commitment and avoid high inflation. Previous SEND DAO Addresses Next mSEND & SEND Cointypes Last updated 1 year ago SEND Tokenomics What are Mdrops? Unlocks"
+}
