@@ -1,0 +1,186 @@
+[
+  {
+    "project": "Blast",
+    "reward_year": 2024,
+    "event_date": null,
+    "ecosystems": [
+      "Ethereum"
+    ],
+    "rules_summary": "Phase 1: points за bridged ETH/USDB, Gold через dApps; для top-0,1% часткове шестимісячне розблокування залежало від щомісячних points. Окремий пул Blur Foundation.",
+    "payout_summary": "Офіційний звіт Q2 описує 17 млрд BLAST для Phase 1: 7 млрд points, 7 млрд Gold, 3 млрд Blur Foundation. Післязапусковий текст підтверджує дію умов vesting; повний user payout не відтворений.",
+    "payout_evidence_level": "live_claim_program",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://assets.blast.io/en/q2-2024.pdf",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://blog.blast.io/phase-2-users/",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Gold та Points — різні показники; сума treasury/intermediary allocation не дорівнює виплатам кінцевим користувачам.",
+    "unknowns": [
+      "Незалежний підрахунок усіх переказів і фактичних витрат не виконано."
+    ],
+    "tags": [],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "Hyperliquid",
+    "reward_year": 2024,
+    "event_date": null,
+    "ecosystems": [
+      "Hyperliquid"
+    ],
+    "rules_summary": "Перші points: 01.11.2023–01.05.2024, щотижня; referrals давали 1 point за 4 points запрошених. Далі окрема L1-фаза травень–листопад 2024 з іншою емісією points.",
+    "payout_summary": "Подання емітента інвестиційного продукту до SEC описує genesis-розподіл близько 310 млн HYPE. Це стороннє подання, не перевірка SEC та не наш аудит переказів.",
+    "payout_evidence_level": "published_distribution_analysis",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/points",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://www.sec.gov/Archives/edgar/data/2090011/000121390026016539/ea0276878-s1a1_21shares.htm",
+        "kind": "third_party_regulatory_filing",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Points не мають універсального сталого курсу конвертації; фази й умови зберігати окремо.",
+    "unknowns": [
+      "Незалежний підрахунок усіх переказів і фактичних витрат не виконано.",
+      "Офіційний підсумковий genesis dataset та точний фактичний обсяг."
+    ],
+    "tags": [],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "LayerZero",
+    "reward_year": 2024,
+    "event_date": "2024-06-20",
+    "ecosystems": [
+      "Ethereum",
+      "Arbitrum",
+      "Optimism",
+      "Base",
+      "Polygon",
+      "BNB",
+      "Avalanche"
+    ],
+    "rules_summary": "Core: protocol fees, 25–5000 ZRO; малі <$1 і малоцінні NFT-транзакції зменшували вагу на 80%. RFP — окремий пул. Claim 20.06–20.09.2024: обов’язковий внесок $0,10 за ZRO плюс gas.",
+    "payout_summary": "Офіційно відкрито claim 85 млн ZRO. Повний остаточний обсяг отриманого й перерозподіленого ще не відтворений.",
+    "payout_evidence_level": "live_claim_program",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://info.layerzero.foundation/introducing-zro-d39df554a9b7",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://info.layerzero.foundation/zro-claim-6e37a81e9c2a",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Відокремлювати gas і обов’язковий внесок; не змішувати Core/RFP пороги.",
+    "unknowns": [
+      "Незалежний підрахунок усіх переказів і фактичних витрат не виконано."
+    ],
+    "tags": [],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "Renzo",
+    "reward_year": 2024,
+    "event_date": "2024-04-30",
+    "ecosystems": [
+      "Ethereum"
+    ],
+    "rules_summary": "Snapshot 26.04.2024; minimum 360 ezPoints. >500 000 points: 50% одразу, 50% лінійно за три місяці; інші повністю unlocked. Claim тривав місяць.",
+    "payout_summary": "Офіційна документація описує 700 млн REZ, розподілених 30.04.2024 за ezPoints; невитребуване перенесли у Season 2. Остаточний отриманий обсяг окремо не вказаний.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://docs.renzoprotocol.com/docs/status-campaigns/renzo-ezpoints-closed/season-1",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Snapshot-баланс points не тотожний поточному ezETH; строго >500k відрізняється від >=500k.",
+    "unknowns": [
+      "Незалежний підрахунок усіх переказів і фактичних витрат не виконано."
+    ],
+    "tags": [],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  },
+  {
+    "project": "SPACE ID",
+    "reward_year": 2023,
+    "event_date": null,
+    "ecosystems": [
+      "BNB",
+      "Arbitrum"
+    ],
+    "rules_summary": "Voyage Season 2: Calling і Striking; конвертація 1,8 points за ID. Boost для індивідуальних registrants залежав від домену, cluster <=5 domains і початкових points <40. Claim 29.06–29.07.2023.",
+    "payout_summary": "Офіційний підсумок сезону визначає 22 482 583 ID allocation і близько 530 тис. eligible адрес; це не фінальні claims.",
+    "payout_evidence_level": "live_claim_program",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://blog.space.id/the-end-of-space-id-voyage-season-2-airdrop-summary-afae7efe983f",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Курс points/token й кластерні обмеження повинні бути структурованими; сезон закінчився раніше за claim.",
+    "unknowns": [
+      "Незалежний підрахунок усіх переказів і фактичних витрат не виконано."
+    ],
+    "tags": [],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-29"
+  }
+]

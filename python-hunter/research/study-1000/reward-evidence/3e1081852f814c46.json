@@ -1,0 +1,44 @@
+{
+  "url": "https://monad.xyz/blog/the-mon-airdrop-results",
+  "resolved_url": "https://monad.xyz/blog/the-mon-airdrop-results",
+  "text": "Share\nShare on X (opens in a new tab)\nShare on LinkedIn (opens in a new tab)\nThe MON Airdrop Results\nSee\nThe MON Airdrop\n, published October 14, 2025, for an overview of the airdrop process, tracks, and anti-sybil efforts.\nOverview\nThe MON Airdrop claim process ran from Tuesday, October 14, 2025 to Monday, November 3, 2025 via the MON Claim Portal (\nhttps://claim.monad.xyz/\n).\nThe MON Airdrop made available 4.73B MON tokens to be claimed across a total of 289K eligible accounts.\nIn total, 3.33B MON tokens (~70.4%) were claimed\n.\nAccounts qualified for eligibility in five different tracks, each with a number of subtracks. Accounts that qualified through multiple subtracks were eligible to receive the combined total of their subtrack allocations. These tracks include:\nMonad Community\nOnchain Users\nCrypto Community\nMonad Builders\nCrypto Contributors and Crypto Curious\nOn November 9, 2025, all airdrop-claimed MON tokens were deposited into an “escrow” smart contract which holds tokens on behalf of each claimer wallet until the launch of Monad Public Mainnet. The MON tokens will be released directly to the corresponding claimer wallets on the date of Monad Public Mainnet launch: Monday, November 24, 2025.\nAll unclaimed tokens will be reallocated to future Ecosystem Development initiatives to help grow the adoption of the Monad network.\nClaim Results\nThe table below provides an overview of the allocations and claims in the MON Airdrop. A general overview of each track is available in\nThe MON Airdrop\n.\n1. The # of eligible Monad Community members increased from the previously quoted 5,500. We opened a vouching system during the first week of claims in order to give the community one more opportunity to identify community members we have missed 2. The total number of accounts is greater than the number of unique accounts because an account could qualify through multiple subtracks\nClaimer Wallets\nIn total, 76,021 unique wallets claimed MON tokens. A CSV of claimed MON amounts by wallet is available for download\nhere\n.\nAll claimer wallet addresses were checked against the latest sanctions designations listed on economic/trade embargo lists from organizations including the US, EU, or UN. This check was performed using the\nChainalysis oracle for sanctions screening\n. In addition, the claim portal (\nhttps://claim.monad.xyz/\n) geo-blocked users from the following jurisdictions: Cuba, Iran, North Korea, Syria, Sevastopol, Crimea, Donetsk, and Luhansk.\nWe also actively excluded team members from participating in the airdrop by disqualifying identifiers associated with project team members from the list of eligible recipients. In addition, the Monad Foundation and Category Labs implemented policies expressly prohibiting full-time team members from claiming tokens in the Monad airdrop.\nMonad Community\nThe Monad Community was the largest track in the MON airdrop. 5,935 accounts were allocated 1.670B tokens, of which 1.665B tokens (99.7%) were claimed.\nThe chart below shows the distribution of accounts / claimers across allocation amounts in MON.\nThe Monad Community airdrop was allocated using an intensive process. We wanted members of the Monad Community to be significant stakeholders in the network because we believe in their future influence and potential to shape the course of both Monad and crypto in general. As such, it was our top priority to assess the past impact of each community member through a comprehensive and multi-faceted analysis featuring significant input from the community itself.\nImpactful, long-term community members were identified using data from social media platforms including Discord, Telegram, and X. We built the\nRecognizer App\n, an interface for community members to provide input on who else they would consider a community member. The Monad Community team also spent several months providing manual input. After the claim portal went live with a claim strength indicator, we ran a vouching system where community members could identify people we missed.\nWe deeply appreciate the contributions of individuals in the Monad Community in shaping the culture of the Monad project, and we look forward to what you accomplish in the years to come!\nOnchain Users\nThe Onchain Users track was the second-largest in the MON airdrop. 229,433 accounts were allocated 1.705B tokens, of which 699M tokens (41.0%) were claimed.\nThis track generally consists of power DeFi users and longtime NFT holders.\nThe table below shows the allocation and claim amounts for the major DeFi-related subtracks.\nThe table below shows the allocation and claim amounts for the subtracks focused on long-term holders of major NFTs.\nCrypto Community\nThe Crypto Community track was the third-largest in the MON airdrop. 46,017 accounts were allocated 897M tokens, of which 635M tokens (70.8%) were claimed.\nThe table below shows the allocation and claim amounts for major Crypto Community subtracks. Note that Monad Cards Wave 1 recipients received 88,888 MON, Monad Cards Wave 2 recipients received 38,888 MON, and Monad Cards recipients who failed to claim their cards received 18,888 MON.\nThe table below shows the allocation and claim amounts for the major Crypto Community subtracks.\nMonad Builders\nThe Builders track was the fourth-largest in the MON airdrop. 2,860 accounts were allocated 288M tokens, of which 225M tokens (78.4%) were claimed.\nThe Builders track consisted of team members of Monad-native projects (noted in the table below as Monad Native Builders), as well as developers participating in developer challenges such as Monad Blitzes and Monad Missions (noted as Other Builders).\nCrypto Contributors and Crypto Curious\nThis track was the fifth-largest in the airdrop and included both the Public Goods and Education subtracks. 4,431 accounts were allocated 172M tokens, of which 107M tokens (62.1%) were claimed.\nThe Public Goods subtrack consisted of Cantina auditors, Protocol Guild members, SEAL 911 members, and ZachXBT. The Education subtrack consisted of RareSkills students and staff, SheFi students and staff, and current members of select university blockchain clubs.\nThe table below shows the allocation and claim amounts for this track.\nClosing Thoughts\nThe purpose of the MON airdrop was to distribute tokens ahead of the network launch to a broad base of future stakeholders.\nThe Monad Community was the largest recipient in the airdrop. Many individuals in the Monad Community have demonstrated leadership, unique thought, and a deep level of commitment and caring for Monad – qualities that make them ideal stakeholders in the future Monad network.\nThe airdrop also included people who are deeply involved in crypto but are not currently members of the Monad Community. Monad is an ambitious project, with a big ecosystem, based on a brand new, high-performance, open source codebase, and it is intended to be a hub for onchain activity. We thus included people who are extremely active in crypto, whether it be through onchain activity, involvement in the social layer, or through contributions to security or education.\nIt is a balancing act to properly allocate an airdrop across many deserving stakeholders, harmonizing old and new, and inclusion and sybil-resistance. We spent months analyzing onchain and offchain data and built unique experiences to gather community input, including the\nRecognizer App\nand the\nMonad Cards\ninitiative.\nThank you, and see you onchain!",
+  "links": [
+    {
+      "text": "Share on X (opens in a new tab)",
+      "url": "https://x.com/intent/post?text=The%20MON%20Airdrop%20Results&url=https%3A%2F%2Fmonad.xyz%2Fblog%2Fthe-mon-airdrop-results"
+    },
+    {
+      "text": "Share on LinkedIn (opens in a new tab)",
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmonad.xyz%2Fblog%2Fthe-mon-airdrop-results"
+    },
+    {
+      "text": "https://claim.monad.xyz/",
+      "url": "https://claim.monad.xyz/"
+    },
+    {
+      "text": "here",
+      "url": "https://raw.githubusercontent.com/monad-crypto/airdrop-addresses/refs/heads/main/monad_airdrop_results.csv"
+    },
+    {
+      "text": "Chainalysis oracle for sanctions screening",
+      "url": "https://go.chainalysis.com/chainalysis-oracle-docs.html"
+    },
+    {
+      "text": "https://claim.monad.xyz/",
+      "url": "https://claim.monad.xyz/"
+    },
+    {
+      "text": "Recognizer App",
+      "url": "https://recognizer.monad.xyz/"
+    },
+    {
+      "text": "Recognizer App",
+      "url": "https://recognizer.monad.xyz/"
+    },
+    {
+      "text": "Monad Cards",
+      "url": "https://cards.monad.xyz/"
+    }
+  ],
+  "retrieved_at": "2026-09-29T15:02:29.197270+00:00"
+}

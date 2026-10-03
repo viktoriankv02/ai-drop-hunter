@@ -1,0 +1,34 @@
+[
+  {
+    "file": "allocation-datasets\\paraswap-users.json",
+    "url": "https://raw.githubusercontent.com/paraswap/paraswap-rewards-snapshot/master/data/airdrop-users.json",
+    "sha256": "2440ca548cfeb4b76d8b027a6574e0a772d6b3680230fb371205309d6af2952d",
+    "bytes": 2223715,
+    "status": "fetched",
+    "payout_verified": false
+  },
+  {
+    "file": "allocation-datasets\\hop-finalDistribution.csv",
+    "url": "https://raw.githubusercontent.com/hop-protocol/hop-airdrop/master/src/data/finalDistribution.csv",
+    "sha256": "186189d8ac873eb686b64fc91f630fa453c90341a22c32b45f32da7e30d6d028",
+    "bytes": 13435870,
+    "status": "fetched",
+    "payout_verified": false,
+    "previous_attempt": {
+      "bytes": 12000000,
+      "sha256": "fce1d2e178bf1e85ba70984a4219a453c488efc1c60b1c35077ed2b494623cbc",
+      "status": "possible_truncation_read_limit_reached",
+      "excluded_from_analysis": true
+    },
+    "complete_body": true,
+    "content_length": "13435870"
+  },
+  {
+    "file": "allocation-datasets\\rotki-index.json",
+    "url": "https://raw.githubusercontent.com/rotki/data/develop/airdrops/index_v2.json",
+    "sha256": "626046d59d25fd7c7664bc093eb9d42585721b2c0af0b2122894fdcd9e5d3015",
+    "bytes": 18029,
+    "status": "fetched",
+    "payout_verified": false
+  }
+]

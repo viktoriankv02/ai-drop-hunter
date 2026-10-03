@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "unique_dossiers": 79,
+  "source_files_hash_checked": 109,
+  "new_quotes_checked": 7,
+  "expansion_quotes_checked": 6,
+  "claim_models_hash_checked": 44,
+  "monad_rows_recomputed": 76021,
+  "model_smoke": "5/7; failures retained",
+  "study_1000_completed": false,
+  "fine_tuning_performed": false
+}

@@ -1,0 +1,109 @@
+{
+  "model": "qwen3:4b-instruct",
+  "fine_tuning_performed": false,
+  "scope": "7 short curated source excerpts; known-answer extraction smoke test, not held-out generalization or profit prediction",
+  "prompt_version": "proven-boolean-v1",
+  "passed": 5,
+  "total": 7,
+  "results": [
+    {
+      "project": "Monad",
+      "expected": {
+        "unique_claiming_wallets": 76021
+      },
+      "actual": {
+        "unique_claiming_wallets": 76021
+      },
+      "passed": true,
+      "seconds": 29.75
+    },
+    {
+      "project": "Somnia",
+      "expected": {
+        "gas_cost_mentioned": true,
+        "exact_gas_amount": null
+      },
+      "actual": {
+        "gas_cost_mentioned": true,
+        "exact_gas_amount": null
+      },
+      "passed": true,
+      "seconds": 5.08
+    },
+    {
+      "project": "Stride",
+      "expected": {
+        "min_usd": 100,
+        "max_usd": 50000,
+        "valuation_at_snapshot": true
+      },
+      "actual": {
+        "min_usd": 100,
+        "max_usd": 50000,
+        "valuation_at_snapshot": true
+      },
+      "passed": true,
+      "seconds": 8.34
+    },
+    {
+      "project": "Osmosis",
+      "expected": {
+        "genesis_unlock_percent": 20,
+        "full_delivery_proven": false
+      },
+      "actual": {
+        "genesis_unlock_percent": 20,
+        "full_delivery_proven": false
+      },
+      "passed": true,
+      "seconds": 6.18
+    },
+    {
+      "project": "Arkham",
+      "expected": {
+        "reported_rewards_usd_lower_bound": 20000000,
+        "bound_is_strict": true,
+        "season": 1
+      },
+      "actual": {
+        "reported_rewards_usd_lower_bound": 20000000,
+        "bound_is_strict": true,
+        "season": "1"
+      },
+      "passed": false,
+      "seconds": 8.06
+    },
+    {
+      "project": "Plasma",
+      "expected": {
+        "announced_tokens": 25000000,
+        "completed_distribution_proven": false
+      },
+      "actual": {
+        "announced_tokens": 25000000,
+        "completed_distribution_proven": false
+      },
+      "passed": true,
+      "seconds": 5.96
+    },
+    {
+      "project": "Saga",
+      "expected": {
+        "logic": "OR",
+        "matic_threshold": 300,
+        "matic_operator": ">",
+        "eth_threshold": 0.4,
+        "eth_operator": ">"
+      },
+      "actual": {
+        "logic": "OR",
+        "matic_threshold": null,
+        "matic_operator": null,
+        "eth_threshold": 0.4,
+        "eth_operator": ">"
+      },
+      "passed": false,
+      "seconds": 9.83
+    }
+  ]
+}

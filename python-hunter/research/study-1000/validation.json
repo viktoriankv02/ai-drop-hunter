@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "unique_local_ids",
+    "csv_count_matches_coverage",
+    "no_unverified_launch_promoted",
+    "no_unverified_training_examples",
+    "15_partial_dossiers",
+    "5_recent_notes",
+    "12_unique_synthetic_eval_cases"
+  ],
+  "model_benchmark_executed": false
+}

@@ -1,0 +1,152 @@
+{
+  "text": "At 14:00 UTC today, Celestia was successfully deployed to Mainnet Beta, codenamed Lemon Mint, marking the arrival of the first modular data availability network.\n\nToday marks a massive milestone for the Celestia community. What was once considered a wild moonshot is now a reality four years after the LazyLedger whitepaper was published.\n\nBut mainnet launch signifies more than just Celestia going live. It’s the start of a new era. An era of verifiability where anyone can run a secure light node. An era of collaboration in which blockchains can openly build on top of each other. An era of abundant blockspace that allows any developer to deploy their own blockchain.\n\nEnter the modular era.\n\nThe growing modular ecosystem\n\nCelestia is not pioneering the modular era alone. A growing ecosystem has emerged to contribute new components to the modular stack.\n\npic.twitter.com/VtVAIHexmM\n\nSince 2022, many new execution layers and rollup frameworks have emerged followed by a wave of novel infrastructure built specifically for the modular stack, such as shared sequencers, rollups-as-a-service, and proving networks.\n\nIn July, over 2000 attendees and 115 speakers from the ecosystem gathered for Modular Summit II, showcasing the talent and creativity forming around the modular vision.\n\n2000+ attendees. 115 speakers. 1 man in a bear suit. Thanks to all who came to @modular_summit , and for believing that a positive-sum crypto ecosystem, free from maximalism, is possible. Some highlights and gratitude 👇📷 🙏 pic.twitter.com/9hlBtsBMf0\n\nBuild modular\n\nCelestia’s launch is an opportunity for ambitious developers to push the envelope. The modular stack invites developers to create novel applications unlocked by abundant blobspace, like onchain gaming.\n\nCheck out the Celestia developer portal and documentation to start building.\n\nSome of the tools that you can try today with Celestia include:\n\nRollup Frameworks : Dymint , OP stack , Rollkit , Sovereign SDK .\n\nSmart Contract dev : Bubs testnet , Eclipse .\n\nWallets : Keplr , Leap , Ledger , Metamask Snaps ( Mystic & Leap ), Cosmostation .\n\nBlock Explorers : Celenium , Mintscan , Modular Cloud .\n\nAnd a number of companies are focused on making it seamless to deploy fully-provisioned rollups using Celestia:\n\nCaldera , AltLayer , Vistara , (with many more providers on the way!)\n\nTrust minimization is a key design goal of Celestia, so a centralized API isn't necessary to interact with Celestia. Anyone can publish and retrieve data from Celestia by running a Celestia light node .\n\nWith the arrival of Mainnet Beta, everyone in the ecosystem can participate and contribute to securing Celestia by staking TIA with a validator or running a light node in just a few clicks.\n\nMainnet Beta expectations and security\n\nRemember that Celestia Mainnet Beta is early and experimental. It introduces ambitious new technologies, and that means uncharted territory. Expect occasional instability or reduced performance at times.\n\nSo, please build responsibly and contribute to protocol maintenance and development.\n\nIf outages or performance issues occur, Celestia core devs will inform the community through various social channels like Twitter , Discord , Telegram , and the Celestia forum , depending on the severity of the issues.\n\nUpgrades to Celestia will be determined by scheduled hard forks, following the CIP process once it is implemented. Validators will have access to a process of “rolling upgrades” to Celestia. Validators can upgrade their clients ahead of hard forks , which will automatically activate at a predetermined block height.\n\n1GB blocks. 1B light nodes. 1M rollups.\n\nThe LazyLedger whitepaper first outlined a new vision for modular blockchains. One where nodes don’t need to download all transactions, and the block size can dynamically grow with the number of nodes.\n\nMainnet Beta launch is just the first step towards realizing this vision. The next milestones on this journey are:\n\n1GB blocks to provide abundant data availability for the modular ecosystem.\n\n1 billion light nodes to secure Celestia’s 1GB blocks, with a light node on every phone.\n\n1 million rollups where a blockchain is as easy to deploy as a smart contract.\n\nAnd it’s up to you, the community, to make these milestones a reality by building in the modular stack and exploring Celestia .\n\nLet the modular era begin.",
+  "links": [
+    {
+      "url": "https://arxiv.org/abs/1905.09274?ref=blog.celestia.org",
+      "label": "LazyLedger whitepaper"
+    },
+    {
+      "url": "https://t.co/VtVAIHexmM?ref=blog.celestia.org",
+      "label": "pic.twitter.com/VtVAIHexmM"
+    },
+    {
+      "url": "https://twitter.com/CelestiaOrg/status/1686098971008315392?ref_src=twsrc%5Etfw&ref=blog.celestia.org",
+      "label": "July 31, 2023"
+    },
+    {
+      "url": "https://twitter.com/modular_summit?ref_src=twsrc%5Etfw&ref=blog.celestia.org",
+      "label": "@modular_summit"
+    },
+    {
+      "url": "https://t.co/9hlBtsBMf0?ref=blog.celestia.org",
+      "label": "pic.twitter.com/9hlBtsBMf0"
+    },
+    {
+      "url": "https://twitter.com/CelestiaOrg/status/1684967429385113600?ref_src=twsrc%5Etfw&ref=blog.celestia.org",
+      "label": "July 28, 2023"
+    },
+    {
+      "url": "https://celestia.org/developer-portal/?ref=blog.celestia.org",
+      "label": "Celestia developer portal"
+    },
+    {
+      "url": "https://docs.celestia.org/?ref=blog.celestia.org",
+      "label": "documentation"
+    },
+    {
+      "url": "https://dymension.xyz/?ref=blog.celestia.org",
+      "label": "Dymint"
+    },
+    {
+      "url": "https://www.optimism.io/?ref=blog.celestia.org",
+      "label": "OP stack"
+    },
+    {
+      "url": "https://rollkit.dev/?ref=blog.celestia.org",
+      "label": "Rollkit"
+    },
+    {
+      "url": "https://www.sovereign.xyz/?ref=blog.celestia.org",
+      "label": "Sovereign SDK"
+    },
+    {
+      "url": "https://docs.celestia.org/developers/bubs-testnet?ref=blog.celestia.org",
+      "label": "Bubs testnet"
+    },
+    {
+      "url": "https://www.eclipse.builders/?ref=blog.celestia.org",
+      "label": "Eclipse"
+    },
+    {
+      "url": "https://www.keplr.app/?ref=blog.celestia.org",
+      "label": "Keplr"
+    },
+    {
+      "url": "https://www.leapwallet.io/?ref=blog.celestia.org",
+      "label": "Leap"
+    },
+    {
+      "url": "https://www.ledger.com/?ref=blog.celestia.org",
+      "label": "Ledger"
+    },
+    {
+      "url": "https://www.mysticlabs.xyz/?ref=blog.celestia.org",
+      "label": "Mystic"
+    },
+    {
+      "url": "https://cosmostation.io/?ref=blog.celestia.org",
+      "label": "Cosmostation"
+    },
+    {
+      "url": "https://celenium.io/?ref=blog.celestia.org",
+      "label": "Celenium"
+    },
+    {
+      "url": "https://www.mintscan.io/?ref=blog.celestia.org",
+      "label": "Mintscan"
+    },
+    {
+      "url": "https://explorer.modular.cloud/?ref=blog.celestia.org",
+      "label": "Modular Cloud"
+    },
+    {
+      "url": "https://caldera.xyz/?ref=blog.celestia.org",
+      "label": "Caldera"
+    },
+    {
+      "url": "https://altlayer.io/?ref=blog.celestia.org",
+      "label": "AltLayer"
+    },
+    {
+      "url": "https://www.vistara.dev/?ref=blog.celestia.org",
+      "label": "Vistara"
+    },
+    {
+      "url": "https://docs.celestia.org/nodes/light-node?ref=blog.celestia.org",
+      "label": "Celestia light node"
+    },
+    {
+      "url": "https://celestia.org/what-is-tia?ref=blog.celestia.org",
+      "label": "staking TIA"
+    },
+    {
+      "url": "https://celestia.org/run-a-light-node/?ref=blog.celestia.org",
+      "label": "running a light node"
+    },
+    {
+      "url": "https://github.com/celestiaorg?ref=blog.celestia.org",
+      "label": "and contribute to protocol maintenance and development."
+    },
+    {
+      "url": "https://twitter.com/CelestiaOrg?ref=blog.celestia.org",
+      "label": "Twitter"
+    },
+    {
+      "url": "https://discord.com/invite/YsnTPcSfWQ?ref=blog.celestia.org",
+      "label": "Discord"
+    },
+    {
+      "url": "https://t.me/CelestiaCommunity?ref=blog.celestia.org",
+      "label": "Telegram"
+    },
+    {
+      "url": "https://forum.celestia.org/?ref=blog.celestia.org",
+      "label": "Celestia forum"
+    },
+    {
+      "url": "https://blog.celestia.org/introducing-the-celestia-improvement-proposal-process/",
+      "label": "the CIP process"
+    },
+    {
+      "url": "https://github.com/celestiaorg/celestia-app/blob/main/docs/architecture/adr-018-network-upgrades.md?ref=blog.celestia.org",
+      "label": "ahead of hard forks"
+    },
+    {
+      "url": "https://celestia.org/?ref=blog.celestia.org",
+      "label": "exploring Celestia"
+    }
+  ],
+  "truncated": false,
+  "characters_available": 4367,
+  "url": "https://blog.celestia.org/celestia-mainnet-is-live/"
+}

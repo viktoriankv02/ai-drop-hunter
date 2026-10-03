@@ -1,0 +1,197 @@
+[
+  {
+    "project": "Nomic",
+    "reward_year": 2022,
+    "event_date": null,
+    "ecosystems": [
+      "Cosmos"
+    ],
+    "rules_summary": "Airdrop I: щонайменше 1,5 ATOM; snapshot block 9150000, 21.01.2022 11:22:43 UTC. Формула (min(liquid,1000)+4*min(staked,1000))/20.299325. Airdrop II: ATOM/OSMO/JUNO/EVMOS/KUJI, snapshot 27.09.2022, делегації поза top-20; максимум 10000 токенів кожної мережі.",
+    "payout_summary": "Офіційна документація повідомляє про запуск із роздачею 31.01.2022 і виконання другої 24.08.2023. Для кожної зазначено 3500000 NOM; резерв майбутніх роздач не є додатковою доведеною виплатою.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://docs.nomic.io/nomic-network",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://app.nomic.io/rewards",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Відрізняти баланс, стейк і верхню межу за кожною мережею; резерв не додавати до виплат. Отримання staking token не доводить його ліквідність.",
+    "unknowns": [
+      "Фактичні claims, унікальні одержувачі та витрати не перераховано.",
+      "Наявність історичної роздачі не підтверджує поточну роботу мережі."
+    ],
+    "tags": [
+      "staking",
+      "snapshot",
+      "caps",
+      "multiple_events"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30",
+    "additional_reward_years": [
+      2023
+    ]
+  },
+  {
+    "project": "Crescent",
+    "reward_year": 2022,
+    "event_date": null,
+    "ecosystems": [
+      "Cosmos"
+    ],
+    "rules_summary": "ATOM-делегатори, централізовані біржові валідатори виключені. Обсяг пропорційний квадратному кореню делегованих ATOM; три бонуси 2x за голосування #38 або #58, LP Gravity DEX, використання Gravity DEX. Claim через on-chain завдання протягом 6 місяців; незабране до Community Fund. Зображення з послідовністю завдань не розшифровано.",
+    "payout_summary": "14.04.2022 емітент оголосив mainnet і доступний claim. DEXdrop 50 млн CRE та майбутній Boostdrop 50 млн — різні частини плану; фактичний підсумок не встановлено. 04.03.2024 офіційно повідомлено, що sunset-пропозицію прийнято 15.02.2024.",
+    "payout_evidence_level": "live_claim_program",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "issuer_reported_sunset_vote_2024-02-15",
+    "sources": [
+      {
+        "url": "https://crescentnetwork.medium.com/crescent-network-now-live-on-mainnet-12122ee3948d",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://crescentnetwork.medium.com/cre-dexdrop-breakdown-472ba6f22f2b",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://crescentnetwork.medium.com/flip-announcement-af24c8ab7e7f",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Історичний запуск не дорівнює поточній роботі. Зберігати закриті проєкти для аналізу результатів, але виключати з підрахунку чинних.",
+    "unknowns": [
+      "Фактичні claims, унікальні одержувачі та витрати не перераховано.",
+      "Наявність історичної роздачі не підтверджує поточну роботу мережі."
+    ],
+    "tags": [
+      "staking",
+      "governance",
+      "conditional_unlock",
+      "sunset"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30",
+    "scope_status": "historical_comparison_excluded_current_operating_target"
+  },
+  {
+    "project": "Evmos",
+    "reward_year": 2022,
+    "event_date": null,
+    "ecosystems": [
+      "Cosmos"
+    ],
+    "rules_summary": "Snapshot 25.11.2021 19:00 UTC; категорії Cosmos/Ethereum, EVM gasdrop пропорційний gas eligible applications. Чотири дії claim по 25%: governance vote, delegation, cross-chain transfer, EVM dApp interaction. Інструкція 27.04.2022 планувала ввімкнення claim 29.04 о 16:00 UTC.",
+    "payout_summary": "Пізніша офіційна інструкція називає 100 млн EVMOS і 2 млн eligible recipients; це не 2 млн фактичних claimers. Рання модель 14.01.2022 вказувала 80 млн Rektdrop і окремо 100 млн strategic reserve. Фінальний on-chain підсумок не перерахований.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://medium.com/evmos/the-evmos-token-model-edc07014978b",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://medium.com/evmos/claiming-your-evmos-rektdrop-10daead868a8",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Зберігати дату й версію токеноміки; однакове число 100 млн може означати різні категорії. Eligible не означає claimed.",
+    "unknowns": [
+      "Фактичні claims, унікальні одержувачі та витрати не перераховано.",
+      "Наявність історичної роздачі не підтверджує поточну роботу мережі."
+    ],
+    "tags": [
+      "staking",
+      "governance",
+      "bridge",
+      "gas",
+      "source_version_conflict"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  },
+  {
+    "project": "Comdex",
+    "reward_year": 2021,
+    "event_date": null,
+    "ecosystems": [
+      "Cosmos"
+    ],
+    "rules_summary": "Офіційні правила ATOM/XPRT: >=1 токена held або staked на 08.10.2021 14:30 UTC; vesting/unbonding і LP виключені; non-custodial wallets. Для ATOM максимальна алокація 1000 CMDX. Емітент виправив помилку eligibility backend; формули у зображеннях не розшифровані. Офіційна claim-інструкція визначає 5 фаз: початкова та 4 наступні кожні 3 місяці.",
+    "payout_summary": "Знайдено офіційну інструкцію claim із зарахуванням CMDX у гаманець і 5 фазами unlock. Це підтверджує історичну claim-програму, але не повний обсяг переказів. Вторинний архів повідомляє про другий етап 09.03.2022; точна фактична сума залишається невідомою.",
+    "payout_evidence_level": "live_claim_program",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://blog.comdex.one/comdex-airdrop-campaign-d6b518826e6a",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://airdrops.one/comdex/",
+        "kind": "secondary_archive",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://blog.comdex.one/how-to-claim-your-cmdx-airdrop-47873917e10",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Перевіряти сусідні речення: слово received у передстартовому тексті може стосуватися алокації. Помилка eligibility backend не означає зміну правил.",
+    "unknowns": [
+      "Фактичні claims, унікальні одержувачі та витрати не перераховано.",
+      "Наявність історичної роздачі не підтверджує поточну роботу мережі."
+    ],
+    "tags": [
+      "staking",
+      "snapshot",
+      "vesting",
+      "eligibility_correction"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  }
+]

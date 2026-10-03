@@ -1,0 +1,7 @@
+{
+  "url": "https://airdrop.berachain.com/",
+  "retrieved_at": "2026-09-30T16:11:13.452722+00:00",
+  "content_file": "expansion-evidence\\eb60ab1f307fe80772.json",
+  "status": "unavailable",
+  "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1082)>"
+}

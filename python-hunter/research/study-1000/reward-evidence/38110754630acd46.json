@@ -1,0 +1,52 @@
+{
+  "url": "https://forum.cosmos.network/t/proposal-792-accepted-launch-neutron-on-replicated-security/10230/90",
+  "resolved_url": "https://forum.cosmos.network/t/proposal-792-accepted-launch-neutron-on-replicated-security/10230/90",
+  "text": "[Proposal #792][ACCEPTED] Launch Neutron on Replicated Security - #90 by Neutron - Add Consumer Chain - Cosmos Hub Forum\n[Proposal #792][ACCEPTED] Launch Neutron on Replicated Security\nHub Proposals\nAdd Consumer Chain\nNeutron\nApril 4, 2023,  4:05pm\n90\nThe proposal has been updated to contain the latest information on the launch process, including the specific allocations to the hub, an updated timeline and technical requirements. This update builds upon the changelog to provide more context around the following changes:\nNTRN Allocation to the Cosmos Hub\nRelease of additional features and final version of Neutron\nProposed fixes to the economic constraints of ICS for validators\nUpdated Launch Timeline\nInitial NTRN Allocation\nNeutron’s\nNTRN Economics\nhave been released. This update will highlight some of the information contained in the article, which can be found in full here:\nhttps://blog.neutron.org/ntrn-economics-dcb520e2a776\nThe initial supply for NTRN is 1,000,000,000 and inflation is set to 0. The initial token allocations can be seen in the graph below. They include a detailed breakdown of the NTRN airdrop:\n70,000,000 NTRN Tokens (7% of the total supply, 58,3% of the initial circulating supply) will be distributed to the Cosmos Hub community as part of Genesis:\n40,000,000 NTRN Tokens (4% of the total supply) will be distributed to account with more than 1 ATOM staked on Block\n#12900000\n(2022-11-19)\n30,000,000 NTRN Tokens (3% of the total supply) will be distributed to accounts who voted on Prop 72, regardless of whether they voted Yes, No, Abstain or NoWithVeto, and regardless of whether they voted themselves or through their validator.\nThe distribution is stake-weighted and is subject to the following boundaries:\nMinimum 1 ATOM staked (excludes 38% “dust” accounts)\nMaximum 1,000,000 ATOM staked (limits the largest allocations wealthy accounts)\nTo compensate for the vulnerability to sybil accounts that the maximum cap introduces, an open “sybil account hunt” will be organized. More information will be released soon.\nThe airdrop is also subject to the following exclusions:\nUS Persons and residents of Sanctioned Countries\nValidators affiliated with Centralized Exchanges and Custodians and their Delegators\nBinance Node, Binance Staking, Latent Iron, Zugerselfdelegation,\nCEX.io\n, Coinbase Custody, CoinoneNode, debo-validator, GAME, Huobi, Kraken, OKEx Pool, Upbit Staking. If your node was wrongly characterized as CEX or Custodian, please reach out to\nairdrop@neutron.org\n.\nFinal Features Roll-out\nAn additional batch of features has been finalized and merged into Neutron’s codebase, which is now undergoing final preparations ahead of the publication of the mainnet launch proposal. This reference release is slated to be deployed today to Baryon-1, Neutron’s persistent Replicated Security testnet, and as part of the upcoming Replicated Security testnet Rehearsals. It introduces the following features:\nMev-Tendermint\n: a fork of Tendermint/CometBFT developed by Skip and which introduces a blockspace auction.\nIBC-Hooks\n: An IBC middleware developed by Strangelove Labs and used to allow ICS-20 token transfers to initiate contract calls.\nPacket forward middleware\n: Middleware developed by Strangelove Labs and used for forwarding IBC packets.\nTokenFactory\n: A custom module based on Osmosis’ Tokenfactory module, which enables the creation of native denomination and alleviates the limitations of cw-20 token.\nNeutron CRON\n: A custom, governance-gated module that can be used to allow developers to automate the execution of specific contracts at regular intervals through Neutron’s EndBlockers.\nIn addition, Hypha and P2P will be conducting experimentations on testnet to find the optimal safe value for Tendermint/CometBFT’s\ntimeout_commit\nparameter. This research may allow Neutron’s blocktime to safely decrease from the current ~3s blocktime witnessed on Baryon-1 to roughly 2s blocktime, decreasing confirmation times and improving UX.\nICS Economics\nThe upcoming testnet upgrade and launch rehearsals will also be used to test the safety and efficacy of two mechanisms intended to reduce the financial burden that may be imposed by the launch of Neutron on validators at the bottom of the set:\nThe downtime window on Baryon-1 will be extended to 30,000 bocks (roughly 2 days). This should allow validators to relax their monitoring set-ups, therefore potentially\nmarginally reducing cost without significantly threatening liveness\n.\nReleases patched to include a “soft opt-out” feature will be launched and tested as part of the internal and public rehearsal described in the timeline below. This feature would allow the bottom 5% of validators by voting power (74 validators at the time of writing) to be free of any penalty for “opting-out” of running nodes for the Neutron network. These validators would still be considered part of Neutron’s validator set and earn a small share of the staking rewards but would not be jailed nor slashed for downtime.\nThis mechanism does not require the Cosmos Hub to upgrade and is\nexpected to lead to a drastic reduction in the cost of onboarding Neutron\nby entirely removing the burden of running consumer chain nodes from the least profitable validators’ shoulders. Nonetheless, it represents\na compromise on the chain’s liveness\n, which could translate into longer/trickier chain upgrades and increased halting risk.\nUpdated Timeline\nTo provide sufficient time for the Cosmos Hub community to assess the NTRN Economics and for the Soft-opt out and Extended Downtime options to be properly tested, we propose to extend the estimated timeline as follows:\nEstimated time\nMilestone\n4th of April (today)\nBaryon-1 Network Upgrade\n5th of April\nInternal Rehearsal: The finalized binary is launched and all contracts are initialized and tested. The stability of the soft-opt out configuration is assessed.\n11th of April\nPublic Rehearsal: All Cosmos Hub validators are invited to rehearse the possible launch of Neutron on Replicated Security by deploying the finalized binary on the Replicated Security testnet. The stability of the soft-opt out configuration is assessed in production-like conditions.\n12th of April\nVoting starts: Assuming the Public Rehearsal was successful, the final version of this proposal is submitted on-chain.\n~26th of April\nVoting ends: The proposal is either rejected or accepted by the Hub Community. If the proposal is successful, the launch period starts shortly thereafter.\n~26th of April to the 3rd of May\nLaunch period: Neutron launches if/when validators representing two-thirds of the voting power on the Cosmos Hub start running nodes for the network.\n4 Likes\nScaling up with conditional basic income\nshow post in topic\nRelated topics\nTopic\nReplies\nViews\nActivity\nSwiss Booklet: Launch Neutron on Replicated Security\nEssays\n3\n1935\nApril 20, 2023\n[PROPOSAL #72][ACCEPTED] Bringing Liquid Staking and DeFi to the Cosmos Hub with Interchain Security\nCommunity Spend\naccepted\n51\n11185\nMay 29, 2023\n[Last Call] - Cosmos Hub <--> Neutron Validator alignment plan\nProposal Ideas\ndraft\n13\n3208\nJanuary 22, 2024\n[PROP #867][APPROVED] Cosmos Hub & Neutron: Validator alignment\nSignaling/Text\n62\n6911\nDecember 21, 2024\n[PROPOSAL 993][PASSED] Neutron and the Hub: A new chapter\nHub Proposals\ndraft\n84\n3224\nMay 26, 2025",
+  "links": [
+    {
+      "text": "Neutron",
+      "url": "https://forum.cosmos.network/u/Neutron"
+    },
+    {
+      "text": "https://blog.neutron.org/ntrn-economics-dcb520e2a776",
+      "url": "https://blog.neutron.org/ntrn-economics-dcb520e2a776"
+    },
+    {
+      "text": "Scaling up with conditional basic income",
+      "url": "https://forum.cosmos.network/t/scaling-up-with-conditional-basic-income/10468/34"
+    },
+    {
+      "text": "Swiss Booklet: Launch Neutron on Replicated Security",
+      "url": "https://forum.cosmos.network/t/swiss-booklet-launch-neutron-on-replicated-security/10396"
+    },
+    {
+      "text": "[PROPOSAL #72][ACCEPTED] Bringing Liquid Staking and DeFi to the Cosmos Hub with Interchain Security",
+      "url": "https://forum.cosmos.network/t/proposal-72-accepted-bringing-liquid-staking-and-defi-to-the-cosmos-hub-with-interchain-security/6623"
+    },
+    {
+      "text": "accepted",
+      "url": "https://forum.cosmos.network/tag/accepted/18"
+    },
+    {
+      "text": "[Last Call] - Cosmos Hub <--> Neutron Validator alignment plan",
+      "url": "https://forum.cosmos.network/t/last-call-cosmos-hub-neutron-validator-alignment-plan/12486"
+    },
+    {
+      "text": "draft",
+      "url": "https://forum.cosmos.network/tag/draft/2"
+    },
+    {
+      "text": "[PROP #867][APPROVED] Cosmos Hub & Neutron: Validator alignment",
+      "url": "https://forum.cosmos.network/t/prop-867-approved-cosmos-hub-neutron-validator-alignment/12478"
+    },
+    {
+      "text": "[PROPOSAL 993][PASSED] Neutron and the Hub: A new chapter",
+      "url": "https://forum.cosmos.network/t/proposal-993-passed-neutron-and-the-hub-a-new-chapter/15306"
+    },
+    {
+      "text": "draft",
+      "url": "https://forum.cosmos.network/tag/draft/2"
+    }
+  ],
+  "retrieved_at": "2026-09-29T15:02:31.878898+00:00"
+}

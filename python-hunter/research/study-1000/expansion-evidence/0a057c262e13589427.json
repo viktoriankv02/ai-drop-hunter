@@ -1,0 +1,12 @@
+{
+  "url": "https://aerodrome.finance/docs",
+  "retrieved_at": "2026-09-30T16:11:13.451781+00:00",
+  "content_file": "expansion-evidence\\0a057c262e13589427.json",
+  "status": "insufficient_text",
+  "http_status": 200,
+  "final_url": "https://aerodrome.finance/docs",
+  "content_type": "text/html",
+  "text": "Aerodrome Finance",
+  "characters": 17,
+  "content_sha256": "62b645c9e1af3e15b489901ba338ac4c2d0e9b629915cb7b780933d17b055c0f"
+}

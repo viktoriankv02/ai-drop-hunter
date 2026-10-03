@@ -1,0 +1,253 @@
+[
+  {
+    "project": "Safe",
+    "reward_year": 2023,
+    "event_date": null,
+    "ecosystems": [
+      "Ethereum"
+    ],
+    "rules_summary": "Початкові правила 2022: Safe створений до 09.02.2022; принаймні дві дії АБО 10 ETH, накопичених за днями зберігання. Це ETH-days, не просто баланс 10 ETH. SEP #5 — окремий перерозподіл для попередніх одержувачів.",
+    "payout_summary": "Офіційний звіт на 28.09.2023 підтверджує redemption 37,47% токенів та 39,91% гаманців SEP #5. Це різні знаменники й проміжний зріз, а не фінальний підсумок початкової кампанії.",
+    "payout_evidence_level": "issuer_reported_claims",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://forum.gnosis-safe.io/t/proposal-safe-distribution-for-users/369",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://safefoundation.org/blog/safe-community-update-september-2023",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://forum.safefoundation.org/t/sep-5-redistributing-unredeemed-tokens-from-user-airdrop-allocation/2172/310",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Розрізняти баланс і баланс-час, а також відсоток токенів і відсоток адрес.",
+    "unknowns": [
+      "Фінальні claims і точна кількість одержувачів не відтворені.",
+      "Початкова пропозиція потребує зіставлення з остаточною реалізацією."
+    ],
+    "tags": [
+      "multisig",
+      "balance_time",
+      "redistribution",
+      "multi_season"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30",
+    "additional_reward_years": [
+      2022
+    ]
+  },
+  {
+    "project": "LooksRare",
+    "reward_year": 2022,
+    "event_date": null,
+    "ecosystems": [
+      "Ethereum"
+    ],
+    "rules_summary": "OpenSea-обсяг >=3 ETH за блоки 12642194–13812868 (16.06–16.12.2021) ТА успішний listing ERC-721/1155 на LooksRare. Polygon-обсяг виключений. Дев’ять ненульових рівнів; суми інших валют переведено в ETH за курсом часу угоди.",
+    "payout_summary": "Початкова документація описує 120 млн LOOKS, доступних для claim, і повернення залишку treasury. Точний кінцевий дедлайн залишено TBD у тексті; фінальні виплати незалежно не перевірено.",
+    "payout_evidence_level": "live_claim_program",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://docs.looksrare.org/guides/faqs/what-is-the-looks-airdrop",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Обсяг історичної активності та дія після запуску — дві обов’язкові умови. Не переносити дату оновлення документа 2024 на дату airdrop.",
+    "unknowns": [
+      "Фінальні claims і фактичний дедлайн.",
+      "Первинне підтвердження календарної дати запуску 2022."
+    ],
+    "tags": [
+      "historical_volume",
+      "post_launch_action",
+      "nft",
+      "chain_exclusion"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  },
+  {
+    "project": "Aerodrome",
+    "reward_year": 2023,
+    "event_date": null,
+    "ecosystems": [
+      "Base"
+    ],
+    "rules_summary": "Початковий airdrop veAERO: мінімум 1000 veVELO; пропорційно V2-балансу, зі спеціальними виключеннями початкових team/partner grants і агрегаторів. Це заблоковані veNFT, а не ліквідні AERO. Flight School — окрема програма бонусів за нові locks.",
+    "payout_summary": "Документація підтверджує запуск 28.08.2023 і повідомляє про понад $450 млн сукупного revenue, розподіленого token operators станом на квітень 2026. Це багаторічні винагороди, не сума початкового airdrop; незалежний перерахунок відсутній.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://medium.com/@aerodromefi/aerodrome-launch-tokenomics-30b546654a91",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://aerodrome.finance/docs",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Не змішувати заблоковану алокацію, ліквідні токени та revenue за кілька років.",
+    "unknowns": [
+      "Фінальний список початкової роздачі та виплати треба перерахувати.",
+      "Оголошене об’єднання з Velodrome потребує перевірки перед подальшим підрахунком емітентів."
+    ],
+    "tags": [
+      "vote_escrow",
+      "staking",
+      "real_capital",
+      "multi_program"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  },
+  {
+    "project": "Bonk",
+    "reward_year": 2022,
+    "event_date": null,
+    "ecosystems": [
+      "Solana"
+    ],
+    "rules_summary": "Історична роздача охоплювала користувачів, розробників і творців Solana. Ретроспектива описує community allocation 50%; повного алгоритму snapshot і ваг у цьому тексті немає.",
+    "payout_summary": "Офіційний ретроспективний матеріал 2023 підтверджує запуск через community airdrop після кризи 2022. Частка 50% є описом структури, а не перевіреною сумою індивідуальних переказів.",
+    "payout_evidence_level": "issuer_reported_distribution",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://medium.com/@bonk_inu/bonk-origin-overview-mission-1c94ed22d755",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Ретроспективна розповідь підтверджує історію події, але не відновлює повний алгоритм відбору.",
+    "unknowns": [
+      "Точна дата й повний початковий recipient dataset.",
+      "Ваги категорій та фактичні суми не перераховані."
+    ],
+    "tags": [
+      "community_contribution",
+      "multi_cohort"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  },
+  {
+    "project": "Ampleforth",
+    "reward_year": 2021,
+    "event_date": null,
+    "ecosystems": [
+      "Ethereum"
+    ],
+    "rules_summary": "FORTH: on-chain взаємодія AMPL дає максимум один бал; кожний день Geyser та утримання під час negative rebase додає бали без такого cap. Біржові гаманці виключені. Дедлайн claim 16.04.2022.",
+    "payout_summary": "Документ 21.04.2021 підтверджує доступний claim FORTH. 15 млн — весь genesis mint; 67% community включає окрему освітню частину. Понад 75 тисяч eligible users не означає стільки ж claims.",
+    "payout_evidence_level": "live_claim_program",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://blog.ampleforth.org/ampl-forth-realizing-the-full-ecosystem-e2d88ca01691",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Один продукт може мати AMPL і FORTH: токени не є двома окремими проєктами. Рахувати capped і daily points окремо.",
+    "unknowns": [
+      "Фінальні claims та reclaim DAO не перевірені.",
+      "Потрібен snapshot і точна формула перетворення балів на FORTH."
+    ],
+    "tags": [
+      "historical_usage",
+      "points",
+      "holding_duration",
+      "claim_window"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  },
+  {
+    "project": "Blur",
+    "reward_year": 2023,
+    "event_date": null,
+    "ecosystems": [
+      "Ethereum"
+    ],
+    "rules_summary": "Початкові Care Packages залежали від історичної NFT-активності та listing після запуску; royalties впливали на заохочення. Tokenomics 2023 виділяє трейдерів, власників Care Packages і creators. Умови ранніх Care Packages та фінального token claim слід версіонувати окремо.",
+    "payout_summary": "Офіційна tokenomics описує 360 млн BLUR, доступних для claim. Це алокація; повний claimed-total тут не підтверджено. Ранній план запуску в січні не прирівнюється до фактичного запуску токена в лютому.",
+    "payout_evidence_level": "live_claim_program",
+    "reported_amount": null,
+    "reported_recipients": null,
+    "current_operation_check": "not_independently_verified",
+    "sources": [
+      {
+        "url": "https://mirror.xyz/blurdao.eth/2nba-2j0zHPrBX0iPSNGquZ9s_WotNH6B4e5usz85mM",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      },
+      {
+        "url": "https://docs.blur.foundation/tokenomics",
+        "kind": "issuer_or_governance",
+        "access": "web_read",
+        "content_file": null,
+        "sha256": null
+      }
+    ],
+    "agent_lesson": "Care Package — право на майбутню винагороду, не вже отриманий ліквідний токен.",
+    "unknowns": [
+      "Фінальний підрахунок токенів і адрес.",
+      "Повне зіставлення правил усіх фаз."
+    ],
+    "tags": [
+      "nft",
+      "historical_usage",
+      "royalties",
+      "multi_phase"
+    ],
+    "fine_tuning_eligible": false,
+    "review_status": "source_checked_partial_dossier",
+    "reviewed_at": "2026-09-30"
+  }
+]

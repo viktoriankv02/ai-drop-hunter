@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "cards": 28,
+  "filters": [
+    "Somnia",
+    "Cosmos",
+    "sale_not_reward"
+  ],
+  "page_errors": [],
+  "applies_to_current_report": false,
+  "current_report_browser_check": "not_completed: CUA runtime exited; static card-count validation passed"
+}

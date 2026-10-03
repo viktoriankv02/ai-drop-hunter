@@ -1,0 +1,11 @@
+{
+  "rows": 76021,
+  "unique_addresses": 76021,
+  "sum_MON": "3330583396",
+  "median_MON": "12000",
+  "min_MON": "1500",
+  "max_MON": "12197000",
+  "mean_MON": "43811.35996632509438181555097",
+  "p90_nearest_rank_MON": "61935",
+  "source_scope": "CSV published claim amounts; no independent transfer verification"
+}

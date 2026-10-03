@@ -1,0 +1,272 @@
+{
+  "text": "February 11, 2019\n\nA Short History of Uniswap\n\n#Company\n\nWritten by\n\nHayden Adams\n\nV0 — Uniswap is Born\n\nOn November 2, 2018, Uniswap was publicly announced and deployed to the Ethereum mainnet. In an exciting, anxiety-inducing moment I fired off the announcement tweet to my ~200 followers.\n\nFor many people, this was the first they heard of the project. For me it was the culmination of over a years worth of work — and a huge amount of help along the way.\n\nUniswap changed my life and today is its birthday. To celebrate this, I want to tell its story from the beginning in V0 of the Uniswap Birthday Blog series.\n\nStay tuned for V1 and V2 where I discuss Uniswap’s first year on Ethereum mainet and our plans for its future.\n\nAccepting Ethereum\n\nOn July 6th, 2017 I was laid off from my first job out of college, working as a Mechanical Engineer at Siemens. Feeling down and directionless I informed my friend Karl Floersch , who at the time was working on Casper FFG at the Ethereum Foundation. The conversation went something like this:\n\nHayden : I just got laid off :(\n\nKarl : Congratulations, this is the best thing that could have happened to you!!! Mechanical Engineering is a dying field. Ethereum is the future and you’re still early. Your new destiny is to write smart contracts!\n\nHayden : Don’t I need to like know how to code?\n\nKarl : Not really, coding is easy. Nobody understands how to write smart contracts yet anyway. Ethereum, proof-of-stake, trustless computation, etc.\n\nHayden : Okay…\n\nCatching me at a low point, Karl convinced me to accept Ethereum into my life. I was determined to give it a shot, and spent the next two months learning the basics of Ethereum, Solidity, and JavaScript.\n\nIn order to expand my skillset, I decided it was time to work on a “real” project. At Karl’s suggestion I decided to implement an automated market maker, as described by Vitalik in this reddit post and this blogpost .\n\nProof-of-Something\n\nFrom October to November I built a proof-of-concept, including a smart contract and my very first website. The contract had a single liquidity provider and allowed simple swaps. Here it is in all its glory:\n\nDisclosure — The demo remains unchanged from its original version, except for a single line of code window.ethereum.enable() that I added to make it work with 2019 MetaMask.\n\nBuilding the POC was my first step down the rabbit-hole of programmable money. It was the most intriguing thing I had worked on in my life. It didn’t even feel like work.\n\nI also began to see the UX implications of automated market makers. At the time, EtherDelta was the only decentralized exchange with traction, but the UX felt messy and unintuitive. Using my demo somehow felt better.\n\nDevcon 3\n\nIn a talk at Devcon 3, Karl used my Uniswap demo as an example of the power of crypto-economics and open-source financial applications on Ethereum.\n\nI had been unemployed for five months, living off cryptocurrency I was fortunate enough to have bought earlier in the year. Uniswap was a success by my only metric at the time — I knew how to write smart contracts. Maybe it was time to move on and get a job (if there were any jobs for Solidity-native developers).\n\nHowever an attendee of Karl’s Devcon talk — Pascal Van Hecke — reached out to me. He had been closely following the progress of automated market makers on Ethereum and expressed interest in supporting my efforts. He even gave a grant to fund my next month of research. We began weekly calls to discuss progress.\n\nPascal brought new ideas to the table. More importantly, however, our calls brought a sense of structure and accountability to my work. Uniswap had two major unsolved problems which I set out to tackle with an engineering mindset:\n\nIt only worked for a single ETH/ERC20 pair\n\nIt only worked for a single liquidity provider\n\nEthereum Values\n\nBy this point I was fully captivated by Ethereum’s unbounded potential. These were the properties I cared about:\n\nIt was censorship resistant. No one could stop it.\n\nIt was decentralized. No one controlled it.\n\nIt was permissionless. Anyone could use it.\n\nIt was secure. Anyone could verify execution.\n\nYet something felt off in the ether. The major projects on Ethereum embodied some of its properties, but few embraced them fully. Central points of failure, censorable applications, and overly complex architecture. DAPPs were designed entirely around the idea of having a token for use cases that clearly did not need one.\n\nI began thinking about Uniswap not just as a learning tool for myself — but one for others. I could not imagine a world where it competed with “real” projects. You know — the ones that raised between $20,000,000 and $150,000,000 in Summer 2017. But maybe it could serve as an example of an application that truly embodied Ethereum.\n\nNYC Mesh\n\nIn December, I had attended an NYC Mesh meetup with Karl, following an anti-crypto article from its founder. Now Ethereum famous — Karl was recognized by a Coindesk reporter who asked him about the intersection between meshnets and crypto. Karl did not want to give an interview so he directed the reporter to me. I blathered on about Layer 2 solutions I barely understood, and was quoted in an article :\n\n\"A tech meetup at a dimly lit New York City bar - so far, nothing out of the ordinary. But what's peculiar about this particular meetup is that other locations throughout the East Village are being connected to the bar's Wi-Fi-enabled node, allowing anyone in the area to not only piggyback off all the signals but visit websites only accessible to others on the network.\" — Plan B? Ethereum Innovators Are Reviving the Fight for Net Neutrality - CoinDesk\n\nCallil Capuozzo , a friend from from elementary school through high school who I had not seen in ~6 years, saw the article and reached out. Since then he had worked as a designer at Microsoft, Google, and more recently had delved into Ethereum while working on a website for FOAM .\n\nUniswap Pre-alpha\n\nBy late January 2018, all major smart contract issues had been solved. Exchange contracts could support multiple liquidity providers by using an internal liquidity token to track each LP’s share of generated fees and the underlying collateral. A factory contract allowed anyone to add support for a token. All tokens were paired with ETH allowing it to be used as an intermediary for anything-to-anything swaps in a single transaction.\n\nI reconnected with Callil just after finishing the updated Uniswap smart contracts, and we discussed the project at length. He offered to help out with the frontend — which was now lagging behind the contracts. Working around his other projects, Callil designed and built a sleek new interface for Uniswap on top of my incredibly shitty React codebase.\n\nSeveral weeks in it was pretty clear my react code was untenably bad. Fortunately, I had recently reconnected with a friend from college, Uciel Vilchis . Uciel was just coming out of a coding bootcamp (that he entered on the advice of our mutual Karl Floersch).\n\nYou should learn to code — Karl Floersch\n\nLooking to build up his resume and experience, Uciel agreed to refactor the Uniswap frontend codebase.\n\nBy March, 2018, the three of us had built a fully featured demo of Uniswap. Yes, of course I dug it up and hosted it. Here it is :\n\nDisclosure — The demo remains unchanged from its original version, except for a single line of code *window.ethereum.enable()* that I added to make it work with 2019 MetaMask.\n\nMeeting Vitalik\n\nBy April 2018 I had been unemployed for 10 months. The crypto I was living off of was down over 75%, dramatically decreasing my personal runway. Despite this, I yolo-bought a last minute flight to Seoul, South Korea. This was the first time I left North America in my 24 years of life. Partially a personal trip, it was timed to coincide with Deconomy 2018 .\n\nI attempted to enter the conference without a ticket, but was firmly rejected. However, Karl was just arriving along with other members of the Ethereum foundation. Karl pulled me to the side, and introduced me to Vitalik, who he had already discussed Uniswap with in the past. Our conversation went something like this:\n\nKarl : This is my friend Hayden, he made Uniswap!\n\nVitalik : Hi nice to meet you! Is it open source?\n\nMe : Of course!\n\nVitalik : Whats the URL?\n\nMe : https://github.com/haydenadams/uniswap\n\nVitalik : reads my entire smart contract on his phone\n\nVitalik : Have you considered writing it in Vyper? Also, you should apply for an Ethereum foundation grant.\n\nVitalik’s ideas had yet to fail me. Immediately after returning from Seoul, I spent two weeks re-writing the contracts in Vyper. There were no guides or developer tools like Solidity had, but I was able to use the original Casper FFG contract as a reference. At the time, this was the only Vyper contract I could find outside of simple examples in the core Vyper repo.\n\nMaking Some Friends\n\nUp to this point Karl was my only close friend in the crypto world, but that was soon going to change. Just before leaving Karl invited me to a small social gathering. There I met and became friends with Philip Daian , Dan Robinson , and Andy Milenius . In addition to being wonderful people, all would become crucial to the success of Uniswap and influence its future direction.\n\nTwo weeks later, in May, I flew to Toronto for Edcon 2018. This was the first Ethereum conference where I made it past security. I spent 3 days attending talks, meeting people, and demoing Uniswap. My four friends in crypto were all there and introduced me to a ton of other people. My crypto social-network was expanding.\n\nAmong the friends I made at Edcon, Jinglan Wang deserves a shoutout as she has been a fantastic advisor ever since.\n\nI met David Knott, a former Vyper dev, in person for the first time. I told him that I had re-written Uniswap in Vyper. The next morning at 8am I woke up to a phone call from him. He told me he was scheduled to give a talk on Vyper including a live demo in two hours. Uniswap was the only DAPP being written in Vyper, and he asked if I was interested in giving the talk instead.\n\nI explained that I had only just learned Vyper two weeks prior, I had never spoken in public, and that I generally had no idea what I was doing. David assured me it was fine — two weeks building on Vyper was more than enough to speak publicly and authoritatively on it. So I gave my first talk :\n\nI took the same flight back to NY as Dan. We spent the entire time gas-optimizing Uniswap. By the time the plane landed, Uniswap was 30% more efficient. It was now the most gas efficient exchange on Ethereum by a significant margin.\n\nEdcon 2018 was extremely encouraging. The reactions to my Uniswap demo were more than just mild interest. People were legitimately excited by it. They seemed to understand and share the values I intended for it to be an example of. I realized Ethereum’s community went far beyond ICOs. There were people who truly cared about its vision of a permissionless, decentralized financial system.\n\nNYC Blockchain Week 2018\n\nMy plane home from Edcon landed me directly in NYC Blockchain Week. I spent the next week attending an endless spew of events and parties. A tweet made its way onto my feed.\n\nLiving a 15 minute walk away, I decided to check it out.\n\nRichard Burton was the founder of Balance, an Ethereum wallet startup. I showed him my demo, and he immediately wanted to understand how it worked. A long conversation ensued.\n\nUp to this point, I considered my role in Uniswap to be mostly a technical one. When someone asked how it worked, I often started by telling them the mathematical formula behind it. Many people walked away confused.\n\nRichard helped me understand that people not understanding Uniswap it was a me-problem, not a them-problem. Developers were just a small part of a bigger picture. If I wanted people to use my project, I needed to talk about it on their terms, in ways they understood. Uniswap’s biggest outstanding challenge was a social one.\n\nThings Become Kind of Real\n\nIt was around this time that I decided Uniswap was something I wanted to take to completion. I mapped out what was needed for a mainet launch.\n\nFinalized, production-ready smart contracts\n\nResponsive, user friendly trading interface\n\nSmart contract security audit\n\nFinished whitepaper\n\nDeveloper docs\n\nMy previously mentioned friend Phil is a blockchain security expert. On his advice (and with his introduction) I received a quote from Runtime Verification for a formalized model of Uniswap, a high level code review, and a partial formal verification of the smart contracts. Taking all this into consideration, I applied for an Ethereum Foundation grant of $50,000 + the quoted cost from RV.\n\nBalance\n\nSummer 2018 kicked off with me obsessively refactoring Uniswap’s smart contracts, working on the whitepaper, and attending crypto events in my spare time. For the next two months, I interviewed and then waited to hear back about the grant.\n\nI worked daily at the Balance office, which Richard and the rest of the team members at Balance — Christian Baroni , Jin Ching , and Mike Demerais were kind enough to let me use. Knowing I was running low on funds, Richard was even generous enough to give me a personal grant to support my efforts.\n\nI began attending weekly meetups called Whiteboard Wednesday at the Balance office. Every Wednesday for 2 hours anyone and everyone working on a crypto project was invited to share their weekly progress.\n\nI attended almost every week, explaining and re-explaining Uniswap to different groups of people. I learned how to speak about Uniswap in different settings, and soon could explain it to almost anyone. I even started dipping my toes into crypto twitter.\n\nSimilar to my calls with Pascal, Whiteboard Wednesday brought a degree of accountability to my life. I did not want to show up two weeks in a row without progress to report.\n\nMaker\n\nAs Summer progressed, I spent an increasing amount of time at the NYC MakerDAO office where my previously mentioned friend Andy was CTO. Maker is a decentralized stablecoin project that everyone reading this article already knows about so why am I even describing it. I became friends with a number of people at Maker including Ashleigh Schapp — another friend who would become important to Uniswap.\n\nWorking at both the Balance and Maker offices provided me with a constant stream of interesting people to meet and projects to learn about. Summer passed by quickly. My smart contracts were as optimized as I could make them on my own. Finally, towards the end of July I received an email. Uniswap would receive a grant from the Ethereum Foundation!\n\n\"Ethereum Foundation Grants Update: We've been hard at work getting to know so many amazing people and projects, and are extremely excited to announce the recipients of the Wave III of the Ethereum Foundation Grants Program! We kicked off 2018 with a blog post to galvanize scalability research for first...\" — Ethereum Foundation Grants Update - Wave III\n\nFormalized Model\n\nGrant in hand, I immediately contracted Runtime Verification to formalize and audit the contracts. In a series of calls with Daejun Park , Yi Zhang , and Xiaohong Cheng of RV, I detailed Uniswap’s mechanism and most important properties.\n\nThey began by creating a formalized model of Uniswap. Next, they they created a code spec, which re-worked math operations to minimize rounding error, and always favor liquidity providers over traders. The results of this work can be found here .\n\nI modified the contracts to fit the spec. Next, RV performed a high level code review in which they recommended a number of a safety checks, fixes related to consistency, and other minor changes. A list of these improvements can be found here .\n\nFinally, the Uniswap contract code was frozen and RV began work on formally verifying the contracts implementation matched desirable properties of the spec. This was the longest step of the process.\n\nWhile the audit was on-going I hired Callil as a contractor to begin designing a production version of the Uniswap trading interface. The demo interface worked well, but felt too confusing for the finished product.\n\nRECIPEINT 🤦\n\nUniswap had not yet been announced, but it was not entirely a secret either. In September I was invited to speak on a panel at ETHIS , a blockchain conference in Hong Kong. While technically not my first time speaking at a conference, it was the first time I was invited to do so!\n\nIn Hong Kong, I was able to catch up with Vitalik, who took a look at my finalized Uniswap’s code. He caught one error that even Runtime Verification had missed. I misspelled “recipient” as “recipeint” about 20 times.\n\nI also accidentally stumbled my way into an Ethereum Foundation interview on ETH 2.0, and for the first time became the subject of a meme.\n\nHere’s a blank template , if anyone else wants to try.\n\nAfter Hong Kong, I spent 3 days at Shanghai Blockchain week on a pass-through Visa before returning to New York.\n\nPreparing for Launch\n\nBack in New York I decided I would launch Uniswap in Prague at Devcon 4 , if it was humanly possible. There were just 5 weeks to go — the busiest 5 weeks of my life.\n\nWith formal verification underway, the biggest outstanding task was implementing Callil’s latest frontend designs on top of a production ready codebase. I put out feelers for a contracting firm that could build this in a month, and was introduced to Dan Tsui , CEO at Kyokan . Thanks Rick Dudley for the intro!\n\nThe codebase was to be re-written almost entirely from scratch. I hired a contracting firm because I believed building a feature complete Uniswap frontend on such a short time frame to the standards I was hoping for required an entire team. Instead I got something better — Jacky Chan , VP of engineering at Kyokan.\n\nAs Jacky was coming in with almost no context on Uniswap, I wrote a long and detailed frontend spec to help speed along the process, while Callil provided highly detailed designs for every piece of the interface. In one month, Jacky built the Uniswap launch interface, almost entirely by himself. For a few smaller pieces, Kenny Tram of Kyokan jumped in to help.\n\nAbout a week before Devcon, I finished the docs and the whitepaper . Also, the results of RVs formal verification work were in. No issues found! However, the Runtime Verification team expressed a concern. Uniswap had not been adequately studied for re-entrancy attacks, the issue behind the DAO hack . I reached out to Phil Daian for advice.\n\nHe was extremely busy preparing to present his latest research at Devcon 4 , but nevertheless promised to look through the smart contracts for re-entrancy attacks before launch. Due to the last minute nature, this would of course be an internal audit — there would be no writeup and the results would not be made public.\n\nV0 Unishirts — Devcon 4 Limited Edition\n\nIn parallel to all of this I contracted Callil to design a shirt for the Uniswap to give out at the conference. I wanted the launch to be a moment. Something people could participate in. The shirt needed to be high quality — a shirt people would actually want to wear.\n\nAbout a week before Devcon, in collaboration with his brother Leander , Callil put together this incredibly cool design:\n\nTo be finished on time, the shirts would have to be handmade through a process called silk screening. It would take almost a week to create the screen and about 8 hours to make the shirts.\n\nI flew to Prague a day before the conference and began making sure all the pieces were in place. I checked in with Phil — he had reviewed most of the code but wanted to go over it again.\n\nCallil bought a flight that landed on the first day of the conference to leave as much time for manufacturing as possible. He pulled an all nighter manufacturing shirts (along with Leander).\n\nAs soon as the shirts were finished he boxed them up, went straight to the airport and flew to Prague. He took a taxi from the airport directly to the conference center to hand them out with me.\n\nDevcon 4\n\nDay 1\n\nDevcon was underway! I wandered the conference center handing out shirts, talking about Uniswap to anyone who listen to me, hinting the launch was happening soon.\n\nIn the afternoon, Callil and I met Jacky in person for the first time. After some socializing, we got to work fixing outstanding bugs adding UX improvements.\n\nDay 2\n\nI spent half the second day wandering the conference and watching talks. In the afternoon, once more I got together with Jacky and Callil. We had a realization — Uniswap as a project should have a landing page separate from the trading interface. We built uniswap.io from scratch that day.\n\nDay 3\n\nFinally, on the 3rd day of Devcon I heard back from Phil. As far as he could tell, there was no re-entrancy attacks that could be done on Uniswap exchange contracts, unless the token transfer function was specifically designed to allow re-entrancy into Uniswap.\n\nThis felt like an acceptable result — if a token was designed to attack Uniswap then the liquidity for that specific token could be stolen. All regular ERC20 tokens were safe from re-entrancy.\n\nDay 4\n\nOn November 2, 2018 — the final day of Devcon 4 — the smart contracts were deployed to the Ethereum mainet. Next, uniswap.io and app.uniswap.org/# were deployed. Finally, I reached out to anyone who had expressed interest in providing liquidity at launch.\n\nAbout $30,000 was deposited into the contracts by a single provider, split across 3 tokens. This allowed for swaps of about $100. There was nothing else left to do.\n\nI spent about an hour sitting alone on a bean bag, writing and re-writing the launch tweets. Fortunately, my friend Ashleigh walked by and helped review my tweets.\n\nI clicked the button, nervous but excited for what the future would hold. What followed was a huge outpouring of support, ideas, and collaboration beyond my wildest expectation.\n\nBut that’s a story for V1, the next blogpost in this series :)\n\n🦄\n\nBONUS #1 — Who named it Uniswap?\n\nVitalik did. I was originally going to call it Unipeg — a mixture between a Unicorn and a Pegasus.\n\nWhen Karl first told Vitalik about the project he said:\n\n“Unipeg? it sounds more like a Uniswap.”\n\nBONUS #2 — Who invented Uniswap?\n\nAlan Lu of Gnosis was the very first person to conceive of x*y=k market makers on Ethereum:\n\nBuilding a Decentralized Exchange in Ethereum\n\nMartin Koppleman of Gnosis told Vitalik about the idea.\n\nVitalik saw its potential and began posting about it publicly. On his website:\n\n\"Suppose that someone walks up to you and starts exclaiming to you that he thinks he has figured out how to create a source of unlimited free energy. His scheme looks as follows. First, you get a spaceship up to low Earth orbit.\" — On Path Independence\n\nOn reddit and in the comments of this article written by Phil Daian:\n\n\"Bancor just did their Initial Coin Offering (ICO) last week and raised a record $144M within a few hours. They now hold the record for the biggest crowd-funding, ever, in the history of mankind. We don't want to dwell too much on what this illustrates about the current ICO craze.\" — Bancor Is Flawed\n\nI created Uniswap, the specific implementation of an x*y=k market maker that exists on Ethereum today.\n\nThanks to Jinglan Wang.\n\nShare\n\nExplore, swap and LP tokens on the world’s largest DEX.\n\nSign up for research and updates from the Uniswap Labs team\n\nExplore, swap and LP tokens on the world’s largest DEX.\n\nSign up for research and updates from the Uniswap Labs team\n\nRelated Posts\n\nUniswap Labs and Securitize Partner to Unlock DeFi Liquidity for BlackRock’s BUIDL\n\nToday, in partnership with Securitize, we’re excited to announce that BlackRock’s USD Institutional Digital Liquidity Fund (BUIDL) is available to trade via UniswapX.\n\n#Company\n\nGuidestar Joins Uniswap Labs\n\nWe’re excited to share that Uniswap Labs has acquired Guidestar – a team that’s been building new AMM and routing technology in stealth for the past two years.\n\n#Company\n\nA Win for DeFi ‒ SEC Closes Investigation into Uniswap Labs\n\nThe SEC has officially closed – with no action – its multi-year investigation into Uniswap Labs.\n\n#Company",
+  "links": [
+    {
+      "url": "https://blog.uniswap.org/",
+      "label": "All Stories"
+    },
+    {
+      "url": "https://blog.uniswap.org/category/company",
+      "label": "#Company"
+    },
+    {
+      "url": "https://blog.uniswap.org/uniswap-history",
+      "label": ""
+    },
+    {
+      "url": "https://twitter.com/haydenzadams/status/1058376395108376577?ref_src=twsrc%5Etfw",
+      "label": "tweet"
+    },
+    {
+      "url": "https://twitter.com/karl_dot_tech",
+      "label": "Karl Floersch"
+    },
+    {
+      "url": "https://www.reddit.com/r/ethereum/comments/55m04x/lets_run_onchain_decentralized_exchanges_the_way/",
+      "label": "this reddit post"
+    },
+    {
+      "url": "https://vitalik.eth.limo/general/2017/06/22/marketmakers.html",
+      "label": "this blogpost"
+    },
+    {
+      "url": "https://haydenadams.github.io/uniswap-retro/",
+      "label": "Here it is"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=-alrVUv6E24&feature=emb_title",
+      "label": "example"
+    },
+    {
+      "url": "https://twitter.com/PascalVanHecke",
+      "label": "Pascal Van Hecke"
+    },
+    {
+      "url": "https://www.nycmesh.net/",
+      "label": "NYC Mesh"
+    },
+    {
+      "url": "https://www.nycmesh.net/blog/meshcoin/",
+      "label": "an anti-crypto article"
+    },
+    {
+      "url": "https://www.coindesk.com/markets/2017/12/14/plan-b-ethereum-innovators-are-reviving-the-fight-for-net-neutrality",
+      "label": "an article"
+    },
+    {
+      "url": "https://twitter.com/_callil",
+      "label": "Callil Capuozzo"
+    },
+    {
+      "url": "https://www.foam.space/",
+      "label": "FOAM"
+    },
+    {
+      "url": "https://www.linkedin.com/in/uciel-vilchis/",
+      "label": "Uciel Vilchis"
+    },
+    {
+      "url": "https://haydenadams.github.io/uniswap-prealpha/",
+      "label": "Here it is"
+    },
+    {
+      "url": "https://deconomy.com/deconomy-2018-recap/",
+      "label": "Deconomy 2018"
+    },
+    {
+      "url": "https://github.com/haydenadams/uniswap",
+      "label": "https://github.com/haydenadams/uniswap"
+    },
+    {
+      "url": "https://github.com/ethereum/casper/blob/master/casper/contracts/simple_casper.v.py",
+      "label": "the original Casper FFG"
+    },
+    {
+      "url": "https://twitter.com/phildaian",
+      "label": "Philip Daian"
+    },
+    {
+      "url": "https://twitter.com/danrobinson",
+      "label": "Dan Robinson"
+    },
+    {
+      "url": "https://twitter.com/RealZandy",
+      "label": "Andy Milenius"
+    },
+    {
+      "url": "https://twitter.com/jinglanW",
+      "label": "Jinglan Wang"
+    },
+    {
+      "url": "https://youtu.be/61PWFQpR1YQ?list=PLjB3u3uCYxnxXUXEYIp9V8aSxMyuyVdFg&t=3729",
+      "label": "my first talk"
+    },
+    {
+      "url": "https://twitter.com/ricburton/status/994545185538310144?ref_src=twsrc%5Etfw",
+      "label": "tweet"
+    },
+    {
+      "url": "https://twitter.com/ricburton",
+      "label": "Richard Burton"
+    },
+    {
+      "url": "https://runtimeverification.com/",
+      "label": "Runtime Verification"
+    },
+    {
+      "url": "https://twitter.com/chrisbaroni",
+      "label": "Christian Baroni"
+    },
+    {
+      "url": "https://twitter.com/jinrummie",
+      "label": "Jin Ching"
+    },
+    {
+      "url": "https://twitter.com/mikedemarais",
+      "label": "Mike Demerais"
+    },
+    {
+      "url": "https://twitter.com/ricburton/status/1019708830672797696?ref_src=twsrc%5Etfw",
+      "label": "share"
+    },
+    {
+      "url": "https://makerdao.com/",
+      "label": "MakerDAO"
+    },
+    {
+      "url": "https://twitter.com/ashleighschap",
+      "label": "Ashleigh Schapp"
+    },
+    {
+      "url": "https://blog.ethereum.org/2018/08/17/ethereum-foundation-grants-update-wave-3/",
+      "label": "Uniswap would receive a grant"
+    },
+    {
+      "url": "https://www.linkedin.com/in/daejun-park-27a89a6/",
+      "label": "Daejun Park"
+    },
+    {
+      "url": "https://github.com/yzhang90",
+      "label": "Yi Zhang"
+    },
+    {
+      "url": "https://github.com/runtimeverification/verified-smart-contracts/blob/uniswap/uniswap/x-y-k.pdf",
+      "label": "can be found here"
+    },
+    {
+      "url": "https://github.com/runtimeverification/verified-smart-contracts/blob/uniswap/uniswap/issues.md",
+      "label": "can be found here"
+    },
+    {
+      "url": "https://twitter.com/haydenzadams/status/1039008356009168896?ref_src=twsrc%5Etfw",
+      "label": "speak"
+    },
+    {
+      "url": "https://ethis.io/",
+      "label": "ETHIS"
+    },
+    {
+      "url": "https://i.imgur.com/3A31jrX.jpg",
+      "label": "Here’s a blank template"
+    },
+    {
+      "url": "https://devcon4.ethereum.org/index.html",
+      "label": "Devcon 4"
+    },
+    {
+      "url": "https://www.linkedin.com/in/sdtsui/",
+      "label": "Dan Tsui"
+    },
+    {
+      "url": "https://www.kyokan.io/",
+      "label": "Kyokan"
+    },
+    {
+      "url": "https://twitter.com/AFDudley0",
+      "label": "Rick Dudley"
+    },
+    {
+      "url": "https://www.linkedin.com/in/chikeichan/",
+      "label": "Jacky Chan"
+    },
+    {
+      "url": "https://hackmd.io/hthz9hXKQmSyXfMbPsut1g",
+      "label": "a long and detailed frontend spec"
+    },
+    {
+      "url": "https://github.com/kennyt?tab=followers",
+      "label": "Kenny Tram"
+    },
+    {
+      "url": "https://docs.uniswap.io/",
+      "label": "docs"
+    },
+    {
+      "url": "https://hackmd.io/C-DvwDSfSxuh-Gd4WKE_ig",
+      "label": "whitepaper"
+    },
+    {
+      "url": "https://github.com/runtimeverification/verified-smart-contracts/tree/uniswap/uniswap/results",
+      "label": "the results of RVs formal verification work"
+    },
+    {
+      "url": "https://medium.com/@ogucluturk/the-dao-hack-explained-unfortunate-take-off-of-smart-contracts-2bd8c8db3562",
+      "label": "the DAO hack"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=i-oWE8hg6-0",
+      "label": "present his latest research at Devcon 4"
+    },
+    {
+      "url": "https://twitter.com/leandercapuozzo",
+      "label": "Leander"
+    },
+    {
+      "url": "https://uniswap.io/",
+      "label": "uniswap.io"
+    },
+    {
+      "url": "https://app.uniswap.org/",
+      "label": "app.uniswap.org/#"
+    },
+    {
+      "url": "https://blog.gnosis.pm/building-a-decentralized-exchange-in-ethereum-eea4e7452d6e",
+      "label": "Building a Decentralized Exchange in Ethereum"
+    },
+    {
+      "url": "https://vitalik.ca/general/2017/06/22/marketmakers.html",
+      "label": "On Path Independence"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Check%20out%20this%20article%3A%20&hashtags=uniswap",
+      "label": ""
+    },
+    {
+      "url": "https://warpcast.com/~/compose?text=Check%20out%20this%20article%3A%20%0A%0A",
+      "label": ""
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=",
+      "label": ""
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=",
+      "label": ""
+    },
+    {
+      "url": "https://blog.uniswap.org/unlocking-defi-liquidity-for-buidl",
+      "label": "Uniswap Labs and Securitize Partner to Unlock DeFi Liquidity for BlackRock’s BUIDL Today, in partnership with Securitize, we’re excited to announce that BlackRo"
+    },
+    {
+      "url": "https://blog.uniswap.org/guidestar-joins-uniswap-labs",
+      "label": "Guidestar Joins Uniswap Labs We’re excited to share that Uniswap Labs has acquired Guidestar – a team that’s been building new AMM and routing technology in ste"
+    },
+    {
+      "url": "https://blog.uniswap.org/a-win-for-defi",
+      "label": "A Win for DeFi ‒ SEC Closes Investigation into Uniswap Labs The SEC has officially closed – with no action – its multi-year investigation into Uniswap Labs. Feb"
+    }
+  ],
+  "truncated": false,
+  "characters_available": 24237,
+  "url": "https://blog.uniswap.org/uniswap-history"
+}

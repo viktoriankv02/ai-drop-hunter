@@ -1,0 +1,12 @@
+{
+  "url": "https://docs.pooltogether.com/pooltogether/pool-token/pool-supply",
+  "retrieved_at": "2026-09-30T15:56:46.233755+00:00",
+  "content_file": "expansion-evidence\\96b5e0af0bc4cd1900.json",
+  "status": "fetched",
+  "http_status": 200,
+  "final_url": "https://docs.pooltogether.com/pooltogether/pool-token/pool-supply",
+  "content_type": "text/html; charset=utf-8",
+  "text": "POOL Supply | PoolTogether User Guide\nPoolTogether User Guide\n⌘\nCtrl\nk\nV4 Docs\nDeveloper Docs\nApp\nMore\nPoolTogether User Guide\nWelcome\nAbout PoolTogether\nFrequently Asked Questions\nGetting Started\nPoolTogether V5\nUse PoolTogether V5\nV5 Developer Docs\nCabana.fi Docs\nBuild on PoolTogether\nPoolTogether V4\nPoolTogether on Optimism\nPoolTogether on Polygon\nGuides & How Tos\nGovernance\nPOOL Token\nTokenomics\nPOOL Supply\nGetting POOL Tokens\nEcosystem & Links\nDevelopers\nSecurity\nRisks\nAudits\nBug Bounties\nDive Deeper\nPoolTogether Discord\nDeveloper Documentation\nBrand Kit\nPowered by GitBook\nOn this page\nFor the complete documentation index, see\nllms.txt\n. This page is also available as\nMarkdown\n.\nCopy\nOn this page\nPoolTogether V4\nPOOL Token\nPOOL Supply\nThis page details the POOL token supply\nDetails of the POOL token supply and distribution are below.\nThe total supply of POOL tokens is 10 million\n4.8 million (48%) of those tokens have not been distributed and\nare controlled by governance\n5.2 million (52%) have already been distributed; details of the most significant distributions are as follows:\n1.5 million tokens were given to early users of the protocol; of that amount, ~400,000 remained\nunclaimed in the distribution contract\n1.2 million tokens were given to early contributors to the protocol. All these tokens are subject to one-year locking ending on February 17th, 2022\n750,000 tokens were given to investors in PoolTogether Inc. All these tokens are subject to one-year locking ending on February 17th, 2022\n411,000 tokens were distributed to\nparticipants in the protocol diversification\n. These tokens have one year vesting with progressive one-year unlocking that begins in May 2022\nThis information is subject to change as POOL governance makes new votes. You can read the\noriginal distribution article here\n. You can\nview the current balances of the POOL treasury here\n.\nPrevious\nTokenomics\nNext\nGetting POOL Tokens\nLast updated\n3 years ago",
+  "characters": 1959,
+  "content_sha256": "52918de474447b2079c2ae122d9910a99ec7d2a9456a593f0c72ef64e72e3a73"
+}
