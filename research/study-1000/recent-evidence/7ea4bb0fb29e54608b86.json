@@ -1,0 +1,8 @@
+{
+  "project": "Hyperlane",
+  "url": "http://claim.hyperlane.foundation",
+  "retrieved_at": "2026-10-03T15:44:27.628764+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\7ea4bb0fb29e54608b86.json",
+  "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1082)>"
+}

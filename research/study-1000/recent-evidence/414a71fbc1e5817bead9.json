@@ -1,0 +1,8 @@
+{
+  "project": "SOPHON",
+  "url": "https://blog.sophon.xyz/soph-token-airdrop/",
+  "retrieved_at": "2026-10-03T15:44:25.909817+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\414a71fbc1e5817bead9.json",
+  "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'blog.sophon.xyz'. (_ssl.c:1082)>"
+}

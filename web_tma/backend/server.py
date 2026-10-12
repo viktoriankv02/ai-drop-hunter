@@ -9,9 +9,11 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from core.workspace import Workspace, ROOT, utcnow
+from core.mobile_access import MobileAccess
 from core.source_policy import canonical_url
-from core.historical_research import load_history
+from core.historical_research import load_recent_study
 from discovery.coordinator import Coordinator
+from ai_analyzer.adaptive_learning import AdaptiveLearning
 from market_intelligence.forecaster import get_klines_data, generate_ai_token_forecast, MarketUnavailable
 
 class SourceInput(BaseModel):
@@ -27,12 +29,29 @@ class StatusInput(BaseModel):
     status: Literal["new","tracking","ignored","archived"]
 class TaskInput(BaseModel):
     done: bool
+class LearningSettings(BaseModel):
+    enabled: bool
 class FeedbackInput(BaseModel):
     text: str=Field(min_length=3,max_length=1500)
 class BrowserMaterialInput(BaseModel):
     name: str=Field(min_length=2,max_length=200)
     source: str=Field(max_length=1500)
     text: str=Field(min_length=100,max_length=60000)
+
+class CaptureLink(BaseModel):
+    url: str=Field(max_length=1500)
+    label: str=Field(default="",max_length=300)
+class CaptureSection(BaseModel):
+    title: str=Field(max_length=300)
+    text: str=Field(max_length=60000)
+    links: list[CaptureLink]=Field(default_factory=list,max_length=100)
+class PublicCapture(BaseModel):
+    source: str=Field(max_length=1500)
+    text: str=Field(min_length=10,max_length=60000)
+    gated: bool=False
+    sections: list[CaptureSection]=Field(default_factory=list,max_length=30)
+class CaptureBatch(BaseModel):
+    cards: list[PublicCapture]=Field(min_length=1,max_length=25)
 
 class MaterialInput(BaseModel):
     text: str=Field(min_length=100,max_length=60000)
@@ -41,16 +60,23 @@ class MaterialInput(BaseModel):
 def create_app(store=None,background=True,legacy=None):
     store=store or Workspace()
     token=secrets.token_urlsafe(32)
+    mobile=MobileAccess(store.path.with_name(store.path.stem+"-mobile.sqlite"))
     coordinator=Coordinator(store)
+    collector=Coordinator(store)
     @asynccontextmanager
     async def lifespan(app):
         store.initialize(legacy=legacy)
+        AdaptiveLearning(store).bootstrap()
         tasks=[]
         if background:
-            tasks=[asyncio.create_task(coordinator.run()),asyncio.create_task(coordinator.schedule())]
+            store.recover_jobs()
+            tasks=[asyncio.create_task(coordinator.run(("research","analyze"),recover=False)),
+                   asyncio.create_task(collector.run(("discover",),recover=False)),
+                   asyncio.create_task(coordinator.schedule())]
         try: yield
         finally:
             coordinator.stop.set()
+            collector.stop.set()
             for task in tasks: task.cancel()
             await asyncio.gather(*tasks,return_exceptions=True)
     app=FastAPI(title="AI Crypto Hub & Hunter",lifespan=lifespan)
@@ -86,7 +112,16 @@ def create_app(store=None,background=True,legacy=None):
     @app.get("/api/migration/issues")
     def migration_issues(): return store.rows("SELECT id,entity,legacy_id,reason FROM migration_issues ORDER BY id")
     @app.get("/api/sources")
-    def sources(): return [{**s,"type":s["kind"]} for s in store.sources()]
+    def sources():
+        result=[]
+        for source in store.sources():
+            jobs=store.rows("SELECT state,result_json,error,created_at,finished_at FROM jobs WHERE kind='discover' AND target_id=? ORDER BY id DESC LIMIT 1",(source["id"],))
+            last=jobs[0] if jobs else None;parsed=None
+            if last and last.get("result_json"):
+                try: parsed=json.loads(last["result_json"])
+                except (TypeError,json.JSONDecodeError): pass
+            result.append({**source,"type":source["kind"],"last_job":{**last,"result":parsed} if last else None})
+        return result
     @app.post("/api/sources")
     def add_source(body:SourceInput): return {"id":store.add_source(body.name,body.url,body.type)}
     @app.delete("/api/sources/{sid}")
@@ -109,6 +144,23 @@ def create_app(store=None,background=True,legacy=None):
             FROM projects p LEFT JOIN activity_screening a ON a.project_id=p.id WHERE p.status='new' AND (?=0 OR p.source_url LIKE 'https://cryptorank.io/%' OR p.source_url LIKE 'https://incrypted.com/%') GROUP BY 1""",(int(restricted),)):
             result[row["decision"]]=row["n"]
         return result
+    @app.get("/api/cryptorank/cards")
+    def cryptorank_cards():
+        from core.cryptorank_cards import inventory
+        rows=inventory(store)
+        return {"total":len(rows),"public_read":sum(bool(r["public_read_at"]) for r in rows),
+                "partial_login":sum(r["public_access"]=="partial_login" for r in rows),
+                "cards":rows}
+    @app.post("/api/cryptorank/cards/import")
+    def import_cryptorank_cards(body:CaptureBatch):
+        from core.cryptorank_cards import import_capture
+        if not any(s["enabled"] and s["adapter"]=="cryptorank" for s in store.sources()):
+            raise ValueError("CryptoRank вимкнений у списку джерел")
+        results=[]
+        for capture in body.cards:
+            try:results.append(import_capture(store,capture.model_dump()))
+            except ValueError as error:results.append({"source":capture.source,"error":str(error)})
+        return {"results":results}
     @app.get("/api/projects")
     def projects(status:str="new",q:str="",limit:int=60,offset:int=0,screen:str="all"):
         if status not in ("new","tracking","ignored","archived","all"): raise ValueError("Невідомий статус")
@@ -127,7 +179,10 @@ def create_app(store=None,background=True,legacy=None):
                                          WHEN source_platform LIKE '%Incrypted%' THEN 1 ELSE 2 END,id DESC LIMIT ? OFFSET ?""",
                         (status,status,"%"+q[:120]+"%","%"+q[:120]+"%",int(restricted),screen,screen,limit,offset))
         profiles={x["project_id"]:json.loads(x["body_json"]) for x in store.rows("SELECT project_id,body_json FROM project_overviews")}
+        public={x["project_id"]:json.loads(x["body_json"]) for x in store.rows("SELECT project_id,body_json FROM project_public_guides")}
         for row in rows:
+            guide=public.get(row["id"],{})
+            row["public_preview"]=next((c.get("excerpt") for c in guide.get("campaigns",[]) if c.get("excerpt")),None)
             row["overview"]=profiles.get(row["id"])
             row["preparation"]=store.preparation(row['id'])
         return rows
@@ -211,9 +266,20 @@ def create_app(store=None,background=True,legacy=None):
             raise ValueError("Збережений матеріал відсутній")
         return {"job_id":store.enqueue(job["kind"],job["target_id"])}
 
+    @app.get('/api/agents/learning')
+    def learning_status():return AdaptiveLearning(store).status()
+    @app.post('/api/agents/learning/settings')
+    def learning_settings(body:LearningSettings):
+        learner=AdaptiveLearning(store);learner.set_enabled(body.enabled)
+        if body.enabled:learner.bootstrap()
+        return learner.status()
+
     @app.get("/api/research/history")
     def history():
-        return load_history()
+        return load_recent_study()
+    @app.get("/research/recent-150")
+    def recent_history_report():
+        return FileResponse(ROOT/"research"/"study-1000"/"REPORT.html")
     @app.get("/api/market/chart")
     async def chart(symbol:str="BTC",period:str="24h"): return await get_klines_data(symbol,period)
     @app.post("/api/market/forecast")
@@ -227,6 +293,24 @@ def create_app(store=None,background=True,legacy=None):
     def forecasts():
         return [{"id":r["id"],**json.loads(r["body_json"]),"outcome":json.loads(r["outcome_json"]) if r["outcome_json"] else None}
                 for r in store.rows("SELECT * FROM forecasts ORDER BY id DESC LIMIT 30")]
+    @app.get('/api/mobile/status')
+    def mobile_status():return mobile.status()
+    @app.post('/api/mobile/pair-code')
+    def mobile_code():
+        import base64,io,qrcode,qrcode.image.svg
+        code=mobile.pair_code();origin=mobile.status()['origin']
+        target=origin+'/mobile-login#code='+code
+        svg=qrcode.make(target,image_factory=qrcode.image.svg.SvgPathImage,box_size=8,border=4)
+        out=io.BytesIO();svg.save(out)
+        return {'code':code,'expires_in':600,'url':origin,'qr':'data:image/svg+xml;base64,'+base64.b64encode(out.getvalue()).decode()}
+    @app.post('/api/mobile/revoke')
+    def mobile_revoke():mobile.revoke_all();return {'ok':True}
+    @app.get('/manifest.webmanifest')
+    def manifest():return FileResponse(ROOT/'web_tma/frontend/manifest.webmanifest',media_type='application/manifest+json')
+    @app.get('/sw.js')
+    def worker():return FileResponse(ROOT/'web_tma/frontend/sw.js',media_type='application/javascript',headers={'Cache-Control':'no-cache','Service-Worker-Allowed':'/'})
+    @app.get('/offline.html')
+    def offline():return FileResponse(ROOT/'web_tma/frontend/offline.html')
     app.mount("/static",StaticFiles(directory=ROOT/"web_tma"/"frontend"),name="static")
     @app.get("/")
     def index(): return FileResponse(ROOT/"web_tma"/"frontend"/"index.html")

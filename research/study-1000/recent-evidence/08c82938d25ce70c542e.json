@@ -1,0 +1,24 @@
+{
+  "project": "Bedrock",
+  "url": "https://docs.bedrockdao.com/governance/usdbr-airdrop/airdrop-season-1",
+  "retrieved_at": "2026-10-03T15:44:29.097152+00:00",
+  "status": "fetched_relevant",
+  "content_file": "recent-evidence\\08c82938d25ce70c542e.json",
+  "http_status": 200,
+  "final_url": "https://docs.bedrockdao.com/governance/usdbr-airdrop/airdrop-season-1",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 3594,
+  "project_name_match": true,
+  "reward_terms": [
+    "airdrop",
+    "allocation",
+    "claim",
+    "eligibility",
+    "eligible",
+    "reward",
+    "snapshot",
+    "vesting"
+  ],
+  "text_sha256": "30770a507ef7c869a294d2ef19b9ca6b2a225efcd06934cbb85517e73881fa0c",
+  "text": "Airdrop Season 1 | Bedrock DAO Bedrock DAO ⌘ Ctrl k Bedrock DAO 👋 Introducing Bedrock DAO Governance Bedrock DAO BR tokenomics BR and veBR $BR Airdrop Airdrop Season 1 BR Airdrop checker Pre-deposit to CEX Claim $BR PoSL Proof of Staking Liquidity How Does PoSL Work? Security Audit reports Smart Contracts Legal TERMS AND CONDITIONS Powered by GitBook On this page For the complete documentation index, see llms.txt . This page is also available as Markdown . Copy On this page Governance $BR Airdrop Airdrop Season 1 Bedrock BR Token Airdrop (Season 1) Guidelines Overview The Bedrock BR Token Airdrop rewards our most active community members for contributing to the Bedrock ecosystem. Participants who have staked, earned Bedrock Diamonds, referred friends, or engaged in partner DeFi protocols are eligible. A total of 5.5% of the BR token supply will be distributed at the Token Generation Event (TGE) to recognize and incentivize early supporters. Eligibility Eligibility is based on Bedrock Diamonds earned through the following activities: Stakers: Users who hold uniTokens. DeFi Participants: Users who hold a position of uniTokens through participating DeFi protocols. Referrers: Users who referred one or more friends to Bedrock. Fan NFT & Community Badge Holders: Active participants in the Bedrock NFT program and Discord community. Additional rewards are given to: Active Users: Users who held uniTokens and actively participated in DeFi protocols. Loyal Users: Users still holding uniTokens at the time of the snapshot. Note: uniTokens include uniBTC, uniETH, uniIOTX and brBTC Frequently Asked Questions (FAQ) Q1: What airdrop model is used? We use a linear distribution model based on Bedrock Diamond balances, with bonus allocations for active and loyal users. This ensures fairness across participants who engaged with Bedrock through various channels. Q2: Will large stakers (whales) dilute small stakers’ airdrop allocations? No. A 0.4% cap per wallet or wallet cluster ensures no single holder receives an outsized allocation. Q3: When was the snapshot taken? The snapshot was taken on March 7th, 2025, at 00:00 UTC. Q4: When can I claim my BR tokens? Claiming will open within 7 days after the eligibility checker goes live and will remain open for 90 days from the start date. A pre-deposit option will also be available for eligible participants. Q5: Is there a vesting period for the airdropped tokens? No. The BR tokens are fully claimable at TGE, with no vesting period. Q6: What are the benefits of holding BR tokens after the airdrop? BR holders can 1) Join Season 2 of the Loyalty Program to earn additional rewards. 2) Participate in PoSL BR Staking (available Day 1) to earn yield. 3) Take part in governance (coming soon). Q7: Will there still be diamonds/ incentives after the TGE airdrop? We will continue to reward our users and community with BR tokens Diamonds will still be used in Airdrop Season 2 after TGE Detailed rules of Airdrop Season 2 will be disclosed in the near future Check your eligibility & claim here Security Notice Bedrock will never DM you first or request personal information. Only use official Bedrock domains when claiming your airdrop. Stay Updated Follow Bedrock’s official channels for the latest updates: Twitter: https://x.com/bedrock_defi Discord: https://discord.com/invite/ctXrm6wfeg Telegram: https://t.me/Bedrock_Official Previous $BR Airdrop Next BR Airdrop checker Last updated 1 year ago Bedrock BR Token Airdrop (Season 1) Guidelines Overview Eligibility Frequently Asked Questions (FAQ) Security Notice Stay Updated"
+}

@@ -37,8 +37,9 @@ def test_imported_snapshot_uses_progress_and_cache(tmp_path,monkeypatch):
     sid,_=store.save_snapshot(pid,"https://cryptorank.io/ru/drophunting/example-activity1",{"text":"source","url":"https://example.com","links":[]})
     job=store.enqueue("analyze",sid)
     coordinator=Coordinator(store);coordinator.current_job=job
-    async def fake_analyze(body,corrections,on_progress,cache_get,cache_put):
+    async def fake_analyze(body,corrections,on_progress,cache_get,cache_put,on_inference=None):
         on_progress(1,2)
+        on_inference({'stage':'generating','characters':100,'elapsed_seconds':5})
         cache_put("fixture",{"facts":[],"tasks":[]})
         assert cache_get("fixture")=={"facts":[],"tasks":[]}
         return {"status":"draft","tasks":[],"coverage":{"complete":True}}
@@ -113,3 +114,36 @@ def test_paused_source_blocks_saved_analysis(tmp_path,monkeypatch):
     async def forbidden(*args):pytest.fail("Paused source reached model")
     monkeypatch.setattr(module,"analyze",forbidden)
     with pytest.raises(SourceUnavailable):asyncio.run(Coordinator(s).analyze_snapshot(sid))
+
+
+def test_discovery_worker_completes_while_research_is_waiting(tmp_path):
+    store=Workspace(tmp_path/'workers.sqlite');store.initialize()
+    pid,_=store.add_project('Waiting project','https://incrypted.com/waiting-testnet/','Incrypted',prepare=False)
+    research_id=store.enqueue('research',pid)
+    research=Coordinator(store);collector=Coordinator(store)
+    async def scenario():
+        started=asyncio.Event();release=asyncio.Event();collected=asyncio.Event()
+        async def slow(_):
+            started.set();await release.wait();research.stop.set();return {'ok':True}
+        async def quick(_):
+            collected.set();collector.stop.set();return {'found':1}
+        research.research=slow;collector.discover=quick
+        first=asyncio.create_task(research.run(('research','analyze'),recover=False))
+        second=None
+        try:
+            await asyncio.wait_for(started.wait(),2)
+            discovery_id=store.enqueue('discover',1)
+            second=asyncio.create_task(collector.run(('discover',),recover=False))
+            await asyncio.wait_for(collected.wait(),2)
+            await second
+            states={x['id']:x['state'] for x in store.rows('SELECT id,state FROM jobs')}
+            assert states[discovery_id]=='succeeded' and states[research_id]=='running'
+            assert store.claim_job(('discover',)) is None
+            assert store.claim_job(('research','analyze')) is None
+            release.set();await first
+        finally:
+            first.cancel()
+            if second:second.cancel()
+            await asyncio.gather(first,*([second] if second else []),return_exceptions=True)
+    asyncio.run(scenario())
+    assert all(x['state']=='succeeded' for x in store.rows('SELECT state FROM jobs'))

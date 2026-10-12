@@ -1,0 +1,25 @@
+[Unit]
+Description=Hunter authenticated HTTPS upstream
+After=network-online.target
+Wants=network-online.target
+Wants=hunter.service
+[Service]
+Type=simple
+User=hunter
+Group=hunter
+WorkingDirectory=/opt/hunter
+EnvironmentFile=/etc/hunter.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/opt/hunter/.venv/bin/python -m uvicorn web_tma.backend.mobile_gateway:app --host 127.0.0.1 --port 4320 --workers 1 --no-proxy-headers --no-access-log
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=45
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/hunter
+
+[Install]
+WantedBy=multi-user.target

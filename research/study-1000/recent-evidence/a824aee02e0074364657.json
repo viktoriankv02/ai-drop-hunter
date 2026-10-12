@@ -1,0 +1,8 @@
+{
+  "project": "Immortal Rising 2",
+  "url": "https://airdrop.immortalrising2.com",
+  "retrieved_at": "2026-10-03T15:44:27.792430+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\a824aee02e0074364657.json",
+  "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+}

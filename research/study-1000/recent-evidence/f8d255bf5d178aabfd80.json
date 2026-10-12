@@ -1,0 +1,15 @@
+{
+  "project": "WalletConnect",
+  "url": "https://docs.walletconnect.network/airdrop-season-1/",
+  "retrieved_at": "2026-10-03T15:44:32.892947+00:00",
+  "status": "fetched_needs_manual_review",
+  "content_file": "recent-evidence\\f8d255bf5d178aabfd80.json",
+  "http_status": 200,
+  "final_url": "https://docs.walletconnect.com/",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 921,
+  "project_name_match": true,
+  "reward_terms": [],
+  "text_sha256": "31f3431133d6393952f91db704dc623967c35affee4eba7704ec286557ce3d62",
+  "text": "WalletConnect Documentation - WalletConnect Pay Docs Documentation Index Fetch the complete documentation index at: /llms.txt Use this file to discover all available pages before exploring further. Skip to main content WalletConnect Pay Docs home page Search... ⌘ K WalletGuide Request Demo Request Demo Search... Navigation WalletConnect Documentation Wallets Apps Network Payments API Reference Wallet SDK - Overview WalletConnect Blog Whitepaper Report an Issue Home Getting Started Quickstart Features Verify Link Mode One-Click Auth Chain Support Overview Ethereum Solana Bitcoin Sui Stacks TON Tron ADI Chain Canton Stellar WalletGuide Submit New Wallet Wallet List Submit New Chain Supported Chains Explorer API WalletConnect Certified More Best Practices Staying up to date Web3Wallet to Wallet SDK Custodians & Institutions Quickstart Managing Dapp Access Managing Smart Contract Access Extended Sessions Request"
+}

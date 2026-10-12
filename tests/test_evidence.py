@@ -64,3 +64,12 @@ def test_airdropalert_imports_only_active_campaign_cards():
     <div class="card-anchor active-label" data-href="/blogs/news/"><h4 class="title">Article</h4></div>"""
     assert catalog(html,"https://airdropalert.com/farm/","airdropalert")==[
         {"title":"Example","url":"https://airdropalert.com/airdrops/example-airdrop/"}]
+
+
+def test_incrypted_dynamic_catalog_is_not_project_evidence():
+    import pytest
+    from discovery.evidence import material, SourceUnavailable
+    html='<main><p>'+('General airdrop FAQ and advertising. '*10)+'</p></main>'
+    with pytest.raises(SourceUnavailable,match='Incrypted'):
+        material(html,'https://incrypted.com/airdrops/?single=382945')
+    assert 'FAQ' in material(html,'https://incrypted.com/hertzflow-testnet/')['text']

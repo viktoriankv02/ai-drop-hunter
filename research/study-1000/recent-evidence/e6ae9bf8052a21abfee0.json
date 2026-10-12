@@ -1,0 +1,8 @@
+{
+  "project": "Singularity Finance",
+  "url": "https://singularity.finance/rewards",
+  "retrieved_at": "2026-10-03T15:44:27.945249+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\e6ae9bf8052a21abfee0.json",
+  "error": "HTTPError: HTTP Error 404: Not Found"
+}

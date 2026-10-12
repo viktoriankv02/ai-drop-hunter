@@ -1,0 +1,21 @@
+{
+  "project": "deBridge",
+  "url": "https://docs.debridge.foundation/",
+  "retrieved_at": "2026-10-03T15:44:33.621216+00:00",
+  "status": "fetched_relevant",
+  "content_file": "recent-evidence\\3512181cfe16558c8635.json",
+  "http_status": 200,
+  "final_url": "https://docs.debridge.foundation/",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 1123,
+  "project_name_match": true,
+  "reward_terms": [
+    "airdrop",
+    "allocation",
+    "claim",
+    "eligibility",
+    "snapshot"
+  ],
+  "text_sha256": "6081529e4a9a95c4d699ffec6672bf24ee337c091b9f74566f595e8c255e0eaa",
+  "text": "Overview | deBridge Foundation deBridge Foundation ⌘ Ctrl k deBridge Foundation FAQ: Airdrop Season 1 Overview Eligibility: Season 1 DBR Tokenomics Claim DBR to a centralized exchange Legal Airdrop Terms and Conditions Terms of Service Privacy Policy Powered by GitBook On this page For the complete documentation index, see llms.txt . This page is also available as Markdown . Copy On this page FAQ: Airdrop Season 1 Overview How does the Airdrop work? The deBridge airdrop is based on the deBridge points program and users’ participation in the initiative. Season 1 Allocation: 6% of the DBR supply. Season 1 Snapshot Date: July 23, 2024, 21:00 UTC. Season 1 Claim Window: October 17, 2024 - May 17, 2025. Claim site when it goes live: debridge.foundation Community first: We appreciate our community of users, partners, and other stakeholders. The launch of DBR is a tremendous marker in our journey towards becoming a community-owned protocol — and the deBridge Points program is one of the most important vehicles for this process. Next Eligibility: Season 1 Last updated 1 year ago Was this helpful? Was this helpful?"
+}

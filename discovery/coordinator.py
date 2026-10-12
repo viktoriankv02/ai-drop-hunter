@@ -7,9 +7,11 @@ from core.source_policy import source_allows_url, canonical_url
 from discovery.evidence import read_html, material, catalog, telegram_messages, SourceUnavailable
 from ai_analyzer.grounded import analyze
 from ai_analyzer.gateway import OLLAMA_MODEL
+from ai_analyzer.adaptive_learning import AdaptiveLearning, learning_session
 from core.participation import VERSION as PARTICIPATION_VERSION
 from core.campaign_guide import VERSION as GUIDE_VERSION
 from discovery.public_search import search_public_sources
+from discovery.source_quality import document_issue, clean_material
 
 class Coordinator:
     def __init__(self,store):
@@ -17,10 +19,20 @@ class Coordinator:
         self.stop=asyncio.Event()
         self.current_job=None
     def progress(self,index,total):
+        self.current_part=(index,total)
         if self.current_job:
             with self.store.db() as c:
                 c.execute("UPDATE jobs SET phase=? WHERE id=?",
                           (f"Ollama: частина {index}/{total}; локальна CPU-модель",self.current_job))
+    def inference_progress(self,event):
+        if not self.current_job:return
+        stages={'waiting':'Очікує локальну модель','reading':'Ollama читає запит','generating':'Ollama формує відповідь','done':'Перевірка доказів відповіді','failed':'Помилка локального аналізу'}
+        phase=stages.get(event['stage'],event['stage'])
+        if getattr(self,'current_part',None):phase+=f" · частина {self.current_part[0]}/{self.current_part[1]}"
+        if 'characters' in event:phase+=f" · {event['characters']} символів"
+        if 'elapsed_seconds' in event:phase+=f" · {event['elapsed_seconds']:.0f} с"
+        with self.store.db() as c:c.execute('UPDATE jobs SET phase=? WHERE id=?',(phase,self.current_job))
+
     async def discover(self,sid):
         sources=[s for s in self.store.sources() if s["id"]==sid and s["enabled"]]
         if not sources: raise SourceUnavailable("Джерело вимкнено або видалено")
@@ -46,15 +58,17 @@ class Coordinator:
                 candidates=catalog(html,url,s["adapter"])
                 data={"history_complete":False,"scope":"Посилання з однієї доступної сторінки; пагінація ще не реалізована."}
             if not candidates: raise SourceUnavailable("Не знайдено карток у доступному HTML. Це не означає відсутність проєктів.")
-            added=0
+            added=0;fresh_ids=[]
             limit=len(candidates) if data.get("route")=="official_api_map" else 200
             for item in candidates[:limit]:
                 # Do not invent rating, costs or participation tasks from a catalogue title.
-                _,fresh=self.store.add_project(item["title"],item["url"],s["name"],item.get("text",""))
+                pid,fresh=self.store.add_project(item["title"],item["url"],s["name"],item.get("text",""),prepare=False)
                 added+=fresh
+                if fresh:fresh_ids.append(pid)
                 if fresh and data.get("route")=="official_api_map":
                     with self.store.db() as c:
-                        c.execute("UPDATE projects SET check_status='catalog_only' WHERE id=?",(_,))
+                        c.execute("UPDATE projects SET check_status='catalog_only' WHERE id=?",(pid,))
+            for pid in fresh_ids[:20]:self.store.prepare_project(pid)
             outcome={"found":len(candidates),"added":added,"duplicates":min(len(candidates),limit)-added,
                      "limited":len(candidates)>limit,**{k:v for k,v in data.items() if k!="messages"}}
             with self.store.db() as c:
@@ -66,8 +80,15 @@ class Coordinator:
             raise
     async def _read_primary_and_reviewed(self,p):
         """Fallback only to reviewed official URLs, never arbitrary links suggested by a model."""
+        host=urlsplit(p["source_url"]).hostname
+        key="reader_cooldown:"+str(host)
         try:
-            html,url=await read_html(p["source_url"],{urlsplit(p["source_url"]).hostname})
+            cooldown=self.store.rows("SELECT value FROM meta WHERE key=?",(key,))
+            if cooldown:
+                record=json.loads(cooldown[0]["value"])
+                if record["until"]>utcnow():
+                    raise SourceUnavailable("Читання джерела призупинено до "+record["until"]+" через обмеження доступу.")
+            html,url=await read_html(p["source_url"],{host})
             primary=material(html,url)
             documents=[{**primary,"purpose":"reward_rules" if urlsplit(url).hostname in {"cryptorank.io","incrypted.com"} else "unclassified"}];errors=[]
             # Follow explicit campaign/rules links only; no model-generated URLs.
@@ -94,6 +115,11 @@ class Coordinator:
                     "documents":documents,"source_errors":errors,
                     "provenance":"Прочитано картку та пов’язані сторінки. Статус додаткових документів потребує перевірки."},"linked_documents"
         except SourceUnavailable as primary_error:
+            if any(code in str(primary_error) for code in ("HTTP 403","HTTP 429")):
+                until=(datetime.now(timezone.utc)+timedelta(minutes=30)).isoformat()
+                with self.store.db() as c:
+                    c.execute("INSERT INTO meta(key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
+                              (key,json.dumps({"until":until,"reason":str(primary_error)[:200]})))
             notes=self.store.rows("SELECT body_json FROM snapshots WHERE project_id=? AND via='reviewed_research_note' ORDER BY id DESC LIMIT 1",(p["id"],))
             if not notes: raise
             note=json.loads(notes[0]["body_json"]).get("research_note",{})
@@ -119,6 +145,13 @@ class Coordinator:
                     "provenance":"Агрегатор недоступний. Прочитано раніше перевірені офіційні документи; загальне досьє неповне."},"official_documents_fallback"
 
     async def read_project(self,p):
+        # Browser captures are already a dated reading of the primary page.
+        # Reuse today's capture rather than losing it to another HTTP 403.
+        cutoff=(datetime.now(timezone.utc)-timedelta(days=1)).isoformat()
+        recent=self.store.rows("""SELECT s.body_json FROM project_public_guides g
+            JOIN snapshots s ON s.id=g.snapshot_id WHERE g.project_id=? AND g.updated_at>?""",(p["id"],cutoff))
+        if recent:
+            return json.loads(recent[0]["body_json"]),"browser_public_capture"
         documents=[];errors=[];via="project_resources";original=None
         try:
             body,via=await self._read_primary_and_reviewed(p)
@@ -137,7 +170,7 @@ class Coordinator:
                 self.store.add_resource(p["id"],link["url"],link.get("label","Документ"),purpose,"source_link")
         resources=self.store.rows("SELECT * FROM project_resources WHERE project_id=? ORDER BY CASE purpose WHEN 'reward_rules' THEN 0 WHEN 'product_manual' THEN 1 ELSE 2 END,url",(p["id"],))
         # A blocked aggregator is not the end of project research.
-        if (not documents and (not resources or all(r.get('last_status')=='failed' for r in resources))) or (documents and sum(len(d['text']) for d in documents)<500):
+        if via!="official_documents_fallback" and ((not documents and (not resources or all(r.get('last_status')=='failed' for r in resources))) or (documents and sum(len(d['text']) for d in documents)<500)):
             try:
                 for result in await search_public_sources(p["title"]):
                     self.store.add_resource(p["id"],result["url"],result["label"],"secondary","public_web_search")
@@ -149,7 +182,10 @@ class Coordinator:
             if resource['url'] in seen:continue
             try:
                 html,resolved=await read_html(resource['url'],None)
-                doc=material(html,resolved);doc['purpose']=resource['purpose'];documents.append(doc);seen.add(resolved)
+                doc=material(html,resolved)
+                reason=document_issue(p["title"],doc,resource)
+                if reason:raise SourceUnavailable(reason)
+                doc['purpose']=resource['purpose'];documents.append(doc);seen.add(resolved)
                 self.store.resource_checked(p['id'],resource['url'])
             except Exception as error:
                 self.store.resource_checked(p['id'],resource['url'],error);errors.append(resource['url']+": "+str(error)[:200])
@@ -202,15 +238,17 @@ class Coordinator:
         if permitted and all(s["adapter"]=="manual" for s in permitted):
             raise SourceUnavailable("Автоматичне читання цього джерела ще не реалізовано")
         body,via=await self.read_project(p)
+        body=clean_material(p["title"],body,self.store.rows("SELECT * FROM project_resources WHERE project_id=?",(pid,)))
         body["project_title"]=p["title"]
         url=p["source_url"]
         sid,changed=self.store.save_snapshot(pid,url,body,via=via)
         previous=self.store.rows("SELECT body_json,created_at FROM reports WHERE project_id=? AND snapshot_id=? ORDER BY id DESC LIMIT 1",(pid,sid))
         new_feedback=self.store.rows("SELECT 1 FROM feedback WHERE project_id=? AND created_at>? LIMIT 1",(pid,previous[0]["created_at"] if previous else ""))
-        if not changed and previous and json.loads(previous[0]["body_json"]).get("coverage",{}).get("complete") and not new_feedback and json.loads(previous[0]["body_json"]).get("participation_version")==PARTICIPATION_VERSION and json.loads(previous[0]["body_json"]).get("guide_version")==GUIDE_VERSION:
+        if not changed and previous and json.loads(previous[0]["body_json"]).get("coverage",{}).get("complete") and not new_feedback and json.loads(previous[0]["body_json"]).get("learning",{}).get("memory_version")==AdaptiveLearning(self.store).profile()["version"] and json.loads(previous[0]["body_json"]).get("participation_version")==PARTICIPATION_VERSION and json.loads(previous[0]["body_json"]).get("guide_version")==GUIDE_VERSION:
             return {"snapshot_id":sid,"changed":False,"analysis":"unchanged"}
         corrections=self.store.rows("SELECT text FROM feedback WHERE project_id=? ORDER BY id DESC LIMIT 5",(pid,))
-        result=await analyze(body,[r["text"] for r in reversed(corrections)],self.progress,self.store.cached_analysis,self.store.cache_analysis)
+        with learning_session(self.store,pid,sid,OLLAMA_MODEL):
+            result=await analyze(body,[r["text"] for r in reversed(corrections)],self.progress,self.store.cached_analysis,self.store.cache_analysis,on_inference=self.inference_progress)
         self.attach_provenance(result,body)
         self.store.save_report(pid,sid,result,OLLAMA_MODEL)
         return {"snapshot_id":sid,"changed":changed,"analysis":result["status"],"coverage":result["coverage"]}
@@ -222,16 +260,18 @@ class Coordinator:
         if not self.project_research_allowed(project):
             raise SourceUnavailable("Джерело вимкнене: аналіз призупинено.")
         body=json.loads(snapshot["body_json"])
+        body=clean_material(project["title"],body,self.store.rows("SELECT * FROM project_resources WHERE project_id=?",(project["id"],)))
         body["project_title"]=project["title"]
         corrections=self.store.rows("SELECT text FROM feedback WHERE project_id=? ORDER BY id DESC LIMIT 5",(snapshot["project_id"],))
-        result=await analyze(body,[r["text"] for r in reversed(corrections)],self.progress,self.store.cached_analysis,self.store.cache_analysis)
+        with learning_session(self.store,snapshot['project_id'],sid,OLLAMA_MODEL):
+            result=await analyze(body,[r["text"] for r in reversed(corrections)],self.progress,self.store.cached_analysis,self.store.cache_analysis,on_inference=self.inference_progress)
         self.attach_provenance(result,body)
         self.store.save_report(snapshot["project_id"],sid,result,OLLAMA_MODEL)
         return {"snapshot_id":sid,"analysis":result["status"],"coverage":result["coverage"]}
-    async def run(self):
-        self.store.recover_jobs()
+    async def run(self,kinds=None,recover=True):
+        if recover:self.store.recover_jobs()
         while not self.stop.is_set():
-            job=self.store.claim_job()
+            job=self.store.claim_job(kinds)
             if not job:
                 try: await asyncio.wait_for(self.stop.wait(),timeout=2)
                 except TimeoutError: pass

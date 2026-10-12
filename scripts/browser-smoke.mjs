@@ -76,21 +76,29 @@ try{
  await page.locator('.source').filter({hasText:'My approved channel'}).getByRole('button',{name:'Видалити'}).click();
  await page.getByText('My approved channel',{exact:true}).waitFor({state:'detached'});
  await page.getByRole('button',{name:'Історичні кейси',exact:true}).click();
- await page.getByRole('heading',{name:'Arbitrum',exact:true}).waitFor();
- await page.getByText('0 / 1000',{exact:true}).waitFor();
- const uni=page.locator('article').filter({has:page.getByRole('heading',{name:'Uniswap',exact:true})});
- await uni.locator('summary').click();
- await uni.getByRole('heading',{name:'Опублікована оцінка виплат',exact:true}).waitFor();
- assert((await uni.innerText()).includes('2025-01-28'));
-
+ await page.getByRole('heading',{name:'150 історичних роздач за останні 2 роки',exact:true}).waitFor();
+ const historyData=await (await fetch('http://127.0.0.1:4319/api/research/history')).json();
+ assert.equal(historyData.analyzed_projects,150);
+ assert.equal(await page.locator('#content article').count(),historyData.projects.length);
+ const firstCase=page.locator('#content article').filter({has:page.getByRole('heading',{name:historyData.projects[0].project,exact:true})});
+ await firstCase.getByText('Прогалини та джерела',{exact:true}).click();
+ assert(await firstCase.locator('details a').count()>0,'Historical dossier must show sources');
  await page.setViewportSize({width:390,height:844});
- const op=page.locator('article').filter({has:page.getByRole('heading',{name:'Optimism',exact:true})});
- await op.locator('summary').click();
- await op.getByRole('heading',{name:'Відтворений підрахунок CSV',exact:true}).waitFor();
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Historical audit mobile overflow');
  await page.setViewportSize({width:1440,height:960});
  await page.getByRole('button',{name:'Команда агентів',exact:true}).click();
  await page.getByText('У черзі',{exact:true}).waitFor();
+ await page.getByRole('heading',{name:'Автоматична пам’ять агентів',exact:true}).waitFor();
+ await page.getByRole('button',{name:'Призупинити навчання',exact:true}).click();
+ await page.getByRole('button',{name:'Увімкнути навчання',exact:true}).waitFor();
+ assert.equal((await (await fetch('http://127.0.0.1:4319/api/agents/learning')).json()).enabled,false);
+ await page.reload();
+ await page.getByRole('button',{name:'Команда агентів',exact:true}).click();
+ await page.getByRole('button',{name:'Увімкнути навчання',exact:true}).click();
+ await page.getByRole('button',{name:'Призупинити навчання',exact:true}).waitFor();
+ await page.setViewportSize({width:390,height:844});
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Learning panel mobile overflow');
+ await page.setViewportSize({width:1440,height:960});
  await page.getByRole('button',{name:'Ринок і сценарії',exact:true}).click();
  await page.getByRole('heading',{name:'Ринок · історія та сценарії'}).waitFor();
  await page.route('**/api/market/chart?*',route=>route.fulfill({json:{
@@ -105,7 +113,7 @@ try{
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Mobile horizontal overflow');
  await page.screenshot({path:'data/browser-smoke-mobile.png',fullPage:true});
  assert.deepEqual(errors,[]);
- console.log(JSON.stringify({passed:true,checks:['project selection','source add/pause/delete','escaped external text','historical progress','agent queue','interactive chart','mobile overflow'],db}));
+ console.log(JSON.stringify({passed:true,checks:['project selection','source add/pause/delete','escaped external text','historical progress','agent queue','automatic memory settings persistence','interactive chart','mobile overflow'],db}));
 }finally{
  await browser?.close();
  child.kill();

@@ -1,0 +1,17 @@
+{
+  "checked_on": "2026-10-09",
+  "project_id": 1446,
+  "source_url": "https://incrypted.com/hertzflow-testnet/",
+  "source_sha256": "fed740a794eb8556608d914d56b5fd823bdbc8fd4b26dfefc549edafa8799753",
+  "model": "qwen3:4b-instruct",
+  "seconds": 309.52,
+  "requirements_with_exact_quotes": 3,
+  "campaign_plan_generated": false,
+  "review_changes": [
+    "Український опис відредаговано для читабельності.",
+    "Ступінь обов’язковості кроків змінено на unknown: гайд не доводить критерії отримання нагороди."
+  ],
+  "fine_tuning_eligible": false,
+  "weight_training_performed": false,
+  "evaluation": "single saved article; no accuracy or speed generalization"
+}

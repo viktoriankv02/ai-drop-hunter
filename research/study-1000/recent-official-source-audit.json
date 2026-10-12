@@ -1,0 +1,1829 @@
+[
+  {
+    "project": "AlienX",
+    "url": "https://alienxchain.io/claim-aix",
+    "retrieved_at": "2026-10-03T15:44:33.607334+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\1c3c52167374f99f0865.json",
+    "http_status": 200,
+    "final_url": "https://alienxchain.io/claim-aix",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 323,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop"
+    ],
+    "text_sha256": "bd071e8309aa2ddf83315781f70943cd17dc6563c22e9d9aa6cb14cbfe0fdc21"
+  },
+  {
+    "project": "Amnis Finance",
+    "url": "https://docs.amnis.finance/amnis-protocol/events/amnis-retroactive-airdrop",
+    "retrieved_at": "2026-10-03T15:44:28.660832+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\0fc03bb2496a390cddd9.json",
+    "http_status": 200,
+    "final_url": "https://docs.amnis.finance/amnis-protocol/events/amnis-retroactive-airdrop",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 1337,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "claim"
+    ],
+    "text_sha256": "e3c0f3cc87ad5dc150015282b24371f984c5065b8be1a44caa6f531a2e58bf3e"
+  },
+  {
+    "project": "Anime Azuki",
+    "url": "https://dune.com/entropy_advisors/anime-airdrop-analysis",
+    "retrieved_at": "2026-10-03T15:44:30.620572+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\ccf25bb72eaaa6fcda46.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "Antcore",
+    "url": "https://antcore.finance",
+    "retrieved_at": "2026-10-03T15:44:30.532142+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\d7dd7f7385358ba318d7.json",
+    "http_status": 200,
+    "final_url": "https://expireddomains.com/domain/antcore.finance?utm_source=redi",
+    "content_type": "text/html; charset=UTF-8",
+    "characters": 2753,
+    "project_name_match": true,
+    "reward_terms": [
+      "claim",
+      "snapshot"
+    ],
+    "text_sha256": "e8edb233b7edff2a5d5f682dfb7a37dfeabbc86041a30ba32a03067359f25c4f"
+  },
+  {
+    "project": "Anzen",
+    "url": "https://anzen.finance/anzen-airdrop-overview",
+    "retrieved_at": "2026-10-03T15:44:32.061669+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\b948e7669470fa5c8b13.json",
+    "http_status": 200,
+    "final_url": "https://anzen.finance/anzen-airdrop-overview",
+    "content_type": "text/html",
+    "characters": 5023,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "reward",
+      "vesting"
+    ],
+    "text_sha256": "19e8abd9147fcecb64aa1b91f5d310c20525a892d0ec0d84d7b75c42b0d00d04"
+  },
+  {
+    "project": "ArcadiaFi",
+    "url": "https://arcadiafinance.medium.com/points-season-2-rewards-and-loyalty-2808cc212961",
+    "retrieved_at": "2026-10-03T15:44:27.476534+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\b7bde79dc9c3441f4bdb.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Artela Network",
+    "url": "https://artela.network/blog/artela-airdrop-explore-your-art-allocation-step-into-the-fully-on-chain-ai-future",
+    "retrieved_at": "2026-10-03T15:44:24.841399+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\6c1b6bb0437143c80f5d.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "Avalanche",
+    "url": "https://www.avax.network/blog/avalanche-foundation-the-community-airdrop",
+    "retrieved_at": "2026-10-03T15:44:31.500362+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\da7fbffa3ec3d0fe9c24.json",
+    "http_status": 200,
+    "final_url": "https://www.avalanche.com/about/blog/avalanche-foundation-the-community-airdrop",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 6886,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "reward"
+    ],
+    "text_sha256": "64151c52b73dd37ab398daea9cd38d4dd4692856b836dc92417ba974924238c7"
+  },
+  {
+    "project": "Avalon Labs",
+    "url": "https://medium.com/@avalonlabs/avl-tge-claim-your-airdrop-now-6b09957af071",
+    "retrieved_at": "2026-10-03T15:44:30.360993+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\ca4c2347b99df6dfa3da.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Balance",
+    "url": "https://mirror.xyz/0x6F7ce819004184B358E4A0670f6Cd95d1BE0febb/oBummT5_FJlXCmPoTh_Qk_z4kkcXT9q9RvjhYMLS0-w",
+    "retrieved_at": "2026-10-03T15:44:27.248181+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\d08d0101f5ab5721157d.json",
+    "http_status": 200,
+    "final_url": "https://paragraph.com/@balance-foundation/zsgQktjciKQhPBcpILoA",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 4135,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward"
+    ],
+    "text_sha256": "90605d5748d03df6a56bc97b0d431d49e98402361a34ed4f21e013879805050d"
+  },
+  {
+    "project": "Bedrock",
+    "url": "https://docs.bedrockdao.com/governance/usdbr-airdrop/airdrop-season-1",
+    "retrieved_at": "2026-10-03T15:44:29.097152+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\08c82938d25ce70c542e.json",
+    "http_status": 200,
+    "final_url": "https://docs.bedrockdao.com/governance/usdbr-airdrop/airdrop-season-1",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 3594,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot",
+      "vesting"
+    ],
+    "text_sha256": "30770a507ef7c869a294d2ef19b9ca6b2a225efcd06934cbb85517e73881fa0c"
+  },
+  {
+    "project": "Bluefin",
+    "url": "https://learn.bluefin.io/bluefin/bluefin-airdrop/bluefin-airdrop-explained",
+    "retrieved_at": "2026-10-03T15:44:32.838513+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\a5ad44671c6118ad5b66.json",
+    "http_status": 200,
+    "final_url": "https://learn.bluefin.io/bluefin/bluefin-airdrop/bluefin-airdrop-explained",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 5941,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "reward",
+      "vesting"
+    ],
+    "text_sha256": "8a629bc2e5abf3c8cfae54880dade5860188f9bbe66474450f6c712a3a5a87b6"
+  },
+  {
+    "project": "BOOP",
+    "url": "https://docs.boop.fun/airdrops",
+    "retrieved_at": "2026-10-03T15:44:26.933491+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\bfe2a1ea6270dde1cd33.json",
+    "http_status": 200,
+    "final_url": "https://docs.boop.fun/airdrops",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 2852,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "claim",
+      "reward",
+      "snapshot"
+    ],
+    "text_sha256": "a335ce5844c33cc3eb4625d57766e28d7f2bfd0a7bac563e4dcdc1ff7d10df30"
+  },
+  {
+    "project": "BSX Labs",
+    "url": "https://docs.bsx.exchange/bsx-docs/usdbsx/bsx-airdrop-complete-guide",
+    "retrieved_at": "2026-10-03T15:44:31.239983+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\b0b1443c76430b1d75b5.json",
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+  },
+  {
+    "project": "Bubblemaps",
+    "url": "https://blog.bubblemaps.io/its-official-the-incoming-token/",
+    "retrieved_at": "2026-10-03T15:44:29.329227+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\aa884d4b564c52648778.json",
+    "http_status": 200,
+    "final_url": "https://blog.bubblemaps.io/its-official-the-incoming-token/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 2878,
+    "project_name_match": true,
+    "reward_terms": [],
+    "text_sha256": "914cc893ce81b6a20929aa13caaad6775a80649c2699928fe6a0b11ed6078a61"
+  },
+  {
+    "project": "BUCKET Protocol",
+    "url": "https://medium.com/@bucketprotocol/bucket-token-but-tokenomics-3d19a3213b34",
+    "retrieved_at": "2026-10-03T15:44:31.238274+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\bee28db78a003d047752.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Burnt (XION)",
+    "url": "https://xion.burnt.com/blog/xion-airdrop-believe-in-something-the-first-spark",
+    "retrieved_at": "2026-10-03T15:44:32.690219+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\d9b8739252551c8f7ff7.json",
+    "http_status": 200,
+    "final_url": "https://verona.dev/",
+    "content_type": "text/html",
+    "characters": 6,
+    "project_name_match": false,
+    "reward_terms": [],
+    "text_sha256": "33eea7315e3e7e921cdb2cb3a2964311296c82eb6e58f83c4c96a6a941761005"
+  },
+  {
+    "project": "Carv.io",
+    "url": "https://medium.com/%40Carv/carv-s1-airdrop-frequently-asked-question-a10a73757706",
+    "retrieved_at": "2026-10-03T15:44:33.716251+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\aad56c9b925ef66ce812.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "CreatorBid",
+    "url": "https://creator.bid/",
+    "retrieved_at": "2026-10-03T15:44:30.620192+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\c0a4b3319771277928f8.json",
+    "http_status": 200,
+    "final_url": "https://creator.bid/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 179,
+    "project_name_match": true,
+    "reward_terms": [],
+    "text_sha256": "0bac33b3421fa695a0200bf88f73646c90f4f02fc8ac9234c3d6d454f6bd205d"
+  },
+  {
+    "project": "deBridge",
+    "url": "https://docs.debridge.foundation/",
+    "retrieved_at": "2026-10-03T15:44:33.621216+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\3512181cfe16558c8635.json",
+    "http_status": 200,
+    "final_url": "https://docs.debridge.foundation/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 1123,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "snapshot"
+    ],
+    "text_sha256": "6081529e4a9a95c4d699ffec6672bf24ee337c091b9f74566f595e8c255e0eaa"
+  },
+  {
+    "project": "Defi App",
+    "url": "https://docs.defi.app/knowledge-base/home-token/tokenomics",
+    "retrieved_at": "2026-10-03T15:44:24.843206+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\9be205adeb04c8044254.json",
+    "http_status": 200,
+    "final_url": "https://docs.defi.app/knowledge-base/home-token/tokenomics",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 5449,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligible",
+      "reward",
+      "vesting"
+    ],
+    "text_sha256": "a7b27b8ce88ccd4453527b020d83a894d1746207a65db424ee10ec231f9d4b04"
+  },
+  {
+    "project": "DefinitiveFi",
+    "url": "https://docs.definitive.fi/platform/edge-token-airdrop",
+    "retrieved_at": "2026-10-03T15:44:29.253317+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\eaf1d4ac6a261716cb61.json",
+    "http_status": 200,
+    "final_url": "https://docs.definitive.fi/edge/edge-token/airdrop",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 6089,
+    "project_name_match": false,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward"
+    ],
+    "text_sha256": "34c0787ed5de928fd9e390f1bdebc1cd74409b9193fdfc93366dd960cc876119"
+  },
+  {
+    "project": "DeLorean",
+    "url": "https://deloreanlabs.com",
+    "retrieved_at": "2026-10-03T15:44:24.839419+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\4c70203a59ff62c4ec2f.json",
+    "http_status": 200,
+    "final_url": "https://deloreanlabs.com",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 13,
+    "project_name_match": true,
+    "reward_terms": [],
+    "text_sha256": "54091d5d566e8030905941c57ca040cf4e00e062fb96a38fa565fb1be278c70e"
+  },
+  {
+    "project": "Derive",
+    "url": "https://derive.xyz/airdrop",
+    "retrieved_at": "2026-10-03T15:44:31.123788+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\a304fc3c4809925b45f7.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "DexGuru",
+    "url": "https://gov.gurunetwork.ai/t/proposal-003-guru-ecosystem-incentivization-airdrop-mechanism/34",
+    "retrieved_at": "2026-10-03T15:44:32.897553+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\2c68d9e85275c63c0e24.json",
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+  },
+  {
+    "project": "DOLO (Dolomite)",
+    "url": "https://docs.dolomite.io/dolo/airdrop",
+    "retrieved_at": "2026-10-03T15:44:27.058045+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\fe666d70f8147b5f92ae.json",
+    "http_status": 200,
+    "final_url": "https://docs.dolomite.io/dolo/airdrop",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 4397,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot"
+    ],
+    "text_sha256": "66834ee39df12e8a876a69f575e797e7aa05ddac92b1d5929bbfb736d4d8111e"
+  },
+  {
+    "project": "Doodles",
+    "url": "https://dreamnet.doodles.app/tokenomics/distribution-and-value-alignment",
+    "retrieved_at": "2026-10-03T15:44:26.740422+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\9769796b3ef6d5225a41.json",
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+  },
+  {
+    "project": "Elixir",
+    "url": "https://claim.elixir.xyz",
+    "retrieved_at": "2026-10-03T15:44:29.637418+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\840330b64eb84160ff7a.json",
+    "error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+  },
+  {
+    "project": "Elys",
+    "url": "https://elysnetwork.medium.com/elys-networks-january-2024-update-testnet-airdrop-and-more-f842f7452a20",
+    "retrieved_at": "2026-10-03T15:44:31.811532+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\a44fafd86e85cf24a00e.json",
+    "http_status": 200,
+    "final_url": "https://elysnetwork.medium.com/elys-networks-january-2024-update-testnet-airdrop-and-more-f842f7452a20",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 3911,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "eligibility",
+      "reward",
+      "vesting"
+    ],
+    "text_sha256": "91d34cba678b9c636fb95b896277513ee38e37b35acdfb2ccba6a2bc27447c21"
+  },
+  {
+    "project": "Fly",
+    "url": "http://app.fly.trade/fly",
+    "retrieved_at": "2026-10-03T15:44:25.664305+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\5988ed57ac2827952c3e.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Fyde",
+    "url": "https://docs.fyde.fi/overview/usdfyde-season-2-airdrop",
+    "retrieved_at": "2026-10-03T15:44:33.783058+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\4b716f5f8060861dc17b.json",
+    "http_status": 200,
+    "final_url": "https://docs.fyde.fi/overview/usdfyde-season-2-airdrop",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 2268,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "eligible",
+      "reward",
+      "vesting"
+    ],
+    "text_sha256": "7f847d611269d5bdbb567355fde75a60962fcc4c678d528da618ee13c5786583"
+  },
+  {
+    "project": "Giza",
+    "url": "https://gizatech.xyz/blog/giza-airdrop",
+    "retrieved_at": "2026-10-03T15:44:26.183407+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\c8aab7df90019ee2c12d.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "GooDog",
+    "url": "https://docs.goodog.io/ignition",
+    "retrieved_at": "2026-10-03T15:44:28.658903+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\aaebeefdaa40d49d5696.json",
+    "http_status": 200,
+    "final_url": "https://docs.goodog.io/ignition",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 1454,
+    "project_name_match": true,
+    "reward_terms": [
+      "claim",
+      "reward",
+      "snapshot"
+    ],
+    "text_sha256": "8d41b8c5537019ff420af77e64ad18f091fd38c0775d4b5b28085af0ae1f3c87"
+  },
+  {
+    "project": "GPUnet",
+    "url": "https://docs.gpu.net/usdgpu-token-launch",
+    "retrieved_at": "2026-10-03T15:44:25.894117+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\23801f238324deca3d5a.json",
+    "http_status": 200,
+    "final_url": "https://docs.gpu.net/usdgpu-token-launch",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 3138,
+    "project_name_match": false,
+    "reward_terms": [
+      "allocation",
+      "reward",
+      "token distribution"
+    ],
+    "text_sha256": "9d26597b57f0954b34ffdb93ecb7072c5527983b32bce414b93767c0cd1f0571"
+  },
+  {
+    "project": "Gyroscope Protocol",
+    "url": "https://docs.gyro.finance/governance/gyfi-tokenomics",
+    "retrieved_at": "2026-10-03T15:44:28.884089+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\9ab8104619a25dbc1d8b.json",
+    "http_status": 200,
+    "final_url": "https://docs.gyro.finance/governance/gyfi-tokenomics",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 2825,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "snapshot",
+      "vesting"
+    ],
+    "text_sha256": "497a86879ef20d69e4422b978266e416035e10a7a30fe0dac5e82d7aa9f433c3"
+  },
+  {
+    "project": "Haedal Protocol",
+    "url": "https://medium.com/@haedal/haedal-airdrop-is-here-a-gift-to-the-sui-ecosystem-f53ebaed792f",
+    "retrieved_at": "2026-10-03T15:44:26.934432+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\9ea3a5fcf61f167601c7.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Henlo",
+    "url": "https://paragraph.xyz/@henlo/henlo-tokenomics",
+    "retrieved_at": "2026-10-03T15:44:29.774672+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\edcdbc09b1a1cfe252fe.json",
+    "http_status": 200,
+    "final_url": "https://paragraph.com/@henlo/henlo-tokenomics",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 3399,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "token distribution",
+      "vesting"
+    ],
+    "text_sha256": "41e5e7632a2c933b814c68a0c46e3a5454a6fc11de16c48d653b3928c53253cf"
+  },
+  {
+    "project": "Huma Finance",
+    "url": "https://huma.finance/",
+    "retrieved_at": "2026-10-03T15:44:26.170612+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\3227b5ecc5ae564e18a1.json",
+    "http_status": 200,
+    "final_url": "https://huma.finance/",
+    "content_type": "text/html",
+    "characters": 7839,
+    "project_name_match": true,
+    "reward_terms": [],
+    "text_sha256": "c74fe2630e356e542498265b7d12c71047fb592c4d16065059073fd560b5c1dd"
+  },
+  {
+    "project": "Humanity",
+    "url": "https://www.humanity.org/blog/h-is-here-introducing-the-first-ever-fairdrop",
+    "retrieved_at": "2026-10-03T15:44:24.838388+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\91c17cbf0b03ac132612.json",
+    "http_status": 200,
+    "final_url": "https://www.humanity.org/blog/h-is-here-introducing-the-first-ever-fairdrop",
+    "content_type": "text/html",
+    "characters": 7405,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "token distribution"
+    ],
+    "text_sha256": "8c83dffa01ca3daa6a73545e20c5d34de50ff98277c8b84ab9cef806d39adaac"
+  },
+  {
+    "project": "Hyperlane",
+    "url": "http://claim.hyperlane.foundation",
+    "retrieved_at": "2026-10-03T15:44:27.628764+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\7ea4bb0fb29e54608b86.json",
+    "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1082)>"
+  },
+  {
+    "project": "idriss",
+    "url": "https://docs.idriss.xyz/idriss-token/retroactive-distribution",
+    "retrieved_at": "2026-10-03T15:44:31.360558+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\384f22b2bf356ac1c1d7.json",
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+  },
+  {
+    "project": "Immortal Rising 2",
+    "url": "https://airdrop.immortalrising2.com",
+    "retrieved_at": "2026-10-03T15:44:27.792430+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\a824aee02e0074364657.json",
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+  },
+  {
+    "project": "Initia",
+    "url": "https://kaito.ai/",
+    "retrieved_at": "2026-10-03T15:44:26.935146+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\fa60dadb5e096f10df30.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Kaito",
+    "url": "https://docs.kaito.ai/introducing-usdkaito/tokenomics",
+    "retrieved_at": "2026-10-03T15:44:30.113592+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\daaa0ec270c07a71f4db.json",
+    "http_status": 200,
+    "final_url": "https://docs.kaito.ai/overview/introducing-usdkaito/tokenomics",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 7540,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "reward",
+      "token distribution",
+      "vesting"
+    ],
+    "text_sha256": "9bdc56f2e93522ec1a5586489803d9a12cf267e77750c0bac83eebbeeff55fd6"
+  },
+  {
+    "project": "KelpDAO",
+    "url": "https://blogs.kerneldao.com/blog/kernel-airdrop-early-checker-is-live",
+    "retrieved_at": "2026-10-03T15:44:28.086768+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\760efe86905bb2724964.json",
+    "http_status": 200,
+    "final_url": "https://blogs.kerneldao.com/blog/kernel-airdrop-early-checker-is-live",
+    "content_type": "text/html",
+    "characters": 4308,
+    "project_name_match": false,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "token distribution"
+    ],
+    "text_sha256": "2507a91095c30faee2e2d9dcad4dfe5d42bbd79998e97966f5d5835575ba5f14"
+  },
+  {
+    "project": "Kiloex",
+    "url": "https://docs.kiloex.io/kiloex/airdrop-and-reward/airdrop-pioneer-season",
+    "retrieved_at": "2026-10-03T15:44:27.971587+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\530b9d89ed24b572ef63.json",
+    "http_status": 200,
+    "final_url": "https://docs.kiloex.io/kiloex/airdrop-and-reward/airdrop-pioneer-season",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 6414,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot"
+    ],
+    "text_sha256": "e3d3bcedf7999bb9b47666f24d50239f31107fe0186f6b38ab7df955e118191d"
+  },
+  {
+    "project": "KINTO",
+    "url": "https://medium.com/mamori-finance/airdrop-season-one-momiji-8aee69b665a1",
+    "retrieved_at": "2026-10-03T15:44:27.705517+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\03c517cc2524a79f0a72.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "KIP",
+    "url": "https://www.kip.pro/blog-posts/kip-tokenomics",
+    "retrieved_at": "2026-10-03T15:44:32.303814+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\0fa1cda03a587b000c50.json",
+    "http_status": 200,
+    "final_url": "https://www.kip.pro/blog-posts/kip-tokenomics",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 6424,
+    "project_name_match": false,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "reward",
+      "token distribution",
+      "vesting"
+    ],
+    "text_sha256": "8de19fc4c7cf28a0ceae16ad329b2265f32d63711f05e0a13b91d0437c95388f"
+  },
+  {
+    "project": "Kontos",
+    "url": "https://docs.kontos.io/explore-kontos/events/kontos-airdrop",
+    "retrieved_at": "2026-10-03T15:44:32.815778+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\3ea8a827d350c2b9a713.json",
+    "error": "URLError: <urlopen error [SSL: TLSV1_UNRECOGNIZED_NAME] tlsv1 unrecognized name (_ssl.c:1082)>"
+  },
+  {
+    "project": "Kroma",
+    "url": "https://blog.kroma.network/kromas-first-airdrop-a-token-of-appreciation-for-our-community-65f8acaf8776",
+    "retrieved_at": "2026-10-03T15:44:33.444242+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\a4657050bedf8f2de5a1.json",
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+  },
+  {
+    "project": "Lagrange",
+    "url": "https://www.lagrangefoundation.org/blog/introducing-the-lagrange-token",
+    "retrieved_at": "2026-10-03T15:44:25.829232+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\d2406e3f14b416a3480b.json",
+    "http_status": 200,
+    "final_url": "https://www.lagrangefoundation.org/blog/introducing-the-lagrange-token",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 5168,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "reward",
+      "token distribution"
+    ],
+    "text_sha256": "ffca550dedbaaa80784a0c3e5e156a3112f83e909de00b4bd103cb3f776221d4"
+  },
+  {
+    "project": "Lisk",
+    "url": "https://lisk.com/blog/posts/lisk-lsk-airdrop/",
+    "retrieved_at": "2026-10-03T15:44:28.786689+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\850e657cd45738ea7c37.json",
+    "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1082)>"
+  },
+  {
+    "project": "Loomlay",
+    "url": "http://loomlay.com/claim",
+    "retrieved_at": "2026-10-03T15:44:31.180282+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\aa47bd06e8308668b641.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "LoopedHYPE",
+    "url": "https://loopedhype.com/airdrop-registration",
+    "retrieved_at": "2026-10-03T15:44:26.108340+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\beeab60e1647d578417d.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Lumoz",
+    "url": "https://lumoz.org/airdrop",
+    "retrieved_at": "2026-10-03T15:44:32.689846+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\43f663bd08563cfbcac7.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Magic Eden",
+    "url": "https://help.magiceden.io/en/articles/10953399-me-airdrop-faq-season-1-quests",
+    "retrieved_at": "2026-10-03T15:44:27.271953+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\88cf3e1521abd2ae96c7.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Mango Network",
+    "url": "https://mangonet.io/",
+    "retrieved_at": "2026-10-03T15:44:24.837312+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\5981ffd607ca86ce3317.json",
+    "http_status": 200,
+    "final_url": "https://mangonet.io/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 2901,
+    "project_name_match": true,
+    "reward_terms": [],
+    "text_sha256": "3d7768e95d035c63e993e4e8b54150551f9fe6bc76215b250f73f1a990144555"
+  },
+  {
+    "project": "MapleStory NEXPACE",
+    "url": "https://medium.com/maplestory-universe/press-release-nexpace-launches-maplestory-n-and-nxpc-token-charting-a-new-chapter-for-6076e8af7627",
+    "retrieved_at": "2026-10-03T15:44:26.400877+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\d3e7e24f198c95796537.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Merlin Chain",
+    "url": "https://medium.com/@merlinchaincrypto/introducing-merlin-chain-token-merl-376fe43f180d",
+    "retrieved_at": "2026-10-03T15:44:26.173284+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\48c9ab8233ba2ea95a5a.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "MilkyWay",
+    "url": "https://milk.xyz/airdrop",
+    "retrieved_at": "2026-10-03T15:44:27.104684+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\936fcb1ac8b4967baebd.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "Mind Network",
+    "url": "https://mindnetwork.medium.com/mind-network-airdrop-188ff3d78fa5",
+    "retrieved_at": "2026-10-03T15:44:27.463000+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\e4c130084d2be7b70678.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Mint Blockchain",
+    "url": "https://www.mintchain.io/airdrop/claim",
+    "retrieved_at": "2026-10-03T15:44:29.564076+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\a4b51120fb3226bc994d.json",
+    "http_status": 200,
+    "final_url": "https://www.mintchain.io/airdrop/claim",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 460,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "claim",
+      "eligible"
+    ],
+    "text_sha256": "8d865383e1b5a9f8300cb14c1cef0fb6e0788fccdcd0586a1bb9c85409e3b12e"
+  },
+  {
+    "project": "Movement",
+    "url": "https://www.movementnetwork.xyz/article/movement-network-foundation-movedrop-move-token",
+    "retrieved_at": "2026-10-03T15:44:32.341746+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\c4e78caaf932132579cd.json",
+    "http_status": 200,
+    "final_url": "https://www.movementnetwork.xyz/article/movement-network-foundation-movedrop-move-token",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 6027,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot"
+    ],
+    "text_sha256": "f061c195ba7faa166ab6272dec14b731fda32dc0d1805998b6564542669bdccc"
+  },
+  {
+    "project": "Newton Protocol",
+    "url": "https://blog.newt.foundation/newt-token-airdrop/",
+    "retrieved_at": "2026-10-03T15:44:24.835702+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\ce4de7d39547d8347280.json",
+    "http_status": 200,
+    "final_url": "https://blog.newton.xyz/newt-token-airdrop/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 4915,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "claim",
+      "eligibility",
+      "eligible"
+    ],
+    "text_sha256": "7d6880c8679cea424dc0c5be91fbd2263f944a0745774fbf6d9884f443d621e6"
+  },
+  {
+    "project": "Nillion",
+    "url": "https://nillion.com/news/nillion-airdrop-is-here/",
+    "retrieved_at": "2026-10-03T15:44:28.416418+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\eca2376d9cabe319c794.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "Nodepay",
+    "url": "https://docs.nodepay.ai/nodepay-introduction/nodecoin/nodepay-airdrop-one",
+    "retrieved_at": "2026-10-03T15:44:31.057976+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\d272db74ecbd622ed548.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "Not Pixel",
+    "url": "https://telegra.ph/Not-Pixel-FAQs-01-07",
+    "retrieved_at": "2026-10-03T15:44:30.748973+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\7910e97554d4a2d44844.json",
+    "http_status": 200,
+    "final_url": "https://telegra.ph/Not-Pixel-FAQs-01-07",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 4964,
+    "project_name_match": true,
+    "reward_terms": [
+      "reward"
+    ],
+    "text_sha256": "b5b8be9e01bd94fccd0ec224e61d5babc91210749c882fc8c7d6f0ba3c664c65"
+  },
+  {
+    "project": "NX Finance",
+    "url": "https://nx-finance.gitbook.io/nx-finance-whitepaper/welcome-to-nx-finance/airdrop",
+    "retrieved_at": "2026-10-03T15:44:33.418705+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\14b1a2d9cfa8957b2a29.json",
+    "http_status": 200,
+    "final_url": "https://nx-finance.gitbook.io/nx-finance-whitepaper/welcome-to-nx-finance/airdrop",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 1711,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "reward",
+      "token distribution"
+    ],
+    "text_sha256": "733783142aeec2d6eb6c78566bb7d0f8302af0964d52818d07dcbd51531ea804"
+  },
+  {
+    "project": "Obol Collective",
+    "url": "https://blog.obol.org/airdrop/",
+    "retrieved_at": "2026-10-03T15:44:31.010367+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\a4495b5096ec5c9a19bf.json",
+    "http_status": 200,
+    "final_url": "https://blog.obol.org/airdrop/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 15824,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot",
+      "token distribution"
+    ],
+    "text_sha256": "3af05003a9830e98ccc71e7d8f6e36b64d0a61a44b5d77f239a6c8cd06a4b3df"
+  },
+  {
+    "project": "Odos Protocol",
+    "url": "https://docs.odos.xyz/home/loyalty/",
+    "retrieved_at": "2026-10-03T15:44:32.044063+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\0892bdcc077cff5ad14f.json",
+    "error": "HTTPError: HTTP Error 530: <none>"
+  },
+  {
+    "project": "Ooga Booga",
+    "url": "https://app.oogabooga.io/airdrop",
+    "retrieved_at": "2026-10-03T15:44:27.573739+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\dcaaeafe76c23378b4f0.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "ORA Coin",
+    "url": "https://foundation.ora.io/app/airdrop",
+    "retrieved_at": "2026-10-03T15:44:32.815014+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\9583438f7d98e6da9032.json",
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+  },
+  {
+    "project": "Orbiter",
+    "url": "https://orbiter-finance.medium.com/obtokenomics-and-airdrop-eligibility-guide-3549dd00807a",
+    "retrieved_at": "2026-10-03T15:44:31.044857+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\b7f42a3236cbd150eae0.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Overprotocol",
+    "url": "https://medium.com/overprotocol/overprotocol-who-is-eligible-for-airdrop-2-63a754909e50",
+    "retrieved_at": "2026-10-03T15:44:31.957964+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\ed47048f5b2718d07fc5.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Particle Network",
+    "url": "https://blog.particle.network/parti-airdrop/",
+    "retrieved_at": "2026-10-03T15:44:28.088008+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\fc334bd783851199269e.json",
+    "http_status": 200,
+    "final_url": "https://blog.particle.network/parti-airdrop/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 7403,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward"
+    ],
+    "text_sha256": "b8cc068308a1e2f5003cc54622cf768473b789ba8281ce9de9f13af41684ead9"
+  },
+  {
+    "project": "Peaq",
+    "url": "https://www.peaq.network/blog/the-peaq-token-launch-all-you-need-to-know",
+    "retrieved_at": "2026-10-03T15:44:29.307819+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\ddfc45b55ef883b596d4.json",
+    "http_status": 200,
+    "final_url": "https://www.peaq.xyz/blog/the-peaq-token-launch-all-you-need-to-know",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 7922,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "eligible",
+      "reward",
+      "vesting"
+    ],
+    "text_sha256": "18f67b34683ad7ced31d5af5d0af6c908e7fd21154c45e5ab2c9659f6cb5d92e"
+  },
+  {
+    "project": "Pell Network",
+    "url": "https://docs.pell.network/pell-tokenomics",
+    "retrieved_at": "2026-10-03T15:44:29.252961+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\950de0cd9c44b990f05c.json",
+    "http_status": 200,
+    "final_url": "https://docs.pell.network/pell-tokenomics",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 11952,
+    "project_name_match": true,
+    "reward_terms": [
+      "allocation",
+      "claim",
+      "reward",
+      "token distribution",
+      "vesting"
+    ],
+    "text_sha256": "ef27b04b1ba22a169a88f014689b3f2e1498dfaf5b1c7dbe77283a122b0ce1f9"
+  },
+  {
+    "project": "Pi Network",
+    "url": "https://minepi.com/blog/open-network-launch-date/",
+    "retrieved_at": "2026-10-03T15:44:29.988020+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\4e0b07e0699abcc39600.json",
+    "http_status": 200,
+    "final_url": "https://minepi.com/blog/open-network-launch-date/",
+    "content_type": "text/html; charset=UTF-8",
+    "characters": 9347,
+    "project_name_match": true,
+    "reward_terms": [
+      "eligible",
+      "reward"
+    ],
+    "text_sha256": "f59f11f92a4b3f83d260b0826f39a94ba70e3d7714fd8f1292f50d1e57329d34"
+  },
+  {
+    "project": "Piggy Superform",
+    "url": "https://www.superform.xyz/piggy/claim/",
+    "retrieved_at": "2026-10-03T15:44:33.084791+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\d481ec515bba8a02551b.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "Privasea AI",
+    "url": "https://airdrop.privasea.ai",
+    "retrieved_at": "2026-10-03T15:44:26.483003+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\41588b09d2fe0299b8f6.json",
+    "http_status": 200,
+    "final_url": "https://airdrop.privasea.ai",
+    "content_type": "text/html",
+    "characters": 7,
+    "project_name_match": false,
+    "reward_terms": [],
+    "text_sha256": "18850821f6bc72c1a2e394804f0b07f84b9960e2f4a8bf09cefa4fcb93b078db"
+  },
+  {
+    "project": "Pudgy Penguins",
+    "url": "https://claim.pudgypenguins.com",
+    "retrieved_at": "2026-10-03T15:44:31.637704+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\1d6fe8dbf9f2f04bb88c.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Puffer Finance",
+    "url": "https://medium.com/puffer-fi/puffer-tokenomics-utility-c789352629e6",
+    "retrieved_at": "2026-10-03T15:44:33.622582+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\837118050ed609e6d89a.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Puffverse (PFVS)",
+    "url": "https://medium.com/@Puffverse/puffgo-official-league-season-is-ready-together-with-the-pfvs-tge-584f2e2b37fa",
+    "retrieved_at": "2026-10-03T15:44:26.048652+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\f7643d613294da417d25.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "PumpBTC",
+    "url": "https://airdrop.pumpbtc.xyz",
+    "retrieved_at": "2026-10-03T15:44:26.789032+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\89517da0c29793b1a294.json",
+    "error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+  },
+  {
+    "project": "Quai",
+    "url": "https://qu.ai/blog/announcing-the-quai-network-claims-page/",
+    "retrieved_at": "2026-10-03T15:44:29.842169+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\678bde754d0d9b949b5c.json",
+    "http_status": 200,
+    "final_url": "https://www.qu.ai/blog/announcing-the-quai-network-claims-page",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 8333,
+    "project_name_match": true,
+    "reward_terms": [
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "vesting"
+    ],
+    "text_sha256": "b552dae648ba81645284e0c593311af2697fcc6a2f06634a68305219c9c99c0a"
+  },
+  {
+    "project": "Redacted (RDAC)",
+    "url": "https://claim.redactedgroup.io",
+    "retrieved_at": "2026-10-03T15:44:26.539376+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\029445019dd53023870f.json",
+    "http_status": 200,
+    "final_url": "https://claim.redactedgroup.io",
+    "content_type": "text/html",
+    "characters": 8,
+    "project_name_match": true,
+    "reward_terms": [],
+    "text_sha256": "25b296232b73a941b4ad43ee8e81d3027fe25b7a7d611bd5d0d0dcd4f4abb6cb"
+  },
+  {
+    "project": "Redbrick",
+    "url": "https://medium.com/redbrick-official/redbrick-airdrop-guide-e13e2071e9b9",
+    "retrieved_at": "2026-10-03T15:44:24.840445+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\41a9f58fd7dcabc77a10.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Reddio",
+    "url": "https://docs.reddio.com/zkevm/tokeneconomy/tokendistribution",
+    "retrieved_at": "2026-10-03T15:44:25.894981+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\b65b601d33007abd65d7.json",
+    "http_status": 200,
+    "final_url": "https://docs.reddio.com/zkevm/tokeneconomy/tokendistribution",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 3065,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "reward",
+      "token distribution",
+      "vesting"
+    ],
+    "text_sha256": "5fb153cca7fb0b6fef97b7be61dd89d5c0c224f07314f0655b2cfaff104a5967"
+  },
+  {
+    "project": "RedStone Oracles",
+    "url": "https://blog.redstone.finance/2025/02/12/introducing-red-tokenomics/",
+    "retrieved_at": "2026-10-03T15:44:29.524640+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\72836286d6e991a3fe61.json",
+    "http_status": 200,
+    "final_url": "https://www.redstone.finance/blog/introducing-red-tokenomics/",
+    "content_type": "text/html",
+    "characters": 17115,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "reward",
+      "token distribution",
+      "vesting"
+    ],
+    "text_sha256": "f56cfe00f7f5654c977f8c3c7a8ff8a0a9dc6b6b2fc49438f792e27e897a1a01"
+  },
+  {
+    "project": "Resolv",
+    "url": "https://claim.resolv.xyz",
+    "retrieved_at": "2026-10-03T15:44:25.923640+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\6dc65456d042113b6267.json",
+    "http_status": 200,
+    "final_url": "https://claim.resolv.xyz",
+    "content_type": "text/html",
+    "characters": 12,
+    "project_name_match": true,
+    "reward_terms": [
+      "claim"
+    ],
+    "text_sha256": "9666a02fe349ca03ffdf5f3be38461b7e9cc39cd3b8f9f2376e534d4f8c03a1a"
+  },
+  {
+    "project": "REVOX",
+    "url": "https://docs.revox.ai/tokenomics/tokenomics-v2#token-global-allocation",
+    "retrieved_at": "2026-10-03T15:44:26.295465+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\675f53bd65006b7c6617.json",
+    "http_status": 200,
+    "final_url": "https://docs.revox.ai/tokenomics/tokenomics-v2#token-global-allocation",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 4082,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "reward",
+      "vesting"
+    ],
+    "text_sha256": "a40566985a976b278c373d19009fac6a8e4447e27039390ebc8a416e5f657243"
+  },
+  {
+    "project": "RHEA Finance",
+    "url": "https://rhea.finance",
+    "retrieved_at": "2026-10-03T15:44:28.417621+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\6df1451333292576edbe.json",
+    "http_status": 200,
+    "final_url": "https://rhea.finance",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 8296,
+    "project_name_match": true,
+    "reward_terms": [
+      "reward"
+    ],
+    "text_sha256": "1d71e6ab5c1eaf4d465d680e9e12833cc7e1f95f472e6493e79d8521a41882e6"
+  },
+  {
+    "project": "Rivalz",
+    "url": "https://blog.rivalz.ai/rivalz-testnet-airdrop-celebrating-the-community/",
+    "retrieved_at": "2026-10-03T15:44:29.802278+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\63713a8fc4adeb4527b1.json",
+    "http_status": 200,
+    "final_url": "https://blog.rivalz.ai/rivalz-testnet-airdrop-celebrating-the-community/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 6930,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot"
+    ],
+    "text_sha256": "11ec70865e83997041b2b3842ffc9b6ea74c274511731719796df3c08cf4cf64"
+  },
+  {
+    "project": "Sahara AI",
+    "url": "https://saharaai.com/blog/sahara-token",
+    "retrieved_at": "2026-10-03T15:44:24.833883+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\3a0f3313e23f711a1ef6.json",
+    "http_status": 200,
+    "final_url": "https://saharaai.com/blog/sahara-token",
+    "content_type": "text/html",
+    "characters": 12862,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "eligibility",
+      "eligible",
+      "reward",
+      "token distribution",
+      "vesting"
+    ],
+    "text_sha256": "fe575490b19f699dd6fedcc5a83ec4c47899f759944876991c2358adda5837d2"
+  },
+  {
+    "project": "Side Protocol",
+    "url": "https://medium.com/%40SideProtocol/side-genesis-drop-3e0989d74628",
+    "retrieved_at": "2026-10-03T15:44:32.978870+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\214f5a0c1c0dbc0603a0.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Singularity Finance",
+    "url": "https://singularity.finance/rewards",
+    "retrieved_at": "2026-10-03T15:44:27.945249+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\e6ae9bf8052a21abfee0.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "Sirath",
+    "url": "https://docs.sirath.network/learn/tokenomics/vesting#community-incentive",
+    "retrieved_at": "2026-10-03T15:44:29.360676+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\6dc032f44704afd12b39.json",
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+  },
+  {
+    "project": "Skate",
+    "url": "https://claim.skatechain.org",
+    "retrieved_at": "2026-10-03T15:44:25.600846+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\547299a481b47154d168.json",
+    "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1082)>"
+  },
+  {
+    "project": "Solana Name Service",
+    "url": "https://docs.sns.id/collection/tokenomics/sns-token#usdsns-genesis-airdrop",
+    "retrieved_at": "2026-10-03T15:44:26.484186+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\b23028e9c2c0dcc2ee21.json",
+    "http_status": 200,
+    "final_url": "https://docs.sns.id/collection/tokenomics/sns-token#usdsns-genesis-airdrop",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 18938,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot",
+      "vesting"
+    ],
+    "text_sha256": "ab4294770ab561e7d01e2e385c17c4394f72f936134a4a37324bfacecb6a7dfb"
+  },
+  {
+    "project": "Solv Protocol",
+    "url": "https://solvprotocol.medium.com/solv-token-launch-a-step-towards-the-future-of-bitcoin-finance-5fb64a69220b",
+    "retrieved_at": "2026-10-03T15:44:30.468734+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\56b51849f400634f21c8.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Sonic Svm",
+    "url": "https://sonic.feather.blog/sonic-initial-claim-a-reward-for-the-community",
+    "retrieved_at": "2026-10-03T15:44:31.344558+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\46de93cf6a277956cf9f.json",
+    "http_status": 200,
+    "final_url": "https://sonic.feather.blog/sonic-initial-claim-a-reward-for-the-community",
+    "content_type": "text/html",
+    "characters": 5438,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot"
+    ],
+    "text_sha256": "d661f8589979c588b9f3251bb01429cf4ef3cd35e24db0332c760914ce0e253f"
+  },
+  {
+    "project": "SOON",
+    "url": "https://medium.com/@soon_SVM/simpfor-fun-v2-launch-with-soon-tokenomics-and-roadmap-bf69dfa15a7e",
+    "retrieved_at": "2026-10-03T15:44:26.078219+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\476f6ca020c8f7526f8b.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "SOPHON",
+    "url": "https://blog.sophon.xyz/soph-token-airdrop/",
+    "retrieved_at": "2026-10-03T15:44:25.909817+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\414a71fbc1e5817bead9.json",
+    "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'blog.sophon.xyz'. (_ssl.c:1082)>"
+  },
+  {
+    "project": "SoSoValue",
+    "url": "https://sosovalue.com",
+    "retrieved_at": "2026-10-03T15:44:30.469310+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\16a6d5cd1c5473729246.json",
+    "http_status": 200,
+    "final_url": "https://sosovalue.com",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 14780,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop"
+    ],
+    "text_sha256": "56c2bee24007df99332076ad53343aa00c4adfc3b09369a1506d1c35ee28d68b"
+  },
+  {
+    "project": "Space and Time",
+    "url": "https://blog.chain.link/chainlink-rewards-season-genesis/",
+    "retrieved_at": "2026-10-03T15:44:26.784288+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\ef8da1fd7865f6ffeca5.json",
+    "http_status": 200,
+    "final_url": "https://chain.link/blog/chainlink-rewards-season-genesis",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 25167,
+    "project_name_match": true,
+    "reward_terms": [
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot"
+    ],
+    "text_sha256": "01dbafc1f012e032c71fc914afcb2d94e47692f04ed5cfb17ec3deca271b7716"
+  },
+  {
+    "project": "StakeStone",
+    "url": "https://medium.com/@Stake_Stone_/stakestone-airdrop-deep-dive-96b7fb0976f3",
+    "retrieved_at": "2026-10-03T15:44:27.607791+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\2986d7cc62dad7342552.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Streamflow",
+    "url": "https://docs.streamflow.foundation/en/articles/10174556-dynamic-vested-airdrop",
+    "retrieved_at": "2026-10-03T15:44:32.455945+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\29896e5f10b77c7b010c.json",
+    "http_status": 200,
+    "final_url": "http://docs.streamflow.foundation/en/articles/10174556-price-based-vesting",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 3319,
+    "project_name_match": true,
+    "reward_terms": [
+      "allocation",
+      "reward",
+      "vesting"
+    ],
+    "text_sha256": "3fb9d5fd5fae84c1c35f47a90afc9f1f40a75acac84a4a0b07055dc15eb5195f"
+  },
+  {
+    "project": "Sui Name Service (SuiNS)",
+    "url": "http://claim.suins.io",
+    "retrieved_at": "2026-10-03T15:44:33.115306+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\3e8fd86bffc5242f021c.json",
+    "http_status": 200,
+    "final_url": "https://claim.suins.io/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 15,
+    "project_name_match": false,
+    "reward_terms": [
+      "claim"
+    ],
+    "text_sha256": "d245cdb312c58cc9991372e13979d55d47b42796a10c585683046dc4e40f5c3d"
+  },
+  {
+    "project": "Suilend",
+    "url": "https://docs.suilend.fi/send/tokenomics-and-mdrops",
+    "retrieved_at": "2026-10-03T15:44:32.242605+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\8ecac7a578c87c448206.json",
+    "http_status": 200,
+    "final_url": "https://docs.suilend.fi/send/tokenomics-and-mdrops",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 3123,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "reward",
+      "snapshot",
+      "token distribution"
+    ],
+    "text_sha256": "f0c171654d329983dd19d2a096d9639e87e10f7b8196f822d9b93455ff393da0"
+  },
+  {
+    "project": "Superfluid",
+    "url": "https://claim.superfluid.org",
+    "retrieved_at": "2026-10-03T15:44:30.246185+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\9d4a3d7d90f6ac788590.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Supra",
+    "url": "https://supra.com/blastoff/token-claim/en",
+    "retrieved_at": "2026-10-03T15:44:33.186809+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\ce7aaf07bed49db99bb9.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "SwanChain",
+    "url": "https://swanchain.medium.com/swan-chain-mission-engage-and-earn-swan-airdrop-8a91d96f9ec7",
+    "retrieved_at": "2026-10-03T15:44:31.937367+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\4f68719a2a40ac375756.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Swell Network",
+    "url": "https://www.swellnetwork.io/post/swell-token",
+    "retrieved_at": "2026-10-03T15:44:33.189863+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\74ccaa0b3b259d2fcfcc.json",
+    "http_status": 200,
+    "final_url": "https://www.swellnetwork.io/post/swell-token",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 11341,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "vesting"
+    ],
+    "text_sha256": "29f080acf9cf85a108b32bf7fe54c9bd56a6e0a9e00b0d06f9858c7936e272b2"
+  },
+  {
+    "project": "SynFutures",
+    "url": "https://medium.com/synfutures/synfutures-f-airdrop-5a849c464ffb",
+    "retrieved_at": "2026-10-03T15:44:32.560559+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\c38a2dc927f7fd8cc901.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Talent Protocol",
+    "url": "https://mirror.xyz/talentprotocol.eth/nmvM9HDRHuBox9nZh0RBREc-qA6BL1T6WWEdCrHTynQ",
+    "retrieved_at": "2026-10-03T15:44:33.535332+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\4d9f08cd579bb5b2fd82.json",
+    "http_status": 200,
+    "final_url": "https://paragraph.com/@talent/kjjksTynOyjZe35ItJU6",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 8123,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot",
+      "vesting"
+    ],
+    "text_sha256": "fd0041cc70ea9d57af7f988ff824f09c2084ee237c787df11a369f4d70b073f2"
+  },
+  {
+    "project": "Term Finance",
+    "url": "http://term.finance/rewards",
+    "retrieved_at": "2026-10-03T15:44:27.944472+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\49bf54e316fc82f50fa6.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "The Arena",
+    "url": "https://medium.com/@TheArena_App/arena-is-coming-22fa6f6ee010",
+    "retrieved_at": "2026-10-03T15:44:33.522238+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\4f8eebe8766f88994dba.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Thruster",
+    "url": "https://blog.thruster.finance/Introducing-THRUST-ffd9f3c7897d4cfdae9c1d8e722f2bb5",
+    "retrieved_at": "2026-10-03T15:44:33.752170+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\60a150bf9770b403ebe0.json",
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+  },
+  {
+    "project": "Timeswap",
+    "url": "https://timeswap.medium.com/time-tokenomics-4e906fefe942",
+    "retrieved_at": "2026-10-03T15:44:30.932834+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\4f640eee1eaefe151b0f.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Tokyo Games Token (TGT)",
+    "url": "https://tokyogamestoken.gitbook.io/tgt-whitepaper",
+    "retrieved_at": "2026-10-03T15:44:26.172256+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\d1a37b24be7d6a8ff0d3.json",
+    "http_status": 200,
+    "final_url": "https://tokyogamestoken.gitbook.io/tokyo-games-token-whitepaper",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 2582,
+    "project_name_match": true,
+    "reward_terms": [],
+    "text_sha256": "669d3ee53391e5f5f84e8bce938dfc00d6e965d37c8b79d48285aeacf93f3c8b"
+  },
+  {
+    "project": "Unlock Protocol",
+    "url": "https://airdrops.unlock-protocol.com",
+    "retrieved_at": "2026-10-03T15:44:29.668708+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\dda758b867dd531ea247.json",
+    "http_status": 200,
+    "final_url": "https://airdrops.unlock-protocol.com",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 1052,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward"
+    ],
+    "text_sha256": "02fd3ce592526f1a019933b931e1df99d2614cc7a86f56b9fcb2477f7492567b"
+  },
+  {
+    "project": "Usecorn",
+    "url": "https://blog.usecorn.com/corn-tokenomics-e56e73e4580f",
+    "retrieved_at": "2026-10-03T15:44:27.762142+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\661c08ec78bf820c2cb7.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Usual",
+    "url": "https://docs.usual.money/pre-launch-rules/usual-airdrop",
+    "retrieved_at": "2026-10-03T15:44:31.498312+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\e3ef6e5e9472ea7b4ced.json",
+    "http_status": 200,
+    "final_url": "https://docs.usual.money/archive/usual-airdrop",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 3734,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "reward"
+    ],
+    "text_sha256": "d23b6a853aefd27da1cc366e3ece22a882223ac11dd25517405942ca540bef54"
+  },
+  {
+    "project": "Vana",
+    "url": "https://docs.vana.org/docs/vana-token-overview",
+    "retrieved_at": "2026-10-03T15:44:31.861241+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\2a0cfdb878b5da6425c3.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "Venice AI",
+    "url": "https://venice.ai/claim",
+    "retrieved_at": "2026-10-03T15:44:30.395295+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\cccbb9352d5b031ef820.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "Viction",
+    "url": "https://blog.viction.xyz/viction-retrodrop-season-1-by-the-community-for-the-community-2/",
+    "retrieved_at": "2026-10-03T15:44:31.332220+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\f76b5aef0878c9bef7ec.json",
+    "http_status": 200,
+    "final_url": "https://blog.viction.xyz/viction-retrodrop-season-1-by-the-community-for-the-community-2/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 6057,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot"
+    ],
+    "text_sha256": "cac1b76d278cc2c034d655aad66fd2faf784556708a59a6242a37c1e2c29a611"
+  },
+  {
+    "project": "WalletConnect",
+    "url": "https://docs.walletconnect.network/airdrop-season-1/",
+    "retrieved_at": "2026-10-03T15:44:32.892947+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\f8d255bf5d178aabfd80.json",
+    "http_status": 200,
+    "final_url": "https://docs.walletconnect.com/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 921,
+    "project_name_match": true,
+    "reward_terms": [],
+    "text_sha256": "31f3431133d6393952f91db704dc623967c35affee4eba7704ec286557ce3d62"
+  },
+  {
+    "project": "Walrus Protocol",
+    "url": "https://www.walrus.xyz/blog/wal-mainnet-nft-airdrop",
+    "retrieved_at": "2026-10-03T15:44:28.840371+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\81fd401c5a1a347f4364.json",
+    "http_status": 200,
+    "final_url": "https://blog.walrus.xyz/wal-mainnet-nft-airdrop/",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 3518,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim"
+    ],
+    "text_sha256": "3a0531b9e3bb7b0482e1a19597a712b394fceec5c78443407310b11b44bc5dba"
+  },
+  {
+    "project": "Wayfinder",
+    "url": "http://cache.wayfinder.ai/claim-prompt",
+    "retrieved_at": "2026-10-03T15:44:27.348854+00:00",
+    "status": "fetched_needs_manual_review",
+    "content_file": "recent-evidence\\5001ef95306b789ff402.json",
+    "http_status": 200,
+    "final_url": "https://cache.wayfinder.ai/claim-prompt",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 9,
+    "project_name_match": true,
+    "reward_terms": [],
+    "text_sha256": "c3fa3d698cb8ff6a10c765ce2413ae8615f18ee1ed14954271bad15da265486b"
+  },
+  {
+    "project": "Wizzwoods",
+    "url": "https://hub.wizzwoods.com/",
+    "retrieved_at": "2026-10-03T15:44:27.671112+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\7eed7565165398ccefb3.json",
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+  },
+  {
+    "project": "Worldcoin",
+    "url": "https://support.world.org/hc/en-us/articles/22200067310739-How-much-WLD-can-I-claim",
+    "retrieved_at": "2026-10-03T15:44:32.839298+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\147fd1f17df61347fe4b.json",
+    "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "project": "Xterio",
+    "url": "https://docs.xter.io/token-economy/token-allocation",
+    "retrieved_at": "2026-10-03T15:44:26.279583+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\e05063b4a849457b99be.json",
+    "http_status": 200,
+    "final_url": "https://docs.xter.io/token-economy/token-allocation",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 5432,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "reward",
+      "token distribution",
+      "vesting"
+    ],
+    "text_sha256": "075041b0d748d5312ea91be01e91870c19cfcddfcecfc8987935bd0aaf129d06"
+  },
+  {
+    "project": "YieldNest",
+    "url": "https://medium.com/@yieldnest/yieldnest-ynd-tokenomics-own-govern-earn-7dba54a27960",
+    "retrieved_at": "2026-10-03T15:44:25.740736+00:00",
+    "status": "unavailable",
+    "content_file": "recent-evidence\\5f4907b7b9fcad0046fe.json",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "project": "Zeebu",
+    "url": "https://www.zeebu.com/blog/zbu-season-1-airdrop-official-distribution-timeline-claim-details",
+    "retrieved_at": "2026-10-03T15:44:27.822762+00:00",
+    "status": "fetched_relevant",
+    "content_file": "recent-evidence\\d1494de47933edf716f1.json",
+    "http_status": 200,
+    "final_url": "https://www.zeebu.com/blog/zbu-season-1-airdrop-official-distribution-timeline-claim-details",
+    "content_type": "text/html; charset=utf-8",
+    "characters": 5030,
+    "project_name_match": true,
+    "reward_terms": [
+      "airdrop",
+      "allocation",
+      "claim",
+      "eligibility",
+      "eligible",
+      "reward",
+      "snapshot"
+    ],
+    "text_sha256": "ba8f367b27cc371694e2b82218b2561a268c82e56abcd835fb3f11fd2bc3c7b4"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "project": "Skate",
+  "url": "https://claim.skatechain.org",
+  "retrieved_at": "2026-10-03T15:44:25.600846+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\547299a481b47154d168.json",
+  "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1082)>"
+}

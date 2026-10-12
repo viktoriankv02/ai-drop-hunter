@@ -6,11 +6,11 @@ from datetime import datetime, timezone, timedelta
 from core.source_policy import DEFAULT_SOURCES, ADAPTERS, canonical_url, telegram_url, source_allows_url
 from core.revisions import compare_materials
 from core.activity_policy import screen_in_connection
+from ai_analyzer.adaptive_learning import initialize_learning
 from core.participation import participation_plan
 from urllib.parse import urlsplit
 
-ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DB = Path(os.environ.get("HUNTER_DB", str(ROOT / "data" / "workspace.sqlite")))
+from core.paths import ROOT, DEFAULT_DB
 def utcnow():
     return datetime.now(timezone.utc).isoformat()
 def digest(value):
@@ -98,7 +98,20 @@ class Workspace:
                 issued_at TEXT NOT NULL, target_at TEXT NOT NULL, body_json TEXT NOT NULL,
                 outcome_json TEXT);
             """)
+            initialize_learning(c)
+            from core.cryptorank_cards import initialize as initialize_public_guides
+            initialize_public_guides(c)
             c.execute("INSERT OR IGNORE INTO meta VALUES ('automatic_card_preparation','1')")
+            if not c.execute("SELECT 1 FROM meta WHERE key='bounded_research_queue_v1'").fetchone():
+                # Keep the newest incoming cards ready without burying fresh discoveries
+                # behind the initial catalogue import. Deferred cards are reconsidered later.
+                queued=c.execute("""SELECT j.id FROM jobs j JOIN projects p ON p.id=j.target_id
+                    WHERE j.kind='research' AND j.state='queued' AND p.status='new'
+                    ORDER BY p.id DESC,j.id DESC""").fetchall()
+                for row in queued[20:]:
+                    c.execute("UPDATE jobs SET state='cancelled',phase='deferred_backlog',finished_at=? WHERE id=?",
+                              (utcnow(),row["id"]))
+                c.execute("INSERT INTO meta VALUES ('bounded_research_queue_v1','1')")
             if not c.execute("SELECT 1 FROM meta WHERE key='source_policy_v1'").fetchone():
                 for name,url,priority,purpose,adapter in DEFAULT_SOURCES:
                     c.execute("""INSERT OR IGNORE INTO sources
@@ -161,7 +174,7 @@ class Workspace:
             cur = c.execute("DELETE FROM sources WHERE id=?" if delete else
                             "UPDATE sources SET enabled=1-enabled WHERE id=?", (sid,))
             if not cur.rowcount: raise ValueError("Джерело не знайдено")
-    def add_project(self, title, url, source, summary=""):
+    def add_project(self, title, url, source, summary="", prepare=True):
         url = canonical_url(url)
         with self.db() as c:
             cur = c.execute("""INSERT OR IGNORE INTO projects
@@ -170,13 +183,19 @@ class Workspace:
             fresh=bool(cur.rowcount)
             pid=cur.lastrowid if fresh else c.execute("SELECT id FROM projects WHERE source_url=?",(url,)).fetchone()[0]
             screen_in_connection(c,pid)
-        if fresh:self.prepare_project(pid)
+        if fresh and prepare:self.prepare_project(pid)
         return pid,fresh
+    @staticmethod
+    def preparation_allowed(project, sources):
+        if project['status'] not in ('new','tracking') or urlsplit(project['source_url']).hostname=='t.me':
+            return False
+        matching=[source for source in sources if source_allows_url({**source,'enabled':1},project['source_url'])]
+        return not matching or any(source['enabled'] for source in matching)
+
     def prepare_project(self,pid):
         """Reading is automatic; joining the work list always requires a user decision."""
         p=self.project(pid)
-        if p['status'] not in ('new','tracking'):return None
-        if urlsplit(p['source_url']).hostname=='t.me':return None
+        if not self.preparation_allowed(p,self.sources()):return None
         if not self.rows("SELECT 1 FROM meta WHERE key='automatic_card_preparation' AND value='1'"):return None
         matching=[source for source in self.sources() if source_allows_url({**source,'enabled':1},p['source_url'])]
         if matching and not any(source['enabled'] for source in matching):return None
@@ -186,28 +205,45 @@ class Workspace:
         return self.enqueue('research',pid)
 
     def preparation(self,pid):
-        jobs=self.rows("SELECT state,error,phase FROM jobs WHERE kind='research' AND target_id=? ORDER BY id DESC LIMIT 1",(pid,))
+        jobs=self.rows("SELECT state,error,phase,created_at,finished_at FROM jobs WHERE kind='research' AND target_id=? ORDER BY id DESC LIMIT 1",(pid,))
         report=self.rows("SELECT body_json,created_at FROM reports WHERE project_id=? ORDER BY id DESC LIMIT 1",(pid,))
         overview=bool(self.rows("SELECT 1 FROM project_overviews WHERE project_id=?",(pid,)))
         steps=self.rows("SELECT COUNT(*) n FROM tasks WHERE project_id=? AND status!='reference_only'",(pid,))[0]['n']
+        public=self.rows("SELECT body_json,updated_at FROM project_public_guides WHERE project_id=?",(pid,))
+        public_body=json.loads(public[0]["body_json"]) if public else {}
+        source_steps=sum(len(c.get("steps",[])) for c in public_body.get("campaigns",[]))
         missing=[]
         if not overview:missing.append('Опис продукту')
-        if not steps:missing.append('Підтверджені інструкції участі')
+        if not steps and not source_steps:missing.append('Підтверджені інструкції участі')
         if not report:missing.append('Аналіз умов і невідомих вимог')
-        state='draft' if report and not missing else 'partial' if report else 'waiting'
-        if jobs and jobs[0]['state'] in ('queued','running','failed'):state=jobs[0]['state']
-        return {'state':state,'missing':missing,'steps':steps,'error':jobs[0]['error'] if jobs else None,
-                'phase':jobs[0]['phase'] if jobs else None,'updated_at':report[0]['created_at'] if report else None,
+        partial=bool(report and json.loads(report[0]['body_json']).get('status')=='partial')
+        state='draft' if report and not missing and not partial else 'partial' if report else 'waiting'
+        job=jobs[0] if jobs else None
+        if job and job['state']=='failed' and report and (job['finished_at'] or job['created_at'])<report[0]['created_at']:
+            job=None  # The newer saved report supersedes this old failure; keep it in job history.
+        if public and not report:state='public_material'
+        if job and job['state']=='failed' and public and (job['finished_at'] or job['created_at'])<public[0]['updated_at']:job=None
+        if job and job['state'] in ('queued','running','failed'):state=job['state']
+        return {'state':state,'missing':missing,'steps':steps,'source_steps':source_steps,'error':job['error'] if job else None,
+                'phase':job['phase'] if job else None,'updated_at':report[0]['created_at'] if report else None,
                 'requires_review':True}
 
     def pending_preparation(self,limit=20):
         # Backfill old incoming cards in bounded batches; retry failures only after daily backoff.
+        active=self.rows("""SELECT COUNT(*) n FROM jobs j JOIN projects p ON p.id=j.target_id
+            WHERE j.kind='research' AND j.state IN ('queued','running') AND p.status='new'""")[0]["n"]
+        limit=min(max(1,min(100,limit)),max(0,20-active))
+        if not limit:return []
         cutoff=(datetime.now(timezone.utc)-timedelta(days=1)).isoformat()
-        return self.rows("""SELECT * FROM projects p WHERE status='new'
+        candidates=self.rows("""SELECT * FROM projects p WHERE status='new'
             AND NOT EXISTS(SELECT 1 FROM jobs j WHERE j.kind='research' AND j.target_id=p.id
                 AND (j.state IN ('queued','running') OR j.created_at>?))
             AND (p.last_checked IS NULL OR p.last_checked<?)
-            ORDER BY p.last_checked,id DESC LIMIT ?""",(cutoff,cutoff,max(1,min(100,limit))))
+            ORDER BY p.last_checked,id DESC""",(cutoff,cutoff))
+        # Apply permission checks before the batch limit: paused sources must not
+        # repeatedly occupy every slot and starve eligible incoming cards.
+        sources=self.sources()
+        return [p for p in candidates if self.preparation_allowed(p,sources)][:limit]
 
     def project(self, pid):
         rows = self.rows("SELECT * FROM projects WHERE id=?", (pid,))
@@ -265,11 +301,18 @@ class Workspace:
         cutoff=(datetime.now(timezone.utc)-timedelta(days=1)).isoformat()
         return self.rows("""SELECT * FROM projects WHERE status='tracking'
             AND (last_checked IS NULL OR last_checked<?) ORDER BY last_checked,id""",(cutoff,))
-    def claim_job(self):
+    def claim_job(self,kinds=None):
+        kinds=tuple(kinds) if kinds is not None else None
+        if kinds is not None and (not kinds or any(k not in ("discover","analyze","research") for k in kinds)):
+            raise ValueError("Unknown worker job kinds")
+        scope=" AND kind IN ("+",".join("?" for _ in kinds)+")" if kinds else ""
         with self.db() as c:
             c.execute("BEGIN IMMEDIATE")
-            row=c.execute("""SELECT * FROM jobs WHERE state='queued' ORDER BY CASE kind WHEN 'discover' THEN 0 WHEN 'analyze' THEN 1 ELSE 2 END,
-                CASE WHEN kind='research' AND EXISTS(SELECT 1 FROM projects p WHERE p.id=jobs.target_id AND p.status='tracking') THEN 0 ELSE 1 END,id LIMIT 1""").fetchone()
+            row=c.execute("SELECT * FROM jobs WHERE state='queued'"+scope+""" ORDER BY
+                CASE kind WHEN 'discover' THEN 0 WHEN 'analyze' THEN 1 ELSE 2 END,
+                CASE WHEN kind='research' AND EXISTS(SELECT 1 FROM projects p WHERE p.id=jobs.target_id AND p.status='tracking') THEN 0 ELSE 1 END,
+                CASE WHEN kind='research' THEN (SELECT p.id FROM projects p WHERE p.id=jobs.target_id) END DESC,
+                id LIMIT 1""",kinds or ()).fetchone()
             if not row: return None
             c.execute("UPDATE jobs SET state='running',phase='reading' WHERE id=?",(row["id"],))
             return dict(row)
@@ -366,6 +409,8 @@ class Workspace:
     def detail(self,pid):
         p=self.project(pid)
         p['preparation']=self.preparation(pid)
+        public=self.rows("SELECT body_json,updated_at FROM project_public_guides WHERE project_id=?",(pid,))
+        p["public_guide"]={**json.loads(public[0]["body_json"]),"updated_at":public[0]["updated_at"]} if public else None
         overview=self.rows("SELECT body_json FROM project_overviews WHERE project_id=?",(pid,))
         p["overview"]=json.loads(overview[0]["body_json"]) if overview else None
         screening=self.rows("SELECT * FROM activity_screening WHERE project_id=?",(pid,))

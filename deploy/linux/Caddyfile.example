@@ -1,0 +1,6 @@
+# Replace hunter.example.com with your real DNS name before use.
+hunter.example.com {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:4320
+}
+# Never proxy to 4318 or 11434. Never publish either port.

@@ -1,0 +1,4 @@
+const form=document.querySelector('#pair-form'),input=document.querySelector('#pair-code'),statusBox=document.querySelector('#pair-status');
+form.onsubmit=async e=>{e.preventDefault();const button=form.querySelector('button');button.disabled=true;statusBox.textContent='Підключаємо…';try{const r=await fetch('/mobile/pair',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:input.value})});const v=await r.json();if(!r.ok)throw Error(v.detail||'Не вдалося підключитися');input.value='';location.replace('/');}catch(e){statusBox.textContent=e.message;}finally{button.disabled=false;}};
+function readPairCode(){const code=new URLSearchParams(location.hash.slice(1)).get('code');if(code){history.replaceState(null,'',location.pathname);input.value=code;form.requestSubmit();}}
+window.addEventListener('hashchange',readPairCode);readPairCode();

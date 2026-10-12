@@ -1,0 +1,8 @@
+{
+  "project": "ORA Coin",
+  "url": "https://foundation.ora.io/app/airdrop",
+  "retrieved_at": "2026-10-03T15:44:32.815014+00:00",
+  "status": "unavailable",
+  "content_file": "recent-evidence\\9583438f7d98e6da9032.json",
+  "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+}

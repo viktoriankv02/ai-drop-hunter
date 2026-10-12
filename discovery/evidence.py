@@ -1,6 +1,6 @@
 """Bounded readers for configured public sources, with explicit blocked/unsupported outcomes."""
 import asyncio, ipaddress, json, re, socket
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import urljoin, urlsplit, parse_qs
 from datetime import datetime, timezone
 import httpx
 from bs4 import BeautifulSoup
@@ -41,6 +41,9 @@ async def read_html(url, allowed_hosts):
     raise SourceUnavailable("Забагато перенаправлень")
 
 def material(html,url):
+    parsed=urlsplit(url)
+    if parsed.hostname=='incrypted.com' and re.fullmatch(r'/(?:ua/|en/)?airdrops/?',parsed.path) and 'single' in parse_qs(parsed.query):
+        raise SourceUnavailable("Incrypted повернув сторінку каталогу, а не статтю проєкту. Потрібне пряме посилання на інструкцію; FAQ не аналізується як завдання.")
     soup=BeautifulSoup(html,"lxml")
     node=next((found for selector in ("article .entry-content", ".entry-content", "article", "main") if (found:=soup.select_one(selector)) is not None),soup)
     for tag in node.select("script,style,nav,footer,header,aside,form"): tag.decompose()

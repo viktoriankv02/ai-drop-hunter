@@ -1,0 +1,22 @@
+{
+  "project": "Reddio",
+  "url": "https://docs.reddio.com/zkevm/tokeneconomy/tokendistribution",
+  "retrieved_at": "2026-10-03T15:44:25.894981+00:00",
+  "status": "fetched_relevant",
+  "content_file": "recent-evidence\\b65b601d33007abd65d7.json",
+  "http_status": 200,
+  "final_url": "https://docs.reddio.com/zkevm/tokeneconomy/tokendistribution",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 3065,
+  "project_name_match": true,
+  "reward_terms": [
+    "airdrop",
+    "allocation",
+    "claim",
+    "reward",
+    "token distribution",
+    "vesting"
+  ],
+  "text_sha256": "5fb153cca7fb0b6fef97b7be61dd89d5c0c224f07314f0655b2cfaff104a5967",
+  "text": "Token Distribution | Reddio Skip to content Reddio Search K Main Navigation zkEVM Platform Dashboard Changelog Appearance Menu Return to top Sidebar Navigation INTRODUCTION TO REDDIO Overview Parallel Execution GPU Acceleration Modular Sequencer REDDIO SEPOLIA TESTNET User Guide Developer Guide REDDIO MAINNET Developer Guide User Guide REDDIO ARCHITECTURE EVM Parallelization EVM Optimisation MODULAR SEQUENCER SDK Overview The Sequencer Composition Building the Sequencer Components of Yu Framework Configure Your Blockchain TOKEN ECONOMY Introduction Token Value Flow Stakeholder Analysis Incentive Design Token Distribution Token Utilities Economic Engine Disclaimer POINTS AND STAKING Overview Staking Add Reddio Testnet TABLE OF CONTENTS Token Distribution ​ The Reddio token distribution strategy is designed to balance network decentralization, ecosystem growth, stakeholder incentives, and long-term sustainability. It allocates $RDO in a manner that supports protocol development, incentivizes early adopters and validators, empowers the community, and secures the infrastructure. This section outlines the allocation categories, vesting schedules, rationale behind each tranche, and its role in shaping a robust and resilient blockchain economy. Allocation Breakdown ​ Community (8.00%) Aimed at accelerating user adoption and rewarding early supporters through marketing campaigns, airdrops, community incentives, and educational initiatives. Security & Network Incentive (25.00%) The largest tranche is allocated to mining rewards which contribute computational resources to the Proof-of-Authority consensus layer. This allocation vests over 10 years with no cliff, reinforcing long-term network security and validator loyalty. Ecosystem Growth (22.76%) Supports project development, grants, partnerships, and onboarding of dApps. Nearly half of this tranche is unlocked at TGE (70.1%), facilitating immediate growth activities, with the rest vesting over 48 months. Treasury (6.96%) Held for operational flexibility, liquidity provisioning, and emergency actions under DAO governance. 15% is liquid at TGE, with the remainder unlocked linearly over four years. Contributors (21.80%) Allocated to core team members and early builders. A 12-month cliff ensures commitment, followed by linear vesting over 24 months. This aligns long-term incentives and ensures contribution continuity. Strategic Investors (15.48%) Targeted at early backers who provide capital and market support. Tokens are subject to a 6-month cliff followed by 18 months linear vesting. The schedule prevents speculative pressure while promoting strategic alignment. Vesting Philosophy ​ Reddio’s tokenomics emphasize responsible unlocking schedules to minimize sell pressure and build market confidence. Cliff periods ensure commitment, while linear vesting encourages sustained engagement. The low initial circulating supply (19.00% at TGE) supports healthy market dynamics. Last updated: Pager Previous page Incentive Design Next page Token Utilities Copyright © 2022-2025 Reddio"
+}

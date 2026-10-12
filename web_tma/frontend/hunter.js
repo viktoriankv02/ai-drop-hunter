@@ -8,6 +8,7 @@ function notice(text){$('#notice').hidden=false;$('#notice').textContent=text;co
 async function api(path,method='GET',body){
  const r=await fetch(path,{method,headers:{'Content-Type':'application/json',...(method!=='GET'?{'X-Hunter-Session':token}:{})},...(body!==undefined?{body:JSON.stringify(body)}:{})});
  let value;try{value=await r.json();}catch{throw Error('Сервер не повернув дані. Перевір запуск застосунку.');}
+ if(r.status===401 && value.login_url){location.replace(value.login_url);throw Error('Потрібен вхід із телефона');}
  if(!r.ok)throw Error(typeof value.detail==='string'?value.detail:'Невірні дані запиту');
  return value;
 }
@@ -19,23 +20,37 @@ function overviewView(p,expanded=false){
  const o=p.overview;
  const useful=p.summary&&!p.summary.startsWith('Каталог CryptoRank API.')&&!p.summary.startsWith('Кандидат для дослідження.')?p.summary:null;
  if(o)return '<div class="project-overview"><span class="eyebrow">ЩО ЦЕ ЗА ПРОЄКТ</span><p>'+escape(o.brief)+'</p><small>'+link(o.source_url,'Джерело опису ↗')+' · '+stamp(o.updated_at)+'</small>'+(expanded?'<details><summary>Цитата про продукт</summary><blockquote>'+escape(o.quote)+'</blockquote></details>':'')+'</div>';
+ if(p.public_preview)return '<div class="project-overview"><span class="eyebrow">У ВІДКРИТІЙ ІНСТРУКЦІЇ</span><p>'+escape(p.public_preview.slice(0,400))+'</p><small>Джерельний опис; ШІ-висновки перевіряються окремо.</small></div>';
  if(useful)return '<div class="project-overview"><span class="eyebrow">ОПИС ІЗ КАРТКИ ДЖЕРЕЛА</span><p>'+escape(useful.slice(0,expanded?700:300))+'</p><small>'+link(p.source_url,'Перевірити опис ↗')+'</small></div>';
  return '<div class="project-overview overview-missing"><strong>Опис продукту ще не знайдено</strong><p>Є лише назва й посилання з каталогу. Агент автоматично готує опис і план участі. Якщо джерело недоступне, картка покаже помилку та відсутні дані.</p></div>';
 }
+function publicGuideView(g){
+ if(!g)return '';
+ return '<section class="panel"><h2>Відкриті інструкції CryptoRank</h2><p>'+escape(g.notice)+'</p><small>'+stamp(g.updated_at)+' · '+link(g.source_url,'Оригінальна картка ↗')+'</small>'+g.campaigns.map(c=>'<details open><summary>'+escape(c.title)+(c.status==='ended'?' — завершено':'')+'</summary>'+(c.sensitive?'<p class="badge bad">Джерело пропонує дії з приватним ключем або seed-фразою. Не передавай їх агенту чи вебдодатку; автоматичне виконання вимкнено.</p>':'')+(c.excerpt?'<p>'+escape(c.excerpt)+'</p>':'')+'<ol>'+c.steps.map(x=>'<li>'+escape(x.text.replace(/^\\d+[.)]\\s*/,''))+(x.sensitive?' <strong>Потребує окремої перевірки безпеки</strong>':'')+'</li>').join('')+'</ol><div>'+c.links.map(x=>link(x.url,x.label||'Джерело ↗')).join(' · ')+'</div></details>').join('')+'<p class="muted">Це витяг джерела, не результат навчання моделі. Завдання тут не позначаються виконаними автоматично.</p></section>';
+}
 function preparationView(p){
  const v=p.preparation;if(!v)return '';
- const labels={waiting:'Очікує підготовки',queued:'У черзі підготовки',running:'Агент готує картку',draft:'Чернетка зібрана — переглянь план',partial:'Картка потребує доповнення',failed:'Підготовку не завершено'};
- return '<div class="preparation-summary">'+badge(labels[v.state]||v.state,v.state==='failed'?'bad':'warn')+'<small>Кроків у плані: '+v.steps+(v.missing?.length?' · Бракує: '+escape(v.missing.join(', ')):'')+'</small>'+(v.error?'<small>'+escape(v.error)+'</small>':'')+'</div>';
+ const labels={public_material:'Відкриті інструкції збережено',waiting:'Очікує підготовки',queued:'У черзі підготовки',running:'Агент готує картку',draft:'Чернетка зібрана — переглянь план',partial:'Картка потребує доповнення',failed:'Підготовку не завершено'};
+ return '<div class="preparation-summary">'+badge(labels[v.state]||v.state,v.state==='failed'?'bad':'warn')+'<small>Кроків у ШІ-плані: '+v.steps+' · Кроків із джерела: '+(v.source_steps||0)+(v.missing?.length?' · Бракує: '+escape(v.missing.join(', ')):'')+'</small>'+(v.error?'<small>'+escape(v.error)+'</small>':'')+'</div>';
+}
+function sourceScanView(s){
+ const j=s.last_job,r=j?.result;
+ if(!j)return '<small>Автоматичний пошук ще не запускався.</small>';
+ if(j.state==='queued'||j.state==='running')return '<small>Пошук '+(j.state==='queued'?'у черзі.':'виконується…')+'</small>';
+ if(j.error)return '<small class="bad">Останній пошук: '+escape(j.error)+'</small>';
+ if(!r)return '<small>Останній пошук завершено без підсумку.</small>';
+ return '<div class="source-scan-result"><strong>Перевірено: '+r.found+' · нових: '+r.added+' · уже були: '+r.duplicates+'</strong>'+
+  (r.added===0?'<small>Нових записів у каталозі не з’явилося — це не помилка пошуку.</small>':'<small>Нові картки додано до «Знайдених проєктів».</small>')+'</div>';
 }
 async function load(){
  document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
- const generation=++viewGeneration;$('#content').innerHTML='<p class="muted">Завантаження…</p>';stats().catch(()=>{});
+ const generation=++viewGeneration;$('#content').innerHTML='<p class="loading" role="status">Завантаження…</p>';stats().catch(()=>{});
  if(tab==='sources')return sources(generation);
  if(tab==='jobs')return jobs(generation);
  if(tab==='history')return history(generation);
  if(tab==='market')return market();
  let ps=await api('/api/projects?status='+tab+'&limit=61&offset='+projectOffset+'&q='+encodeURIComponent(projectQuery)+'&screen='+(tab==='new'?activityFilter:'all'));if(generation!==viewGeneration)return;
- $('#content').innerHTML='<h1>'+(tab==='tracking'?'Твої проєкти у роботі':tab==='ignored'?'Не беремо в роботу':'Знайдені проєкти')+'</h1><p class="muted">CryptoRank → Incrypted. Інші джерела призупинені за твоєю вказівкою. Нові проєкти автоматично проходять підготовку картки: опис → умови → кроки → джерела та невідомі дані. Переглянь план і виріши: «У роботу» або «Не беремо». Поки ти не вибрав, проєкт залишається у знайдених.</p><div class="toolbar"><input id="filter" aria-label="Пошук проєкту" placeholder="Знайти за назвою або джерелом"><select id="activity-filter" aria-label="Тип активності"><option value="test_only">Лише тестові токени</option><option value="needs_review">Потребують перевірки</option><option value="excluded">Виключено за твоїми правилами</option><option value="all">Усі для аудиту</option></select><button id="discover" class="primary">Зібрати зі сайтів</button><button id="manual">Додати свій проєкт</button></div><p id="screening-counts" class="muted"></p><div id="cards" class="grid"></div><div class="toolbar"><button id="previous-page">← Попередні</button><span id="page-number"></span><button id="next-page">Наступні →</button></div>';
+ $('#content').innerHTML='<h1>'+(tab==='tracking'?'Твої проєкти у роботі':tab==='ignored'?'Не беремо в роботу':'Знайдені проєкти')+'</h1><p class="muted">CryptoRank → Incrypted. Інші джерела призупинені за твоєю вказівкою. Нові проєкти автоматично проходять підготовку картки: опис → умови → кроки → джерела та невідомі дані. Переглянь план і виріши: «У роботу» або «Не беремо». Поки ти не вибрав, проєкт залишається у знайдених.</p><div class="toolbar"><input id="filter" aria-label="Пошук проєкту" placeholder="Знайти за назвою або джерелом"><select id="activity-filter" aria-label="Тип активності"><option value="test_only">Лише тестові токени</option><option value="needs_review">Потребують перевірки</option><option value="excluded">Виключено за твоїми правилами</option><option value="all">Усі для аудиту</option></select><button id="discover" class="primary">Перевірити каталоги зараз</button><button id="manual">Додати свій проєкт</button></div><p id="screening-counts" class="muted"></p><p><a href="/static/cryptorank-review.html">CryptoRank: стан усіх карток і прочитані інструкції →</a></p><div id="discovery-summary"></div><div id="cards" class="grid"></div><div class="toolbar"><button id="previous-page">← Попередні</button><span id="page-number"></span><button id="next-page">Наступні →</button></div>';
  const render=q=>{
   $('#cards').innerHTML=ps.slice(0,60).filter(p=>(p.title+' '+p.source_platform).toLowerCase().includes(q.toLowerCase())).map(p=>'<article class="card">'+
    '<div>'+badge(p.source_platform)+badge(p.check_status==='catalog_only'?'Каталог — очікує дослідження':({catalog_only:'Каталог',new:'Ще не перевірено',pending:'Очікує перевірки',failed:'Джерело недоступне',changed:'Джерело оновлено',unchanged:'Перевірено'}[p.check_status]||p.check_status),p.check_status==='failed'?'bad':'')+'</div><h2>'+escape(p.title)+'</h2>'+
@@ -60,7 +75,11 @@ async function load(){
  $('#next-page').onclick=()=>{projectOffset+=60;action(fetchPage);};
  $('#discover').onclick=()=>action(async()=>{const r=await api('/api/discovery/run','POST',{});notice('Поставлено джерел у чергу: '+r.job_ids.length+'. Прогрес — у розділі «Команда агентів».');});
  $('#manual').onclick=()=>{const title=prompt('Назва проєкту');if(!title)return;const source_url=prompt('HTTPS-посилання на проєкт');if(!source_url)return;action(async()=>{await api('/api/projects/manual','POST',{title,source_url});load();});};
- if(tab==='new'){const c=await api('/api/activity-screening');if(generation!==viewGeneration)return;$('#screening-counts').textContent='Тестові: '+c.test_only+' · Потребують перевірки: '+c.needs_review+' · Виключено: '+c.excluded+'. Це фільтр за доступними доказами, не гарантія винагороди.';}
+ if(tab==='new'){
+  const [c,ss]=await Promise.all([api('/api/activity-screening'),api('/api/sources')]);if(generation!==viewGeneration)return;
+  $('#screening-counts').textContent='Тестові: '+c.test_only+' · Потребують перевірки: '+c.needs_review+' · Виключено: '+c.excluded+'. Це фільтр за доступними доказами, не гарантія винагороди.';
+  $('#discovery-summary').innerHTML='<section class="panel compact"><h2>Останній пошук нових проєктів</h2>'+ss.filter(s=>s.enabled&&s.purpose==='discovery').map(s=>'<div><strong>'+escape(s.name)+'</strong> · '+stamp(s.last_check)+sourceScanView(s)+'</div>').join('')+'<small>Пошук виконується автоматично раз на добу, поки сервер працює. Повторний запуск покаже 0 нових, якщо каталоги не змінилися.</small></section>';
+ }
 }
 function revisionPanel(change){
  if(!change)return '';
@@ -109,6 +128,14 @@ function participationView(p){
  ((plan.missing||[]).length?'<details class="plan-gaps" open><summary>Що агенту ще потрібно з’ясувати</summary><ul>'+plan.missing.map(x=>'<li>'+escape(x.title)+'</li>').join('')+'</ul></details>':'')+'</section>';
 }
 
+function analysisRunView(r){
+ if(!r?.learning && !r?.inference?.length)return '';
+ const runs=r.inference||[], seconds=runs.reduce((sum,x)=>sum+(Number(x.elapsed_seconds)||0),0);
+ return '<details class="panel analysis-run"><summary>Як отримано аналіз</summary>'+
+ '<p>Навчальні приклади та виправлення допомагають агенту читати умови. Ваги моделі не перенавчалися.</p>'+
+ (runs.length?'<p>Локальна модель завершила '+runs.length+' частин за '+Math.round(seconds)+' с. Це час цього запуску; перевірка актуальності умов залишається окремим кроком.</p>':'<p>Вимірювання нового запуску моделі для цього звіту відсутнє.</p>')+'</details>';
+}
+
 async function detail(id){
  detailId=id;const p=await api('/api/projects/'+id);
  const r=p.report?.body;
@@ -116,9 +143,9 @@ async function detail(id){
  '<p class="muted">Остання успішна перевірка: '+stamp(p.last_success)+'. Стан: '+escape(p.check_status)+'</p>'+
  (p.activity_screening?'<p class="badge warn">'+escape(p.activity_screening.reason)+'</p>':'')+
  (p.legacy_warning?'<p class="badge warn">Старі оцінки й автоматичні позначки Gemini не підтверджують винагороду або виконання.</p>':'')+
- preparationView(p)+overviewView(p,true)+campaignGuideView(p)+(p.guide?.campaigns?.length?'<details class="panel"><summary>Деталізовані вимоги та джерельні уривки</summary>'+participationView(p)+'</details>':participationView(p))+resourceView(p)+
+ preparationView(p)+publicGuideView(p.public_guide)+analysisRunView(r)+overviewView(p,true)+campaignGuideView(p)+(p.guide?.campaigns?.length?'<details class="panel"><summary>Деталізовані вимоги та джерельні уривки</summary>'+participationView(p)+'</details>':participationView(p))+resourceView(p)+
  '<section class="panel"><h2>Висновки за джерелом</h2>'+
- (r?badge(r.status)+(p.report.stale?badge('Матеріал змінився — висновок застарів','warn'):'')+'<small> Опрацьовано '+r.coverage.processed_characters+' із '+r.coverage.available_characters+' символів.</small>'+
+ (r?badge(r.status)+(p.report.stale?badge('Матеріал змінився — висновок застарів','warn'):'')+'<small> Опрацьовано '+r.coverage.processed_characters+' із '+(r.coverage.available_characters??r.coverage.retained_characters)+' символів.</small>'+
  (r.provenance?'<p class="badge warn">'+escape(r.provenance)+'</p>':'')+
  (r.unknowns?.length?'<ul class="muted">'+r.unknowns.map(x=>'<li>'+escape(x)+'</li>').join('')+'</ul>':'')+
  r.facts.map(f=>'<p>'+escape(f.title)+'</p><blockquote>'+escape(f.quote)+'</blockquote>'+(f.source_url?link(f.source_url,'Джерело висновку ↗'):'')).join(''):
@@ -148,7 +175,7 @@ async function detail(id){
 }
 async function sources(generation){
  const ss=await api('/api/sources');if(generation!==viewGeneration)return;
- $('#content').innerHTML='<h1>Джерела під твоїм контролем</h1><p>CryptoRank: каталог може надходити через офіційний API. Назва в каталозі ще не підтверджує mainnet, актуальні завдання або винагороду.</p><p class="muted">Telegram порожній, доки ти сам не додаси канали. Увімкнення джерела не означає, що сайт дозволяє автоматичне читання.</p><section class="panel">'+ss.map(s=>'<div class="source"><div><strong>'+escape(s.name)+'</strong> '+badge('Пріоритет '+s.priority)+badge(s.type)+'<div>'+link(s.url)+'</div><small>'+escape(s.last_error||s.last_status||'Не перевірено')+'</small>'+(s.adapter==='manual'?'<div>'+badge('Адаптер ще не підключений','warn')+'</div>':'')+'</div><div class="toolbar"><button data-toggle="'+s.id+'">'+(s.enabled?'На паузу':'Увімкнути')+'</button><button data-scan="'+s.id+'" '+(!s.enabled||s.adapter==='manual'?'disabled':'')+'>Зібрати</button><button data-delete="'+s.id+'">Видалити</button></div></div>').join('')+'</section>'+
+ $('#content').innerHTML='<h1>Джерела під твоїм контролем</h1><p>CryptoRank: каталог може надходити через офіційний API. Назва в каталозі ще не підтверджує mainnet, актуальні завдання або винагороду.</p><p class="muted">Telegram порожній, доки ти сам не додаси канали. Увімкнення джерела не означає, що сайт дозволяє автоматичне читання.</p><section class="panel">'+ss.map(s=>'<div class="source"><div><strong>'+escape(s.name)+'</strong> '+badge('Пріоритет '+s.priority)+badge(s.type)+'<div>'+link(s.url)+'</div><small>'+escape(s.last_error||s.last_status||'Не перевірено')+'</small>'+sourceScanView(s)+(s.adapter==='manual'?'<div>'+badge('Адаптер ще не підключений','warn')+'</div>':'')+'</div><div class="toolbar"><button data-toggle="'+s.id+'">'+(s.enabled?'На паузу':'Увімкнути')+'</button><button data-scan="'+s.id+'" '+(!s.enabled||s.adapter==='manual'?'disabled':'')+'>Зібрати</button><button data-delete="'+s.id+'">Видалити</button></div></div>').join('')+'</section>'+
  '<details class="panel"><summary>Як читати CryptoRank зі свого браузера</summary><ol><li>Відкрий chrome://extensions або edge://extensions і ввімкни режим розробника.</li><li>Натисни «Завантажити розпаковане» та вибери папку <code>D:\\\\Projects\\\\ai-hub-hunter-gemini\\\\browser-extension\\\\cryptorank-reader</code>.</li><li>У тому самому браузері відкрий цей застосунок на порту 4318 і сайт CryptoRank Drophunting.</li><li>У розширенні натисни «Зібрати проєкти зі сторінки». Якщо з’явиться перевірка сайту, пройди її самостійно.</li></ol><p>Імпорт працює, поки браузер та застосунок відкриті. Агент аналізує збережені матеріали через Ollama.</p></details>'+
  '<form id="source-form" class="panel form-grid"><label>Назва<input name="name" required maxlength="120"></label><label>URL або @канал<input name="url" required></label><label>Тип<select name="type"><option value="website">Сайт</option><option value="telegram">Telegram</option></select></label><button class="primary">Додати</button></form>';
  document.querySelectorAll('[data-toggle]').forEach(b=>b.onclick=()=>action(async()=>{await api('/api/sources/'+b.dataset.toggle+'/toggle','POST',{});load();}));
@@ -168,12 +195,21 @@ function jobResult(j){
  return '<p>'+(c?.complete?'Опрацьовано весь збережений текст.':'Аналіз частковий; можна продовжити повторним запуском.')+'</p>'+
  (c?'<small>'+c.processed_characters+' із '+c.available_characters+' символів. Кроки потребують твого перегляду.</small>':'');
 }
+function learningPanel(m){
+ return '<section class="panel learning-panel" aria-labelledby="learning-title"><div class="toolbar"><h2 id="learning-title">Автоматична пам’ять агентів</h2>'+badge(m.enabled?'Увімкнено':'На паузі',m.enabled?'good':'warn')+'<button id="learning-toggle">'+(m.enabled?'Призупинити навчання':'Увімкнути навчання')+'</button></div>'+
+ '<p>Після кожної нової відповіді Ollama перевіряємо цитати, посилання й повноту плану. До наступного запиту автоматично додаємо до двох підказок щодо найчастіших помилок.</p>'+
+ '<p>Матеріалів у пам’яті: <strong>'+m.unique_materials+'</strong> · перевірок: <strong>'+m.samples+'</strong> · активних підказок: <strong>'+m.hints.length+'</strong></p>'+
+ (m.lessons.length?'<ul>'+m.lessons.map(x=>'<li><strong>'+escape(x.title)+'</strong> · '+x.materials+' матеріалів '+badge(x.active?'Застосовується':'Збережено',x.active?'good':'')+'</li>').join('')+'</ul>':'<p class="muted">Досвід з’явиться після аналізу матеріалів. Вигадані результати до пам’яті не додаються.</p>')+
+ '<p class="muted">'+escape(m.notice)+'</p>'+
+ (m.recent.length?'<h3>Останні перевірки</h3><ul class="learning-recent">'+m.recent.slice(0,4).map(x=>'<li><strong>'+escape(x.title||'Матеріал')+'</strong> · '+stamp(x.created_at)+'<br>'+escape(x.issues.join('; ')||'Перевірюваних помилок не виявлено')+'<br><small>'+escape(x.origin==='saved_report_audit'?'Перевірка раніше збереженого звіту':'Перевірка нової відповіді моделі')+' · елементів із прийнятими цитатами: '+x.accepted+'. Це не оцінка достовірності всього висновку.</small></li>').join('')+'</ul>':'')+'</section>';
+}
 async function jobs(generation){
- const js=await api('/api/jobs');if(generation!==viewGeneration)return;
+ const [js,memory]=await Promise.all([api('/api/jobs'),api('/api/agents/learning')]);if(generation!==viewGeneration)return;
  const kinds={discover:'Збір проєктів',research:'Дослідження проєкту',analyze:'Аналіз матеріалу'};
  const states={queued:'У черзі',running:'Працює',succeeded:'Завершено',failed:'Не вдалося',cancelled:'Скасовано за твоїм рішенням'};
- $('#content').innerHTML='<h1>Команда агентів</h1><p>Збирач → дослідник Ollama → перевірка цитат → чернетка плану. Одна локальна модель працює послідовно.</p><p class="muted">Нові проєкти автоматично отримують чернетку картки. Щоденний спостерігач оновлює знайдені проєкти й проєкти у роботі, поки сервер увімкнений. Цей журнал не підтверджує виконання зовнішніх дій.</p><div class="toolbar"><button id="refresh-jobs">Оновити стан</button></div><div class="panel scroll"><table><thead><tr><th>Проєкт або джерело</th><th>Стан</th><th>Результат</th><th>Дія</th></tr></thead><tbody>'+js.map(j=>'<tr><td><strong>'+escape(j.target_name||'Запис видалений')+'</strong><br><small>'+escape(kinds[j.kind]||j.kind)+' · #'+j.id+'<br>'+stamp(j.created_at)+'</small></td><td>'+badge(states[j.state]||j.state,j.state==='failed'?'bad':j.state==='succeeded'?'good':'')+'</td><td>'+jobResult(j)+'</td><td>'+(j.project_id?'<button data-job-project="'+j.project_id+'">Відкрити план</button>':'')+(j.state==='failed'||j.state==='succeeded'?'<button data-retry="'+j.id+'">Повторити</button>':'')+'</td></tr>').join('')+'</tbody></table></div>';
+ $('#content').innerHTML='<h1>Команда агентів</h1><p>Збирач → дослідник Ollama → перевірка цитат → чернетка плану. Пошук працює окремо від аналізу. Одна локальна модель опрацьовує картки послідовно.</p><p class="muted">Нові проєкти автоматично отримують чернетку картки. Щоденний спостерігач оновлює знайдені проєкти й проєкти у роботі, поки сервер увімкнений. Цей журнал не підтверджує виконання зовнішніх дій.</p>'+learningPanel(memory)+'<div class="toolbar"><button id="refresh-jobs">Оновити стан</button></div><div class="panel scroll"><table><thead><tr><th>Проєкт або джерело</th><th>Стан</th><th>Результат</th><th>Дія</th></tr></thead><tbody>'+js.map(j=>'<tr><td><strong>'+escape(j.target_name||'Запис видалений')+'</strong><br><small>'+escape(kinds[j.kind]||j.kind)+' · #'+j.id+'<br>'+stamp(j.created_at)+'</small></td><td>'+badge(states[j.state]||j.state,j.state==='failed'?'bad':j.state==='succeeded'?'good':'')+'</td><td>'+jobResult(j)+'</td><td>'+(j.project_id?'<button data-job-project="'+j.project_id+'">Відкрити план</button>':'')+(j.state==='failed'||j.state==='succeeded'?'<button data-retry="'+j.id+'">Повторити</button>':'')+'</td></tr>').join('')+'</tbody></table></div>';
  $('#refresh-jobs').onclick=()=>action(load);
+ $('#learning-toggle').onclick=()=>action(async()=>{await api('/api/agents/learning/settings','POST',{enabled:!memory.enabled});await jobs(generation);});
  document.querySelectorAll('[data-job-project]').forEach(b=>b.onclick=()=>action(()=>detail(+b.dataset.jobProject)));
  document.querySelectorAll('[data-retry]').forEach(b=>b.onclick=()=>action(async()=>{await api('/api/jobs/'+b.dataset.retry+'/retry','POST',{});await jobs(generation);notice('Роботу поставлено в чергу. Збережені частини аналізу буде використано повторно.');}));
 }
@@ -198,7 +234,11 @@ function historyEvidence(c){
 }
 async function history(generation){
  const h=await api('/api/research/history');if(generation!==viewGeneration)return;
- $('#content').innerHTML='<h1>Історичні кейси винагород</h1><div class="metrics"><div class="metric">Повністю досліджено<strong>'+h.fully_reviewed+' / '+h.target_projects+'</strong></div><div class="metric">Початкові кейси<strong>'+h.partial_cases+'</strong></div></div><p class="muted">Період: '+escape(h.window.from)+' — '+escape(h.window.to)+'. Кейс зараховується після перевірки mainnet, умов, алокації, фактичних виплат і витрат. Історичні умови не є правилами нових кампаній.</p><div class="grid">'+h.cases.map(c=>'<article class="card"><h2>'+escape(c.project)+'</h2>'+badge(c.year)+'<p>'+escape(c.finding)+'</p><p><strong>Для нашого застосунку:</strong> '+escape(c.product_lesson)+'</p>'+historyEvidence(c)+c.sources.map(s=>link(s.url,s.title)).join('<br>')+'<small>Ще перевірити: '+escape(c.remaining)+'</small></article>').join('')+'</div>';
+ const label={primary_source_checked_partial:'Першоджерела прочитано',curated_mixed_sources:'Змішані джерела',secondary_directory_screened:'Вторинний скринінг'};
+ const top=(h.factor_analysis||[]).slice(0,10);
+ $('#content').innerHTML='<h1>150 історичних роздач за останні 2 роки</h1><div class="metrics"><div class="metric">Проаналізовано<strong>'+h.analyzed_projects+' / '+h.target_projects+'</strong></div><div class="metric">Першоджерела прочитано<strong>'+(h.evidence_tiers.primary_source_checked_partial||0)+'</strong></div><div class="metric">Вторинний скринінг<strong>'+(h.evidence_tiers.secondary_directory_screened||0)+'</strong></div></div><p class="muted">Період: '+escape(h.window.from)+' — '+escape(h.window.to)+'. Частота історичного фактора допомагає ставити питання, але не гарантує винагороду й не є правилом нового проєкту.</p><p><a class="button primary" href="'+escape(h.report_url)+'" target="_blank" rel="noopener">Відкрити повний інтерактивний звіт ↗</a></p>'+
+ '<section class="panel"><h2>Головні фактори у вибірці</h2><div class="grid">'+top.map(f=>'<div><strong>'+escape(f.factor)+'</strong><br>'+f.projects+' проєктів · '+Math.round(f.share_of_150*100)+'%<br><small>'+escape(f.strategy)+'</small></div>').join('')+'</div></section>'+
+ '<div class="grid">'+h.projects.map(c=>'<article class="card"><h2>'+escape(c.project)+'</h2>'+badge(c.event_date||c.event_year)+badge(label[c.evidence_tier]||c.evidence_tier,c.evidence_tier==='secondary_directory_screened'?'warn':'good')+'<p>'+escape(c.description)+'</p><h3>Умови та дії</h3><ul>'+(c.rewarded_actions||[]).slice(0,8).map(x=>'<li>'+escape(x)+'</li>').join('')+'</ul><p><strong>Фактори:</strong> '+escape((c.factors||[]).join(', ')||'не класифіковано')+'</p><p><strong>Результат:</strong> '+escape(c.payout_summary||('Алокація: '+(c.allocation_reported||'невідомо')+'; eligible: '+(c.eligible_reported||'невідомо')+'; claimants: '+(c.claimants_reported||'невідомо')))+'</p><p><strong>Урок для агента:</strong> '+escape(c.agent_lesson)+'</p><details><summary>Прогалини та джерела</summary><p>'+escape((c.unknowns||[]).join(' '))+'</p>'+(c.sources||[]).map(s=>link(s.url,s.title)).join('<br>')+'</details></article>').join('')+'</div>';
 }
 function market(){
  $('#content').innerHTML='<h1>Ринок · історія та сценарії</h1><p class="muted">Дані Binance / OKX. Історичний діапазон — експериментальна основа, не готова модель торгових сигналів.</p>'+

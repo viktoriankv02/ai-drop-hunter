@@ -1,0 +1,15 @@
+{
+  "project": "CreatorBid",
+  "url": "https://creator.bid/",
+  "retrieved_at": "2026-10-03T15:44:30.620192+00:00",
+  "status": "fetched_needs_manual_review",
+  "content_file": "recent-evidence\\c0a4b3319771277928f8.json",
+  "http_status": 200,
+  "final_url": "https://creator.bid/",
+  "content_type": "text/html; charset=utf-8",
+  "characters": 179,
+  "project_name_match": true,
+  "reward_terms": [],
+  "text_sha256": "0bac33b3421fa695a0200bf88f73646c90f4f02fc8ac9234c3d6d454f6bd205d",
+  "text": "A new era of CreatorBid · CreatorBid Loading tokens … Follow the next chapter ↗ A new era of CreatorBid is on its way. $ 0.0 M In trading volume 0 Tokens created © 2026 CreatorBid"
+}
